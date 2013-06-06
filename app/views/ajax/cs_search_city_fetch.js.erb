@@ -1,0 +1,20 @@
+<% if !@result.nil? %>
+  <%  if !@result.first.nil? %>
+    //$("#city_flag").val(1);
+    $("input#location").blur();
+    $("input#location").val('<%= @result.first.address%>');
+    <% if !@result.first.latitude.nil? %>
+      $("#search_latitude").val('<%= @result.first.latitude %>');
+    <% end %>
+
+    <% if !@result.first.longitude.nil? %>
+      $("#search_longitude").val('<%= @result.first.longitude %>');
+    <% end %>
+      $('#search_dropdown_check_flag').val('1');
+      $('#location').parent().removeClass("input-text input-text-active active-input input-text-error");
+      $('#location').parent().addClass("active-input");
+  <% else %>
+    $("input#location").val('');
+    //$("#city_flag").val(0);
+  <% end %>
+<% end %>

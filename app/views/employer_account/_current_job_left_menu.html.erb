@@ -1,0 +1,55 @@
+<div  class="pos-prof-current-box">
+	<div class="pos-prof-current-job-status">
+			<%if job_active_status(job)%>
+				<span class="pos-prof-current-active">[Active]</span>
+			<%else%>
+				<span class="pos-prof-current-inactive">[Inactive]</span>
+			<%end%>
+	</div>
+
+	<div class="pos-prof-current-header">
+		<div style="width: 130px;">
+		<%=job.name%>
+		</div>
+	</div>
+	<div class="pos-prof-current-body">
+		<div class="height10"></div>
+
+		<div>
+			Company: <b><%=job.company.name%></b>
+		</div>
+		<div class="height10"></div>
+
+		<div>
+			Posted: <b><%=formatted_time_in_est(job.created_at)%></b>
+		</div>
+		<div class="height10"></div>
+
+		<div>
+			Expire in: <b><%=format_remaining_time(job.expire_at)%></b>
+		</div>
+		<div class="height10"></div>
+		<div class='clear-height'></div>
+		<div style="height: 40px;">
+			<form name='search_seeker' onsubmit='return emp_left_menu.search();'>
+				<div class="emp-left-label">
+					Career Seeker ID #
+				</div>
+				<div class='seeker-srch-left'>
+					<input type='text' name='enter_seekerid' id='enter_seekerid' class="input-field-style" value=""/>
+					<input type='hidden' name='seeker_search_job_id' id='seeker_search_job_id' value="<%=job.id%>" />
+				</div> 
+				<div class='seeker-srch-right'>
+					<input type='submit' class="button-style-shared buttton_light_65X23 button-light-style-shared" value="Search"/> 
+				</div>
+				<div class='clear-height'></div>
+			</form>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//left_menu_career_seeker_search();
+	});
+</script>

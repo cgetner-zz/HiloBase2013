@@ -1,0 +1,76 @@
+<div class="emp-chart-box" >
+  <div id="placeholder" class="emp-chart-holder" style="position:relative; min-height:220px;">
+  </div>
+</div>
+
+<div class="employer-chart-ticker">
+  <div class="employer-chart-label" id="preview_chart">
+    Hilo (<%=@posting_record.hilo_count+@hilo_count%>)
+  </div>
+  <div class="employer-chart-label" id="detail_chart">
+    URL (<%=@posting_record.url_count+@url_count%>)
+  </div>
+  <div class="employer-chart-label" id="interested_chart">
+    Facebook (<%=@posting_record.facebook_count+@facebook_count%>)
+  </div>
+  <div class="employer-chart-label" id="wild_chart">
+    Twitter (<%=@posting_record.twitter_count+@twitter_count%>)
+  </div>
+  <div class="employer-chart-label" style="margin-right:0;" id="profile_chart">
+    Linkedin (<%=@posting_record.linkedin_count+@linkedin_count%>)
+  </div>
+  <div class="clear-height"></div>
+</div>
+<div class="chart-divider" ></div>
+<script type="text/javascript">
+<%if @posting_record.nil? %>
+    d1 = [[0, 0]];
+    d2 = [[1, 0]];
+    d3 = [[2, 0]];
+    d4 = [[3, 0]];
+    d5 = [[4, 0]];
+<%else%>
+    d1 = [[0, <%=@posting_record.hilo_count+@hilo_count%>]];
+    d2 = [[1, <%=@posting_record.url_count+@url_count%>]];
+    d3 = [[2, <%=@posting_record.facebook_count+@facebook_count%>]];
+    d4 = [[3, <%=@posting_record.twitter_count+@twitter_count%>]];
+    d5 = [[4, <%=@posting_record.linkedin_count+@linkedin_count%>]];
+<%end%>
+  var color_arr = new Array();
+  color_arr = ["#6da365", "#845488", "#3B5998", "#cc4240", "#edae5f"]
+  $(document).ready(function(){
+    $.plot($("#placeholder"), [
+      { data: d1 },
+      { data: d2 },
+      { data: d3 },
+      { data: d4 },
+      { data: d5 }
+    ], {
+      series: {
+        stack: 0,
+        bars: { show: true, barWidth: 0.6 , clickable: true, align: 'center',lineWidth: 0},
+        shadowSize: 2, fillColor: { colors: [{ opacity: 0.8 }, { brightness: 0.6, opacity: 0.8 } ] }
+     },
+      xaxis: {
+        ticks: [[0,""], [1,""],[2,""],[3,""], [4,""]]
+      },
+      yaxis: {
+        ticks: []
+      },
+      colors: color_arr,
+      grid: {
+        show: true,
+        aboveData: false,
+        backgroundColor: { colors: ["#fff", "#fff"] },
+        tickColor: "#fff",
+        labelMargin: 5,
+        markings: [],
+        borderWidth: 0,
+        clickable: false,
+        hoverable: false,
+        autoHighlight: true,
+        mouseActiveRadius: 1
+      }
+    });
+  });
+</script>

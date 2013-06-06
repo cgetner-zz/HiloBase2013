@@ -1,0 +1,7 @@
+$("#new_user_error_message").html("");
+$("#create_new_user").find("input[type=text]").each(function(){
+  if($(this).parent().hasClass("input-text") || $(this).parent().hasClass("input-text-error-empty")) {
+    $(this).parent().removeClass("input-text").removeClass("input-text-error-empty").addClass("input-text-error-empty");
+    $("#new_user_error_message").html("Incomplete User Information.");
+  }
+});

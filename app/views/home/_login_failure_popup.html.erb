@@ -1,0 +1,26 @@
+<!-- Login Error Popup -->
+<div id="login_error" class="white_content" style="position:fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("login_failure_popup.title") %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text <%=I18n.locale%>">
+            <label class="free-text"><%=t ("login_failure_popup.content") %></label>
+          </div>
+          <div class="rfloat margin-T10px">
+            <input type="button" id="retry_button" class="retry-button-active login_retry_button <%=I18n.locale%>" onclick="setTimeout(function(){hideErrorLogin(); showLoginBox();},200);" />
+          </div>
+        </div>
+      </div>
+      <div class="home-popup-contnet">
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideErrorLogin();"><%=t ("login_failure_popup.close") %></a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Login Error Popup -->

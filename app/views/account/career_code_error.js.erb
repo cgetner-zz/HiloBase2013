@@ -1,0 +1,6 @@
+<% if params[:notification] %>
+  show_job.inactive();
+  changeCCErrorPopupText();
+<% else %>
+  career_code.show_err_msg();
+<% end %>

@@ -1,0 +1,85 @@
+<% content_for :page_title do -%>Employer - Registration | <% end %>
+<div class="content-container-top">&nbsp;</div>
+<div class="container-shadow-box">
+	<div class="dark-paper-container">
+		<div class="form-container">
+			<div class="video-container">
+				<%#= player({:file => "/test.mp4", :skin => 'dangdang'},{ :wmode => 'transparent', :width => 5, :height => 320}) %>
+				<iframe class="youtube-player" type="text/html" width="549" height="334" src="https://www.youtube.com/embed/RjNfhlzEr10?wmode=transparent&rel=0" frameborder="0"></iframe>
+			</div>
+
+			<%= form_for @employer, :url => { :action => "create" }, :html => {:id=>"new_employer",:autocomplete=>"off"} do |j| %>
+				<input type="hidden" value="" id="error_element" />
+				<div class="error-message-container-reg" id="error_msg"></div>
+				<%=hidden_field_tag :save_type%>
+				<%=j.hidden_field :id%>
+				<%=render :partial => "user_basic", :locals => {:j => j}%>
+			<% end -%>
+			<!-- NOTE: Please do not change any IDs-->
+			<%= form_for @corporte_account, :url => { :action => "create_corporate_account" }, :html => {:id=>"new_employer_corporate",:autocomplete=>"off"} do |j| %>
+				<input type="hidden" value="" id="error_element_corp" />
+				<div class="error-message-container-reg" id="error_msg_corp"></div>
+				<%=render :partial => "user_basic_corp", :locals => {:j => j}%>
+			<% end -%>
+		</div>
+		<div class="button-container" id="button_free">
+			<input type="button" value="" class="saveReturnLater-button lfloat" id="snr_button" />
+			<input type="button" value="" class="enter-button rfloat" id="basic_button" tabindex="7" />
+		</div>
+		<div class="button-container" id="button_corp" style="display:none;">
+			<input type="button" value="" class="enter-button rfloat" id="basic_button_corp" tabindex="7"/>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	if($("#privacyText").is(":checked")){
+		$("#privacyText").attr("checked", "");
+	}
+
+        if($("#privacyText_corp").is(":checked")){
+		$("#privacyText_corp").attr("checked", "");
+	}
+
+	$(document).ready(function(){
+		$("#basic_button").click(function(){
+			validateEmpNewOnInactiveButtonClick();
+
+		});
+                $("#basic_button_corp").click(function(){
+			validateEmpNewOnInactiveButtonClickCorporate();
+
+		});
+		$(".saveReturnLater-button").click(function(){
+			validateEmpNewOnInactiveButtonClickSnR();
+		});
+	
+		validateEmpBasicInfo();
+		<% if @email_valid == true %>
+			showErrorShadow();
+			$('#email_error').show();
+                        addFocusButton('email_error_button');
+			centralizePopup();
+		<% else %>
+			document.getElementById('first_name').focus();
+		<% end %>
+		BrowserDetect.init();
+	
+		if ( BrowserDetect.browser == "Explorer" ) {
+			//wiring to onkeydown event
+			document.getElementById('password').attachEvent('onkeydown', function(e){
+				editorEvents(document.getElementById('password'), e);
+			});
+			document.getElementById('confirm_password').attachEvent('onkeydown', function(e){
+				editorEvents(document.getElementById('confirm_password'), e);
+			});
+		} else if ( BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Safari" ){
+			document.getElementById('password').addEventListener('keydown', function(e){
+				editorEvents(document.getElementById('password'), e);
+			}, false);
+			document.getElementById('confirm_password').addEventListener('keydown', function(e){
+				editorEvents(document.getElementById('confirm_password'), e);
+			}, false);
+		}
+	});
+</script>

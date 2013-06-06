@@ -1,0 +1,41 @@
+<div class="sign-in-box" id="sign-in-box">
+  <div class="top"></div>
+  <div class="middle">
+    <%= form_tag('/login/login', :remote => true, :id=>"login_form") do %>
+    <div class="content">
+      <input type="hidden" name="new_sing_in" id="new_sing_in" value="1" />
+      <ul>
+        <li>
+          <div class="customized-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="login_name_placeholder" value="<%=t("sign-in-box.email")%>" />
+            <input type="text" name="login_name" id="login_name" value="<%=t("sign-in-box.email")%>" tabindex="20" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_login_form(this,event)" onkeydown="type_element(this)" tabindex="1" autocomplete="off"/>
+            <div class="input-right">&nbsp;</div>
+          </div>
+        </li>
+        <li>
+          <div class="customized-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="login_pass_placeholder" value="<%=t("sign-in-box.password")%>" />
+            <input type="text" name="login_pass" id="login_pass" value="<%=t("sign-in-box.password")%>" tabindex="21" class="password" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_login_form(this,event);" onkeypress="type_element(this,event);" tabindex="2" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+        </li>
+        <li style="height: 50px; padding-right: 3px; float: right;">
+          <span id="loader-img" style="display:none; padding-right: 8px; padding-top: 8px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+          <input type="button"  value="" id="login_form_submit" class="enter-button rfloat <%=I18n.locale%>" tabindex="22" />
+          <a href="javascript:showForgotPassword_singin();" id="forgot_pass" tabindex="23" class="forget-password" title="<%=t("sign-in-box.forgot_password")%>" tabindex="5"><%=t("sign-in-box.forgot_password")%></a>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+  <div class="bottom"></div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#login_form_submit").click(function(){
+      inactiveSignInButton();
+    });
+  });
+</script>

@@ -1,0 +1,7 @@
+<% if not session[:employer].is_root? and session[:employer].spending_flag == true %>
+  <% if not session[:employer].spending_limit_crossed_flag %>
+    $("#calculation_block").html("<%= escape_javascript render(:partial => '/shared/employer/user_calculation')%>");
+  <% end %>
+  $(".add-user").click(function(){ addNewUserBlock(); });
+<% end %>
+var children_ids = '<%= @children_ids.join(",") %>';

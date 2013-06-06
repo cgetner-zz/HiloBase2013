@@ -1,0 +1,4 @@
+hideProfileLoader();
+changeStatus();
+$("#skills_ajax").html("<%= escape_javascript render(:partial=>"skills_popup") %>");
+$("#ajax").html("<%= escape_javascript render(:partial=>"/account/profile_intro", :locals=>{:job_seeker=>@job_seeker}) %>");

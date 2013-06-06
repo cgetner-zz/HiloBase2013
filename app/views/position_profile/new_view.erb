@@ -1,0 +1,46 @@
+<div id="menu">
+	<%=render :partial => "/employer_account/shared/employer_tabs" -%>
+</div>
+
+
+<div class="tab-content-top">&nbsp;</div>
+<div id="tab-content">
+<div class="emp-left-menu">
+	<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs}%>
+</div>
+ 
+
+<div class="emp-right-content">
+
+	<div class="emp-content-box">
+
+		<div class="emp-content">
+			<div class="emp-content-box-inner">
+				<%if !@job.nil?%>
+					<input type="hidden" id="job_id" value="<%=@job.id%>"/>
+					<div class="height5">&nbsp;</div>
+					<%=render :partial=>"/employer_account/charts/pool_summary" -%>
+					<div class="height10">&nbsp;</div>
+					<div class="height10">&nbsp;</div>
+					<%=render :partial=>"/employer_account/charts/pool_chart" -%>
+					<div class="height10">&nbsp;</div>
+
+					<%=render :partial =>"/position_profile/pool_seeker_rows",:locals=>{:seekers => @job_seekers} -%>
+
+					<div class="height10">&nbsp;</div>
+
+					<div id="purchase_profile_payment_box">
+
+					</div>
+
+				<%end%>
+			</div>
+		</div>
+		<%=render :partial=>"/position_profile/employer_bottom_section"%>
+
+	</div>
+
+</div>
+<div class="clear-height">&nbsp;</div>
+<div class="tab-content-bottom">&nbsp;</div>
+</div>

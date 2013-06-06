@@ -1,0 +1,11 @@
+$("#search-selector .options-content-middle").html("<%= escape_javascript render(:partial=>"/account/search_list") %>");
+$('.options li').hover(function(){
+$('.options').children().each(function(){
+if($(this).attr('selected')=='selected'){
+$(this).removeClass('selected').removeAttr('selected');
+}
+});
+$(this).addClass('selected').attr('selected', 'selected');
+});
+$(".arrow").show();
+

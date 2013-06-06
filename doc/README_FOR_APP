@@ -1,0 +1,177 @@
+# cron for submitting test and birkman pdf download
+
+### for development mode ###
+	/data/JobUmbrellaDevelopment/current/script/runner -e development "JobSeekerBirkmanDetail.cron_submit_birkman_test"
+	/data/JobUmbrellaDevelopment/current/script/runner -e development "JobSeekerBirkmanDetail.cron_download_pdf"
+
+### for production mode ###
+	/data/TheHiloProject/current/script/runner -e production "JobSeekerBirkmanDetail.cron_submit_birkman_test" >/var/log/hilo_cron_log.log 2>&1
+	/data/TheHiloProject/current/script/runner -e production "JobSeekerBirkmanDetail.cron_download_pdf" >/var/log/hilo_cron_log.log 2>&1
+
+### connect to dev server ###
+
+1) add your ssh key on engineyard
+2) ssh deploy@184.73.232.79
+3) enter your passphrase
+4) cd /data/test_ju_developement/current   (now this directory is like any rails application)
+5) user uploaded photos and downloaded birkman report goes in the public/system directory which is a symlink and content is retained on subsequent deployment
+6) connect to database 
+	mysql -u deploy -p
+	
+	password to be found in (deploy.rb) file
+
+	database for application -> check config/database.yml
+7) deployment command for local pc->
+	cap test_ju_development deploy:migrations
+8) to run db:seed or any rake task... connect to server then go to application server following step 2-4 then run the commands
+9) for live setup ssl configuration is added check ssl section on engineyard
+
+### connect to live setup ###
+
+1) add your ssh key on engineyard
+2) ssh deploy@50.16.210.180
+3) enter your passphrase
+4) cd /data/TheHiloProject/current   (now this directory is like any rails application)
+5) user uploaded photos and downloaded birkman report goes in the public/system directory which is a symlink and content is retained on subsequent deployment
+6) connect to live database server
+	ssh deploy@107.20.16.141
+	enter pass phrase
+	mysql -u deploy -p
+	password to be found in (deploy.rb) file
+	database for application -> check config/database.yml
+
+7) deployment command from local pc->
+	cap TheHiloProject deploy:migrations
+8) to run db:seed or any rake task... connect to server then go to application server following step 2-4 then run the commands
+
+### commands for my reference ###
+connect to mysql via
+ssh deploy@50.16.78.136   --- new one is  ---  ssh deploy@107.20.16.141
+mysql -u deploy -p
+
+************** FOR THE SETUP ON NEW MACHINE **************
+1. rake db:create
+2. rake db:migrate (It will break in 2 places)
+2.1. open app/models/workenv_questions.rb and comment out translates line, then run rake db:migrate
+2.2. Next time when it breaks open the same file and uncomment the line, then run rake db:migrate
+3. rake db:seed
+4. rake birkman_workenv_questions:data
+5. rake populate_questions:data
+6. rake populates_states:data
+7. rake share_platforms:data
+8. Open MySQL query browser, and "SELECT * FROM administrators;"
+9. UPDATE administrators SET active=1 WHERE email='chris@thehiloproject.com'
+10. INSERT INTO admin_access_levels(administrator_id, access_level_id, created_at, updated_at) VALUES('1', '1', '2013-01-22 12:18:28', '2013-01-22 12:18:28')
+11. ALTER TABLE `hiloStaging`.`task_statements` ADD FULLTEXT INDEX `task`(`task`);
+12. ALTER TABLE `hiloStaging`.`lay_titles` ADD FULLTEXT INDEX `lay`(`lay_title`);
+
+ssh deploy@107.20.16.141
+
+For Staging:
+
+1. Open GitBash
+2. Type: ssh -L 3307:127.0.0.1:3306 deploy@ec2-107-20-101-161.compute-1.amazonaws.com
+3. Open MySQL query browser/MySQL Workbench/SQLyog
+4. Set user as: deploy
+5. Set port number as: 3307
+6. Set password as: 6BKV4meGJ2
+7. Name that connection (applicable to MySQL workbench)
+
+For Production:
+
+1. Open GitBash
+2. Type: ssh -L 3307:127.0.0.1:3306 deploy@ec2-75-101-195-25.compute-1.amazonaws.com
+3. Open MySQL query browser/MySQL Workbench/SQLyog
+4. Set user as: deploy
+5. Set port number as: 3307
+6. Set password as: jK7fyWQ5jJ
+7. Name that connection (applicable to MySQL workbench)
+
+
+DELETE FROM sessions WHERE updated_at < DATE_SUB(NOW(), INTERVAL 1 DAY);
+optimize table sessions;
+
+
+Test IP:  184.73.232.79
+Live IP: ssh deploy@50.16.210.180
+
+### Updated deployment steps as per Rails 3 (Last updated: 14.01.2013) ###
+For deployment on staging:
+0. Open GitBash
+1. ssh deploy@staging.thehiloproject.com
+2. cd /data/hiloStaging/current
+3. check how many instances of Solr are running with this command:
+ps -ef | grep solr
+3.1. If more than 1 instance of solr is running then kill all those instances, with this command:
+ps -ef | grep solr | grep -v grep | awk '{print $2}' | xargs kill
+3.2. If only 1 instance of solr is running, simply type:
+bundle exec rake sunspot:solr:stop
+4. Stop all processes running for delayed_job with this command:
+ps -ef | grep delay | grep -v grep | awk '{print $2}' | xargs kill
+5. 'exit' from the connection.
+6. If deploying from a branch (for e.g. HILO-Web-Release-V2.11) then from the GitBash go to hilo path:
+cd C:/Workspace/Hilo/source/hilo
+7. Open deploy.rb file and change line no. 9 set repository to the deploying one:
+set :repository,    'http://svn-del.globallogic.com/projects/J4S/source/HILO-Web-Release-V2.11/'
+8. Once done, no need to change any other things, then type in GitBash:
+cap hilo_staging deploy
+9. It will ask for SVN username and password twice, type:
+username: puneet.pandey
+pwd: Global@1708
+10. Once the tar is completed it will ask for passphrase, type:
+puneet123
+11. If the deployment gets failed, simply log-off from windows and login again. If it says 'the reference a/c is currently locked...', you'll then
+have to call the IT Dept and and then log back-in.
+12. open windows explorer go to C:/Users/puneet.pandey/AppData/Local/Temp from there delete the SVN folder created by our cap command.
+13. Repeat steps from 8-10 again.
+14. Once deployment is successful, type:
+ssh deploy@staging.thehiloproject.com
+15. cd /data/hiloStaging/current
+16. !!![No longer needed] comment out config.threadsafe! line from config/environments/staging.rb
+17. Run migration (if any)
+bundle exec rake db:migrate
+18. start solr: bundle exec rake sunspot:solr:start
+19. run solr indexing: bundle exec rake sunspot:reindex
+20. start delayed_job: script/delayed_job -n 2 -m start
+21. rm -rf tmp/cache/
+22. bundle exec rake assets:precompile
+23. !!![No longer needed] Uncomment the config.threadsafe! line from config/environments/staging.rb file
+24. !!![No longer needed] check FAYE in config/environments/staging.rb if FAYE is running on https://
+25. If 25. then touch tmp/restart.txt
+
+For deployment on Production:
+0. Open Gemfile
+0.1 un-comment out gem "therubyracer"
+0.2 SVN commit
+1. ssh deploy@thehiloproject.com
+2. cd /data/Production_64_Bit_2012/current/
+3. Follow steps: 3, 4, 5, 6, 7
+4.
+5.
+6.
+7.
+8. cap hilo_production deploy
+9. Repeat steps 9, 10, 11, 12, 13
+10.
+11.
+12.
+13.
+14. ssh deploy@thehiloproject.com
+15. cd /data/Production_64_Bit_Jan2012/current
+16. !!![No longer needed] comment out config.threadsafe! line from config/environments/production.rb
+17. Run migration (if any)
+rake db:migrate
+18. start solr -> rake sunspot:solr:start
+19. run solr indexing -> rake sunspot:reindex
+20. start delayed_job -> script/delayed_job -n 4 -m start
+21. rm -rf tmp/cache/
+22. rake assets:precompile
+23. Open Filezilla
+Host: thehiloproject.com
+Username: deploy
+Port: 22
+Once connected go to /data/Production_64_Bit_Jan2012/current/config
+On the other side of filezilla, go to Desktop path and from there, drag newrelic.yml file to config folder
+23. !!![No longer needed] Uncomment the config.threadsafe! line from config/environments/staging.rb file
+24. !!![No longer needed] check FAYE in config/environments/staging.rb if FAYE is running on https://
+25. If 25. then touch tmp/restart.txt

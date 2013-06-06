@@ -1,0 +1,5 @@
+<% if params[:pay_for] == "interest_excluded" or params[:pay_for] == "wild_excluded" %>
+  show_congratulation_popup('<%=@job_id%>', '<%=@pay_for%>');
+<% elsif params[:pay_for] == "consider_excluded" %>
+  job_detail_view.show('<%=@job_id%>', '<%=@pay_for%>');
+<% end %>

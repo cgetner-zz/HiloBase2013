@@ -1,0 +1,35 @@
+<div class="cs-introduction-container" id="step3-position-detail">
+  <div class="popup-upper-block-cs" style="">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <img src="/assets/bridge_hilo_logo.png" class="lfloat" style="margin-bottom:5px;" />
+          <div class="csbridge-heading"><p class="browncls"><%=t ("career_seeker_bridge.title2") %></p><p><%=t ("career_seeker_bridge.title4") %></p></div>
+        </div>
+        <div class="csbridge-textvideo">
+          <div class="csbridge-text <%=I18n.locale%>"><div class="<%=I18n.locale%>"><%=t ("career_seeker_bridge.title_content3") %></div>
+            <p><%=t ("career_seeker_bridge.content3.contentL1") %></p>
+            <p><%=t ("career_seeker_bridge.content3.contentL2") %></p>
+            <p><span><i><%=t ("career_seeker_bridge.content3.contentL3B") %></i></span>&nbsp;&nbsp;<%=t ("career_seeker_bridge.content3.contentL3") %></p>
+            <p><%=t ("career_seeker_bridge.content3.contentL4") %> <span><i><%=t ("career_seeker_bridge.content3.contentL4B") %></i></span><%=t ("career_seeker_bridge.content3.contentL5") %></p>
+          </div>
+
+          <div class="csbridge-right-div <%=I18n.locale%>" style="margin-top: 11px;">
+            <div class="top-layer">&nbsp;</div>
+            <div class="mid-layer"><img src="/assets/sample-position-detail.jpg" style="margin-left: 5px;" /></div>
+            <div class="bott-layer">&nbsp;</div>
+          </div>
+          <div class="getstarted-div" onclick="window.location='/job_seeker/new'"><img src="/assets/get-started-btn_<%=I18n.locale%>.png" class="margin-T-5px" /></div>
+        </div>
+
+        <div class="csbridge-submenu-container">
+          <ul class="">
+            <%= render :partial => "home/bridge_menu", :locals => {:section => "sample_position"} %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

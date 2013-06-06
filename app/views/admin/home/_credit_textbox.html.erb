@@ -1,0 +1,13 @@
+<ul class="text-box">
+  <li class="dollar" style="margin-left: 24px;">
+    $
+  </li>
+  <li>
+    <div class="customized-inner-input input-text">
+      <div class="input-left">&nbsp;</div>
+      <input type="hidden" id="credit_<%= company_id %>_placeholder" value="Value" />
+      <input type="text" maxlength="5" name="credit" class="boxes" id="credit_<%= company_id %>" value="Value" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);$(this).numeric({decimal: '.', negative: false});" autocomplete="off"/>
+      <div class="input-right">&nbsp;</div>
+    </div>
+  </li>
+</ul>

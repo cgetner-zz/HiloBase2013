@@ -1,0 +1,133 @@
+<%= image_tag("cred_role_arrow.png", :class=>"career_path_left") %>
+<%= image_tag("cred_role_arrow.png", :class=>"career_desiredrole_left") %>
+<div class="credentials_exploreSelectDesiredRole" id="credentials_exploreSelectDesiredRole" style="display:none;">
+  <div class="bighead transform-letter"><%=t ("pairing_profile.credentials.role_exp.heading") %><br/><br/><%=t ("pairing_profile.credentials.role_exp.heading2") %></div>
+  <div class="browseHeadDiv clear-float" style="margin-bottom: 0px; margin-bottom: 8px;">
+    <div class="browseHeadDiv_left">
+      <!--<div class="üpcls">&nbsp;</div>
+      <div class="transform-letter content">or<br/>browse</div>-->
+      <div style="font-size: 13px; height: 2px; float: left; background: none repeat scroll 0px 0px white; width: 80px; margin-top: 19px;"></div>
+      <div style="float: left; color: white; text-transform: uppercase; text-align: center; font-size: 18px; font-weight: 700; padding-left: 14px; padding-right: 14px; line-height: 22px; padding-top: 9px;"><%=t ("pairing_profile.credentials.role_exp.search") %></div>
+      <div style="font-size: 13px; height: 2px; float: left; background: none repeat scroll 0% 0% white; width: 80px; margin-top: 19px;"></div>
+    </div>
+    <div class="browseHeadDiv_middle">&nbsp;</div>
+    <!--<div class="browseHeadDiv_right"><div class="downcls">&nbsp;</div><div class="transform-letter content">Select<br/>roles</div></div>-->
+  </div>
+  <div class="btnAndText" style="float: left; margin-top: 0; margin-bottom: 8px;">
+    <div class="lfloat" style="width:100%;">
+      <%= form_tag("/pairing_profile/search_roles", :id =>"search-roles-credentials", :remote => true) do %>
+      <ul>
+        <li>
+          <div class="customized-input input-text" style="width: 265px;">
+            <div class="input-left">&nbsp;</div>
+            <input type="text" name="search_roles" onkeydown="type_element(this);" onblur="blur_element(this);" onfocus="focus_element(this);" style="width:245px;" id="search_roles" />
+            <input type="hidden" id="searchRoleClicked" value="0" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+        </li>
+        <li class="margin-L-10px">
+          <a href="javascript:void(0)" id="submitSearchRoleform"><%= image_tag("employer_v2/searchbtn_credential_green.png", :class=>"margin-T-5px") %></a>
+        </li>
+      </ul>
+      <% end %>
+    </div>
+    <div id="duplicateRoleErrorMsg" class="rfloat margin-T-5px" style="display:none;position: absolute; right: 54px; top: 170px;">
+      <span style="color:#D71F0C; font-size:14px; font-weight:700;"><%=t ("pairing_profile.credentials.role_exp.error") %></span>
+    </div>
+  </div>
+  <div class="browseHeadDiv clear-float" style="margin-bottom: 18px;">
+    <div class="browseHeadDiv_left">
+      <!--<div class="üpcls">&nbsp;</div>
+      <div class="transform-letter content">or<br/>browse</div>-->
+      <div style="font-size: 13px; height: 2px; float: left; background: none repeat scroll 0px 0px white; width: 80px; margin-top: 19px;"></div>
+      <div id="or_browser_button" style="float: left; color: white; text-transform: uppercase; text-align: center; font-size: 18px; font-weight: 700; padding-left: 11px; padding-right: 11px; line-height: 22px;" onclick="if($('input#searchRoleClicked').val()=='1'){resetSelectRolesPopup(true)};">or<br /><%=t ("pairing_profile.credentials.role_exp.browse") %></div>
+      <div style="font-size: 13px; height: 2px; float: left; background: none repeat scroll 0% 0% white; width: 80px; margin-top: 19px;"></div>
+    </div>
+    <div class="browseHeadDiv_middle">&nbsp;</div>
+    <!--<div class="browseHeadDiv_right"><div class="downcls">&nbsp;</div><div class="transform-letter content">Select<br/>roles</div></div>-->
+  </div>
+  <div class="clear-float roles-container">
+    <!--Career Cluster starts-->
+    <div class="lfloat">
+        <div class="explore_select_role exploreRoleCluster">
+          <div class="career_cluster_top">&nbsp;</div>
+          <div class="career_cluster_middle">
+            <div class="explore_select_heading">
+              <p class="numericNo">1</p>
+              <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.cluster") %></p>
+              <p class="headingTxtSmall"><%=t ("pairing_profile.credentials.role_exp.content") %></p>
+            </div>
+            <ul id="career_clusters"></ul>
+          </div>
+          <div class="career_cluster_bottom">&nbsp;</div>
+        </div>
+      <div class="clear-float">&nbsp;</div>
+      <div class="clear-float roles_cancelBtn margin-T-20px">
+        <a href="javascript:void(0)" onclick="cancelRoleSelection();"><%= image_tag("Cancel_Continue_buttons.png") %></a>
+      </div>
+   </div>
+    <!--Career Cluster Ends-->
+
+    <!--Career Paths starts-->
+    <div class="explore_select_role exploreRolePath margin-L-10px" id="careerPathRole">
+      <div class="career_path_left_initial"><%= image_tag("cred_role_arrow.png") %></div>
+      <div class="career_path_group">
+        <div class="career_path_top">&nbsp;</div>
+        <div class="career_path_middle">
+          <div class="explore_select_heading" id="explore_careerPath_heading">
+            <p class="numericNo">2</p>
+            <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.path") %></p>
+            <p class="headingTxtSmall"><%=t ("pairing_profile.credentials.role_exp.content1") %></p>
+          </div>
+          <ul id="careerPath"></ul>
+        </div>
+        <div class="career_path_bottom">&nbsp;</div>
+      </div>
+    </div>
+    <!--Career Paths Ends-->
+
+    <!--Career desiredrole starts-->
+    <div class="explore_select_role margin-L-10px" id="exploreRolDescription">
+      <div id="roles_list">
+        <div class="career_desiredrole_left_initial"><%= image_tag("cred_role_arrow.png") %></div>
+        <div class="career_desiredrole_group">
+          <div class="career_desiredrole_top">&nbsp;</div>
+          <div class="explore_select_heading explore_heading_background" style="padding-top: 5px;">
+              <p class="numericNo">3</p>
+              <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.role") %></p>
+              <p class="headingTxtSmall"><%=t ("pairing_profile.credentials.role_exp.content2") %></p>
+          </div>
+          <div class="career_desiredrole_middle" id="career_desiredrole_middle1">
+            <ul id="roleDescription"></ul>
+          </div>
+          <div class="career_desiredrole_bottom">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+    <!--Career desiredrole Ends-->
+
+    <!--Career desiredrole desc starts-->
+    <div class="explore_select_role margin-L-10px" id="desiredRoleDescription"></div>
+    <!--Career desiredrole Ends-->
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    centerPopupNew();
+    
+    $("#career_desiredrole_middle").slimscroll({
+            railVisible: true,
+            allowPageScroll: true
+    });
+
+    $("a#submitSearchRoleform").click(function() {
+      $("#searchRoleClicked").val(1);
+      $("#search-roles-credentials").submit();
+    });
+
+    $('#career_desiredrole_middle1').slimscroll({
+          railVisible: true,
+          allowPageScroll: true
+    });
+  });
+</script>

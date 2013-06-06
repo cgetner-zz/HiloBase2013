@@ -1,0 +1,148 @@
+<div class="menu-logo-left">
+  <div class="logo-sp">
+    <a href="javascript:void(0);" onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('home-logo'); if(areYouSureResp == false) { return false; } <% end %> window.location.href='/employer_account/index/?selected='+$('#parent_id').val();"><img alt="logo" src="/assets/employer_v2/EV_HiloLogo.png"/></a>
+  </div>
+</div>
+<style>
+  #content{position:relative;}
+</style>
+
+<div class="emp-tabs-box">
+  <div class="top_menu">
+    <ul class="menu-link">
+      <%class_name = ""
+      onclick = ""%>
+
+      <% if controller.controller_name == 'position_profile' and controller.action_name == 'xref' %>
+        <li class="dashboard <%= (controller.controller_name == 'employer_account' and controller.action_name == 'index' ? 'active' : '')%>">
+          <a href="javascript:void(0)" onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('home-logo'); if(areYouSureResp == false) { return false; } <% end %> window.location.href='/employer_account/index/?selected='+$('#parent_id').val();">
+            <%=t ("employer_header.dashboard") %>
+          </a>
+          <a class="notification_number_dashboard padding-left-top" onclick="<% if controller.controller_name == "employer_account" %>_openNotificationBox();resetNotificationPopup();loadNotifications();<% end %>" href="javascript:void(0);" ><%= @notifications_count %></a>
+          <!-- Notification Popup-->
+          <div id="content_notification_box" style="display:none; z-index:2147483638; position:absolute; left:-18px; top:43px">
+
+          </div>
+        </li>
+        <li class="crossReference <%= (controller.controller_name == 'position_profile' and controller.action_name == 'xref' ? 'active' : '')%>">
+          <a href="javascript:void(0)" onclick="return navigateUrl('/position_profile/xref/<%=params[:cs_id]%>');"><%=t ("on_hover_popup.cross_reference.heading") %></a>
+        </li>
+      <% elsif controller.controller_name == "employer_account" %>
+        <li class="dashboard <%= (controller.controller_name == 'employer_account' and controller.action_name == 'index' ? 'active' : '')%>">
+          <a href="javascript:void(0)" onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('home-logo'); if(areYouSureResp == false) { return false; } <% end %> window.location.href='/employer_account/index/?selected='+$('#parent_id').val();">
+            <%=t ("employer_header.dashboard") %>
+          </a>
+          <a class="notification_number_dashboard padding-left-top" onclick="<% if controller.controller_name == "employer_account" %>_openNotificationBox();resetNotificationPopup();loadNotifications();<% end %>" href="javascript:void(0);" ><%= @notifications_count %></a>
+          <!-- Notification Popup-->
+          <div id="content_notification_box" style="display:none; z-index:2147483638; position:absolute; left:-18px; top:43px">
+
+          </div>
+        </li>
+        <li class="recruiting_manager <%= (controller.controller_name == 'employer_account' and controller.action_name == 'recruiting_manager' ? 'active' : '')%>">
+          <a href="javascript:void(0)" onclick="window.location.href='/employer_account/recruiting_manager/?selected='+$('#parent_id').val();">
+            <%=t ("employer_header.company_channels") %>
+          </a>
+        </li>
+      <% elsif controller.controller_name != "employer_account" %>
+
+        <%if !@job.nil? && !params[:id].nil? && params[:cs_id].nil? && @job.profile_complete%>
+          <li class="candidates <%= (controller.controller_name == 'position_profile' and controller.action_name == 'candidate_pool' ? 'active' : '')%>">
+            <a href="javascript:void(0)" onclick="<%if(@job.profile_complete == true)%><% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('candidate-tab'); if(areYouSureResp == false) { return false; } <% end %> navigateUrl('/position_profile/candidate_pool/<%=(@job.nil? ? '' : @job.id)%>/?selected='+$('#parent_id').val());<%end%>"><%=t ("employer_header.candidate_pool") %></a>
+          </li>
+        <% else %>
+          <li class="candidate <%=class_name%>" id="candidate">
+            <a href="javascript:void(0)" class="not-allow" onclick="return false;" ><%=t ("employer_header.candidate_pool") %></a>
+          </li>
+        <% end %>
+
+        <% if !@job.nil? %>
+          <li class="positionProfile <%= (controller.action_name == 'new_employer_profile' ? 'active' : '') %>">
+            <a href="javascript:void(0)" onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('position-tab'); if(areYouSureResp == false) { return false; } <% end %> return navigateUrl('/position_profile/profile/<%= (@job.nil? ? '?cat_id=#{params[:cat_id]}' : @job.id) %>/?selected='+$('#parent_id').val());"><%=t ("employer_header.position_profile") %></a>
+          </li>
+        <% else %>
+          <li class="positionProfile <%=class_name%>">
+            <a href="javascript:void(0)" onclick="<%=onclick%>"><%=t ("employer_header.position_profile") %></a>
+          </li>
+        <% end %>
+
+        <% if !@job.nil? && !params[:id].nil?  && @job.profile_complete==true%>
+          <li class="channelManager <%= (controller.controller_name == 'postings' ? 'active' : '')%>">
+            <a href="javascript:void(0)" onclick="<%if(@job.profile_complete == true)%><% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('channel-tab'); if(areYouSureResp == false) { return false; } <% end %> navigateUrl('/postings/index/<%=@job.id%>/?selected='+$('#parent_id').val());<%end%>"><%=t ("employer_header.channel_manager") %></a>
+          </li>
+        <% else %>
+          <li class="channelManager <%=class_name%>" id="channelManager">
+            <a class="not-allow" href="javascript:void(0)"><span><%=t ("employer_header.channel_manager") %></span></a>
+          </li>
+        <%end%>
+
+      <% end %>
+
+    </ul>
+  </div>
+
+</div>
+
+<div class="tab-shadow"></div>
+
+<br class="clear-height"/>
+
+<script type="text/javascript">
+  function navigateUrl(url){
+    var field_edited = $("#field-edited").val();
+    if(field_edited == "1"){
+      if($("ul.accordan li.credentials-tab").hasClass('open')){
+        //url =
+      }
+      $("#sure-popup-cross-event").val(url);
+      //$("#sure-popup-cross-event").val("url");
+      return false;
+    }else
+      window.location.href=url;
+  }
+
+
+  function toggleTabs(obj, url){
+    if($(obj).hasClass("open"))
+      return true;
+      
+    var field_edited = $("#field-edited").val();
+    if(field_edited == "1"){
+      $("#sure-popup-cross-event").val(url);
+      return false;
+    }
+  }
+<%  if controller.controller_name == 'position_profile' and controller.action_name == 'new_employer_profile' %>
+    function unbindChannelManagerOnComplete() {
+        try {
+          $("#channelManager a").unbind();
+          $("#candidate a").unbind();
+          var tab = $(".channelManager a");
+          tab.addClass('not-allow');
+          tab[0].onclick = function() { };
+          tab = $(".candidates a");
+          tab.addClass('not-allow');
+          tab[0].onclick = function() { };
+        } catch (e) { }
+    }
+    function bindChannelManagerOnComplete() {
+      $(".channelManager a").removeClass('not-allow');
+      $(".candidates a").removeClass('not-allow');
+      
+      $("#channelManager a, .channelManager a").click(function(){
+        var areYouSureResp = areYouSure('channel-tab');
+        if(areYouSureResp == false) {
+          return false;
+        }
+        navigateUrl('/postings/index/'+$("#jid").val());
+      });
+  
+      $("#candidate a, .candidates a").click(function(){
+        var areYouSureResp = areYouSure('candidate-tab');
+        if(areYouSureResp == false) {
+          return false;
+        }
+        navigateUrl('/position_profile/candidate_pool/'+$("#jid").val());
+      });
+    }
+<% end %>
+</script>

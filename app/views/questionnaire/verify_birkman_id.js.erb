@@ -1,0 +1,9 @@
+<%if @verify_hash[:error].blank?%>
+                hideBirkmanPopup();
+                showVerifySuccess();
+                showSetNumber("<%= @job_seeker_birkman_detail.pass_through %>");
+<%else%>
+                hideBirkmanPopup();
+                showVerifyError();
+<%end%>
+

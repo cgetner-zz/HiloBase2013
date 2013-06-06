@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="inline-div">
+    <div class="heading">User Admin - Team Map</div>
+    <div class="sub-heading">Drag and drop users to reconfigure your team.</div>
+  </div>
+  <div class="close">
+    <img src="/assets/employer_v2/close_fullscreen.png" onclick="closeTeamMapFullScreen();" title="Exit full screen" height="35"/>
+  </div>
+</div>
+<div class="content">
+  <%= render :partial=>'shared/employer/team_map', :locals=>{:type=>"fullscreen"}  %>
+  <div id="chart_fullscreen" class="orgChart"></div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#chart").html('');
+    $("#current_team_tree_ids").val("<%=@current_team_tree_ids%>");
+    $('#fade_white .header').width($('#fade_white').width()-50);
+    $('body').css('overflow','hidden');
+    $("#org_fullscreen").jOrgChart({
+      chartElement : '#chart_fullscreen',
+      dragAndDrop  : true
+    });
+    
+  })
+</script>

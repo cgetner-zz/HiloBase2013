@@ -1,0 +1,203 @@
+<%= form_tag :url => {:controller => 'position_profile', :action => 'create_new_emp_profile'}, :method => :post , :remote => true do %>
+
+
+<div class="pos-summary">
+		<div class="padding-15px">
+			<label class="pos-prof-label">Position Title</label>
+			<div class="pos-prof-field">
+				<%=text_field_tag "name", @job.name, :class => "input-field-style"%>
+				<%if !@job.id.blank?%>
+					<%=hidden_field_tag :id, @job.id%>
+				<%end%>
+			</div>
+		
+		<div class="clear-height"></div>
+	   
+		<label class="pos-prof-label">Company Name</label>
+		  <div class="pos-prof-field">
+			<%=text_field_tag "company_name", @company.name, :class => "input-field-style"%>
+		  </div>
+		  <div class="clear-height"></div>
+		  
+		  <label class="pos-prof-label">Category</label>
+			<div class="pos-prof-field">
+			  <%=select_tag "company_group_id", options_from_collection_for_select(@company_groups, "id", "name",@job.company_group_id),:class => "input-field-style"%>
+			</div>
+		</div>
+</div>
+
+
+<div class="intro-right-content margin-B-20px">
+	<div class="myintro-content">
+		<span class="tab_innerblock_heading">Position's Location</span>
+		<ul class="myintro-list">
+			<li>
+				<label>Street Address:</label>
+				<%=text_field_tag "company_street_one", (@job_location.nil? ? "" : @job_location.street_one), :class => "input-field-style"%>
+			</li>
+			<li>
+				<label>City</label>
+				<%=text_field_tag "company_city", (@job_location.nil? ? "" : @job_location.city) , :class => "input-field-style"%>
+			</li>
+			<li>
+				<label>Zip Code</label>
+				<%=text_field_tag "company_zip",(@job_location.nil? ? "" : @job_location.zip_code) , :class => "input-field-style"%>
+			</li>
+		</ul>
+		Does the Position allow Remote Work ?
+		<input type="radio" name="remote_work" value="1" <%= @job.remote_work == true ? "checked = 'checked'" : "" %>/> Yes
+		<input type="radio" name="remote_work" value="0" <%= @job.remote_work == false ? "checked = 'checked'" : "" %>/> No
+	</div>
+	<div class="myintro-content-bottom">&nbsp;</div>
+</div>
+
+  
+<div class="overview_pos_daily_resp">
+	<div class="overview_pos_daily_resp_top">&nbsp;</div>
+	<div class="overview_pos_daily_resp_content">
+		<span class="tab_innerblock_heading">Position's Top 5 Daily Responsibilities</span>
+		
+		<div id="responsibility-box" class="res_input_container">
+			<%for pr in @job.profile_responsibilities%>
+			  <div class="pos-prof-field responsibility-field"  >
+				  <input type="text" name="responsiblities[]" value="<%=pr.name%>" class="input-field-style" />
+			  </div>
+			<%end%>
+		</div>
+		
+	</div>
+    
+	<div class="overview_pos_daily_resp_bottom">&nbsp;</div>
+</div>
+
+<div class="overview_desired_employment">
+	<div class="overview_desired_employment_top">&nbsp;</div>	
+	<div class="overview_desired_employment_content">  
+		<span class="tab_innerblock_heading">I'm interested in (check all that apply)*</span>
+		  <%for desired_employment in @desired_employments%>
+			<div class="job-type">
+			  <input type="checkbox" name="desired_employments[]" value="<%=desired_employment.id%>" 
+			  <%=@selected_employment_ids.include?(desired_employment.id) ? "checked='checked'" : ""%> /> 
+			  <label><%=h(desired_employment.name) -%></label>
+			</div>
+		  <%end%>
+	</div>
+	<div class="overview_desired_employment_bottom">&nbsp;</div>
+</div>
+
+<div class="overview_desired_employment">
+	<div class="overview_desired_employment_top">&nbsp;</div>	
+	<div class="overview_desired_employment_content">
+		<ul class="listContanier">
+			<li>
+				<label class="pos-prof-label">Company Website</label>
+				<%=text_field_tag "company_website", @company.website, :class => "input-field-style"%>
+			</li>
+			<li>
+				<label>Ownership</label>
+				<%=hidden_field_tag :owner_ship_type_id, @company.owner_ship_type_id%>
+			</li>
+			<li class="margin-B-0px">
+				<div class="pos-prof-field" >
+				  <%for item in @ownerships%>
+				<div class="pos-prof-ownership-icon">
+				  <a href="javascript:void(0);" data-ownership-id="<%=item.id%>"><img src="<%=(item.id == @company.owner_ship_type_id ? '/assets/employer_v2/btn-radio-active.png': '/assets/employer_v2/btn-radio-inactive.png')%>"/></a>
+				</div>
+				<div class="pos-prof-ownership-text">
+				  <%=item.name%>
+				</div>
+				  <%end%>
+				<div class="clear-height"></div>
+			  </div>
+			  
+			  <div class="pos-prof-ticker" id="ticker-box" style="<%=@company.owner_ship_type_id == 3 ? '' : 'display:none;'%>">
+				  <div class="pos-prof-label">Ticker</div>
+				  <div class="pos-prof-field">
+				<%=text_field_tag "ticker_value", @company.ticker_value, :class => "input-field-style"%>
+				  </div>
+				  <div class="clear-height"></div>
+				  <div class="height10"></div>
+			  </div>
+			</li>
+		</ul>
+		
+	</div>
+	<div class="overview_desired_employment_bottom">&nbsp;</div>
+</div>
+ 
+ <div class="clear-height"></div>
+ <div class="height10"></div>
+
+ <div class="intro-right-content">
+  <div class="myintro-content" >
+	<div class="myintro-section-content">
+		<span class="tab_innerblock_heading">Total Gross First Year Compensation(000s)</span>
+		
+		<div style="float:right;">
+          <span id="compensation-range"></span> per year
+        </div>
+		
+		<br class="clear"/>
+		
+		<div class="emp-comp-slider-cotainer"><div id="slider"></div></div>
+		<br class="clear"/>
+		<div class="emp-comp-slider-labels">
+           <div class="emp-comp-slider-label" style="left: 0%;"><%=@compensation_range[0]%></div>
+           <div class="emp-comp-slider-label" style="left: 11%;"><%=@compensation_range[1]%></div>
+           <div class="emp-comp-slider-label" style="left: 22.5%;"><%=@compensation_range[2]%></div>
+           <div class="emp-comp-slider-label" style="left: 36%;"><%=@compensation_range[3]%></div>
+           <div class="emp-comp-slider-label" style="left: 49.5%;"><%=@compensation_range[4]%></div>
+           <div class="emp-comp-slider-label" style="left: 61.5%;"><%=@compensation_range[5]%></div>
+           <div class="emp-comp-slider-label" style="left: 76%;"><%=@compensation_range[6]%></div>
+           <div class="emp-comp-slider-label" style="left: 90%;"><%=@compensation_range[7]%></div>
+           <div class="emp-comp-slider-label" style="left: 101%;"><%=@compensation_range[8]%></div>
+           <div class="emp-comp-slider-label" style="left: 114%;"><%=@compensation_range[9]%></div>
+           <div class="emp-comp-slider-label" style="left: 127%;"><%=@compensation_range[10]%></div>
+           <div class="emp-comp-slider-label" style="left: 139%;"><%=@compensation_range[11]%></div>
+           <div class="emp-comp-slider-label" style="left: 149%;"><%=@compensation_range[12]%>+</div>
+           <br class="clear"/>
+         </div>
+		
+		<div class="basic-table" style="width:525px;">
+          <div class="basic-table-header">
+            <div class="basic-table-col1">Annual Salary</div>
+            <div class="basic-table-col2" id="comp11"></div>
+            <div class="basic-table-col3" id="comp12"></div>
+            <br class="clear"/>
+          </div>
+          <div class="basic-table-row">
+            <div class="basic-table-col1">Hourly Pay Equivalent</div>
+            <div class="basic-table-col2" id="comp21"></div>
+            <div class="basic-table-col3" id="comp22"></div>
+            <br class="clear"/>
+          </div>
+      </div>
+       7 hours per day, 5 days per week, 48 weeks per year
+		
+    </div>
+  </div>
+  <div class="myintro-content-bottom">&nbsp;</div>
+</div>
+
+ 
+<div class="intro-right-content">
+	<div class="myintro-content" >
+		<div class="myintro-section-content overview_pos_desc">
+			<span class="tab_innerblock_heading">Position's Description</span>
+			
+			<%=text_area_tag("summary", @job.summary, :rows => 6,:class=>"textarea-field-style textarea-posdisc",:style=>"width:600px;")%>
+		</div>
+	</div>
+  <div class="myintro-content-bottom">&nbsp;</div>
+</div>
+
+
+<div class="pos-right buttonContainer">
+    <%=hidden_field_tag :compensation_value -%>
+    <%=hidden_field_tag :desired_employment_ids -%>
+    <%=hidden_field_tag :remote_work -%>
+    <%#=hidden_field_tag :desired_location_ids -%>
+    <%=submit_tag("Save",:id=>"new_employer_job_submit",:class=>"button-style-shared save_buttton_62-18",:onclick=>"return save_employer_basics.call();")%>
+</div>
+
+<% end %>

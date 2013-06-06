@@ -1,0 +1,107 @@
+<div id="profile_overview_tab" class="new_emp_profile_tab">
+	<span class="tab_overview">Overview</span>
+	
+	<span class="tab_status">	
+	  <%if @job.basic_complete %>
+		<span class="complete">Complete</span>
+	  <% else %>
+		<span class="inComplete">Incomplete</span>
+	  <% end %>
+	</span>
+
+</div>
+<div class="profile_overview_content" >
+  <%= render :partial => "/position_profile/employer_profile/profile_overview" %>
+</div>
+<div class="new_employer_tab_seperator"></div>
+
+<div class="new_emp_profile_tab" id="profile_work_env_role_tab">
+	<span class="tab_overview ">Work Environment and Role</span>
+	
+	<span class="tab_status">
+		<%if @job.personality_work_complete %>
+			<span class="complete">Complete</span>
+		<% else %>
+			<span class="inComplete">Incomplete</span>
+		<% end %>
+	</span> 
+</div>
+
+<div class="profile_work_role_env_content" id="new_profile_work_env">
+<%=hidden_field_tag :modify_id%>
+<%#= @job_var = params[:modify_id].blank? ? 1 : params[:modify_id] %>
+  <% if !@job.id.nil? %>
+      <%if @emp_workenv_color=="" and @emp_role_color_val=="" or @modify=="1" %>
+	<%= render :partial=>"/position_profile/employer_profile/profile_work_role_env_tab",:locals => {:id => @job.id}%>
+      <%else%>
+	<%=render :partial=> "/panels/work_env_and_role",:locals=>{:text_val =>@emp_workenv_text}%>
+	<div>
+	    
+	    <!--<a href="javascript:void(0);" onclick="employer_profile.work_env_role_modify(<%=@job.id%>);" class="button-a buttton_106X23">Modify</a>
+	    <a href="javascript:void(0);" onclick="employer_profile.credential_open();" class="button-a buttton_106X23">Next</a>-->
+	</div>
+      <%end%>
+    <% end %>
+    
+</div>
+
+<div class="new_employer_tab_seperator"></div>
+
+<div class="new_emp_profile_tab" id="profile_credentials_tab">
+	<span class="tab_overview ">Credentials</span>
+	
+	<span class="tab_status">
+	  <%if @job.credential_complete %>
+		<span class="complete">Complete</span>
+	  <% else %>
+		<span class="inComplete">Incomplete</span>
+	  <% end %>
+	</span>
+</div>
+<div class="profile_credentials_content" id="new_profile_credentials" >
+  <% if !@job.id.nil? %>
+    <%=render :partial=>"/position_profile/employer_profile/credentials",:locals => {:id => @job.id} %>
+  <% end %>
+</div>
+<div class="new_employer_tab_seperator"></div>
+
+
+<div class="new_emp_profile_tab" id="profile_snapshot_tab">
+	<span class="tab_overview ">Snapshot</span>
+	
+	<span class="tab_status">
+	  <%if @job.credential_complete %>
+		<span class="complete">Available</span>
+	  <% else %>
+			<span class="inComplete">Not Available</span>
+	  <% end %>
+	</span>
+</div>
+<div class="profile_snapshot_content" >
+  <% if !@job.id.nil? %>
+  <%=render :partial=>"account/job_detail",:locals=>{:job=>@job,:company=>@job.company,:view_type=>"employer",:desired_emp=>@desired_emp}%>
+  <div class="height10"></div>
+  <%=render :partial => "/account/detail_comparison",:locals=>{:job_location => @job_location, :job => @job, :address_str =>@address_str, :company => @job.company, :language_skills => @language_skills, :desired_emp => @desired_emp, :job_certifications => @job_certifications}%>
+<% end %>
+</div>
+
+<script type="text/javascript">
+	
+        var compensation_arr  = eval("[<%=@compensation_range.join(',')%>]");
+        var paidtime_arr  = eval("[<%=@paidtime_range.join(',')%>]");
+        var commute_arr  = eval("[<%=@commute_range.join(',')%>]");
+        $(document).ready(function(){
+          <%if @job.profile_responsibilities.length == 0%>
+	    add_more_responsibility.add();
+          <%end%>
+	  add_more_responsibility.init();
+                
+          ownership_event.init();
+                
+          create_slider.call('<%=(@compensation_range.length - 2)%>','employer');
+          mark_slider_values.call('<%=@job.minimum_compensation_amount%>','<%=@job.desired_paid_offs%>','<%=@job.desired_commute_radius%>');
+          adjustBasicJobTypeHeight();      
+
+        });
+</script>
+

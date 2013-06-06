@@ -1,0 +1,11 @@
+<div class="myint-video-bg">
+	<div>
+		<div id="intro-video-box" >
+			<%if job_seeker.video_url.blank?%>
+				<img src="/assets/no-video.jpg" width="315px" height="200px"/>
+			<%else%>
+				<%=render :partial=>"video_player",:locals=>{:player_height=>200 ,:video_url=> youtube_video_id(job_seeker.video_url)}%>
+			<%end%>
+		</div>
+	</div>
+</div>

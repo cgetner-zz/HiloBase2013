@@ -1,0 +1,52 @@
+*{margin:0; padding:0; outline:none; font-family: 'Lato', sans-serif;}
+.customized-input.input-text input,
+.customized-input.active-input input,
+.customized-input.input-text-active input,
+.customized-input.input-text-unactive input,
+.customized-inner-input.input-text,
+.customized-inner-input.active-input input,
+.customized-inner-input.input-text-active,
+.customized-inner-input.input-text-error{zoom:1;}
+.customized-inner-input.input-text input,
+.customized-inner-input.active-input input,
+.customized-inner-input.input-text-active input,
+.customized-inner-input.input-text-unactive input,
+.customized-inner-input.input-text-error input{height:31px; padding-top:0px;}
+.customized-input input{line-height:35px;}
+.customized-inner-input input{line-height:28px;}
+.dashboard_position_white_content { display:none; height: auto; left: 22%; overflow: auto; padding: 16px; position: fixed; top: 25%; z-index: 1002; }
+.position_popup_enter_button{ float: right; padding-top:1px; }
+#menu .emp-tabs-box .emp-tabs ul li a.candid_ie{padding-left: 28px;}
+#menu .emp-tabs-box .emp-tabs ul li a.posprof_ie{padding-left: 17px;}
+#menu .emp-tabs-box .emp-tabs ul li a.chanelmag_ie{padding-left: 9px;}
+.company-info ul li{height:auto; overflow:visible; padding-bottom:0px;}
+.company-info ul li.lastChild { padding-bottom:0px; }
+#content-container .dark-paper-container .form-container { height: auto; margin-top: 0px; overflow: hidden; }
+.xref-tooltip-top { background: url("/assets/employer_v2/US_Armed_Forces_Veterans_top.png") no-repeat scroll left top transparent; }
+.xref-tooltip-content { background: url("/assets/employer_v2/US_Armed_Forces_Veterans_middle.png") repeat-y scroll left top transparent; padding-right:10px; padding-left:10px; width:275px; }
+.xref-tooltip-bottom { background: url("/assets/employer_v2/US_Armed_Forces_Veterans_bottom.png") no-repeat scroll left top transparent; }
+.xref-tooltip-content .bottomPreview { background: url("/assets/employer_v2/arrow-bottom.png") no-repeat scroll left top transparent; }
+.xref-tooltip-content .bottomPreview { background: url("/assets/employer_v2/arrow-bottom.png") no-repeat scroll left top transparent; }
+.popup-jobtitle .popup-content .job-content-popup .details li { font-family: 'Lato',sans-serif; letter-spacing:0.8px; }
+#tab-content .emp-right-content .chart-container { border-bottom: 3px solid #ADAD93; height: auto; min-height: 275px; overflow: hidden; padding: 0px 22px 20px 25px; }
+#category_popup_form .input-field-select-type .input-popup-position{height: 23px; width: 170px; border: 0pt none;color:#000066;position: absolute;vertical-align:bottom;padding-top:0px;}
+.add-grp-form { height: 37px; }
+.btn-Details-interest{background:url("../assets/employer_v2/indicated_interest_new.png") 6px 5px no-repeat; height:34px;margin-top: 1px; width:168px; border:none; color:#fff; cursor:pointer; font-weight: bold; font-size: 14px;}
+.table-container .table-container-content .table-content a.buy-profile-link{background-image: url("../assets/employer_v2/profile-view-bg.png"); background-repeat: no-repeat; width:85px; height:21px; padding: 0px; font-size: 12px; margin-left:14px;}
+.table-container .table-container-content .table-content a.profile-days-left{background-image: url("../assets/employer_v2/profile-view-bg.png");background-repeat: no-repeat; width:85px; height:21px; padding: 0px; font-size: 12px; margin-left:14px;}
+.profileContainer ul li .accordion-content .blocks .questioneer-block ul.options{padding-left:273px;}
+.block_overlay{z-index:9999; background:url("../assets/employer_v2/1px_blocker.png") transparent 0px 0px repeat;}
+.user-list .middle .middle-cnt ul.users{ max-height: 169px; overflow-y: hidden; }
+.user-admin-box .account-middle { height: 752px; }
+.user-admin-box .account-middle .account-middle-content .calculation-block .add-user { margin-top: 114px; }
+.user-admin-box .account-middle .account-middle-content .content.with-calculation { height: 525px !important; }
+.emp-right-content .profileContainer ul li.open,
+.emp-right-content .profileContainer ul li.closed {display:block; float: left;}
+.explore_select_role ul li{font-size: 12px;}
+.csbridge-text { width:210px; }
+.jOrgChart .node.odd.drop-hover{
+    background: url("/assets/employer_v2/admin_user_box_130-hover.png") no-repeat scroll right top white;
+}
+.jOrgChart .node.even.drop-hover{
+    background: url("/assets/employer_v2/admin_user_box_blue_130-hover.png") no-repeat scroll right top transparent;
+}

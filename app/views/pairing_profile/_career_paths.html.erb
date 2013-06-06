@@ -1,0 +1,14 @@
+<% @career_paths.each do |career_paths| %>
+  <li class="background_career_path <%= 'highlightCls_path' if !@career_cluster.nil? and career_paths.pathway == @career_cluster.pathway %>" onclick="getDesiredRoles('<%= career_paths.career_cluster %>', '<%= career_paths.pathway %>',this);">
+    <%#= career_paths.pathway %>
+    <%= format_role_text(career_paths.pathway, 34).html_safe  %>
+  </li>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+<% if !@career_cluster.nil? %>
+      getDesiredRoles('<%= @career_cluster.career_cluster %>', '<%= @career_cluster.pathway %>', 'optional');
+<% end %>
+  });
+</script>

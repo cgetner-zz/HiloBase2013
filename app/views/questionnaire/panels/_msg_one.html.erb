@@ -1,0 +1,113 @@
+<div class="questionnaire-msg">
+
+
+  <div id="ques-msg-two" >
+    <%=  form_tag  :url => "/questionnaire/save_citizenship", :html=>{:id => "citizenship_form"} , :remote => true do  -%>
+      <div>
+                                  The Birkman Questionnaire is not a test you can pass or fail; there are no right or wrong
+                                  answers. If you are having trouble choosing an answer it is usually best to go with your first
+                                  idea. The more accurate your answers the better your Career Pairing and Career Forward
+                                  Guide results will be.
+      </div>
+      <br/>
+      <div class="questionnaire-instruction">
+        <div>
+                                          The Questionnaire has five parts and should take about 30-40 min to complete:
+        </div>
+
+        <div>
+                                          Your ideal Work Environment (10 Questions)
+        </div>
+
+        <div>
+                                          How do your see most people? (125 Questions)
+        </div>
+
+        <div>
+                                          How do you see yourself? (125 Questions)
+        </div>
+
+        <div>
+                                          Which Roles interest You the Most? (48 Questions)
+        </div>
+
+        <div style="display:none;">
+          <b>Are you a citizen of the United States?</b>&nbsp;&nbsp;&nbsp;
+          <input type="radio" value="yes"  name="us_citizen" checked='checked'/> Yes
+          &nbsp;&nbsp;&nbsp;
+          <input type="radio" value="no" name="us_citizen"/> No
+        </div>
+        <div>
+          <b>Have you already taken the Birkman Questionnaire?</b>&nbsp;&nbsp;&nbsp;
+          <input type="radio" value="yes"  name="birkman_test_id" class="birkman_id_question"/> Yes
+          &nbsp;&nbsp;&nbsp;
+          <input type="radio" value="no" name="birkman_test_id"  class="birkman_id_question"/> No
+        </div>
+      </div>
+    <%end -%>
+
+    <div class="height10">&nbsp;</div>
+
+    <div id="verify_birkman_box">
+
+
+
+      <div id="birkman_previous_test_answer_no" style="display:none;">
+				Please proceed to next step to start the questionnaire.
+      </div>
+      <div class="height10">&nbsp;</div>
+      <div id="birkman_previous_test_answer_yes" style="display:none;" class="verify-head">
+
+				Please provide the following information so we can find your Birkman results.
+      </div>
+      <div class="height5">&nbsp;</div>
+
+      <%=render :partial=>"/questionnaire/panels/birkman_id_ver" -%>
+
+
+    </div>
+  </div>
+
+</div>
+
+
+<%content_for :question_next_button do -%>
+  <div class="pos-right">
+
+    <a href="javascript:void(0);" onclick="birkman_test.submit_citizenship_form();" class="button-a buttton_65X23" id="msg_two_link" >Next &#62;&#62;</a>
+  </div>
+  <br class="clear"/>
+<%end-%>
+
+<script type="text/javascript">
+  function chk_birkman_id(){
+    var ele_array=document.getElementsByName("birkman_test_id")
+
+    for (var i=0; i<ele_array.length;i++){
+      if($(ele_array[i]).attr("checked") == true){
+        if($(ele_array[i]).val() == "yes"){
+			
+          $('#birkman_previous_test_answer_yes').show();
+          $('#birkman_previous_test_answer_no').hide();
+          $('#birkamn_id_verify_form').show();
+          $("#verify_birkamn_failure_msg").hide();
+				
+        }else{
+          $("#question_loader").show();
+          document.getElementById('citizenship_form').onsubmit();
+        }
+        break;
+      }
+    
+
+    }
+  }
+  $(document).ready(function(){
+		
+    $(".birkman_id_question").click(function(){
+      chk_birkman_id();
+    });
+  });
+	
+	
+</script>

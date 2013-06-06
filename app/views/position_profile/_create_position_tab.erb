@@ -1,0 +1,49 @@
+<div class="pos-profile-create-back">
+	<a href="/position_profile/edit/<%=@job.id%>" class="<%=pos_create_tab_selected(current_tab, "description")%>">
+		Description <%=pos_profile_completed_img(@job,"desc").html_safe.force_encoding("UTF-8")%>
+	</a>
+	
+	<div class="pos-profile-create-tab-separator">
+		<img src="/assets/tab_seprator.png" />
+	</div>	
+
+	<a href="/position_profile/basics/<%=@job.id%>" class="<%=pos_create_tab_selected(current_tab, "basics")%>">
+		The Basics <%=pos_profile_completed_img(@job,"basic")%>
+	</a>
+
+		<div class="pos-profile-create-tab-separator">
+		<img src="/assets/tab_seprator.png" />
+	</div>	
+
+	<a href="/position_profile/work_env/<%=@job.id%>" class="<%=pos_create_tab_selected(current_tab, "environment")%>">
+		Work Environment <%=pos_profile_completed_img(@job,"work_env")%>
+	</a>
+
+	<div class="pos-profile-create-tab-separator">
+		<img src="/assets/tab_seprator.png" />
+	</div>	
+
+	<a href="/position_profile/role/<%=@job.id%>" class="<%=pos_create_tab_selected(current_tab, "role")%>">
+		Role <%=pos_profile_completed_img(@job,"role")%>
+	</a>
+
+	<div class="pos-profile-create-tab-separator">
+		<img src="/assets/tab_seprator.png" />
+	</div>	
+
+	<a href="/position_profile/credentials/<%=@job.id%>" class="<%=pos_create_tab_selected(current_tab, "credential")%>">
+		Credentials <%=pos_profile_completed_img(@job,"credential")%>
+	</a>
+
+
+	
+
+	<%if !@job.new_record?%>
+		<a href="/position_profile/view/<%=@job.id%>" style="float:right;display:block;padding:2px 0px 0px 0px;margin-right:5px;">
+			(preview)
+		</a>
+	<%end%>
+	
+	<div class="clear-height"></div>
+	
+</div>

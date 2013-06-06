@@ -1,0 +1,559 @@
+<% if controller.controller_name == "account" %>
+  <%= form_tag("/pairing_profile/save_basics", :id=>"basic_form", :name=>"basic_form", :method=>"post", :remote => true) do %>
+    <%=hidden_field_tag :save_type%>
+    <%=hidden_field_tag :compensation_value_min%>
+    <%=hidden_field_tag :compensation_value_max%>
+    <%=hidden_field_tag :desired_employment_ids%>
+    <%=hidden_field_tag :desired_location_ids%>
+    <%=hidden_field_tag :desired_pincode%>
+    <%=hidden_field_tag :desired_city%>
+    <input id="latitude" name="latitude" type="hidden" value="<% if not @location.nil? %><%= @location.latitude %><% end %>"/>
+    <input id="longitude" name="longitude" type="hidden" value="<% if not @location.nil? %><%= @location.longitude %><% end %>"/>
+  <%end%>
+<% end %>      
+
+<div class="paring-cont-interest">
+  <div class="content-top">&nbsp;</div>
+  <div class="content-shadow">
+    <div class="paring-gradient">
+      <div class="block-heading-block" style="width:555px;">
+        <div style="float:left;">
+          <h3 style="width:165px;"><%=t ("pairing_profile.basics.interested_in.heading") %></h3>
+          <label style="width:165px;"><%=t ("pairing_profile.basics.interested_in.contentL1") %></label>
+        </div>
+        <div id="pos_type" style="float:right; color: #D71F0C; font-size: 13px; font-weight: 700; visibility: hidden;"><%=t ("pairing_profile.basics.interested_in.contentL2") %></div>
+      </div>
+
+      <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+      <div class="interested-category">
+
+        <ul>
+          <% i=1 %>
+          <%for desired_employment in @desired_employments%>
+            <li <% if @desired_employments.size == i %>class="last"<% end %>>
+              <input id="<%=i%>" type="checkbox" name="desired_employments[]" value="<%=desired_employment.id%>" <%=@selected_employment_ids.include?(desired_employment.id) ? "checked='checked'" : ""%> class="styled job_type"/> <label class="checkbox_for_text"><%=h(desired_employment.name) -%></label>
+            </li>
+            <% i=i+1 %>
+          <%end%>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="content-bottom">&nbsp;</div>
+</div>
+
+<div class="paring-cont-zip">
+  <div class="content-top">&nbsp;</div>
+  <div class="content-shadow">
+    <div class="paring-gradient">
+      <div class="block-heading-block">
+        <h3><%=t ("pairing_profile.basics.location.heading") %></h3>
+      </div>
+      <a href="javascript:void(0)" title="help" class="help-icon" onclick="skill_help3();"><img src="/assets/question-icon.gif" width="24" height="24" alt="help" /></a>
+      <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+      <div class="location-preference">
+        <div id="pos_loc" style="color: #D71F0C; font-size: 13px; font-weight: 700; margin-bottom: 5px; margin-top: -12px; height:18px;"></div>
+        <input type="hidden" id="cs_city_placeholder" value="<%=t ("pairing_profile.basics.location.label") %>" />
+        <% if @selected_location_ids.include?(1) %>
+          <div class="customized-inner-input active-input">
+            <div class="input-left">&nbsp;</div>
+            <% loc = @location.city.to_s.force_encoding 'utf-8' %>
+            <input type="text" id="cs_city" name="cs_city" value=<%= "'"+loc+"'" %> autocomplete="off" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);" onkeyup="$('#latitude').val('');$('#longitude').val('');validateLoc(this);"/>
+            <!--
+  <%#*<input type="text"  value=<%= "'"+@pincode+"'" %> maxlength="5" id="zip_code" name="zip_code" onFocus="focus_element(this);" onBlur="blur_element(this);validateZipCode(this);" onkeyup="validateZip(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});"/>%>
+            -->
+            <div class="input-right">&nbsp;</div>
+          </div>
+          <span class="any">
+            <input id="6" type="checkbox" class="styled zip" maxlength="5" name="desired_locations" value="2" <%=@selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label class="checkbox_for_text"><%=t ("pairing_profile.basics.location.any") %></label>
+          </span>
+        <% elsif @selected_location_ids.include?(2) %>
+          <div class="customized-inner-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="text" id="cs_city" name="cs_city" value="<%=t ("pairing_profile.basics.location.label") %>" autocomplete="off" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);" onkeyup="$('#latitude').val('');$('#longitude').val('');validateLoc(this);"/>
+            <!--
+  <%#*<input type="text"  value="Zip or Postal Code" id="zip_code" maxlength="5" name="zip_code" onfocus="focus_element(this);" onblur="blur_element(this);validateZipCode(this);" onkeyup="validateZip(this);" onkeydown="$(this).numeric({decimal: false, negative: false});type_element(this);" />%>
+            -->
+            <div class="input-right">&nbsp;</div>
+          </div>
+          <span class="any">
+            <input id="6" type="checkbox" class="styled zip" maxlength="5" name="desired_locations" value="2" <%=@selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label class="checkbox_for_text"><%=t ("pairing_profile.basics.location.any") %></label>
+          </span>
+        <%else%>
+          <div class="customized-inner-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="text" id="cs_city" name="cs_city" value="<%=t ("pairing_profile.basics.location.label") %>" autocomplete="off" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);" onkeyup="$('#latitude').val('');$('#longitude').val('');validateLoc(this);"/>
+            <!--
+  <%#*<input type="text"  value="Zip or Postal Code" maxlength="5" id="zip_code" name="zip_code" onFocus="focus_element(this)" onBlur="blur_element(this);validateZipCode(this);" onkeyup="validateZip(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" />%>
+            -->
+            <div class="input-right">&nbsp;</div>
+          </div>
+          <span class="any">
+            <input id="6" type="checkbox" class="styled zip" name="desired_locations" value="2" <%=@selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label class="checkbox_for_text"><%=t ("pairing_profile.basics.location.any") %></label>
+          </span>
+        <%end%>
+      </div>
+
+    </div>
+  </div>
+  <div class="content-bottom">&nbsp;</div>
+</div>
+<!--/page-heading-container-->
+
+<div class="clear-float">&nbsp;</div>
+<div class="paring-blocks">
+  <!--container-topSkills-->
+  <div class="container-salary">
+    <div class="topSkills-top">&nbsp;</div><!--/topSkills-top-->
+    <!--topSkills-content-->
+    <div class="topSkills-content" style="position: relative;">
+      <!--skills-gradient-->
+      <div id="salary-tooltip" class="vet-tooltip salary-tooltip" style="display: none;">
+        <div class="xref-tooltip-top">&nbsp;</div>
+        <div class="xref-tooltip-content">
+          <p>
+            Minimum compensation can't be greater than $200,000.
+          </p>
+        </div>
+        <div class="xref-tooltip-bottom">&nbsp;</div>
+      </div>
+      <div class="skills-gradient">
+        <div class="block-heading-block">
+          <h3><%=t ("pairing_profile.basics.salary.heading") %></h3>
+          <label><%=t ("pairing_profile.basics.salary.contentL1") %></label>
+        </div>
+        <a href="javascript:void(0)" title="help" class="help-icon" onclick="skill_help4();"><img src="/assets/question-icon.gif" width="24" height="24" alt="help" /></a>
+        <div class="add-edit-skill">
+          <div>
+
+          </div>
+
+          <div style="float:right;">
+            <span id="compensation-range"></span><%=t ("pairing_profile.basics.salary.contentL2") %>
+          </div>
+          <br class="clear"/>
+          <br/>
+          <div class="comp-slider-cotainer"><div id="slider"></div></div>
+
+          <div class="comp-slider-labels" style="position: relative;">
+            <label class="" style="left: 0px;">20</label>
+            <label class="" style="left: 54px;">40</label>
+            <label class="" style="left: 112px;">60</label>
+            <label class="" style="left: 169px;">80</label>
+            <label class="" style="left: 222px;">100</label>
+            <label class="" style="left: 281px;">120</label>
+            <label class="" style="left: 337px;">140</label>
+            <label class="" style="left: 395px;">160</label>
+            <label class="" style="right: 343px;">180</label>
+            <label class="" style="right: 286px;">200</label>
+            <label class="" style="right: 227px;">220</label>
+            <label class="" style="right: 168px;">240</label>
+            <label class="" style="right: 112px;">260</label>
+            <!--[if IE 8]>
+            <style>
+            .label-for-IE8{margin-right:4px !important;}
+            </style>
+            <![endif]-->
+            <label style="right: 54px;" class="label-for-IE8">280</label>
+            <label class="" style="right: 0px;">300+</label>
+            <br class="clear"/>
+          </div>
+
+          <div class="basic-table">
+            <div class="basic-table-header">
+              <label class="basic-table-col1 bold"><%=t ("pairing_profile.basics.salary.contentL3") %></label>
+              <label class="basic-table-col2" id="comp11"></label>
+              <label class="basic-table-col3" id="comp12"></label>
+            </div>
+            <div class="clear-float">&nbsp;</div>
+            <div class="basic-table-row">
+              <label class="basic-table-col1"><%=t ("pairing_profile.basics.salary.contentL4") %></label>
+              <label class="basic-table-col2" id="comp21"></label>
+              <label class="basic-table-col3" id="comp22"></label>
+              <br class="clear"/>
+            </div>
+          </div>
+          <div class="clear-float">&nbsp;</div>
+          <span class="fontsize-11px"><%=t ("pairing_profile.basics.salary.contentL5") %></span>
+
+        </div>
+      </div>
+      <!--/skills-gradient-->
+    </div>
+    <!--/topSkills-content-->
+    <div class="topSkills-bottom">&nbsp;</div><!--/topSkills-bottom-->
+  </div>
+  <!--/container-topSkills-->
+
+  <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+</div>
+<% if controller.controller_name == "account" %>
+  <div class="button-container" style="height: 38px;">
+    <input type="button" id="next_button" value="" class="btn-save rfloat" style="margin-top: 8px;"/>
+    <span id="loader_basic" class="rfloat" style="display:none;"><%=image_tag("ajax-loader-login-dark-texture.gif", :alt => "Loading ...")%></span>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    //added for active and deactivated divs under pairing profile - basics tab
+    $('div.paring-cont-interest').live("click", function() {
+      if($('div.paring-cont-zip').hasClass('activeBlock')) {
+        $('div.paring-cont-zip').removeClass('activeBlock');
+      } else if($('div.container-salary').hasClass('activeBlock')) {
+        $('div.container-salary').removeClass('activeBlock');
+      }
+      $(this).addClass('activeBlock');
+    });
+
+    $('div.paring-cont-zip').live("click", function() {
+      if($('div.paring-cont-interest').hasClass('activeBlock')) {
+        $('div.paring-cont-interest').removeClass('activeBlock');
+      } else if($('div.container-salary').hasClass('activeBlock')) {
+        $('div.container-salary').removeClass('activeBlock');
+      }
+      //$('.paring-blocks').find('div.activeBlock').removeClass('active');
+      $(this).addClass('activeBlock');
+    });
+
+    $('div.container-salary').live("click", function() {
+      if($('div.paring-cont-interest').hasClass('activeBlock')) {
+        $('div.paring-cont-interest').removeClass('activeBlock');
+      } else if($('div.paring-cont-zip').hasClass('activeBlock')) {
+        $('div.paring-cont-zip').removeClass('activeBlock');
+      }
+      $(this).addClass('activeBlock');
+    });
+
+    $("#cs_city").blur(function(){
+      setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('cs_city'))){
+          $('#cs_city').val($('#cs_city_placeholder').val());
+        }
+      }, 1);
+      validateBasic();
+    });
+  });
+  $('body').click(function(){
+    $('div.paring-cont-interest').removeClass('activeBlock');
+    $('div.paring-cont-zip').removeClass('activeBlock');
+    $('div.container-salary').removeClass('activeBlock');
+  });
+  var compensation_arr  = eval("[<%=@compensation_range.join(',')%>]");
+              
+
+  $(document).ready(function(){
+    Custom.init();
+    $(".checkbox").unbind().click(function(e) {
+      validateBasic(e);
+    });
+    
+
+    $(".checkbox_for_text").unbind().click(function(e) {
+      Custom.check($(this).prev().prev());
+      validateBasic();
+    });
+    $(".checkbox").each(function(){
+      $(this)[0].onmousedown = function() {};
+      $(this)[0].onmouseup = function() {};
+    });
+    
+   
+    $(".checkbox").unbind().click(function(e) {
+      Custom.check($(this));
+      validateBasic();
+    });
+    create_slider.call();
+<%  if @job_seeker.minimum_compensation_amount != 0.0 %>
+      mark_slider_values.call(<%=@job_seeker.minimum_compensation_amount*1000%>,<%=@job_seeker.maximum_compensation_amount*1000%>);
+      calculate_compensation.initialize([<%=@job_seeker.minimum_compensation_amount*1000%>,<%=@job_seeker.maximum_compensation_amount*1000%>]);
+<%  end %>
+
+<% if not controller.controller_name == "account" %>
+      validateBasic();
+<% end %>
+    adjustBasicJobTypeHeight();
+  });
+
+   
+
+  function validateLoc(element) {
+    if(element.value!="") {
+      $(".zip").attr("checked", "checked");
+      Custom.check($(".zip").prev());
+    }
+  }
+
+  function validateBasic(e) {
+    var flag = false;
+
+
+    if($(".zip").attr("checked")) {
+      if($("#cs_city").parent().hasClass("input-text") || $("#cs_city").parent().hasClass("active-input") || $("#cs_city").parent().hasClass("input-text-error")) {
+
+        $("#cs_city").val("<%=t ("pairing_profile.basics.location.label") %>");
+        $("#cs_city").parent().removeClass("input-text input-text-active active-input input-text-error");
+        $("#cs_city").parent().addClass("input-text");
+      }
+      $("#latitude").val("");
+      $("#longitude").val("");
+    }
+    else {
+      //$("#zip_code").val("Yes");
+    }
+
+    $(".job_type").each(function() {
+      if($(this).attr("checked")) {
+        //alert("200");
+        $("#pos_type").css("visibility", "hidden");
+        flag = true;
+      }
+    });
+    if(flag) {
+      if($(".zip").attr("checked")) {
+
+        flag = true;
+      }
+      else {
+
+        if(!validateNotEmpty(document.getElementById('cs_city'))){
+          $("#latitude").val("");
+          $("#longitude").val("");
+        }
+
+        if($("#latitude").val()!="" && $("#longitude").val()!=""){
+          if($("#cs_city").parent().hasClass("input-text-error")){
+            $("#cs_city").parent().removeClass("input-text-error").addClass("input-text-active");
+          }
+          flag = true;
+        }
+        else
+          flag = false;
+      }
+    }
+    if($(".zip").attr("checked")) {
+      $("#pos_loc").html("");
+    }
+
+    /*
+                        if(validateNotEmpty(document.getElementById('cs_city'))){
+     */
+    if($("#latitude").val()!="" && $("#longitude").val()!=""){
+      if($("#cs_city").parent().hasClass("input-text-error")){
+        $("#cs_city").parent().removeClass("input-text-error").addClass("input-text-active");
+      }
+      $("#pos_loc").html("");
+    }
+
+    if(flag) {
+      //Activate button here!
+      button = document.getElementById("next_button");
+      $("#next_button").addClass("active");
+      /********************/
+      //button.disabled="";
+
+      //$("#next_button").removeAttr("onclick");
+      $("#pos_loc").html("");
+      $("#pos_type").css("visibility", "hidden");
+
+      $("#next_button").unbind("click").bind("click", function() {
+<% if controller.controller_name == "pairing_profile" %>
+          validate_pairing_basics_csv2.call('credentials');
+<% elsif controller.controller_name == "account" %>
+          //$("#next_button").hide();
+          //$("#loader_basic").show();
+          validate_pairing_basics_csv2.call('update');
+          //$("#next_button").hide();
+          //$("#loader_basic").show();
+<% end %>
+      });
+<% if controller.controller_name == "account" %>
+        $("#next_button").click(function(){
+          /********************/
+          //$("#next_button").attr("disabled","disabled");
+
+          //$("#next_button").removeClass("active");
+        });
+<% end %>
+    }
+    else {
+      button = document.getElementById("next_button");
+      //$("#next_button").removeClass("active");
+      //$("#next_button").removeClass("active");
+      /********************/
+      //button.disabled="disabled";
+
+      //$("#next_button").removeAttr("onclick");
+
+      $("#next_button").unbind('click').bind('click', function() {
+        //
+        var f1,f2;
+        $(".job_type").each(function() {
+          if($(this).attr("checked")) {
+            f1 = true;
+            //$("#pos_type").css("visibility", "hidden");
+            return false;
+          }
+        });
+
+        if(!f1){
+          $("#pos_type").css("visibility", "visible");
+        }
+
+        if($(".zip").attr("checked") || ($("#latitude").val()!="" && $("#longitude").val()!="")) {
+          //$("#pos_loc").css("visibility", "hidden");
+          f2 = true;
+        }
+
+        if(!f2){
+          if(validateNotEmpty(document.getElementById('cs_city'))) {
+            $("#cs_city").parent().removeClass("input-text input-text-active active-input input-text-error");
+            $("#cs_city").parent().addClass("input-text-error");
+            $("#pos_loc").html("<%=t ("pairing_profile.basics.location.error2") %>");
+          }
+          else {
+            $("#pos_loc").html("<%=t ("pairing_profile.basics.location.error") %>");
+          }
+        }
+      });
+    }
+    if(validateNotEmpty(document.getElementById('cs_city'))) {
+      //$("#snr_button_basic").removeClass("saveReturnLater-button");
+      //$("#snr_button_basic").addClass("saveReturnLater-button-active");
+      if($("#latitude").val()!="" && $("#longitude").val()!="") {
+        $("#snr_button_basic").unbind('click').bind('click', function() {
+          validate_pairing_basics_csv2.call('save_return');
+        });
+      }
+      else {
+        //$("#snr_button_basic").removeClass("saveReturnLater-button-active");
+        //$("#snr_button_basic").addClass("saveReturnLater-button");
+
+        $("#snr_button_basic").unbind('click').bind('click', function() {
+          $("#cs_city").parent().removeClass("input-text input-text-active active-input input-text-error");
+          $("#cs_city").parent().addClass("input-text-error");
+          $("#pos_loc").html("<%=t ("pairing_profile.basics.location.error2") %>");
+        });
+      }
+    }else {
+      //$("#snr_button_basic").removeClass("saveReturnLater-button");
+      //$("#snr_button_basic").addClass("saveReturnLater-button-active");
+      $("#snr_button_basic").unbind('click').bind('click', function() {
+        validate_pairing_basics_csv2.call('save_return');
+      });
+    }
+  }
+
+<% if controller.controller_name == "account" %>
+    $(function(){
+      $(".profile-breadcrumb").children().each(function(){
+        if($(this).hasClass("active")){
+          if($(this).children().attr("title")!="Intro"){
+            $("#info-dummy").hide();
+            return;
+          }
+          else if($(this).children().attr("title")=="Intro"){
+            $("#info-dummy").show();
+            return;
+          }
+        }
+      });
+    });
+<% end %>
+
+  //function validateZipCode(ele){
+  //
+  //	if(ele.value.length<5){
+  //		$("#"+ele.id).parent().addClass("input-text-error");
+  //		$("#pos_loc").html("Please enter a valid Zip Code.");
+  //	}
+  //	/*
+  //	if($("#"+ele.id).parent().hasClass("input-text")){
+  //
+  //		$("#pos_loc").html("");
+  //	}
+  //	*/
+  //
+  //	if(ele.value == "Zip or Postal Code"){
+  //		$("#pos_loc").html("");
+  //	}
+  //
+  //}
+</script>
+<% if controller.controller_name == "pairing_profile" %>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+<% end %>
+
+<script type="text/javascript">
+  $("#cs_city").removeAttr("placeholder");
+  var cs_city = document.getElementById('cs_city');
+  var options_type = {
+    types: ['(cities)']
+  };
+  $("#cs_city").focus(function(){
+    if(cs_city.value=="<%=t ("pairing_profile.basics.location.label") %>") {
+      $(".pac-container").addClass('hack-hidden');
+    }
+  })
+  $("#cs_city").keyup(function(){
+    if(cs_city.value!="<%=t ("pairing_profile.basics.location.label") %>") {
+      $(".pac-container").removeClass('hack-hidden');
+    }
+  })
+  var autocomplete = new google.maps.places.Autocomplete(cs_city, options_type);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var cs_city = encodeURIComponent(document.getElementById('cs_city').value);
+    $.ajax({
+      url: '/ajax/geocode_fetch_for_cs',
+      data: "cs_city="+cs_city+"",
+      cache: false,
+      beforeSend: function() {
+        $("#cs_city").blur();
+        showBlockShadow();
+      },
+      success: function(){
+        hideBlockShadow();
+        if($("#latitude").val()!="" && $("#longitude").val()!="") {
+          $("#cs_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#cs_city").parent().addClass("active-input");
+        }
+        else {
+          $("#cs_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#cs_city").parent().addClass("input-text");
+          $("#cs_city").val($("#cs_city_placeholder").val());
+        }
+        validateBasic();
+      }
+    });
+  });
+</script>
+<style type="text/css">
+  .pac-container {
+    color: #000066;
+    width:148px !important;
+    font-weight:400 !important;
+    font-size:13px !important;
+    border: 2px solid #000066 !important;
+    border-top: 1px solid #CCCCCC !important;
+    background:#fff url(../assets/autocomplete-bg-409.png) left top repeat-y !important;
+    margin-top:-2px;
+    margin-left:-5px;
+
+
+  }
+</style>
+<!--[if IE 8]>
+<style type="text/css">
+.pac-container {
+        margin-top:-8px;
+        margin-left:-5px;
+}
+</style>
+<![endif]-->  
+
+
+

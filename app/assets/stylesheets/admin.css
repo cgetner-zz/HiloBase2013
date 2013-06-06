@@ -1,0 +1,471 @@
+#page-container-opportinities .table-container.admin .table-container-top {
+    background: url("../assets/admin/dashboard_top.png") no-repeat scroll left top transparent;
+    height: 6px;
+    width: 872px;
+}
+#page-container-opportinities .table-container.admin .table-container-content {
+    background: url("../assets/admin/dashboard_middle.png") repeat-y scroll left top transparent;
+    height: auto;
+    padding: 0 5px;
+    width: 862px;
+}
+#page-container-opportinities .table-container.admin .table-container-bottom {
+    background: url("../assets/admin/dashboard_bottom.png") no-repeat scroll left top transparent;
+    height: 6px;
+    width: 872px;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li {
+    padding: 0 5px;
+    height: 32px;
+    cursor: default;
+}
+
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th a,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td a {
+    padding: 0;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th input[type=text],
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td input[type=text] {
+    width: 35px;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th ul.text-box li,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td ul.text-box li {
+    float: left;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th ul.text-box li.dollar,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td ul.text-box li.dollar {
+    margin-right: 5px;
+    margin-top: 8px;
+}
+
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th img,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td img {
+    margin-left: 32px;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th a:hover.action,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td a:hover.action,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr th a:hover.company_name_holder,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr td a:hover.company_name_holder {
+    text-decoration: underline;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li.active {
+     background: url("../assets/admin/table-heading-active.png") repeat-x scroll left top transparent;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li a {
+    line-height: 15px;
+    cursor: default;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li a.center {
+    text-align: center;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li a.single {
+    margin-top: 8px;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li a.first {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-headings {
+    background: url("../assets/admin/table-heading-bg.png") repeat-x scroll left top transparent;
+    height: 32px;
+    width: auto;
+}
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr:hover th,
+#page-container-opportinities .table-container.admin .table-container-content .table-content table tr:hover td{cursor: default;}
+#page-container-opportinities .table-container.admin .table-container-content .table-content {height: 450px !important;}
+#page-container-opportinities .referral_fee .table-container.admin .table-container-content .table-content {height: 300px;}
+#page-container-opportinities .referral_fee_status_block{
+    font-size: 16px;
+    font-weight: 400;
+    height: 20px;
+    color: #000066;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+#page-container-opportinities .referral_fee_span {
+    font-size: 16px;
+    font-weight: 400;
+    height: 20px;
+    color: #000066;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#page-container-opportinities .table-container.admin table tr th label.first,
+#page-container-opportinities .table-container.admin table tr td label.first {
+    margin-left: 5px;
+}
+.admin-error-messages {
+    height: 20px;
+    margin-bottom: 5px;
+    margin-left: 4px;
+    margin-top: 4px;
+    color: #D71F0C;
+    font-size: 13px;
+    font-weight: 700;
+}
+#siteActivation-account .gradient-content{
+    min-height: 400px;
+}
+
+#page-container-opportinities .table-container.admin .table-container-content .table-headings li a.decActive {
+    background: url("../assets/dec.png") no-repeat scroll 98% 4px transparent;
+    display: block;
+    height: auto;
+}
+
+.static_dollar_credit {
+    text-align: right;
+    margin-right: 25px;
+}
+.static_dollar {
+    margin-right: 10px;
+}
+.static_dollar_fee {
+    margin-right: 10px;
+}
+
+#privileged_history_popup .table-container.admin {
+    padding: 18px 18px 10px;
+}
+
+#privileged_history_popup .table-container.admin .table-container-content .table-headings {
+    background: url("../assets/admin/table-heading-bg.png") repeat-x scroll left top transparent;
+    height: 32px;
+    width: auto;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li a {
+    line-height: 15px;
+    cursor: default;
+}
+
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li {
+    padding: 0 5px;
+    height: 32px;
+    cursor: default;
+}
+
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li a.center {
+    text-align: center;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li a.single {
+    margin-top: 8px;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li a.first {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings {
+    background: url("../assets/admin/table-heading-bg.png") repeat-x scroll left top transparent;
+    height: 32px;
+    width: auto;
+}
+#privileged_history_popup .table-container.admin table tr th label.first,
+#privileged_history_popup .table-container.admin table tr td label.first {
+    margin-left: 5px;
+}
+
+#privileged_history_popup .table-container.admin .table-container-content .table-content table tr:hover th,
+#privileged_history_popup .table-container.admin .table-container-content .table-content table tr:hover td{cursor: default;}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li.active {
+     background: url("../assets/admin/table-heading-active.png") repeat-x scroll left top transparent;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-headings li a.decActive {
+    background: url("../assets/dec.png") no-repeat scroll 98% 4px transparent;
+    display: block;
+    height: auto;
+}
+#privileged_history_popup .table-container.admin .table-container-content .table-content {height: 315px !important;}
+
+
+#page-container-profile .table-container.admin .table-container-top {
+    background: url("../assets/admin/dashboard_top.png") no-repeat scroll left top transparent;
+    height: 6px;
+    width: 872px;
+}
+#page-container-profile .table-container.admin .table-container-content {
+    background: url("../assets/admin/dashboard_middle.png") repeat-y scroll left top transparent;
+    height: auto;
+    padding: 0 5px;
+    width: 862px;
+}
+#page-container-profile .table-container.admin .table-container-bottom {
+    background: url("../assets/admin/dashboard_bottom.png") no-repeat scroll left top transparent;
+    height: 6px;
+    width: 872px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li {
+    padding: 0 5px;
+    height: 32px;
+    cursor: default;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th input[type=text],
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td input[type=text] {
+    width: 50px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th ul.text-box li,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td ul.text-box li {
+    float: left;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th ul.text-box li.dollar,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td ul.text-box li.dollar {
+    margin-right: 5px;
+    margin-top: 8px;
+}
+
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th img,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td img {
+    margin-left: 40px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th label.paid img,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td label.paid img {
+    margin-left: 52px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th label.paid a:hover,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td label.paid a:hover {
+    text-decoration: underline;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th label.paid a,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td label.paid a {
+    text-align: center;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th a:hover.action,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td a:hover.action,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr th a:hover.company_name_holder,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr td a:hover.company_name_holder {
+    text-decoration: underline;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li.active {
+     background: url("../assets/admin/table-heading-active.png") repeat-x scroll left top transparent;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li a {
+    line-height: 15px;
+    cursor: default;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li a.center {
+    text-align: center;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li a.single {
+    margin-top: 8px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings li a.first {
+    margin-top: 8px;
+    margin-left: 5px;
+}
+#page-container-profile .table-container.admin .table-container-content .table-headings {
+    background: url("../assets/admin/table-heading-bg.png") repeat-x scroll left top transparent;
+    height: 32px;
+    width: auto;
+}
+#page-container-profile .table-container.admin .table-container-content .table-content table tr:hover th,
+#page-container-profile .table-container.admin .table-container-content .table-content table tr:hover td{cursor: default;}
+#page-container-profile .table-container.admin .table-container-content .table-content {height: 450px !important;}
+#page-container-profile .referral_fee .table-container.admin .table-container-content .table-content {height: 300px;}
+#page-container-profile .referral_fee_status_block{
+    font-size: 13px;
+    font-weight: 400;
+    height: 20px;
+    color: #000066;
+    margin: 15px 5px 5px;
+}
+#page-container-profile .referral_fee_status_block #emp_status{
+    font-weight: 400;
+}
+#page-container-profile .referral_fee_span {
+    font-size: 16px;
+    font-weight: 400;
+    height: 20px;
+    color: #000066;
+    margin-left: 5px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#page-container-profile .table-container.admin table tr th label.first,
+#page-container-profile .table-container.admin table tr td label.first {
+    margin-left: 5px;
+}
+
+#page-container-profile .table-container.admin .table-container-content .table-headings li a.decActive {
+    background: url("../assets/dec.png") no-repeat scroll 98% 4px transparent;
+    display: block;
+    height: auto;
+}
+
+.referral-header .referral-header-li {
+    float: left;
+    margin: 5px 10px;
+}
+
+#employer_company_select {
+    border: medium none;
+    color: #7F7FBB;
+    font-size: 13px;
+    font-weight: 400;
+    height: 31px;
+    padding: 5px;
+    width: 240px;
+    background: url("../assets/admin/select-bg.png") repeat-x scroll left top transparent;
+    line-height: 20px;
+}
+#employer_company_select option{
+    padding: 3px 3px;
+    line-height: 20px;
+    color: #000066;
+}
+
+.referral-header .language-slector{cursor: pointer; width:335px; /*154*/ min-height:23px; padding:5px 8px 0; float:left; background:url(../assets/admin/company-dropdown1.png) left top no-repeat; margin:1px 0 0; position:relative; font-size:13px; font-weight:400;}
+.referral-header .language-slector.error{cursor: pointer; width:335px; /*154*/ height:25px; padding:5px 8px 0; float:left; background:url(../assets/admin/company-dropdown_outline.png) left top no-repeat; margin:1px 0 0; position:relative; font-size:13px; font-weight:400;}
+.referral-header .language-slector span.label-default {color:#7F7FBB;}
+.referral-header .language-slector span.label-default.selected {color:#000066;}
+.referral-header .language-slector .language-options{position:absolute; left:0px; top:0px; cursor: pointer; }
+.referral-header .language-slector .language-options .language-options-top{background:url(../assets/admin/company-dn-active-top.png) left top no-repeat; width:350px; height:7px;}
+.referral-header .language-slector .language-options .language-options-content {background:url(../assets/admin/company-dn-active-bg.png) left top repeat-y; width:340px; padding:0 5px 5px;}
+.referral-header .language-slector .language-options .language-options-content label{display:block; padding:0 3px; cursor: pointer;}
+.referral-header .language-slector .language-options .language-options-content .label-default{margin-bottom:5px; display:block; border-bottom:1px solid #CCCCCC; line-height:20px; color:#7F7FBB; margin-top:-3px;}
+.referral-header .language-slector .language-options .language-options-content .label-default.selected {color:#000066;}
+.referral-header .language-slector .language-options .language-options-content .option{height:72px; overflow-y:auto;}
+.referral-header .language-slector .language-options .language-options-content .option li{line-height:20px; cursor: pointer;}
+.referral-header .language-slector .language-options .language-options-content .option li:hover  {background:#bfbfbf; cursor: pointer;}
+.referral-header .language-slector .language-options .language-options-bottom{background:url(../assets/admin/company-dn-active-bottom.png) left top no-repeat; width:350px; height:7px;}
+
+#records_period_span .date-range {
+    font-size: 13px;
+    font-weight: 400;
+}
+#records_period_span .date-range b{
+    font-weight: 700;
+    font-size: 13px;
+}
+#siteActivation-account .siteActivation-account-billing-left .text-long {
+    width: 380px !important;
+}
+#siteActivation-account .pwd-personal-info li input {
+    width: 180px !important;
+}
+#siteActivation-account-billing-center-border {border-left:1px solid #C0BBBE; height:350px; overflow:hidden; float:left; margin-top:50px; margin-left:21px; }
+#siteActivation-account .siteActivation-account-billing-right {
+    float: right;
+    height: 190px;
+    position: relative;
+    width: 395px;
+}
+#siteActivation-account .pwd-personal-info.admin li input {
+    width: 172px !important;
+}
+#siteActivation-account .pwd-personal-info.admin li input.text-long-admin {
+    width: 365px !important;
+}
+#siteActivation-account .siteActivation-account-billing-right .page-heading-container-change {
+    border-bottom: 1px solid #C0BBBE;
+    height: auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 0;
+}
+.account-type {display: block; height: 55px;}
+.account-type li {float: left; padding-right: 15px;}
+.account-type li label {display: inline-block; padding-top: 3px; cursor: pointer; font-weight: 400; font-size: 13px; padding-left: 5px;}
+.account-type li span {cursor: pointer;}
+.update-button {
+    background: url("../assets/update_button.png") no-repeat scroll 0 -34px transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 33px;
+    width: 86px;
+}
+
+#page-container-personalityQuest #header #page-navigation li a {
+    margin-top: 18px;
+}
+#page-container-personalityQuest #header #page-navigation li.active a {
+    font-weight: 700;
+}
+#page-container-personalityQuest #header #page-navigation li a {
+    cursor: pointer;
+}
+
+ul.corp_acc {
+    padding-left: 9px;
+    padding-top: 10px;
+}
+ul.corp_acc li {
+    height: 40px;
+    padding-bottom: 6px;
+}
+ul.corp_acc li input[type=text] {
+    width: 345px;
+}
+#page-container-personalityQuest .corp-acc .sub-heading {
+    color: #000066;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-top: -5px;
+}
+.table-container.history .table-container-content {
+    width: 410px;
+    background: url("../assets/admin/dashboard_middle_420.png") repeat-y scroll left top transparent;
+}
+.table-container.history .table-container-content .gradient-content {
+    min-height: 100px!important;
+}
+.table-container.corp_request {
+    height: auto;
+    margin-left: 7px;
+    margin-top: 10px;
+}
+.table-container.corp_request .table-container-content .table-content {
+    color: #000066;
+    font-size: 13px;
+    font-weight: 400;
+    height: 290px !important;
+    line-height: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+}
+.table-container.corp_request .table-container-top {
+    background: url("../assets/admin/dashboard_top_420.png") no-repeat scroll left top transparent;
+    width: 420px;
+}
+.table-container.corp_request .table-container-bottom {
+    background: url("../assets/admin/dashboard_bottom_420.png") no-repeat scroll left top transparent;
+    width: 420px;
+}
+.table-container.corp_request .table-container-content .table-content table tr th label, .table-container .table-container-content .table-content table tr td label {
+    color: #000066;
+    cursor: pointer;
+    display: block;
+    padding: 0 5px;
+}
+
+.create-button-active {
+    background: url("../assets/admin/Create_button.png") no-repeat scroll 0 0 transparent;
+    border: medium none;
+    cursor: pointer;
+    height: 33px;
+    width: 82px;
+}
+.profile-breadcrumb{height:auto; overflow:hidden; text-transform:uppercase; font-size:16px!important; font-weight:300;margin-left:4px!important;}
+.profile-breadcrumb li{float:left; padding:0 10px!important; background:url(../assets/profile-breadcrumb-seperator.gif) left top no-repeat; height:29px;}
+.profile-breadcrumb li.first-child{padding:0 10px 0 0!important; background:none;}
+.profile-breadcrumb li.active a{font-weight:700!important;}
+.profile-breadcrumb li a{color:#000066; display:block; line-height:29px;font-weight:300!important;}
+.profile-breadcrumb li a:hover{text-decoration:none;}
+
+#page-container-opportinities.career_seeker #header #page-navigation li.active { border-top: 4px solid #86869F !important;}
+#page-container-opportinities.career_seeker .top-bar { background: none repeat scroll 0 0 #86869F; }
+#page-container-opportinities.career_seeker #footer .hil-footer-kit { background: none repeat scroll 0 0 #86869F !important; }
+
+#page-container-profile #header #page-navigation li.active { border-top: 4px solid #66AFCC !important;}
+#page-container-profile .top-bar { background: none repeat scroll 0 0 #66AFCC; }
+#page-container-profile #footer .hil-footer-kit { background: none repeat scroll 0 0 #66AFCC !important; }
+
+#page-container-personalityQuest #header #page-navigation li.active { border-top: 4px solid #66AFCC !important; }
+#page-container-personalityQuest .top-bar { background: none repeat scroll 0 0 #66AFCC; }
+#page-container-personalityQuest #footer .hil-footer-kit { background: none repeat scroll 0 0 #66AFCC !important; }

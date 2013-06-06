@@ -1,0 +1,38 @@
+<div class="cs-introduction-container" id="step4-pricing">
+  <div class="popup-upper-block-cs" style="">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <img src="/assets/bridge_hilo_logo.png" class="lfloat" style="margin-bottom:5px;" />
+          <div class="csbridge-heading">
+            <p class="bluecls">&nbsp;</p>
+            <p><%=t ("career_seeker_bridge.title5") %></p>
+          </div>
+          <div class="csbridge-subhead" style="display: none;">
+            <div class="avail-jobs"><span class="avail-jobs-emp"><%=t ("career_seeker_bridge.title6") %></span><span class="avail-jobs-count rfloat"><%= @active_job_count %></span></div>
+            <div class="active-employers"><span class="avail-jobs-emp"><%=t ("career_seeker_bridge.title7") %></span><span class="active-employers-count rfloat"><%= @active_emp_count %></span></div>
+          </div>
+        </div>
+        <div class="csbridge-textvideo">
+          <div class="csbridge-text <%=I18n.locale%>"><div class="<%=I18n.locale%>"><%=t ("career_seeker_bridge.title_content4") %></div>
+            <p><span><i><%=t ("career_seeker_bridge.content4.contentL1") %></i></span></p>
+            <p><%=t ("career_seeker_bridge.content4.contentL2") %></p>
+            <p><%=t ("career_seeker_bridge.content4.contentL3") %></p>
+            <p><%=t ("career_seeker_bridge.content4.contentL4") %></p>
+          </div>
+          <div class="csbridge-right-div video <%=I18n.locale%>" id="step4-pricing-video">
+            <iframe class="youtube-player" name="accountVplayer" id="post_beta_pricing_accountVplayer" type="text/html" width="591" style="margin-left:6px;" height="360" src="https://www.youtube.com/embed/o5tAcq840qk?wmode=transparent&rel=0" frameborder="0"></iframe>
+          </div>
+          <div class="getstarted-div" onclick="window.location='/job_seeker/new'"><img src="/assets/get-started-btn_<%=I18n.locale%>.png" class="margin-T-5px" /></div>
+        </div>
+        <div class="csbridge-submenu-container">
+          <ul class="">
+            <%= render :partial => "home/bridge_menu", :locals => {:section => "pricing"} %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

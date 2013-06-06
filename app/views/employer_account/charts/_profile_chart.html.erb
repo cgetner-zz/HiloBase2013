@@ -1,0 +1,58 @@
+<% if (@jobs_purchased_profiles.length > 0) %>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var profile_arr = new Array();
+  <%@item_cnt = Array.new%>
+  <% for item in  @jobs_purchased_profiles%>
+    <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+        profile_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+        <%@item_cnt << item.cnt %>
+  <% end %>
+
+    if(document.getElementById('profile_chart')){
+      $.plot($("#profile_chart"), [
+		 
+        {
+          label: "<%=t ("emp_dashboard_graphs.graph_label.viewed_profile") %>",
+          data: profile_arr,
+          lines: { show: true, lineWidth: 1},
+          points: { show: true, symbol: "triangle" },
+          shadowSize: 0
+        }
+      ],
+      {
+        xaxis: {
+          mode: "time",
+          minTickSize: [ 1,"month"],
+          autoscaleMargin:2
+        },
+
+        grid: {
+          show: true,
+          aboveData: false,
+          backgroundColor: { colors: ["#fff", "#fff "] },
+          tickColor: "#fff",
+          labelMargin: 5,
+          markings: [],
+          borderWidth: 0,
+          hoverable: false,
+          autoHighlight: true,
+          mouseActiveRadius: 1
+        },
+								
+        yaxis: {
+          min: 0,
+          max: <%=  @item_cnt.max%>
+        },
+								
+        legend: {
+          container: $("#profile_chart_legend")
+        }
+      }
+    );
+    }
+    });
+  </script>
+
+<% end %>

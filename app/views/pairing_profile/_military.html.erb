@@ -1,0 +1,100 @@
+<div id="military_details" class="white_content">
+  <div class="popup-upper-block-military">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("pairing_profile.credentials.armed_force.heading") %></label>
+        </div>
+        <div class="left-content" >
+          <p style="font-weight:400; font-size:14px;"><%=t ("pairing_profile.credentials.armed_force.contentL1") %></p>
+        </div>
+        <div class="right-content" >
+          <form>
+            <ul class="options-list">
+              <li class="margin-R-30px yes">
+                <input type="checkbox" id="y" class="styled yes" <% if @job_seeker.armed_forces == true %>checked="checked"<%end%> />
+                <label class="yes_text"><%=t ("pairing_profile.credentials.armed_force.yes") %></label>
+              </li>
+
+              <li class="no">
+                <input type="checkbox" id="n" class="styled no" <% if @job_seeker.armed_forces == false %>checked="checked"<%end%> />
+                <label class="no_text"><%=t ("pairing_profile.credentials.armed_force.no") %></label>
+              </li>
+            </ul>
+            <input id="enter" type="button" class="enter-button-active rfloat" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    Custom.init();
+    activateEnterButton();
+    $('.options-list li.yes span.checkbox').unbind().click(function(){
+      yes();
+    });
+
+    $('.options-list li.no span.checkbox').unbind().click(function(){
+      no();
+    });
+
+    $('.options-list label.yes_text').unbind().click(function(){
+      Custom.check($('#y').prev());
+      yes();
+    });
+
+    $('.options-list label.no_text').unbind().click(function(){
+      Custom.check($('#n').prev());
+      no();
+    });
+
+    $('div#military_details input#enter').unbind().click(function(){
+      if($(this).hasClass('enter-button-active')){
+        if($("input.yes").attr("checked")== "checked"){
+          $("#armed_forces").val("1");
+        }
+        else if($("input.no").attr("checked")== "checked"){
+          $("#armed_forces").val("0");
+        }
+        $("#military_details").hide();
+        hideNormalShadow();
+        credential_save.call('complete');
+      }
+
+    });
+
+    <% if controller.controller_name == "pairing_profile" and controller.action_name == "basics" and session[:military_popup] == true %>
+          showMilitaryPopup();
+    <% end %>
+  })
+
+  function yes(){
+    $(".no").attr("checked", "checked");
+    //$(".yes").attr("checked","");
+    Custom.check($(".options-list li.no span.checkbox"));
+    activateEnterButton();
+  }
+
+  function no(){
+    $(".yes").attr("checked", "checked");
+    //$(".no").attr("checked","");
+    Custom.check($(".options-list li.yes span.checkbox"));
+    activateEnterButton();
+  }
+
+  function activateEnterButton(){
+    if($("input.yes").attr("checked")== "checked" || $("input.no").attr("checked")== "checked"){
+      document.getElementById('enter').className="enter-button-active rfloat";
+    }
+    else{
+      document.getElementById('enter').className="enter-button rfloat";
+    }
+  }
+
+    
+</script>

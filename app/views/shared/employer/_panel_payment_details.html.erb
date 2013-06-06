@@ -1,0 +1,38 @@
+<div class="heading-container">
+  <label class="heading"><%=t ("employer_account.payment_details.title") %></label>
+</div>
+<div class="panel-content" style="height: 125px;">
+  <a href="javascript:showPaymentHistory();" class="transaction-link" title="<%=t ("employer_account.payment_details.transcation_history") %>"><%=t ("employer_account.payment_details.transcation_history") %></a>
+  <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 3 %>
+    <% if @old_payment_obj.nil? %>
+      <div class="oneclick-details"><%=t ("employer_account.payment_details.contentL1") %><br /><%=t ("employer_account.payment_details.contentL2") %></div>
+    <% else %>
+      <div class="oneclick-details">
+        <label class="lfloat"><%=t ("employer_account.payment_details.payment_configuration") %></label>
+        <span class="lfloat card-type">
+          <% if @old_payment_obj.card_type == "master" %>
+            <%= image_tag("Mastercard_1.png", :alt=>"Master Card", :size=>"52x31") %>
+          <% elsif @old_payment_obj.card_type == "visa" %>
+            <%= image_tag("Visa_1.png", :alt=>"Visa Card", :size=>"47x31") %>
+          <% elsif @old_payment_obj.card_type == "american_express" %>
+            <%= image_tag("AmericanExpress_1.png", :alt=>"American Express Card", :size=>"30x31") %>
+          <% elsif @old_payment_obj.card_type == "discover" %>
+            <%= image_tag("Discover_1.png", :alt=>"Discover Card", :size=>"46x31") %>
+          <% elsif @old_payment_obj.card_type == "NA" %>
+            <%= image_tag("Paypal_1.png", :alt=>"Paypal", :size=>"72x31") %>
+          <% end %>
+        </span>
+        <label class="lfloat"><%=t ("employer_account.payment_details.payment_configurationL1") %></label>
+        <div class="clear-float">&nbsp;</div>
+        <div>
+          <%=t ("employer_account.payment_details.payment_configurationL2") %><br />
+          <%=t ("employer_account.payment_details.payment_configurationL3") %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="oneclick-details">
+      <div><%=t ("employer_account.payment_details.subordinate_message") %></div>
+    </div>
+  <% end %>
+</div>

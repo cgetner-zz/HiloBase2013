@@ -1,0 +1,23 @@
+$("#admin_delete_confirmation").html("<%= escape_javascript render(:partial=>"delete_message") %>");
+<% case @emp.account_type_id.to_i %>
+<% when 1 %>
+  <% if @emp.nominated_employer_id.nil? %>
+    $('#delete_message_text').html('No user has been nominated as the new root for this company. Therefore, Records will be deleted from the system for the complete hierarchy. Press Continue to proceed.')
+    $('#delete_message_text').parent().css("width",'377');
+    $('#delete_message_continue_button').parent().removeClass('margin-T-13px').addClass('margin-T-32px');
+  <% else %>
+    <% emp_nom = Employer.find_by_id(@emp.nominated_employer_id) %>
+    $('#delete_message_text').html('<%= emp_nom.first_name %> <%= emp_nom.last_name %> (<%= emp_nom.email %>) has been nominated as the new root for this company. Records will be deleted from the system for current user only. Press Continue to proceed.')
+    $('#delete_message_text').parent().css("width",'345');
+    $('#delete_message_continue_button').parent().removeClass('margin-T-13px').addClass('margin-T-50px');
+  <% end %>
+<% when 2 %>
+  $('#delete_message_text').html('Records will be deleted from the system. Press Continue to proceed.');
+<% when 3 %>
+  $('#delete_message_text').html('Records will be deleted from the system. Press Continue to proceed.');
+<% end %>
+$('#delete_message_continue_button').unbind('click').bind('click', function(){
+    delete_employer('<%= @emp.id %>');
+  });
+$('#admin_delete_confirmation').show();
+centralizePopup();

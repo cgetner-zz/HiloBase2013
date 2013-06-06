@@ -1,0 +1,97 @@
+<div class="popup-upper-block-positionPrevew">
+  <span class="popup-top">&nbsp;</span>
+  <div class="popup-content">
+    <div class="popup_background_box_bg_table">
+      <% if job.hiring_company == false %>
+        <div class="popup-mini-heading transform-letter"><%= job.company.name %> <%=t ("position_profile.posting_preview.preview_popup.hiring_company") %></div>
+      <% end %>
+      <div class="popup-header-container" <% if job.hiring_company == false %>style="margin: 5px 20px 0;"<% end %>>
+        <label class="popup-heading transform-letter">
+          <% if job.hiring_company == false %>
+            <%= job.hiring_company_name %>
+          <% else %>
+            <%= job.company.name %>
+          <% end %>
+        </label>
+        <label class="popup-heading rfloat" id="rt"><%=t ("position_profile.posting_preview.preview_popup.time_remaining") %></label>
+      </div>
+      <div class="position-popup-content-table">
+        <table border="0" class="popup-table" style="border-spacing: 19px 10px;" cellspacing="0" cellpadding="0">
+          <tr>
+            <th style="width:224px;"><h3 class="inner-heading transform-letter" style="max-width: 220px; word-wrap: break-word; line-height: 20px;"><%=h(job.name).force_encoding('utf-8')%></h3></th>
+            <th style="width:260px;"><h3 class="inner-heading">&nbsp;</h3></th>
+            <th style="width:146px;"> <h3 class="inner-heading text-align-right"><span class="lfloat">&nbsp;</span><span  class="rfloat"><%= job.code %></span><div class="clear-float"></div></h3></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="left-content-table">
+                <% address = ""
+                unless job_location.nil?
+                  address = job_location.street_one.to_s
+                  address << ", "
+                  address += job_location.city.to_s
+                end%>
+                <p style="font-weight:400; font-size:12px;">
+                  <span class="transform-letter" style="font-weight:400; font-size:12px;"><%= desired_emp %></span>
+                  <br />
+                  <% if job_location.nil? %>
+                    <span style="font-size:13px; font-weight: 400;"><%=t ("position_profile.posting_preview.preview_popup.virtual_locationL1") %><br /><%=t ("position_profile.posting_preview.preview_popup.virtual_locationL2") %></span>
+                  <% else %>
+                    <span style="font-size:12px; font-weight: 400;"><%= job_location.city.titlecase.force_encoding('utf-8') %>, <%= job_location.state.titlecase.force_encoding('utf-8') %>, <%= job_location.country.titlecase.force_encoding('utf-8') %></span>
+                  <% end %>
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="middle-content-table">
+                <p align="justify" style="width:270px;overflow-y:auto;"><%=h(truncate(job.summary, :length => 305, :omission => ' ...', :separator => ' ')).gsub("\n","<br/>").html_safe%></p>
+              </div>
+            </td>
+            <td>
+              <div class="right-content-table">
+                <div id="cards-block">
+                  <ul>
+                    <li>
+                      <label class="best active"><%=t ("position_profile.posting_preview.preview_popup.best") %></label>
+                    </li>
+                    <li>
+                      <label class="better"><%=t ("position_profile.posting_preview.preview_popup.better") %></label>
+                    </li>
+                    <li>
+                      <label class="good"><%=t ("position_profile.posting_preview.preview_popup.good") %></label>
+                    </li>
+                    <li>
+                      <label class="wildCard"><%=t ("position_profile.posting_preview.preview_popup.wild_card") %></label>
+                    </li>
+                  </ul>
+                  <div id="card-rating">
+                    <span class="wild-card active">&nbsp;</span>
+                    <span class="good active">&nbsp;</span>
+                    <span class="better active">&nbsp;</span>
+                    <span class="best active">&nbsp;</span>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="clear-float">&nbsp;</div>
+      <div class="popup-footer">
+        <ul class="lfloat">
+          <li><a href="javascript:void(0);" title="<%=t ("position_profile.posting_preview.preview_popup.facebook_title") %>" style="cursor:default;"><%= image_tag("employer_v2/facebook_icon-popup.png", :size=>"34x33", :alt=>"Facebook", :border=>0) %></a></li>
+          <li><a href="javascript:void(0);" title="<%=t ("position_profile.posting_preview.preview_popup.linkedin_title") %>" style="cursor:default;"><%= image_tag("employer_v2/linkedin-popup.png", :size=>"34x33", :alt=>"Linked In", :border=>0) %></a></li>
+          <li><a href="javascript:void(0);" title="<%=t ("position_profile.posting_preview.preview_popup.twitter_title") %>" style="cursor:default;"><%= image_tag("employer_v2/twitter-popup.png", :size=>"34x33", :alt=>"Twitter", :border=>0) %></a></li>
+          <li><a href="javascript:void(0);" title="<%=t ("position_profile.posting_preview.preview_popup.mail_title") %>" style="cursor:default;"><%= image_tag("employer_v2/mail-popup.png", :size=>"34x33", :alt=>"Mail", :border=>0) %></a></li>
+        </ul>
+        <ul class="rfloat">
+          <li id="follow"  style="margin-right: 1px; margin-top: 3px;"><input type="button" class="follow-button" onclick="" style="cursor:default;"/></li>
+          <li id="watchlist" style="margin-top: 3px; margin-left: 7px; margin-right: 9px;"><input type="button" class="watchlist-button" onclick="" style="cursor:default;"/></li>
+          <li><input type="button" class="btn-Details" value="" onclick="" style="cursor:default;"/></li>
+        </ul>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close" onClick="$('#position_overview').empty(); $('#position_overview').hide(); hideNormalShadow();footerOnClosingPopup();<% if activated == true %>showActivateJobPopup();<% end %>"><%=t ("position_profile.posting_preview.preview_popup.close") %></a>
+  </div>
+  <span class="popup-bottom">&nbsp;</span>
+</div>

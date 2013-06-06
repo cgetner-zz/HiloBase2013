@@ -1,0 +1,63 @@
+<div class="video-container">
+  <div class="upper-bar">&nbsp;</div>
+  <div class="content">
+    <div class="gradient-content">
+      <!--headerInformation-->
+      <div class="headerInformation">
+        <label class="videoInfo fontweight-700px"><%= t('account.pairing_profile.intro.video.heading1') %> <span><%= t('account.pairing_profile.intro.video.heading2') %></span></label>
+        <label class="playerInfo">YouTube</label>
+      </div>
+      <!-/-headerInformation-->
+      <!--video-->
+      <%if @job_seeker.video_url.blank?%>
+        <div class="video"><img src="/assets/no-video.jpg" width="299px" height="176px"/></div>
+      <% else %>
+        <div class="video" style="width:306px;" id="profileIntroVideo">
+          <iframe class="youtube-player" type="text/html" name="profileIntroVplayer" id="profileIntroVplayer" width="299" height="176" src="https://www.youtube.com/embed/<%=youtube_video_id(job_seeker.video_url)%>?wmode=transparent&rel=0" frameborder="0"></iframe>
+        </div>
+      <% end %>
+      <!--/video-->
+      <%if @job_seeker.video_url.blank?%>
+        <a href="javascript:void(0)" title="+Add" class="addItems" onclick="$('#url-container').show();"><%= t('account.pairing_profile.intro.video.add_text') %></a>
+      <% else %>
+        <a href="javascript:void(0)" title="+Add" class="addItems" onclick="$('#url-container').show();"><%= t('account.pairing_profile.intro.video.change_text') %></a>
+      <% end %>
+    </div>
+  </div>
+  <div class="bottom-bar">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    validateYouTubeVideoUrlOnLoad();
+    BrowserDetect.init();
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version == "8"){
+      if(document.getElementById('youtube_url')!= null) {
+        window.attachEvent('load', function(e){
+          document.getElementById('youtube_url').attachEvent('keydown', function(e){
+            if (e.keyCode == 86){
+              if($('#youtube_url').val()=="https://www.youtube.com/"){
+                $('#youtube_url').val("");
+                $('#youtube_url').parent().removeClass('input-text-error').removeClass('input-text-error-empty').addClass('input-text-active');
+              }
+            }
+          });
+        })
+      }
+    }
+    else{
+      if(document.getElementById('youtube_url') != null) {
+               
+        document.getElementById('youtube_url').addEventListener('keydown', function(e){
+                                
+          if (e.keyCode == 86){
+            if($('#youtube_url').val()=="http://www.youtube.com/"){
+              $('#youtube_url').val("");
+              $('#youtube_url').parent().removeClass('input-text-error').removeClass('input-text-error-empty').addClass('input-text-active');
+            }
+          }
+        }, false);
+      }
+    }
+  })
+</script>

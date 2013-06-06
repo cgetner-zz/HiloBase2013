@@ -1,0 +1,150 @@
+<div class="emp-leftmenu-dropdown">
+  <span class="name-cnt" id="outer_pos" onclick="var areYouSureResp = areYouSure('emp-select'); if(areYouSureResp == false) { return false; } openDropDownOfUsers();">
+    <!-- NOTE: Truncate name if > 15 characters to 10 characters and add '...' -->
+    <label><%=t ("emp_left_menu.all_position") %></label>
+  </span>
+</div>
+<div class="user-list">
+  <div class="top"></div>
+  <div class="middle">
+    <div class="middle-cnt">
+      <ul>
+        <li id="all_positions"><%=t ("emp_left_menu.all_position") %></li>
+        <li id="my_positions"><%=t ("emp_left_menu.my_position") %></li>
+      </ul>
+      <ul class="users" id="children"></ul>
+      <ul class="reassign">
+        <li style="border:none; padding-top:10px;" onclick="openReassignTab();"><%=t ("emp_left_menu.reassign") %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#all_positions").click(function(){
+      showBlockShadow();
+      if (document.URL.split("/")[4]){
+        var action_name = document.URL.split("/")[4].split("?")[0];
+      }
+      else{
+        var action_name = 'index';
+      }
+      var controller_name = document.URL.split("/")[3].split("?")[0];
+      if(action_name == 'xref'){
+        var cs_id = document.URL.split("/")[5].split("?")[0];
+        //var activity = document.URL.split("/")[5].split("?")[1];
+      }
+      $("#outer_pos label").html($("#all_positions").html());
+      closeDropDownOfUsers();
+<% if (controller.controller_name == "position_profile" and (controller.action_name == "candidate_pool" or controller.action_name == "new_employer_profile" or controller.action_name == "create_new_emp_profile")) or (controller.controller_name == "postings") %>
+        window.location.href = "/employer_account?selected=-1";
+<% end %>
+      $.ajax({
+        url: '/ajax/fetch_all_positions',
+        cache: false,
+        data: 'cs_id=' + cs_id + "&action_name=" + action_name + "&controller_name=" + controller_name,
+        success: function(){
+          $("#parent_id").val('-1');
+          if($(".filter_type").is(':visible')){
+            $(".filter_type").children().each(function(){
+              if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+                Custom.check($(this).find('span.checkbox'));
+              }
+            });
+
+            Custom.check($("span.checkbox:first"));
+            $("#filter_value").val($("span.checkbox:first").next().val());
+          }
+          hideBlockShadow();
+        }
+      });
+    });
+    $("#my_positions").click(function(){
+      showBlockShadow();
+      if (document.URL.split("/")[4]){
+        var action_name = document.URL.split("/")[4].split("?")[0];
+      }
+      else{
+        var action_name = 'index';
+      }
+      var controller_name = document.URL.split("/")[3].split("?")[0];
+      if(action_name == 'xref'){
+        var cs_id = document.URL.split("/")[5].split("?")[0];
+        //var activity = document.URL.split("/")[5].split("?")[1];
+      }
+      $("#outer_pos label").html($("#my_positions").html());
+      closeDropDownOfUsers();
+      //alert('<%=controller.controller_name%>');
+      //alert('<%=controller.action_name%>');
+<% if (controller.controller_name == "position_profile" and (controller.action_name == "candidate_pool" or controller.action_name == "new_employer_profile" or controller.action_name == "create_new_emp_profile")) or (controller.controller_name == "postings") %>
+        window.location.href = "/employer_account?selected=0";
+<% end %>
+      $.ajax({
+        url: '/ajax/fetch_my_positions',
+        data: 'cs_id=' + cs_id + "&action_name=" + action_name + "&controller_name=" + controller_name,
+        cache: false,
+        success: function(){
+          $("#parent_id").val('0');
+          if($(".filter_type").is(':visible')){
+            $(".filter_type").children().each(function(){
+              if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+                Custom.check($(this).find('span.checkbox'));
+              }
+            });
+
+            Custom.check($("span.checkbox:first"));
+            $("#filter_value").val($("span.checkbox:first").next().val());
+          }
+          if(addNewFolderFlag){
+            addFolder();
+            addNewFolderFlag = 0;
+          }
+          hideBlockShadow();
+
+        }
+      });
+    });
+  
+  });
+  function fetch_employer_position(id, obj){
+    showBlockShadow();
+    if (document.URL.split("/")[4]){
+      var action_name = document.URL.split("/")[4].split("?")[0];
+    }
+    else{
+      var action_name = 'index';
+    }
+    var controller_name = document.URL.split("/")[3].split("?")[0];
+    if(action_name == 'xref'){
+      var cs_id = document.URL.split("/")[5].split("?")[0];
+    }
+    $("#outer_pos label").html(obj.innerHTML);
+    closeDropDownOfUsers();
+    if((document.URL.split("/")[3].split("?")[0] == "position_profile" && (document.URL.split("/")[4].split("?")[0] == "candidate_pool" || document.URL.split("/")[4].split("?")[0] == "new_employer_profile")) || (document.URL.split("/")[3].split("?")[0] == "postings")){
+      window.location.href = "/employer_account?selected="+id;
+    }
+    $.ajax({
+      url: '/ajax/fetch_employer_position',
+      data: 'cs_id=' + cs_id + "&action_name=" + action_name + "&controller_name=" + controller_name + '&id=' + id,
+      cache: false,
+      success: function(){
+        $("#parent_id").val(id);
+        //
+        if($(".filter_type").is(':visible')){
+          $(".filter_type").children().each(function(){
+            if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+              Custom.check($(this).find('span.checkbox'));
+            }
+          });
+
+          Custom.check($("span.checkbox:first"));
+          $("#filter_value").val($("span.checkbox:first").next().val());
+        }
+        hideBlockShadow();
+      }
+    });
+  }
+  
+</script>

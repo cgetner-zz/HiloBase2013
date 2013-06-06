@@ -1,0 +1,80 @@
+<div class="content">
+  <div class="user-rows">
+    <div class="user-box close"><!-- Use class [open] or [close] and [error] if the box has an error -->
+      <div class="top">
+        <span class="green-dot"></span>
+        <span class="user-name"><%=t ("user_admin.accounts.sample_tab.sample_user_1") %></span>
+      </div>
+      <div class="slide"></div>
+    </div>
+    <div class="user-box close"><!-- Use class [open] or [close] and [error] if the box has an error -->
+      <div class="top">
+        <span class="yellow-dot"></span>
+        <span class="user-name"><%=t ("user_admin.accounts.sample_tab.sample_user_4") %></span>
+      </div>
+      <div class="slide"></div>
+    </div>
+  </div>
+  <div class="user-rows">
+    <div class="user-box open"><!-- Use class [open] or [close] and [error] if the box has an error -->
+      <div class="top">
+        <span class="green-dot"></span>
+        <span class="user-name"><%=t ("user_admin.accounts.sample_tab.sample_user_2") %></span>
+      </div>
+      <div class="slide" style="display: block;">
+        <div class="middle">
+          <!-- Spending Limit Block -->
+          <div class="block-title"><%=t ("user_admin.accounts.sample_tab.spending_limit") %></div>
+          <div class="block-content">
+            <div class="options-container spending-limit">
+              <!-- Option Block -->
+              <div class="center-content">
+                <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-active.png" height="21" /></a>
+                <label><%=t ("user_admin.accounts.sample_tab.no") %></label>
+                <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-inactive.png" height="21" /></a>
+                <label><%=t ("user_admin.accounts.sample_tab.yes") %></label>
+              </div>
+              <!-- /Option Block -->
+              <!-- $ Block -->
+              <div class="limit-container">
+                <div class="customized-inner-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="limit_1_placeholder" value="$"/>
+                  <input style="width: 50px;" type="text" class="limit" name ="limit_text" id="limit_1" onfocus="focus_element(this); var val=this.value; this.value=''; this.value= val;" onblur="blur_element(this); " onkeydown="type_element(this);"  maxlength="5" value="$" tabindex='1'  />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </div>
+              <!-- /$ Block -->
+            </div>
+          </div>
+          <!-- /Spending Limit Block -->
+          <!-- Monthly Auto Renew Block -->
+          <div class="block-title disabled"><%=t ("user_admin.accounts.sample_tab.monthly_auto_renew") %></div>
+          <div class="block-content">
+            <div class="options-container monthly-renew disabled">
+              <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+              <label><%=t ("user_admin.accounts.sample_tab.no") %></label>
+              <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+              <label><%=t ("user_admin.accounts.sample_tab.yes") %></label>
+            </div>
+          </div>
+          <!-- Monthly Auto Renew Block -->
+          <div class="button-container">
+            <input type="button" class="usr-delete-button" />
+            <input type="button" class="usr-suspend-button" /> <!-- Use class [usr-reinstate-button] for Reinstate button -->
+          </div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+  </div>
+  <div class="user-rows">
+    <div class="user-box close"><!-- Use class [open] or [close] and [error] if the box has an error -->
+      <div class="top">
+        <span class="yellow-dot"></span>
+        <span class="user-name"><%=t ("user_admin.accounts.sample_tab.sample_user_3") %></span>
+      </div>
+      <div class="slide"></div>
+    </div>
+  </div>
+</div>

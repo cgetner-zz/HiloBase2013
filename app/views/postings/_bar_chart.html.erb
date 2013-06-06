@@ -1,0 +1,120 @@
+<div class="emp-chart-box" >
+	<div id="placeholder" class="emp-chart-holder" style="position:relative; min-height:220px;">
+	</div>
+</div>
+
+<div class="employer-chart-ticker">
+	<div class="employer-chart-label" id="preview_chart">
+          <%if @channel.nil? %>
+            Hilo (0)
+          <%else%>
+            Hilo (<%=@channel.hilo_count%>)
+          <%end%>
+		
+	</div>
+
+	<div class="employer-chart-label" id="detail_chart">
+          <%if @channel.nil? %>
+            URL (0)
+          <%else%>
+            URL (<%=@channel.url_count%>)
+          <%end%>
+		
+	</div>
+
+	<div class="employer-chart-label" id="interested_chart">
+          <%if @channel.nil? %>
+            Facebook (0)
+          <%else%>
+            Facebook (<%=@channel.facebook_count%>)
+          <%end%>
+		
+	</div>
+
+	<div class="employer-chart-label" id="wild_chart">
+          <%if @channel.nil? %>
+            Twitter (0)
+          <%else%>
+            Twitter (<%=@channel.twitter_count%>)
+          <%end%>
+		
+	</div>
+
+	<div class="employer-chart-label" style="margin-right:0;" id="profile_chart">
+          <%if @channel.nil? %>
+            Linkedin (0)
+          <%else%>
+            Linkedin (<%=@channel.linkedin_count%>)
+          <%end%>
+		
+	</div>
+	<div class="clear-height"></div>
+</div>
+
+
+			
+<div class="chart-divider" ></div>
+<script type="text/javascript">
+        <%if @channel.nil? %>
+          d1 = [[0, 0]];
+          d2 = [[1, 0]];
+          d3 = [[2, 0]];
+          d4 = [[3, 0]];
+          d5 = [[4, 0]];
+        <%else%>
+          d1 = [[0, <%=@channel.hilo_count%>]];
+          d2 = [[1, <%=@channel.url_count%>]];
+          d3 = [[2, <%=@channel.facebook_count%>]];
+          d4 = [[3, <%=@channel.twitter_count%>]];
+          d5 = [[4, <%=@channel.linkedin_count%>]];
+        <%end%>
+	
+
+	var color_arr = new Array();
+        color_arr = ["#6da365", "#845488", "#3B5998", "#cc4240", "#edae5f"]
+
+var chart_for_job_id = "<%=(!@job.blank? and !@job.id.blank?) ? @job.id : 0%>";
+	$(document).ready(function(){
+		$.plot($("#placeholder"), [ 
+			{ data: d1 },
+			{ data: d2 },
+			{ data: d3 },
+			{ data: d4 },
+			{ data: d5 }
+		], {
+            series: {
+                stack: 0,
+                bars: { show: true, barWidth: 0.6 , clickable: true, align: 'center',lineWidth: 0},
+				shadowSize: 2, fillColor: { colors: [{ opacity: 0.8 }, { brightness: 0.6, opacity: 0.8 } ] }
+
+            },
+			xaxis: {
+				ticks: [[0,""], [1,""],[2,""],[3,""], [4,""]]
+		    },
+			yaxis: {
+	            ticks: []
+			},
+			colors: color_arr,
+
+			grid: {
+					show: true,
+					aboveData: false,
+					backgroundColor: { colors: ["#fff", "#fff"] },
+					tickColor: "#fff",
+					labelMargin: 5,
+					markings: [],
+					borderWidth: 0,
+					clickable: false,
+					hoverable: false,
+					autoHighlight: true,
+					mouseActiveRadius: 1
+			  }
+
+        });
+
+
+
+		  
+
+	});
+</script>

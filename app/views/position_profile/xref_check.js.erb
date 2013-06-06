@@ -1,0 +1,5 @@
+<%if not @job_seeker.blank?%>
+xref_box.success_show("CS<%=@job_seeker.id%>");
+<%else%>
+xref_box.failure_show("<%=params[:xref_val]%>");
+<%end%>

@@ -1,0 +1,115 @@
+<div class="margin-R-5px lfloat skill-input">
+  <div class="customized-inner-input input-text">
+    <div class="input-left">&nbsp;</div>
+    <% if session[:job_seeker] %>
+      <input type="hidden" value="<%= !@job_seeker_added_roles[2].nil? ? @career_cluster_role3.code : "#{t('pairing_profile.credentials.role.r3_label')}" %>" id="add_role3_placeholder" />
+      <input type="text" onfocus="showSelectRolesPopup('add_role3', this);" class="accessDatabase <%= 'text-active' if !@job_seeker_added_roles[2].nil? %>" id="add_role3" name="add_role3" value="<%= !@job_seeker_added_roles[2].nil? ? @career_cluster_role3.descripton : "#{t('pairing_profile.credentials.role.r3_label')}" %>" tabindex="1" maxlength="40" />
+      <%if !@job_seeker_added_roles[2].nil?%>
+        <%if !@career_cluster_role3.descripton.nil?%>
+          <script type="text/javascript">
+            $(document).ready(function() {
+              <% if controller.controller_name != "position_profile" %>
+              role_3_validate($('#add_role3_placeholder').val());
+              <%end%>
+            });
+          </script>
+        <%end%>
+      <%end%>
+    <% elsif session[:employer] %>
+      <input type="hidden" value="<%= !@employer_added_roles[2].nil? ? @career_cluster_role3.code : "#{t('pairing_profile.credentials.role.r3_label')}" %>" id="add_role3_placeholder" />
+      <input type="text" onfocus="$('#role-container').removeClass('error').addClass('activeBlock'); showSelectRolesPopup('add_role3', this);" class="accessDatabase <%= 'text-active' if !@employer_added_roles[2].nil? %>" id="add_role3" name="add_role3" value="<%= !@employer_added_roles[2].nil? ? @career_cluster_role3.descripton : "#{t('pairing_profile.credentials.role.r3_label')}" %>" tabindex="1" maxlength="40" />
+    <% end %>
+    <div class="input-right">&nbsp;</div>
+  </div>
+</div>
+<!--educationLevel-->
+<% if session[:job_seeker] %>
+<select style="height:0px; width:0px; position:absolute; top:-1000px; left:-10px;" id="edu-level3-dummy" tabindex="8"></select>
+<div id="educationLevelRole3" class="educationLevelRole3">
+  <span id="temp_edu" class="education-default <%= 'text-active' if !@job_seeker_added_roles[2].nil? %>"><%= !@job_seeker_added_roles[2].nil? ? @job_seeker_added_roles[2].education_level.name : "#{t('pairing_profile.credentials.role.edu_label')}" %></span>
+  <% if !@job_seeker_added_roles[2].nil? %>
+      <% if !@job_seeker_added_roles[2].education_level.nil? %>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            <% if controller.controller_name != "position_profile" %>
+            education_3_validate("Something");
+            <%end%>
+          });
+        </script>
+      <% end %>
+  <% end %>
+  <!--education-options-->
+  <div style="display:none;" id="education-options-role3" class="education-options-role3">
+    <div class="education-options-top">&nbsp;</div><!--education-options-top-->
+    <!--education-options-content-->
+
+    <div class="education-options-content-role3">
+      <label class="education-default"><%=t ("pairing_profile.credentials.role.edu_label") %></label>
+      <ul class="option">
+        <% edu_all = EducationLevel.all %>
+        <% for edu in edu_all  %>
+          <li selected=""><label id="<%= edu.id %>_" value="<%= edu.id %>" onclick="<% if controller.controller_name != "position_profile" %>education_3_validate('<%= edu.name %>');<%end%>unbindKeydown();"><%= edu.name %></label></li>
+        <% end %>
+      </ul>
+    </div>
+    <!--.education-options-content-->
+    <div class="education-options-bottom">&nbsp;</div>
+  </div>
+  <!--/education-options-->
+</div>
+<% end %>
+<!--/educationLevel-->
+
+<!--skillLevel-->
+<% if session[:job_seeker] %>
+<select style="height:0px; width:0px; position:absolute; top:-1000px; left:-10px;" id="skill-level3-dummy" tabindex="9"></select>
+<div id="skillLevelRole3" class="skillLevelRole3">
+  <span id="temp_skill" class="skill-default <%= 'text-active' if !@job_seeker_added_roles[2].nil? %>"><%= !@job_seeker_added_roles[2].nil? ? @job_seeker_added_roles[2].experience_level.name : "#{t('pairing_profile.credentials.role.exp_label')}" %></span>
+  <% if !@job_seeker_added_roles[2].nil? %>
+    <% if !@job_seeker_added_roles[2].experience_level.nil? %>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          <% if controller.controller_name != "position_profile" %>
+          experience_3_validate("Somthing");
+          <%end%>
+        });
+      </script>
+    <% end %>
+  <% end %>
+  <!--skill-options-->
+  <div style="display:none;" id="skill-options-role3" class="skill-options-role3">
+    <div class="skill-options-top">&nbsp;</div><!--skill-options-top-->
+    <!--skill-options-content-->
+
+    <div class="skill-options-content-role3">
+      <label class="skill-default"><%=t ("pairing_profile.credentials.role.exp_label") %></label>
+      <ul class="option">
+        <% exp_all = ExperienceLevel.all %>
+        <% for exp in exp_all  %>
+          <li selected=""><label id="<%= exp.id %>" value="<%= exp.id %>" onclick="<% if controller.controller_name != "position_profile" %>experience_3_validate('<%= exp.name %>');<%end%>unbindKeydown();"><%= exp.name %></label></li>
+        <% end %>
+      </ul>
+    </div>
+    <!--/skill-options-content-->
+    <div class="skill-options-bottom">&nbsp;</div><!--skill-options-top-->
+  </div>
+  <!--/skill-options-->
+</div>
+<!--/skillLevel-->
+<% end %>
+
+<div id="removeRole3Contents">
+  <% if session[:job_seeker] %>
+    <% if !@job_seeker_added_roles[2].nil? %>
+      <a href="javascript:void(0)" class="remove" title="remove" onclick = "clearRole3Contents();">
+        <%= image_tag("remove-skill.png", :alt => "Remove Role", :width => "20", :height => "20") %>
+      </a>
+    <% end %>
+  <% elsif session[:employer] %>
+    <% if !@employer_added_roles[2].nil? %>
+      <a href="javascript:void(0)" class="remove" title="remove" onclick = "clearRole3Contents();">
+        <%= image_tag("remove-skill.png", :alt => "Remove Role", :width => "20", :height => "20") %>
+      </a>
+    <% end %>
+  <% end %>
+</div>

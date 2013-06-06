@@ -1,0 +1,28 @@
+<!-- Login Error Popup -->
+	<div id="career_code_error" class="white_content" style="display:none">
+		<div class="popup-upper-block-fogetPwd">
+			<span class="popup-top">&nbsp;</span>
+			<div class="popup-content">
+				<div class="gradient-content">
+					<div class="popup-header-container">
+						<label class="popup-heading"><%= t('career_code_popup.error_popup.heading') %></label>
+					</div>
+					<div class="access-block">
+						<div class="lfloat error-text">
+							<label class="free-text"><%= t('career_code_popup.error_popup.free_text') %></label>
+						</div>
+						<div class="rfloat margin-T-5px">
+							<input id="career_code_error_button" type="button" class="retry-button-active" onclick="$('#career_code_error').hide();hideErrorShadow();$('#career_code_popup').show();showNormalShadow();$('#loader_img3').hide();$('#code_button').show();centralizePopup();document.getElementById('code_button').className='enter-button'; $('#career_code').val('Career Code');$('#career_code').parent().removeClass('active-input').addClass('input-text');addFocusTextField('career_code');" />
+						</div>
+					</div>  
+				    </div>  
+			
+				<div class="home-popup-contnet">
+					          
+				</div>
+				<a href="javascript:void(0)" class="close" onClick="$('#career_code_error').hide();hideErrorShadow();">Close</a>
+			</div>
+			<span class="popup-bottom">&nbsp;</span>
+		</div>  
+	</div>
+<!-- /Login Error Popup -->

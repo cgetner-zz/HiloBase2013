@@ -1,0 +1,11 @@
+$("#status_<%= @company_id%>").html('<%= image_tag "admin/red_dot.png", :alt=>"Not Granted" %>');
+$("#column_credit_value_<%= @company_id %>").html('<%= escape_javascript render(:partial=>"credit_textbox", :locals=>{:company_id=>@company_id}) %>');
+$("#column_credit_value_<%= @company_id %>").removeClass("static_dollar_fee");
+$("#column_discount_fee_<%= @company_id %>").html('<%= escape_javascript render(:partial=>"fee_textbox", :locals=>{:company_id=>@company_id}) %>');
+$("#column_discount_fee_<%= @company_id %>").removeClass("static_dollar_fee");
+$("#action_<%= @company_id %>").html('<span class="grant_action" id="row_<%= @company_id %>">Grant</span>');
+$(".action span.grant_action").unbind().click(function(){
+  grantPrivilegedStatus(this,<%= REGISTRATION_COST %>);
+});
+hideBlockShadow();
+

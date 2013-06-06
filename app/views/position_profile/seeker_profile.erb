@@ -1,0 +1,57 @@
+<div class="intro-right-content">
+	<div class="myintro-content" >
+		
+		<div class="myintro-name"><%=@job_seeker.full_name%></div>
+
+		<div class="pos-right">
+			
+		</div>
+		<!--- start - introduction section -->
+		<div class="myintro-section-content">
+			<div id="photo_partial"  class="profile-pic">
+				<%#=render :partial=>"/my_introduction/panels/upload_photo",:locals=>{:job_seeker =>@job_seeker,:edit_links=>false}%>
+				<br class="clear-height"/>
+			</div>
+			
+			<div id="contact_partial" class="profile-contactinfo">
+				<%#=render :partial=>"/my_introduction/panels/contact_info",:locals=>{:job_seeker =>@job_seeker,:edit_links=>false}%>
+				<br class="clear-height"/>
+			</div>
+
+			<div id="video_partial" class="profile-video">
+				<%#=render :partial=>"/my_introduction/panels/video_url",:locals=>{:job_seeker =>@job_seeker,:edit_links=>false}%>
+				<br class="clear-height"/>
+			</div>
+			<br class="clear-height"/>
+
+			<!--<div style="height:20px;">&nbsp;</div>-->
+
+			<div id="resume_partial">
+					<%#=render :partial=>"/my_introduction/panels/resume_box",:locals=>{:job_seeker=>@job_seeker,:edit_links=>false}%>
+				</div>
+			<div class="section-header" id="summary_partial">
+				<%#=render :partial=>"/my_introduction/intro_summary",:locals=>{:job_seeker=>@job_seeker,:edit_links=>false}%>
+				<br class="clear-height"/>
+			</div>
+
+		</div>
+		<div class="clear-height"></div>
+		<div class="clear-height"></div>
+		<div class="height10"></div>	
+		<!--- end - introduction section -->
+
+		<%=render :partial =>"/account/seeker_pairing_criteria",:locals=>{:job_seeker =>  @job_seeker, :job_seeker_birkman_detail => @job_seeker_birkman_detail,:job => @job}%>
+		
+		
+
+		<div class="height10"></div>
+		<div class="height10"></div>
+
+
+		<%=render :partial =>"/account/seeker_credential",:locals=>{:job_seeker =>  @job_seeker, :job_seeker_birkman_detail => @job_seeker_birkman_detail,:job => @job}%>
+		
+
+
+	</div>
+	<div class="myintro-content-bottom">&nbsp;</div>
+</div>

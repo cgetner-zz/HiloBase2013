@@ -1,0 +1,10 @@
+$('#records_period_span').show();
+$("#emp_status_cnt").show();
+<% if @company_status.nil? or @company_status.status==false %>
+  $("#emp_status").html('Not Privileged');
+<% else %>
+  $("#emp_status").html('Privileged');
+<% end %>
+$("#records_period_span").html("<span class='date-range'><b>Showing records from</b> <%= @referral_from %> <b>to</b> <%= @referral_to %></span>");
+$("#list").html("<%= escape_javascript render(:partial => 'referral_fee_table_rows', :locals=>{:referral_fee_data => @referral_fee_data}) %>");
+hideBlockShadow();

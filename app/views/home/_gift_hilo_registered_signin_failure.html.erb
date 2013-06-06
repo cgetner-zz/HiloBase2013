@@ -1,0 +1,26 @@
+  <div id="gift_hilo_registered_signin_failure" class="white_content">
+    <div class="popup-upper-block-fogetPwd">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%= t('gift_hilo.popup_second.payment.error_popup.heading') %></label>
+          </div>
+          <div class="access-block">
+            <div class="lfloat error-text">
+              <label class="free-text"><%= t('gift_hilo.popup_second.payment.error_popup.free_text') %></label>
+            </div>
+            <div class="rfloat margin-T-5px">
+              <input type="button" id="retry_button_hilo" class="retry-button-active gift_hilo_registered_signin_failure_button" onclick="gift_hilo.retry_one_click_registered_failure();" />
+            </div>
+          </div>
+        </div>
+
+        <div class="home-popup-contnet">
+
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="gift_hilo.retry_one_click_registered_close(); window.location.reload();">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>

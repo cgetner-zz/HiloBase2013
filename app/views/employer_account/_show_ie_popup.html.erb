@@ -1,0 +1,25 @@
+<div class="dashboard_position_popup-siteActivation">
+  <span class="position_popup-top">&nbsp;</span>
+  <div class="position_popup-content_oneclick">
+    <div class="position_gradient-content_oneclick">
+      <div class="position_popup-header-container">
+        <label class="popup-heading">ADD CSV</label>
+      </div>
+      <div class="position_popup_select_box">
+        <div class="access-block">
+          <div class="lfloat error-text" style="width:80%;">
+            <%= form_tag("/employer_account/add_csv", :multipart=>true, :id=>"add_csv")  do %>
+              <input style="visibility:visible;" type="file" id="csv" name="csv" onchange="submitCsv();"/>
+            <% end %>
+          <iframe id='upload_frame_csv' name="upload_frame_csv" style="display:none" src="about:blank"></iframe>
+          </div>
+          <div class="rfloat margin-T-5px" id="action-button" style="margin-left:0px;margin-top:0px">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <a id="oneclick-close" onclick="hideIEPopupCSV();" href="javascript:void(0)" class="position_close_oneclick">Close</a>
+  </div>
+  <span class="position_popup-bottom">&nbsp;</span>
+</div>

@@ -1,0 +1,51 @@
+
+<div class="dashboard-top-content">
+  <div id="chart_header">
+    <label><%= @job.name %> (<%=@job.code%>)</label>
+    <br />
+
+    <% if controller.controller_name == "postings" %>
+
+      <label style="display: block; font-size: 18px; font-weight: 300; margin-top: 3px; text-transform: none;"><%=t ("company_channels.clicks_per_channel") %></label>
+    <% end %>
+  </div>
+  <%if not @posting_record.nil? %>
+    <%if @posting_record.hilo_share == true %>
+
+      <div style="float:right; font-size:18px; font-weight:300;">
+        <%if @job.active%>
+          POSTED: <%=@job.created_at.strftime("%m/%d/%Y  %H:%M")%> <br/>
+
+          EXPIRES:&nbsp;<%= format_remaining_time_emp(@job.expire_at).html_safe.force_encoding('utf-8') %>
+        <%end%>
+      </div>
+    <% else %>
+      <div style="float:right; font-size:18px; font-weight:300; margin-right: 15px;">
+        INACTIVE
+      </div>
+    <% end %>
+  <% else %>
+    <div style="float:right; font-size:18px; font-weight:300;">
+      <%if @job.active%>
+
+        POSTED: <%=@job.created_at.strftime("%m/%d/%Y  %H:%M")%> <br/>
+        EXPIRES:&nbsp;<%= format_remaining_time_emp(@job.expire_at).html_safe.force_encoding('utf-8') %>
+      <%else%>
+        <div style="float:right; font-size:18px; font-weight:300; margin-right: 15px;">
+          INACTIVE
+        </div>
+
+      <%end%>
+    </div>
+  <% end %>
+  <div class="clear-height"></div>
+</div>
+<%if @job.active and format_remaining_time_emp(@job.expire_at)!="Expired" %>
+  <script type="text/javascript">
+    
+    setInterval(function() {
+      write_time2(<%= @job.expire_at.strftime("%Y") %>,<%= @job.expire_at.strftime("%m") %>,<%= @job.expire_at.strftime("%d") %>,<%= @job.expire_at.strftime("%H") %>,<%= @job.expire_at.strftime("%M") %>,<%= @job.expire_at.strftime("%S") %>)
+    }, 1000);
+  </script>
+
+<%end%>

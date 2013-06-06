@@ -1,0 +1,33 @@
+<div class="small-blocks download">
+  <div class="block-top">&nbsp;</div><!--block-top-->
+  <div class="block-content"><!--block-content-->
+    <!--gradient-content-->
+    <div class="gradient-content">
+      <h3 class="heading">Downloads</h3>
+      <div id="outer-listing">
+        <div class="left-arrow"> <a href="javascript:void(0);"><%= image_tag("left-arrow.gif", :size=> "7x22") %></a></div>
+        <div id="listing">
+          <ul>
+
+            <li onclick="birkman_report.request_pdf();">
+              <%= image_tag("download-slider.png", :alt=>"#{t('downloads.career_forward_guide')}") %>
+            </li>
+
+            <li>
+              <%= image_tag("download-slider2.png", :alt=>"#{t('downloads.strength_behaviour_report')}") %>
+            </li>
+
+            <li>
+              <%= image_tag("download-slider3.png", :alt=>"#{t('downloads.team_building_guide')}") %>
+            </li>
+
+          </ul>
+        </div>
+        <div class="right-arrow"> <a href="javascript:void(0);"><%= image_tag("right-arrow.gif", :size=> "7x22") %></a></div>
+      </div>
+
+    </div>
+    <!--/gradient-content-->
+  </div>
+  <div class="block-bottom">&nbsp;</div><!--block-bottom-->
+</div>

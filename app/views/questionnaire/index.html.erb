@@ -1,0 +1,395 @@
+<% content_for :page_title do -%>Career Seeker - Registration | <% end %>
+<!-- Bikman Details Form -->
+<% content_for :questionnaire  do %>
+  <div id="form_details" class="white_content">
+    <div class="popup-upper-block-questionnaire">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content" style="padding: 10px 20px 0 32px;">
+          <div class="popup-header-container" style="width: 416px;">
+            <label class="popup-heading"><%=t ("personality_questionnaire.birkman_pop_up.heading") %></label>
+          </div>
+          <!--left-content-->
+          <%= form_tag('/questionnaire/verify_birkman_id', :remote => true, :id=>"verify_form") do %>
+            <div class="left-content margin-T3px" >
+              <ul class="berkman-login-list" id="birkman_form" style="display:none">
+                <li>
+                  <div class="customized-input active-input">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="first_name_placeholder" value="First Name" />
+                    <input type="text" maxlength="50" value="<%= @job_seeker.first_name.force_encoding('utf-8') %>" id="first_name" name="first_name" onkeyup="buttonActivation();checkKeyupForEnter(event);" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+
+                </li>
+                <li>
+                  <div class="customized-input active-input">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="last_name_placeholder" value="Last Name" />
+                    <input type="text" maxlength="50" value="<%= @job_seeker.last_name.force_encoding('utf-8') %>" id="last_name" name="last_name" onkeyup="buttonActivation();checkKeyupForEnter(event);" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-input active-input">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="email_placeholder" value="Email" />
+                    <input type="text" maxlength="100" value="<%= @job_seeker.email %>" id="email" name="email" onkeyup="buttonActivation();checkKeyupForEnter(event);" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <% if session[:pass_through]!=true and session[:pass_through]!=false and !session[:pass_through].blank? %>
+                    <div class="customized-input active-input">
+                    <% else %>
+                      <div class="customized-input input-text">
+                      <% end %>
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="birkman_id_placeholder" value="<%=t ("personality_questionnaire.birkman_pop_up.yes_option.birkman_id") %>" />
+                      <% if session[:pass_through]!=true and session[:pass_through]!=false and !session[:pass_through].blank? %>
+                        <input type="text" value="<%=session[:pass_through]%>" id="birkman_id" name="birkman_id" onkeyup="buttonActivation();checkKeyupForEnter(event);" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);"/>
+                      <% else %>
+                        <input type="text" value="<%=t ("personality_questionnaire.birkman_pop_up.yes_option.birkman_id") %>" id="birkman_id" name="birkman_id" onkeyup="buttonActivation();checkKeyupForEnter(event);" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);"/>
+                      <% end %>
+
+                      <div class="input-right">&nbsp;</div>
+                    </div>
+                </li>
+              </ul>
+
+              <p style="display:none;" id="birkman_logo"><%= image_tag("Powered_by_Birkman.png") %></p>
+              <p style="display:none;" id="text1_no"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL1") %></p>
+
+              <ul style="display:none;" id="text2_no" class="birkman-no-retake">
+                <li><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL2") %> <span class="brkman-popup-bld"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL3") %></span></li>
+                <li><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL4") %> <br /><span class="brkman-popup-bld"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL5") %></span></li>
+                <li><span class="brkman-popup-bld"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL6") %></span><br /><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentL7") %></li>
+              </ul>
+
+              <!--<p style="display:none" id="text1_no">You will now be taken through a series of questions in order to complete the Personality section of the Hilo<sup>&reg;</sup> set-up wizard.</p>-->
+              <!--<p style="display:none" id="text2_no">To complete this section, please set aside roughly <strong>30 minutes</strong> in a space free of distractions.</p>-->
+            </div>
+            <!--/left-content-->
+            <!--right-content-->
+            <div class="right-content">
+              <ul class="options-list">
+                <li class="margin-R-50px yes">
+                  <input type="checkbox" id="y" name="birkman_test_id" onclick="showYes()" class="styled yes"/>
+                  <label onclick="showYes();"><%=t ("personality_questionnaire.birkman_pop_up.yes_option.label") %></label>
+                </li>
+                <li class="no">
+                  <input type="checkbox" id="n" name="birkman_test_id" onclick="showNo()" class="styled no"/>
+                  <label onclick="showNo();"><%=t ("personality_questionnaire.birkman_pop_up.no_option.lable") %></label>
+                </li>
+              </ul>
+
+              <p style="display:none" style="display:none" id="text1_yes"><%=t ("personality_questionnaire.birkman_pop_up.yes_option.content") %> </p>
+              <div class="button-container" style="display:none;" id="button1">
+                <span id="loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                <input type="button" value="" id="verify_button" class="verify-button-active" style="margin-top:7px;"/>
+                <!--<input type="submit" value="" id="verify_button" disabled="disabled" class="verify-button" style="margin-top:7px;"/>-->
+                <!--<a href="javascript:void(0)" style="background:url(../assets/btn-verify.png)" id="verify_button" ><span>Verify>></span></a>-->
+                <!--<input type="image" src="images/btn-verify.png" />-->
+                <a href="javascript:hideBirkmanPopup();showForgotBirkmanPopup();" title="Lost Birkman ID?" id="lostBirkmanId"><%=t ("personality_questionnaire.birkman_pop_up.yes_option.lost_link") %></a>
+                <label id="forgotBirkmanId" style="clear: both; color: #000066; float: right; font-size: 12px; display: none;">
+                  <%=t ("personality_questionnaire.birkman_pop_up.yes_option.lost_link") %>
+                </label>
+              </div>
+              <p style="display:none" id="text3_no"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentR1") %></p>
+              <p style="display:none" id="text4_no"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentR2") %> <span class="brkman-popup-bld"><%=t ("personality_questionnaire.birkman_pop_up.no_option.contentR3") %></span></p>
+            </div>
+            <!--/right-content-->
+          <% end %>
+          <div class="button-container retake" style="display:none;width:421px;" id="button2">
+            <input id="button-container-retake" type="button" class="next-button-active" onclick="hideBirkmanPopup();showIntroductaryPopup();" />
+          </div>
+
+        </div>
+
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- Set 1 popup -->
+  <div id="setOnePopup" class="white_content" >
+    <div class="popup-upper-block-questionnaire">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" style="width: 444px;">
+              <%=t ("personality_questionnaire.heading1") %> <span id="setNumber" class="personality-section-heading" style="width: 110px;"><%=t ("personality_questionnaire.set1.pop_up.heading1") %></span>
+            </label>
+          </div>
+          <br />
+          <h3 class="idel-work"><%=t ("personality_questionnaire.set1.pop_up.heading2") %></h3>
+          <!--<p class="forget-text">-->
+          <p class="begin-text">
+            <%=t ("personality_questionnaire.set1.pop_up.content") %>
+          </p>
+          <div class="begin-buttons">
+            <input type="button" id="setOnePopup_button" class="begin-button-active rfloat" onclick="hideIntroductaryPopup();" />
+          </div>
+        </div>
+        <!--<a href="javascript:void(0)" class="close" onClick="hideVerifySuccess();">Close</a>-->
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Set 1 popup -->
+
+  <!-- Set 2 popup -->
+  <div id="setTwoPopup" class="white_content" >
+    <div class="popup-upper-block-questionnaire">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" style="width: 444px;">
+              <%=t ("personality_questionnaire.heading1") %> <span class="personality-section-heading" style="width: 110px;"><%=t ("personality_questionnaire.set2.pop_up.heading1") %></span>
+            </label>
+          </div>
+          <br />
+          <h3 class="idel-work"><%=t ("personality_questionnaire.set2.pop_up.heading2") %></h3>
+          <!--<p class="forget-text">-->
+          <p class="begin-text width-241px">
+            <%=t ("personality_questionnaire.set2.pop_up.contentL1") %>
+            <span class="brkman-popup-bld"><%=t ("personality_questionnaire.set2.pop_up.contentL2") %></span>
+            <%=t ("personality_questionnaire.set2.pop_up.contentL3") %>
+          </p>
+          <div class="begin-buttons">
+            <input type="button" id="setTwoPopup_button" class="begin-button-active rfloat" onclick="hideSetTwoIntroductaryPopup();birkman_test.save_work_env();" />
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="hideSetTwoIntroductaryPopup();">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Set 2 popup -->
+
+  <!-- Set 3 popup -->
+  <div id="setThreePopup" class="white_content" >
+    <div class="popup-upper-block-questionnaire">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" style="width: 444px;">
+              <%=t ("personality_questionnaire.heading1") %> <span class="personality-section-heading" style="width: 110px;"><%=t ("personality_questionnaire.set3.pop_up.heading1") %></span>
+            </label>
+          </div>
+          <br />
+          <h3 class="idel-work"><%=t ("personality_questionnaire.set3.pop_up.heading2") %></h3>
+          <!--<p class="forget-text">-->
+          <p class="begin-text width-256px">
+            <%=t ("personality_questionnaire.set3.pop_up.contentL1") %>
+             <span class="brkman-popup-bld"><%=t ("personality_questionnaire.set3.pop_up.contentL2") %></span>
+           <%=t ("personality_questionnaire.set3.pop_up.contentL3") %>
+          </p>
+          <div class="begin-buttons">
+            <input type="button" id="setThreePopup_button" class="begin-button-active rfloat" onclick="hideSetThreeIntroductaryPopup();birkman_test.save_test_one();" />
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="hideSetThreeIntroductaryPopup();">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Set 3 popup -->
+
+  <!-- Set 4 popup -->
+  <div id="setFourPopup" class="white_content" >
+    <div class="popup-upper-block-questionnaire">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" style="width: 444px;">
+              <%=t ("personality_questionnaire.heading1") %> <span class="personality-section-heading" style="width: 110px;"><%=t ("personality_questionnaire.set4.pop_up.heading1") %></span>
+            </label>
+          </div>
+          <br />
+          <h3 class="idel-work"><%=t ("personality_questionnaire.set4.pop_up.heading2") %></h3>
+          <!--<p class="forget-text">-->
+          <p class="begin-text" style="width:263px;">
+            <%=t ("personality_questionnaire.set4.pop_up.contentL1") %>
+            <span class="brkman-popup-bld"><%=t ("personality_questionnaire.set4.pop_up.contentL2") %></span><%=t ("personality_questionnaire.set4.pop_up.contentL3") %>
+            <br /><br />
+            <%=t ("personality_questionnaire.set4.pop_up.contentL4") %>
+          </p>
+          <div class="begin-buttons">
+            <input type="button" id="setFourPopup_button" class="begin-button-active rfloat" style="margin-top: 125px;" onclick="hideSetFourIntroductaryPopup();birkman_test.save_test_two();" />
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="hideSetFourIntroductaryPopup();">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Set 4 popup -->
+
+<% end %>
+
+<!-- Verification Failure -->
+<div id="verify_failure" class="white_content">
+  <div class="popup-upper-block-questionnaire">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("personality_questionnaire.birkman_pop_up.wrong_id.heading") %></label>
+        </div>
+        <p class="forget-text"><%=t ("personality_questionnaire.birkman_pop_up.wrong_id.content") %><sup>&reg;</sup>.
+        </p>
+        <div class="forget-buttons">
+          <input id="verify_failure_button" type="image" src="/assets/pop-btn-retry.png"  class="rfloat" onclick="setTimeout(function(){hideVerifyError();showBirkmanPopup();showYes();$('#birkman_id').val(''); blur_element(document.getElementById('birkman_id')); focus_element(document.getElementById('birkman_id'));},200);"/>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideVerifyError();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Verification Failure -->
+
+<!-- Verification Success -->
+<div id="verify_success" class="white_content" >
+  <div class="popup-upper-block-questionnaire">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("personality_questionnaire.birkman_pop_up.id_verified.heading") %></label>
+        </div>
+        <p class="forget-text"><%=t ("personality_questionnaire.birkman_pop_up.id_verified.contentL1") %><br /><%=t ("personality_questionnaire.birkman_pop_up.id_verified.contentL2") %><br /><%=t ("personality_questionnaire.birkman_pop_up.id_verified.contentL3") %>
+        </p>
+        <div class="forget-buttons">
+          <input type="button" id="verify_success_button" class="enter-button-active rfloat" onclick="hideVerifySuccess();"/>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideVerifySuccess();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Verification Success -->
+
+<!-- Forgot Birkman ID -->
+<div id="forgot_birkman_id" class="white_content">
+  <div class="popup-upper-block-questionnaire">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("personality_questionnaire.birkman_pop_up.forgot_pop_up.heading") %></label>
+        </div>
+        <p class="forget-text" style="width: 242px;">
+          <a href="http://support.birkman.com/" title="email" target="_blank"><strong><%=t ("personality_questionnaire.birkman_pop_up.forgot_pop_up.content1") %></strong></a> <%=t ("personality_questionnaire.birkman_pop_up.forgot_pop_up.content2") %>
+        </p>
+        <div class="forget-buttons" style="padding: 137px 0 0 20px;">
+          <input type="image" src="/assets/pop-btn-retake.png" onclick="hideForgotBirkmanPopup();showIntroductaryPopup();" />
+          <input id="enter-ques" type="image" src="/assets/pop-btn-enter.png" onclick="setTimeout(function(){hideForgotBirkmanPopup();showBirkmanPopup();showYes();},200);" />
+        </div>
+      </div>
+
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Forgot Birkman ID -->
+
+<!--header-->
+<%=render :partial=>"job_seeker/account_tab",:locals=>{:step=>"questionnaire"}%>
+
+<!--/header-->
+<!--content-container-->
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div>
+  <!--content-container-top-->
+
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+
+      <!--page-heading-container-->
+      <%if !@job_seeker_birkman_detail.blank? and @job_seeker_birkman_detail.test_complete%>
+        <div>
+          <%=render :partial=>"/panels/pairing_personality"%>
+        </div>
+      <%else%>
+        <div id="question_set_box">
+          <%if @test_step == 0 -%>
+
+          <%elsif @test_step == BIRKMAN_STEP_CITIZENSHIP -%>
+            <%= render :partial => "/questionnaire/panels/work_env" -%>
+          <%elsif @test_step == BIRKMAN_STEP_WORKENV -%>
+            <%= render :partial => "/questionnaire/panels/test_one" -%>
+          <%elsif @test_step == BIRKMAN_STEP_TEST_ONE -%>
+            <%= render :partial => "/questionnaire/panels/test_two" -%>
+          <%elsif @test_step == BIRKMAN_STEP_TEST_TWO -%>
+            <%= render :partial => "/questionnaire/panels/test_three" -%>
+          <%elsif @test_step == BIRKMAN_STEP_TEST_THREE -%>
+            <%=render :partial=>"/panels/pairing_personality"%>
+          <%end -%>
+        </div>
+      <%end%>
+      <!--/page-heading-container-->
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+
+
+<script type="text/javascript">
+		
+  $(function(){
+    Custom.init();
+    $('.options-list li.yes span.checkbox').live('click',function(e){
+      showYes();
+    });
+    $('.options-list li.no span.checkbox').live('click',function(e){
+      showNo();
+    });
+
+<% if(session[:pass_through] == true) %>
+      showBirkmanPopup();
+<% elsif session[:pass_through]!=true and session[:pass_through]!=false and !session[:pass_through].blank? %>
+  <% if session[:wrong_birkman_id] == true %>
+        showBirkmanPopup();
+        showYes();
+        $(".yes").removeAttr("checked");
+        Custom.check($(".options-list li.yes span.checkbox"));
+        document.getElementById('verify_button').disabled="";
+        document.getElementById('verify_button').className="verify-button-active";
+    <% session[:wrong_birkman_id] = nil %>
+  <% end %>
+<% end %>
+		
+  });
+
+  $(document).ready(function(){
+    $("#fade_block_quest").hide();
+  });
+  /*
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_verify_form = function(){
+      if(validateEmptyVerifyBirkman()){
+        return false;
+      }
+    }
+    $("#verify_form")
+    .bind("ajax:beforeSend", loading_verify_form)
+  });
+  */
+  function birkmanFieldHandler(){
+    if($('#birkman_id').val() == "Birkman ID" && $('#birkman_id').parent().hasClass('input-text-error-empty')){
+      $('#birkman_id').parent().removeClass('input-text-error-empty');
+    }
+  }
+</script>

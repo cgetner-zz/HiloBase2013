@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div>
+      Your Hilo <sup>&reg;</sup> gift has been sent to <%=@gift.recipient_name%> and your payment of $ <%=GIFT_CARD_AMOUNT%> has been processed.
+    </div>
+    <br/>
+    <div>
+      Transaction reference number: <%=@id_transaction%>
+      <br /><br/>
+      - Team Hilo
+      <br /><br />
+      <img  alt="logo" src="https://<%=@host_name%>/assets/logo-hilo_new.png" width="120" height="103" />
+    </div>
+  </body>
+</html>

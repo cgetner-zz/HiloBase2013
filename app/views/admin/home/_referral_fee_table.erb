@@ -1,0 +1,24 @@
+<div class="table-container admin">
+  <div class="table-container-top">&nbsp;</div>
+  <div class="table-container-content">
+    <div class="gradient-content overflow-visible">
+      <ul class="table-headings">
+        <li class="active" style="width: 140px;"><a class="single first decActive" href="javascript:void(0);" title="">Date</a></li>
+        <li style="width: 70px;"><a class="single" href="javascript:void(0);" title="">CS ID</a></li>
+        <li style="width: 90px;"><a class="single" href="javascript:void(0);" title="">Job Code</a></li>
+        <li style="width: 125px;"><a class="single" href="javascript:void(0);" title="">Social Media</a></li>
+        <li style="width: 95px;"><a class="" href="javascript:void(0);" title="">Credit Received</a></li>
+        <li style="width: 140px;"><a class="" href="javascript:void(0);" title="">Discount on<br />registration fee</a></li>
+        <li class="lastchild" style="width: 125px;"><a class="" href="javascript:void(0);" title="">Referral<br />fee status</a></li>
+      </ul>
+      <div class="table-content" id="table_block">
+        <div class="loader"><%= image_tag("ajax-loader-login.gif") %></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+          <%=render :partial=>"referral_fee_table_rows", :locals => {:referral_fee_data => nil}%>
+        </table>
+        <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+      </div>
+    </div>
+  </div>
+  <div class="table-container-bottom">&nbsp;</div>
+</div>

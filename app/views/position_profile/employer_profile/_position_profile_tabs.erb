@@ -1,0 +1,45 @@
+<input type="hidden" id="field-edited" value="0" />
+<input type="hidden" id="whatWasClicked" name="whatWasClicked" value=""/>
+<input type="hidden" id="jid" value="<% if @job.id.blank? %>0<% else %><%= @job.id %><% end %>" name="jid" />
+<input type="hidden" id="work-env-first-time" value="<% if @job.id.blank? %>true<% else %>false<% end %>" />
+<ul class="accordan">
+  <li class="closed">
+    <div class="accordion-heading" id="overview" onclick="var areYouSureResp = areYouSure('tab-1'); if(areYouSureResp == false) { return false; } profile_blocks.open_overview('<%= @company_group_id %>');">
+      <a class="close" title="<%=t ("position_overview.label") %>" href="javascript:void(0);"><%=t ("position_overview.title") %></a>
+      <% if @job.basic_complete and @job.credential_complete %>
+        <span class="completed"><%=t ("position_overview.completed") %></span>
+      <% else %>
+        <span class="incompleted"><%=t ("position_overview.incomplete") %></span>
+      <% end %>
+    </div>
+    <div class="accordion-content" id="overview-content" style="display:none;">
+    </div>
+  </li>
+  <li class="closed">
+    <div class="accordion-heading" id="work-env" onclick="if($('#jid').val()!=0){var areYouSureResp = areYouSure('tab-2'); if(areYouSureResp == false) { return false; }profile_blocks.open_wrkenv();}">
+      <a class="close" title="<%=t ("position_profile.work_environment_and_role.label") %>" href="javascript:void(0);"><%=t ("position_profile.work_environment_and_role.title") %></a>
+      <% if @job.personality_work_complete %>
+        <span class="completed"><%=t ("position_profile.work_environment_and_role.complete") %></span>
+      <% else %>
+        <span class="incompleted"><%=t ("position_profile.work_environment_and_role.incomplete") %></span>
+      <% end %>
+    </div>
+    <div class="accordion-content" id="work-env-other" style="display:none;"></div>
+  </li>
+  <li class="preview-tab closed">
+    <div class="accordion-heading" id="preview" onclick="var areYouSureResp = areYouSure('tab-4'); if(areYouSureResp == false) { return false; } profile_blocks.open_preview();">
+      <a class="close <% if @job.basic_complete == true and @job.personality_work_complete == true and @job.personality_role_complete == true and @job.credential_complete == true %>clickable<% end %>" title="<%=t ("position_profile.posting_preview.label") %>" href="javascript:void(0);" <% if !(@job.basic_complete == true and @job.personality_work_complete == true and @job.personality_role_complete == true and @job.credential_complete == true) %>style="color:#6666AE"<%end%>><%=t ("position_profile.posting_preview.title") %></a>
+      <% if @job.profile_complete == true and @job.overview_complete == true %>
+        <span class="completed"><%=t ("position_profile.posting_preview.complete") %></span>
+      <% else %>
+        <span class="incompleted"><%=t ("position_profile.posting_preview.incomplete") %></span>
+      <% end %>
+    </div>
+    <div class="accordion-content" id="" style="display:none;"></div>
+  </li>
+</ul>
+<script type="text/javascript">
+  $(document).ready(function(){
+    profile_blocks.check_incomplete();
+  });
+</script>    

@@ -1,0 +1,419 @@
+<style type="text/css">
+  ul#toolbar { height: 13px;width: auto;align: center;text-align: center;list-style: none;margin: 5px 80px 0 0;clear: both;position: relative; float: right;}
+  #toolbar li { position: relative; text-indent: 0px; top: 0; float: left;}
+  #toolbar li a { height: 13px;display: block;outline:none; width: 13px;}
+  #toolbar li.active { background-position: bottom;height: 10px;z-index: 10;outline:none; }
+  #toolbar li.active a{background: url("/assets/active-blue.png") no-repeat scroll 0 0 transparent; height: 13px; width: 13px;}
+  #toolbar li.inactive { background-position: top;border-bottom: none;height: 10px; }
+  #toolbar li.inactive a{background: url("/assets/inactive-blue.png") no-repeat scroll 0 0 transparent; height: 13px; width: 13px;}
+  #toolbar li:hover { background-position: bottom; }
+  #toolbar-personality li { left: 5px;width: 13px; }
+  /* slide roll thing */
+</style>
+<script type="text/javascript" src="/assets/scroll_effect.js"></script>
+<script type="text/javascript" src="/assets/FancyZoom.js"></script>
+<div id="about-hilo" class="white_content"> <!-- Change the id cc_billing_popup, same to be reflected in JS-->
+  <div id="about-hilo-popup">
+    <div class="popup-top">&nbsp;</div>
+    <div class="popup-content">
+      <div class="gradient-content" style="padding-top:10px;padding-bottom:10px;padding-right:20px;padding-left:20px;">
+        <div class="popup-header-container">
+          <img src="/assets/about-hilo-logo-small.png" />
+        </div>
+        <div class="about-hilo-submenu-container">
+          <ul class="lfloat about-hilo-section">
+            <li class="first"><a href="javascript:void(0);" onclick="showAbout();"><span id="aboutAbout" class="active"><%=t ("about_hilo.title1") %></span></a></li>
+            <li><img src="/assets/about-hilo-menu-divider.png" border="0" /></li>
+            <li><a href="javascript:void(0);" onclick="showCoreValues();"><span id="aboutCoreValues"><%=t ("about_hilo.title2") %></span></a></li>
+            <li><img src="/assets/about-hilo-menu-divider.png" border="0" /></li>
+            <li><a href="javascript:void(0);" onclick="showTeam();"><span id="aboutTeam"><%=t ("about_hilo.title3") %></span></a></li>
+            <li><img src="/assets/about-hilo-menu-divider.png" border="0" /></li>
+            <li><a href="javascript:void(0);" onclick="showLab();"><span id="aboutLab"><%=t ("about_hilo.title4") %></span></a></li>
+            <li><img src="/assets/about-hilo-menu-divider.png" border="0" /></li>
+            <li><a href="javascript:void(0);" onclick="showPress();"><span id="aboutPress"><%=t ("about_hilo.title5") %></span></a></li>
+            <li><img src="/assets/about-hilo-menu-divider.png" border="0" /></li>
+            <li><a href="javascript:void(0);" onclick="showContact();"><span id="aboutContact"><%=t ("about_hilo.title6") %></span></a></li>
+          </ul>
+        </div>
+
+        <!--About-->
+        <div id="about-about" class="displayblock">
+          <div class="about-hilo-popup-left">
+            <p class="aboutpage">
+              <%=t ("about_hilo.about.contentL1") %>
+            </p>
+            <ul>
+              <li><%=t ("about_hilo.about.contentL2") %></li>
+              <li><%=t ("about_hilo.about.contentL3") %></li>
+              <li><%=t ("about_hilo.about.contentL4") %></li>
+              <li><%=t ("about_hilo.about.contentL5") %></li>
+              <li><%=t ("about_hilo.about.contentL6") %></li>
+            </ul>
+          </div>
+          <!--/gift-hilo-popup-left-->
+
+          <div class="about-hilo-popup-right">
+            <p>
+              <%=t ("about_hilo.about.contentL7") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.about.contentL8") %>
+            </p>
+          </div>
+          <!-- /gift-hilo-popup-right -->
+        </div>
+
+        <!--Core Values-->
+        <div id="about-corevalues" class="displaynone">
+          <div class="about-hilo-popup-left">
+            <p>
+              <%=t ("about_hilo.core_values.contentH1") %><br/>
+              <%=t ("about_hilo.core_values.contentL1") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.core_values.contentH2") %><br/>
+              <%=t ("about_hilo.core_values.contentL2") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.core_values.contentH3") %><br/>
+              <%=t ("about_hilo.core_values.contentL3") %>
+            </p>
+          </div>
+          <!--/gift-hilo-popup-left-->
+
+          <div class="about-hilo-popup-right">
+            <p class="accessibility">
+              <%=t ("about_hilo.core_values.contentH4") %><br/>
+              <%=t ("about_hilo.core_values.contentL4") %>
+            </p>
+            <p class="evolve">
+              <%=t ("about_hilo.core_values.contentH5") %><br/>
+              <%=t ("about_hilo.core_values.contentL5") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.core_values.contentH6") %><br/>
+              <%=t ("about_hilo.core_values.contentL6") %>
+            </p>
+          </div>
+          <!-- /gift-hilo-popup-right -->
+        </div>
+
+        <!--Team-->
+        <div id="about-team" class="displaynone">
+          <div class="about-hilo-team">
+
+            <div class="about-team-section-top">&nbsp;</div>
+
+            <div class="scroll-content">
+              <div id="frame">
+                <!-- Contains the forward/back buttons, hides the scrollbar -->
+                <div id="left" class="button">
+                  <a onclick="ScrollArrow('left','toolbar','scroller','insurance-pane');" href="javascript:void(0)">
+                    <img src="/assets/previous-blue-image.png" onmouseup="this.src='/assets/previous-blue-image.png'" onmousedown="this.src='/assets/previous-blue-image.png'" alt="Slider Control" />
+                  </a>
+                </div>
+
+                <div id="scroller">
+                  <!-- Contains the horizontal scrollbar -->
+                  <div id="content">
+
+                    <div id="insurance-pane" class="section">
+
+                      <div class="section-content">
+                        <div class="popup-header-container">
+                          <span class="popup-heading-large lfloat"><%=t ("about_hilo.team.eric.name") %></span>
+                          <span class="popup-heading-small rfloat"><%=t ("about_hilo.team.eric.post") %></span>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="about-hilo-team-left">
+                          <img src="/assets/about-eric.png" alt="ERIC ANSLEY" />
+                          <p>
+                            <%= link_to "View Eric&#39;s<br />Career Forward Guide".html_safe.force_encoding('utf-8'), {:controller => "download_file", :action => "download_cfg", :name => "eric"} %>
+                          </p>
+                          <%= link_to(image_tag("employer_v2/green_circle.png", :class => "teamLogo"), {:controller => "download_file", :action => "download_cfg", :name => "eric"}) %>
+                        </div>
+                        <!--/about-hilo-team-left-->
+
+                        <div class="about-hilo-team-right">
+                          <span class="small-heading"><%=t ("about_hilo.team.eric.dept") %></span><br/>
+                          <p>
+                            <%=t ("about_hilo.team.eric.contentL1") %>
+                          </p>
+                          <p>
+                            <%=t ("about_hilo.team.eric.contentL2") %>
+                          </p>
+                        </div>
+                        <!-- /about-hilo-team-right-->
+                      </div>
+                    </div>
+
+                    <!-- This is commented as per the requirements until March 3rd. -->
+                    <div id="role1-pane" class="section">
+                      <div class="section-content">
+                        <div class="popup-header-container">
+                          <span class="popup-heading-large lfloat"><%=t ("about_hilo.team.chris.name") %></span>
+                          <span class="popup-heading-small rfloat"><%=t ("about_hilo.team.chris.post") %></span>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="about-hilo-team-left">
+                          <img src="/assets/about-christopher.png" alt="Chris" />
+                          <p>
+                            <%= link_to "View Chris&#39;s<br />Career Forward Guide".html_safe, {:controller => "download_file", :action => "download_cfg", :name => "chris"} %>
+                          </p>
+                          <%= link_to(image_tag("employer_v2/green_circle.png", :class => "teamLogo"), {:controller => "download_file", :action => "download_cfg", :name => "chris"}) %>
+                        </div>
+
+                        <div class="about-hilo-team-right">
+                          <span class="small-heading"><%=t ("about_hilo.team.chris.dept") %></span><br/>
+                          <p>
+                            <%=t ("about_hilo.team.chris.contentL1") %>
+                          </p>
+                          <p>
+                            <%=t ("about_hilo.team.chris.contentL2") %>
+                          </p>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div id="role2-pane" class="section">
+
+                      <div class="section-content">
+                        <div class="popup-header-container">
+                          <span class="popup-heading-large lfloat"><%=t ("about_hilo.team.lisa.name") %></span>
+                          <span class="popup-heading-small rfloat"><%=t ("about_hilo.team.lisa.post") %></span>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="about-hilo-team-left">
+                          <img src="/assets/about-lisa.png" alt="Lisa" />
+                          <p>
+                            <%= link_to "View Lisa&#39;s<br />Career Forward Guide".html_safe.force_encoding('utf-8'), {:controller => "download_file", :action => "download_cfg", :name => "lisa"} %>
+                          </p>
+                          <%= link_to(image_tag("employer_v2/green_circle.png", :class => "teamLogo"), {:controller => "download_file", :action => "download_cfg", :name => "lisa"}) %>
+                        </div>
+                        <!--/about-hilo-team-left-->
+
+                        <div class="about-hilo-team-right">
+                          <span class="small-heading"><%=t ("about_hilo.team.lisa.dept") %></span><br/>
+                          <p>
+                            <%=t ("about_hilo.team.lisa.contentL1") %>
+                          </p>
+                          <p>
+                            <%=t ("about_hilo.team.lisa.contentL2") %>
+                          </p>
+                        </div>
+                        <!-- /about-hilo-team-right-->
+                      </div>
+                    </div>
+                    <div id="role3-pane" class="section">
+
+                      <div class="section-content">
+                        <div class="popup-header-container">
+                          <span class="popup-heading-large lfloat"><%=t ("about_hilo.team.partick.name") %></span>
+                          <span class="popup-heading-small rfloat"><%=t ("about_hilo.team.partick.post") %></span>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="about-hilo-team-left">
+                          <img src="/assets/about-patrick.png" alt="Patrick" />
+                          <p>
+                            <%= link_to "View Patrick&#39;s<br />Career Forward Guide".html_safe.force_encoding('utf-8'), {:controller => "download_file", :action => "download_cfg", :name => "patrick"} %>
+                          </p>
+                          <%= link_to(image_tag("employer_v2/green_circle.png", :class => "teamLogo"), {:controller => "download_file", :action => "download_cfg", :name => "patrick"}) %>
+                        </div>
+                        <!--/about-hilo-team-left-->
+
+                        <div class="about-hilo-team-right">
+                          <span class="small-heading"><%=t ("about_hilo.team.partick.dept") %></span><br/>
+                          <p>
+                            <%=t ("about_hilo.team.partick.contentL1") %>
+                          </p>
+                          <p>
+                            <%=t ("about_hilo.team.partick.contentL2") %>
+                          </p>
+                        </div>
+                        <!-- /about-hilo-team-right-->
+                      </div>
+                    </div>
+
+                    <div id="role4-pane" class="section">
+
+                      <div class="section-content">
+                        <div class="popup-header-container">
+                          <span class="popup-heading-large lfloat"><%=t ("about_hilo.team.michael.name") %></span>
+                          <span class="popup-heading-small rfloat"><%=t ("about_hilo.team.michael.post") %></span>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="about-hilo-team-left">
+                          <img src="/assets/about-michael.png" alt="Michael" />
+                          <p>
+                            <%= link_to "View Michael&#39;s<br />Career Forward Guide".html_safe.force_encoding('utf-8'), {:controller => "download_file", :action => "download_cfg", :name => "michael"} %>
+                          </p>
+                          <%= link_to(image_tag("employer_v2/green_circle.png", :class => "teamLogo"), {:controller => "download_file", :action => "download_cfg", :name => "michael"}) %>
+                        </div>
+                        <!--/about-hilo-team-left-->
+
+                        <div class="about-hilo-team-right">
+                          <span class="small-heading"><%=t ("about_hilo.team.michael.dept") %></span><br/>
+                          <p>
+                            <%=t ("about_hilo.team.michael.contentL1") %>
+                          </p>
+                          <p>
+                            <%=t ("about_hilo.team.michael.contentL2") %>
+                          </p>
+                        </div>
+                        <!-- /about-hilo-team-right-->
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div id="right" class="button">
+                  <a onclick="ScrollArrow('right','toolbar','scroller','insurance-pane');" href="javascript:void(0)">
+                    <img src="/assets/next-blue-image.png" onmouseup="this.src='/assets/next-blue-image.png'" onmousedown="this.src='/assets/next-blue-image.png'" alt="Slider Control" />
+                  </a>
+                </div>
+
+              </div>
+              <!-- /frame -->
+              
+              <div style="clear: both;"></div>
+            </div>
+            <!-- /scroll-content-->
+            <div class="about-team-section-bottom">&nbsp;</div>
+          </div>
+          <div id="way-finder">
+                <ul id="toolbar">
+                  <li class="active" id="insurance-tab">
+                    <a title="Eric Ansley" onclick="ScrollSection('insurance-pane', 'scroller', 'insurance-pane'); return false;" href="javascript:void(0)"></a>
+                  </li>
+                  <li class="inactive" id="role1-tab">
+                    <a title="Christopher Getner" onclick="ScrollSection('role1-pane', 'scroller', 'insurance-pane'); return false;" href="javascript:void(0)"></a>
+                  </li>
+                  <li class="inactive" id="role2-tab">
+                    <a title="Lisa Hagood" onclick="ScrollSection('role2-pane', 'scroller', 'insurance-pane'); return false;" href="javascript:void(0)"></a>
+                  </li>
+                  <li class="inactive" id="role3-tab">
+                    <a title="Patrick Moynihan" onclick="ScrollSection('role3-pane', 'scroller', 'insurance-pane'); return false;" href="javascript:void(0)"></a>
+                  </li>
+                  <li class="inactive" id="role4-tab">
+                    <a title="Michael Turri" onclick="ScrollSection('role4-pane', 'scroller', 'insurance-pane'); return false;" href="javascript:void(0)"></a>
+                  </li>
+                </ul>
+              </div>
+          <!-- /about-hilo-team-->
+        </div>
+
+        <!--Lab-->
+        <div id="about-lab" class="displaynone">
+          <div class="about-hilo-popup-left">
+            <p>
+              <%=t ("about_hilo.lab.contentL1") %>
+            </p>
+            <ul class="labs">
+              <li><%=t ("about_hilo.lab.contentL2") %></li>
+              <li><%=t ("about_hilo.lab.contentL3") %></li>
+              <li class="last"><%=t ("about_hilo.lab.contentL4") %></li>
+            </ul>
+
+            <p class="width-297px">
+              <%=t ("about_hilo.lab.contentL5") %>
+            </p>
+          </div>
+          <!--/gift-hilo-popup-left-->
+
+          <div class="about-hilo-popup-right">
+            <p>
+              <%=t ("about_hilo.lab.contentL6.contentP1") %>&#39;<%=t ("about_hilo.lab.contentL6.contentP2") %> &#39;<%=t ("about_hilo.lab.contentL6.contentP3") %>&#39;<%=t ("about_hilo.lab.contentL6.contentP4") %>&#39;<%=t ("about_hilo.lab.contentL6.contentP5") %> &quot;<%=t ("about_hilo.lab.contentL6.contentP6") %>&quot;.
+              <br /><br />
+
+              <a href="https://vimeo.com/channels/hilolabs" target="_blank">https://vimeo.com/channels/hilolabs</a>	
+            </p>
+          </div>
+          <!-- /gift-hilo-popup-right -->
+        </div>
+
+        <!--Press-->
+        <div id="about-press" class="displaynone">
+          <div class="about-hilo-popup-left">
+            <p class="width-265px">
+              <%=t ("about_hilo.press.contentL1") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.press.contentL2") %>
+              <a href="mailto:michael@thehiloproject.com"><%=t ("about_hilo.press.contentL3") %></a>
+            </p>
+          </div>
+          <!--/gift-hilo-popup-left-->
+
+          <div class="about-hilo-popup-right">
+          </div>
+          <!-- /gift-hilo-popup-right -->
+        </div>
+
+        <!--Contact-->
+        <div id="about-contact" class="displaynone">
+          <div class="about-hilo-popup-left">
+            <p class="width-288px">
+              <%=t ("about_hilo.contact.contentL1") %>
+            </p>
+            <p>
+              <a href="mailto:info@thehiloproject.com"><%=t ("about_hilo.contact.contentL2") %></a>
+            </p>
+          </div>
+          <!--/gift-hilo-popup-left-->
+
+          <div class="about-hilo-popup-right">
+            <p>
+              <%=t ("about_hilo.contact.contentL3") %>
+            </p>
+            <p>
+              <%=t ("about_hilo.contact.contentL4") %>
+              <a href="mailto:lisa@thehiloproject.com"><%=t ("about_hilo.contact.contentL5") %></a><br/>
+              <%=t ("about_hilo.contact.contentL6") %>
+            </p>
+
+          </div>
+          <!-- /gift-hilo-popup-right -->
+        </div>
+
+        <!--Popup footer clear-float-->
+        <div style="clear:both;">
+          <div class="popup-footer">
+            <ul class="lfloat">
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/facebook_icon-popup.png" alt="Facebook" border="0"/></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/twitter-popup.png" alt="Twitter" border="0" /></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=thehiloproject.com');"><img src="/assets/linkedin-popup.png" alt="Linked In" border="0"/></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :alt=>"Mail", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+            </ul>
+
+          </div>
+
+        </div>
+        <!-- /Popup footer-->
+        <a href="javascript:void(0)" class="close" onClick="hideAboutHiloPopup();footerOnClosingPopup();">Close</a>
+
+      </div>
+      <!-- /gradient-content -->
+    </div>
+    <!--/popup-content-->
+
+    <div class="popup-bottom">&nbsp;</div>
+  </div>
+  <!--/gift-hilo-popup-->
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".about-hilo-section li").click(function() {
+      var li = $(this);
+      $(".about-hilo-section li span").removeClass('active');
+      li.find('span').addClass('active');
+    });
+  });
+</script>

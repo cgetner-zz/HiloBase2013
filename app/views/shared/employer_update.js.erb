@@ -1,0 +1,68 @@
+<% broadcast "/employer_update/#{@company_id}/#{@page}" do %>
+  var check = 1;
+  var js_ids = new Array();
+  <%@job_seeker_ids.each do |id|%>
+    if(!js_ids.has("<%=id%>")){
+      js_ids.push("<%=id%>");
+    }
+  <%end%>
+  var job_ids = new Array();
+  <%@job_ids.each do |id|%>
+    if(!job_ids.has("<%=id%>")){
+      job_ids.push("<%=id%>");
+    }
+  <%end%>
+
+  <%case @page%>
+  <%when "dashboard"%>
+    
+      $("#list tr").each(function(e){
+        if(js_ids.has($(this).attr('id').split('_')[2])){
+          $("#refresh_link").show();
+          $("#refresh_link").children().unbind().click(function(){
+            dashboardRefreshHandler();
+          });
+          check = 0;
+          //break;
+        }
+      });
+
+      if(check){
+        $("#list tr").each(function(e){
+          if(job_ids.has($(this).attr('class').split("_")[3])){
+            $("#refresh_link").show();
+            $("#refresh_link").children().unbind().click(function(){
+              dashboardRefreshHandler();
+            });
+            //break;
+          }
+        });
+      }
+    
+  <%when "candidate_pool"%>
+    
+      if(job_ids.has($('#job_id').val())){
+        $("#refresh_link").show();
+        $("#refresh_link").children().unbind().click(function(){
+          xrefRefreshHandler();
+        });
+      }
+    
+  <%when "xref"%>
+    
+    
+      if(js_ids.has($('#cs_id').val().replace("CS", ""))){
+        $("#list tr").each(function(e){
+          if(job_ids.has($(this).attr('id').split("_")[2])){
+            $("#refresh_link").show();
+            $("#refresh_link").children().unbind().click(function(){
+              xrefRefreshHandler();
+            });
+            //break;
+          }
+        });
+      }
+    
+  <%end%>
+
+<% end %>

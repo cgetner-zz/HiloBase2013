@@ -1,0 +1,23 @@
+<%if job_statuses.has_key?(job_id.to_s) -%>
+     <%if !job_statuses[job_id.to_s][:considering].blank? and job_statuses[job_id.to_s][:considering] == true -%>
+		<div class="paid-icon-box"><img src='/assets/detail_paid.jpg'/></div>
+	 <%else -%>		
+		<div class="paid-icon-box">&nbsp;</div> 
+     <%end -%>
+              
+     <%if !job_statuses[job_id.to_s][:interested].blank? and job_statuses[job_id.to_s][:interested] == true -%>
+		<div class="paid-icon-box"><img src='/assets/express_interest_paid.jpg'/></div>
+	 <%else -%>		
+		<div class="paid-icon-box">&nbsp;</div> 
+     <%end -%>
+            
+     <%if !job_statuses[job_id.to_s][:wild_card].blank? and job_statuses[job_id.to_s][:wild_card] == true -%>
+	 	<div class="paid-icon-box"><img src='/assets/wild_card_paid.jpg'/></div>
+	<%else -%>		
+		<div class="paid-icon-box">&nbsp;</div> 	
+     <%end -%>
+	 <div class="clear-height"></div>
+<%else -%>
+	<div class="paid-icon-box">&nbsp;</div> 	
+	<div class="clear-height"></div>
+<%end -%>

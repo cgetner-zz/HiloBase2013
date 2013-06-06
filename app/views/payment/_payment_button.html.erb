@@ -1,0 +1,17 @@
+<span id="payment-loader-img" style="display:none;margin-right: 7px;" class="rfloat"><%=image_tag("ajax-loader-login-light-grey.gif", :alt => "Loading ...")%></span>
+<% if session[:discount_amount].nil?
+       total_cost = REGISTRATION_COST
+   else
+      total_cost = ((REGISTRATION_COST - session[:discount_amount])*100).round.to_f / 100
+   end %>
+<% if total_cost == 0.0 %>
+  <input type="button" class="enter-button-active rfloat" id="payment_by_express" value="" onclick="payment_after_full_discount();showBlockShadow();"/>
+<% elsif session[:promotional_code_amount] == total_cost %>
+  <input type="button" class="enter-button-active rfloat" id="payment_by_promo" value="" onclick="payment_all_by_promo_code();showBlockShadow();"/>
+<% elsif ((!session[:paypal_amount].nil? and session[:paypal_amount].to_i == 0) or session[:job_seeker].activated == true)%>
+  <input type="button" class="enter-button-active rfloat" id="payment_by_express" value="" onclick="payment_pro_express_promo();showBlockShadow();"/>
+<% else %>
+  <input type="button" class="enter-button-active rfloat" value="" />
+<% end %>
+
+<input type="button" class="saveReturnLater-button-active lfloat" onclick="window.location.href='/login/logout'" value="" />

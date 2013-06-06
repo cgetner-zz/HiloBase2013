@@ -1,0 +1,239 @@
+<!--table-container-->
+<div class="table-container">
+  <div class="table-container-top">&nbsp;</div>
+  <!--table-container-top-->
+  <!--table-container-content-->
+  <div class="table-container-content">
+    <div class="gradient-content overflow-visible">
+      <ul class="table-headings">
+        <li style="cursor:pointer;" <% if params[:sort] == "read" %> class="active" <% end %>
+            <% if params[:sort] == "read" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+            <% elsif params[:sort] == "read" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+            <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','read','desc')"
+            <% end %>>
+          <a style="cursor:pointer;" href="javascript:void(0);" title="bullet" class="bulletContainer <% if params[:sort] == "read" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "read" && params[:order] == "asc" %>
+               ascActive
+             <% end %>">
+               <%= image_tag("bullet-blue.png", :size => "10x10", :alt=> "Bullets", :border => 0) %>
+          </a>
+        </li>
+        <li <% if params[:sort] == "fit" %> class="active" <% end %>
+                                            <% if params[:sort] == "fit" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+                                            <% elsif params[:sort] == "fit" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+                                            <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','fit','desc')"
+                                            <% end %>>
+          <a href="javascript:void(0);" title="Fit" class="labelFit <% if params[:sort] == "fit" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "fit" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.fit') %>
+          </a>
+        </li>
+        <li <% if params[:sort] == "company" %> class="active" <% end %>
+                                                <% if params[:sort] == "company" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+                                                <% elsif params[:sort] == "company" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+                                                <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','company','desc')"
+                                                <% end %>>
+          <a href="javascript:void(0);" title="Company" class="labelCompany <% if params[:sort] == "company" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "company" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.company') %>
+          </a>
+        </li>
+        <li <% if params[:sort] == "position" %> class="active" <% end %>
+                                                 <% if params[:sort] == "position" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+                                                 <% elsif params[:sort] == "position" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+                                                 <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','position','desc')"
+                                                 <% end %>>
+          <a href="javascript:void(0);" title="Position" class="labelPosition <% if params[:sort] == "position" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "position" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.position') %>
+          </a>
+        </li>
+        <li <% if params[:sort] == "location" %> class="active" <% end %>
+                                                 <% if params[:sort] == "location" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+                                                 <% elsif params[:sort] == "location" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+                                                 <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','location','desc')"
+                                                 <% end %>>
+          <a href="javascript:void(0);" title="Location" class="labelLocation <% if params[:sort] == "location" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "location" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.location') %>
+          </a>
+        </li>
+        <li <% if params[:sort] == "remaining" %> class="active" <% end %>
+                                                  <% if params[:sort] == "remaining" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+                                                  <% elsif params[:sort] == "remaining" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+                                                  <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','remaining','desc')"
+                                                  <% end %>>
+          <a href="javascript:void(0);" title="Remaining" class="labelRemaining <% if params[:sort] == "remaining" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "remaining" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.remaining') %>
+          </a>
+        </li>
+        <li style="cursor:pointer;" <% if params[:sort] == "status" %> class="active lastchild" <% else %> class="lastchild" <% end %>
+            <% if params[:sort] == "status" && params[:order] == "desc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','asc')"
+            <% elsif params[:sort] == "status" && params[:order] == "asc" %> onclick="fetch_jobs.call('<%=params[:job_type]%>','<%=params[:sort]%>','desc')"
+            <% else %> onclick="fetch_jobs.call('<%=params[:job_type]%>','status','desc')"
+            <% end %>>
+          <a style="cursor:pointer;" href="javascript:void(0);" title="Status" class="labelStatus <% if params[:sort] == "status" && params[:order] == "desc" %>
+               decActive
+             <% elsif params[:sort] == "status" && params[:order] == "asc" %>
+               ascActive
+             <% end %>"><%= t('opportunities.table_header.status') %></a>
+        </li>
+      </ul>
+      <div class="table-content" id="table_block">
+        <% if jobs.size > 0 %>
+          <div style="height: 337px;">
+            <% flag = true %>
+            <div class="loader"><%= image_tag("ajax-loader-login.gif") %></div>
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+              <tbody>
+                <% for job in jobs %>
+                  <% days_to_go = (job.expire_at - DateTime.now)/(24*60*60) %>
+                  <% if flag == false %>
+                    <tr id="job_row_<%=job.id%>" <%=job_row_attr_considering(job.id,job_statuses)%>>
+                      <% if unread_dot(job.id,job_statuses) == "&nbsp;" %>
+                        <td>
+                          <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+                        </td>
+                      <% else %>
+                        <td class="checked">
+                          <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+                          <%=unread_dot(job.id,job_statuses).html_safe %>
+                        </td>
+                      <% end %>
+                      <td>
+                        <label>
+                          <% if job.fit_name_by_pairing.blank?%>&nbsp;<% else %><a href="javascript:void(0);"><%= job.fit_name_by_pairing %></a><% end %>
+                        </label>
+                      </td>
+                      <td>
+                        <label>
+                          <a href="javascript:void(0);"><% if job.hiring_company == false %><%= job.hiring_company_name %><% else %><%= job.company.name %><% end %></a>
+                        </label>
+                      </td>
+                      <td>
+                        <% if job.name.blank? %>&nbsp;<% else %><a href="javascript:void(0);" style="max-width: 99px; word-wrap: break-word;" title=""><%= job.name.force_encoding('utf-8') %></a><% end %>
+                      </td>
+                      <td>
+                        <label>
+                          <%= job.location_name.force_encoding('utf-8') %>
+                        </label>
+                      </td>
+                      <td class="job-days">
+                        <label class="job-days-lbl">
+                          <% if days_to_go.to_i == 0 %>
+                            <%= t('opportunities.table_content.today') %>
+                          <% else %>
+                            <%= days_to_go.to_i %> <%= t('opportunities.table_content.days') %>
+                          <% end %></label>
+                      </td>
+                      <td  class="job-status">
+                        <div class="status-block">
+                          <%= render :partial => 'status_icons', :locals=>{:job_id => job.id, :job_statuses => job_statuses} %>
+                        </div>
+                      </td>
+                    </tr>
+                  <% else %>
+                    <tr id="job_row_<%= job.id %>" <%= job_row_attr_considering(job.id,job_statuses) %>>
+                      <% if unread_dot(job.id,job_statuses) == "&nbsp;" %>
+                        <th width="42">
+                          <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+                        </th>
+                      <% else %>
+                        <th width="42" class="checked">
+                          <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+                          <%= unread_dot(job.id,job_statuses).html_safe %>
+                        </th>
+                      <% end %>
+                      <th width="65">
+                        <label>
+                          <% if job.fit_name_by_pairing.blank? %>&nbsp;<% else %><a href="javascript:void(0);"><%=job.fit_name_by_pairing%></a><% end %>
+                        </label>
+                      </th>
+                      <th width="152">
+                        <label>
+                          <a href="javascript:void(0);"><% if job.hiring_company == false %><%= job.hiring_company_name %><% else %><%= job.company.name %><% end %></a>
+                        </label>
+                      </th>
+                      <th width="109">
+                        <% if job.name.blank? %>&nbsp;<% else %>
+                          <a href="javascript:void(0);" title="" style="max-width: 99px; word-wrap: break-word;">
+                            <%= job.name.force_encoding('utf-8') %>
+                          </a>
+                        <% end %>
+                      </th>
+                      <th width="113">
+                        <label>
+                          <%= job.location_name.force_encoding('utf-8') %>
+                        </label>
+                      </th>
+                      <th width="90" class="job-days">
+                        <label class="job-days-lbl">
+                          <% if days_to_go.to_i == 0 %>
+                            <%= t('opportunities.table_content.today') %>
+                          <% else %>
+                            <%= days_to_go.to_i %> <%= t('opportunities.table_content.days') %>
+                          <% end %>
+                        </label>
+                      </th>
+                      <th width="65" class="job-status">
+                        <div class="status-block">
+                          <%= render :partial => 'status_icons', :locals=>{:job_id => job.id, :job_statuses => job_statuses} %>
+                        </div>
+                      </th>
+                    </tr>
+                    <% flag = false %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+            <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif") %></center></div>
+          </div>
+          <!-- elsif @jobs_array > 0 && jobs.size == 0 && @job_type == "inbox" -->
+        <% elsif @jobs_array > 0 && jobs.size == 0 && @job_type == "inbox" %>
+          <div class="loader"><%= image_tag("ajax-loader-login.gif") %></div>
+          <p id="hilo_delay_refresh_cnt" style="margin: 18% auto auto; text-align: center;">
+            <%= t('opportunities.table_content.no_setup_text1') %>
+            <br />
+            <%= t('opportunities.table_content.no_setup_text2') %>
+            <!--<input type="button" onclick="" class="search_button" id="hilo_delay_refresh" style="float: none;" />-->
+            <!--<a href="javascript:void(0);" id="hilo_delay_refresh">(Refresh)</a>-->
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!--table-container-content-->
+  <div class="table-container-bottom">&nbsp;</div>
+  <!--table-container-bottom--->
+</div>
+<!--/table-container-->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    job_row_view.init();
+  });
+  $('#table_block').slimscroll({
+    railVisible: true,
+    allowPageScroll: true
+  });
+</script>
+<script>
+  $(document).ready(function(){
+<% for job in jobs %>
+      $("#job_row_<%=job.id%> .disable").css('height',$("#job_row_<%=job.id%>").height()-2);
+      $("#job_row_<%=job.id%> .disable").css('top',-(($("#job_row_<%=job.id%>").height()-2)/2)+($("#job_row_<%=job.id%> .disable-container").height()/2));
+<% end %>
+  });
+</script>

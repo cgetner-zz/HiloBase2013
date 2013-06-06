@@ -1,0 +1,15 @@
+<!-- HEADER -->
+<%=render :partial=>"/hilo_search/search_tabs", :locals => { :step => "search_tab_1" } %>
+<!-- HEADER -->
+
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div>
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <div id="question_set_box">
+        <% content_for :page_title do -%>Pairing Engine for Career Seekers | <% end %>
+        <%= render :partial => "job_seeker_workenv_questions" %>
+      </div>
+    </div>
+  </div>
+</div>

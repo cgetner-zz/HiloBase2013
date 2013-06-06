@@ -1,0 +1,51 @@
+<%if  session[:emp_workenv_color] == "red"
+  left_arr = $work_red[:left]
+elsif  session[:emp_workenv_color] == "blue"
+  left_arr = $work_blue[:left]
+elsif  session[:emp_workenv_color] == "green"
+  left_arr = $work_green[:left]
+elsif  session[:emp_workenv_color] == "yellow"
+  left_arr = $work_yellow[:left]
+end%>
+<div id="hilo_search_work_env_popup" style="position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t("emp_search_non_loggedin.work_env_popup.heading")%></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" style="width: 415px; text-align: justify;">
+            <label class="free-text">
+              <div style="text-transform: uppercase; font-weight: 700; font-size: 18px; margin: 10px 0px 15px;">
+                <%= session[:emp_workenv_text] %>
+              </div>
+              <div>
+                <div style="margin-bottom: 10px;">
+                  <%=t("emp_search_non_loggedin.work_env_popup.content")%>
+                </div>
+                <ul style="list-style: disc outside none; padding-left: 35px; padding-bottom: 5px;">
+                  <%if !(left_arr.nil?)
+                    left_arr.each_with_index{|val, i|%>
+                      <li> <%=left_arr[i]%></li>
+                    <%}
+                  end%>
+                </ul>
+              </div>
+            </label>
+          </div>
+          <div class="rfloat" style="margin-top: 185px;">
+            <input type="button" id="hilo_search_work_env_popup_button" class="continue-button-active" onClick="showHiloSearchWorkEnv();"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideHiloSearchWorkEnv();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

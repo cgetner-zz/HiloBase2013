@@ -1,0 +1,386 @@
+<%content_for :page_js do -%>
+  <%=javascript_include_tag "jquery.numeric"%>
+<%end-%>
+
+<!-- Gift Hilo Checkout Billing Credit Card -->
+
+<div id="checkout_billing_popup"> <!-- Change the id cc_billing_popup, same to be reflected in JS-->
+  <div style="width:742px;"></div>
+  <%= form_for :gift_payment_pro, :remote => true,:url => { :controller => :gift, :action => :gift_hilo_payment }, :update=>"statsDiv", :html => { :method => :post, :id => 'chechout_billing_form'} do |p| %>
+    <input type="hidden" value="" name="payment_type" id="payment_type"/>
+    <input type="hidden" value="" name="senders_name_pay" id="senders_name_pay"/>
+    <input type="hidden" value="" name="senders_email_pay" id="senders_email_pay"/>
+    <input type="hidden" value="" name="recievers_name_pay" id="recievers_name_pay"/>
+    <input type="hidden" value="" name="recievers_email_pay" id="recievers_email_pay"/>
+    <input type="hidden" value="" name="personal_msg_pay" id="personal_msg_pay"/>
+    <input type='hidden' name='gift_payment_card_type' value='' id='gift_payment_card_type' />
+
+    <div id="card_entry_form_gift"></div>
+    <div id="gift-hilo-popup">
+      <div class="popup-top">&nbsp;</div>
+      <div class="popup-content">
+        <div class="gradient-content overflow-visible">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%= t('gift_hilo.checkout_billing_popup.heading') %></label>
+            <div class="error-message-container" id="gift_error_msg" style="display:none;"></div>
+          </div>
+
+          <div class="gift-hilo-review-popup-left">
+            <p><%= t('gift_hilo.checkout_billing_popup.left_msg1') %></p>
+            <p><%= t('gift_hilo.checkout_billing_popup.left_msg2') %></p>
+          </div><!--/gift-hilo-popup-left-->
+          <div class="gift-hilo-review-popup-right-hide" id="gift_hilo_review_popup" style="display:none;">&nbsp;</div>
+          <div class="gift-hilo-review-popup-right">
+            <div class="sign-in-msg"><%= t('gift_hilo.checkout_billing_popup.select_payment_text') %> <a href="javascript:void(0);" onclick="setCardTypeGift('signin');"><%= t('gift_hilo.checkout_billing_popup.sign_in_text') %></a>.</div>
+            <div>
+              <ul class="payment-options" id="payment-options_gift">
+              </ul>
+            </div>
+
+            <!-- Credit Card Info-->
+            <div class="credit-card-info" id="credit-card-info_gift">
+              <div class="customized-inner-input input-text text-credit-card">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="card_num_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.card_no') %>" />
+                <%=text_field_tag :card_num_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.card_no')}", :maxlength => 16,:onkeyup=>"validateGiftCreditCardInfo();checkEnterCheckoutBilling(event);validateCardNumGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <div class="customized-inner-input input-text text-month">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="month_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.mm') %>" />
+                <%=text_field_tag :month_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.mm')}", :maxlength => 2, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});" %>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <img id="separator_mmyy_gift" src="/assets/seperator-MMYY.png" height="33" width="10" class="mmyySeperator" />
+              <div class="customized-inner-input input-text text-year">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="year_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.year') %>" />
+                <%=text_field_tag :year_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.year')}", :maxlength => 4, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <div class="customized-inner-input input-text text-securityCode">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="cvv_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.cvv') %>" />
+                <%=text_field_tag :cvv_gift, '', :onFocus=>"validateGiftCreditCardInfo(this);focus_element(this);", :onBlur=>"validateGiftCreditCardInfo(this);blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.cvv')}", :maxlength => 3, :class=>"password", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeypress=>"type_element(this,event);", :onkeydown=>"$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </div>
+            <!-- / Credit Card Info-->
+
+            <!-- Personal Information-->
+            <div class="personal-info overflow-visible" id="personal-info_gift">
+              <ul class="pymentDD-gift">
+                <li class="frstCls gift-li-margin padding-Top-0px">
+                  <div class="customized-inner-input input-text text-fname">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="fname_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.first_name') %>" />
+                    <%=text_field_tag :fname_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.first_name')}", :maxlength => 50, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this)"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <div class="customized-inner-input input-text text-lname">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="lname_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.last_name') %>" />
+                    <%=text_field_tag :lname_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.last_name')}", :maxlength => 50, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this)"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li class="gift-li-margin">
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_address_one_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.bill_add') %>" />
+                    <%=text_field_tag :billing_address_one_gift,"", :value => "#{t('gift_hilo.checkout_billing_popup.bill_add')}" , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this)"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li class="gift-li-margin">
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_address_two_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.add1') %>" />
+                    <%=text_field_tag :billing_address_two_gift,"", :value => "#{t('gift_hilo.checkout_billing_popup.add1')}" , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this)"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li class="gift-li-margin">
+                  <div class="customized-inner-input input-text text-city">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_city_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.city') %>" />
+                    <%=text_field_tag :billing_city_gift,"", :value => "#{t('gift_hilo.checkout_billing_popup.city')}" , :maxlength => 100, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);", :onkeydown=>"type_element(this)"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <div class="state-selector-block" id="state-selector-block">
+                    <div class="state-slector" id ="state-selector">
+                      <span class="label-default" id="temp"><%= t('gift_hilo.checkout_billing_popup.state') %></span>
+
+                      <div class="state-options" id="state_options" style="display:none;">
+                        <div class="state-options-top">&nbsp;</div>
+                        <div class="state-options-content">
+                          <label class="label-default-spec2"><%= t('gift_hilo.checkout_billing_popup.state') %></label>
+                          <ul class="option">
+                            <% states = State.find(:all)
+                            for state in states %>
+                              <li selected=""><label onclick="populate_states_gift_payment(this);validateGiftCreditCardInfo(this);unbindKeydown();" id=<%= "'"+"#{state.id}"+"'" %> ><%= state.name %></label></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                        <div class="state-options-bottom">&nbsp;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <span id="populate_states" style="display:none;">
+                    <input type='hidden' name='billing_state_gift' id='billing_state_gift' />
+                  </span>
+                  <div class="customized-inner-input input-text text-zip">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_zip_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.zip') %>" />
+                    <%=text_field_tag :billing_zip_gift,"", :value => "#{t('gift_hilo.checkout_billing_popup.zip')}", :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :maxlength => 5, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);validateZipGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li class="lastChild gift-li-margin">
+                  <div class="customized-inner-input input-text text-areaCode">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_area_code_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.area_code') %>" />
+                    <%=text_field_tag :billing_area_code_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.area_code')}", :maxlength => 3, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);validateAreaCodeGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <div class="customized-inner-input input-text text-telephone">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="billing_telephone_number_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.tele') %>" />
+                    <%=text_field_tag :billing_telephone_number_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('gift_hilo.checkout_billing_popup.tele')}", :maxlength => 7, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterCheckoutBilling(event);validateTelGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- / Personal Information-->
+
+            <!-- Paypal Information-->
+            <div class="personal-info" id="paypal-info_gift" style="display:none">
+              <%= t('gift_hilo.checkout_billing_popup.paypal_contentL1') %><br/> <%= t('gift_hilo.checkout_billing_popup.paypal_contentL2') %><br/><%= t('gift_hilo.checkout_billing_popup.paypal_contentL3') %>
+              <div class="continue-paypal-gifthilo-btn"><a href="javascript:void(0)" id="paypal-info_gift_button" class="btnContinue rfloat" onClick="redirectToPaypal_gifthilo()">Continue..</a></div>
+            </div>
+            <!-- / Paypal Information-->
+
+            <!-- Signin Information-->
+            <div class="personal-info" id="hilo-info_gift" style="display:none">
+              <ul>
+                <li>
+                  <div class="customized-inner-input input-text text-paypalusername">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="username_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.email') %>" />
+                    <input id="username_gift" name="username_gift" onBlur="blur_element(this);" onFocus="focus_element(this);" onkeydown="type_element(this)" onkeyup="checkHiloCredentialsEntered(this);checkEnterCheckoutBilling(event);" type="text" value="<%= t('gift_hilo.checkout_billing_popup.email') %>" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+
+                  <div class="customized-inner-input input-text text-paypalpassword">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="password_gift_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.hilo_password') %>" />
+                    <input id="password_gift" class="password" name="password_gift" onBlur="blur_element(this);" onFocus="focus_element(this);" onkeypress="type_element(this,event);" onkeyup="checkHiloCredentialsEntered(this);checkEnterCheckoutBilling(event);" type="text" value="<%= t('gift_hilo.checkout_billing_popup.hilo_password') %>" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <!-- / Signin Information-->
+
+          </div>
+          <!-- /gift-hilo-popup-right -->
+          <!--Popup footer clear-float-->
+          <div style="clear:both;">
+            <div class="popup-footer">
+              <ul>
+                <li><a style="margin-right:6px;" href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/facebook_icon-popup.png" alt="Facebook" border="0"/></a></li>
+                <li><a style="margin-right:6px;" href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/twitter-popup.png" alt="Twitter" border="0" /></a></li>
+                <li><a style="margin-right:6px;" href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=thehiloproject.com');"><img src="/assets/linkedin-popup.png" alt="Linked In" border="0"/></a></li>
+                <li><a style="margin-right:6px;" href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :alt=>"Mail", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+              </ul>
+              <div class="gift-hilo-purchase-popup">
+                <input class="back-button-active lfloat" type="button" value="" onclick="backToPurchaseReviewPopup();"/>
+                <input type="button" id="gifts_payment_verify_button" class="buy-gift-button rfloat"/>
+                <span id="gift_verify-loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+              </div>
+            </div>
+          </div>
+          <!-- /Popup footer-->
+          <a href="javascript:void(0)" class="close" id="checkout_billing_close" onclick="gift_hilo.hideCheckoutBillingClose();">Close</a>
+        </div>
+        <!-- /gradient-content -->
+      </div>
+      <!--/popup-content-->
+      <div class="popup-bottom" id="popup-gift-bottom">&nbsp;</div>
+    </div><!--/gift-hilo-popup-->
+  <% end -%>
+  <!-- Checkout billing Review your purchase Authorize Purchase oneClick-payment -->
+  <div id="non_reg_oneClick-payment_gift" class="oneClick-payment"  style="display:none;">
+    <div class="payment-pop-top-billing-review">&nbsp;</div>
+    <div class="payment-pop-cont-billing-review">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('gift_hilo.checkout_billing_popup.non_reg_oneClick.heading') %></label>
+        </div>
+        <%= form_tag("/gift/authenticate_one_click", :id => "gift_one_click_form_non_reg", :remote => true) do -%>
+          <input type="hidden" value="checkout_billing" name="checkout_billing" id="checkout_billing"/>
+          <input type="hidden" id="pay_method" value="promo" name="pay_method" />
+          <ul class="oneClick-details width-345px lfloat">
+            <li>
+              <div class="customized-input active-input">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="pay_name_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.non_reg_oneClick.email') %>" />
+                <input type="text" name="pay_name" class="email" id="pay_name" value="<%= t('gift_hilo.checkout_billing_popup.non_reg_oneClick.email') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click('check');checkEnterForForm(event, 'confirm_button', 'gift_one_click_form_non_reg', 'btn-Confirm-active');" onkeydown="type_element(this)" />
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+            <li>
+              <div class="customized-input input-text margin-R-0px">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="pay_pass_placeholder" value="<%= t('gift_hilo.checkout_billing_popup.non_reg_oneClick.password') %>" />
+                <input type="text" name="pay_pass" class="password" id="pay_pass" value="<%= t('gift_hilo.checkout_billing_popup.non_reg_oneClick.password') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click('check');checkEnterForForm(event, 'confirm_button', 'gift_one_click_form_non_reg', 'btn-Confirm-active');" onkeypress="type_element(this,event);" />
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+          </ul>
+          <div class="rfloat" style="width:90px;">
+            <div id="credit_gift_block"style="min-height: 54px;">
+              <span id="credit_remaining" class="credit_block">
+
+              </span>
+             </div>
+            <span>
+              <input type="button" id="confirm_button"  value="" class="btn-Confirm rfloat" style="position:relative; margin-top: 3px;" />
+              <span id="gift_one_click_loader_img1" style="display:none; margin-left:40px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="payment-pop-bottom-billing-review">&nbsp;</div>
+  </div>
+  <!-- /Checkout billing Review your purchase Authorize Purchase oneClick-payment -->
+</div> <!-- /Gift Hilo Checkout Billing Credit Card -->
+
+<!-- Gift Hilo Payment Error Popup -->
+<div id="gift_hilo_error" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('gift_hilo.checkout_billing_popup.gift_hilo_error.heading') %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat beta-error-text">
+            <label class="free-text"><%= t('gift_hilo.checkout_billing_popup.gift_hilo_error.free_text') %></label>
+          </div>
+          <div class="rfloat margin-T-5px">
+            <input type="button" class="retry-button-active" onclick="hideErrorGiftHilo(); showCheckoutBillingInfoPopup();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideErrorGiftHilo();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Gift Hilo Payment Error Popup -->
+
+<script type="text/javascript">
+  if($('.state-options', this).is(":visible")) {
+    $('.state-options', this).hide();
+  }
+
+  $('.state-slector').click(function(e){
+    $(".state-slector").removeClass("error");
+    $('.default-level',this).css('display','none');
+    if($('.state-options', this).is(":visible") == true) {
+      $('.state-options', this).hide();
+    }
+    e.stopPropagation();
+  });
+
+  $('.state-options-content ul li').each(function(){
+    $('label',this).click(function(){
+      var _labelVale = $(this).html();
+      $('.state-slector .label-default').text(_labelVale);
+      $('.state-slector .label-default-top').text(_labelVale);
+      $('.state-slector .state-options').css("display","none");
+      $('input#billing_state_gift').val(_labelVale);
+      return false;
+    });
+  });
+
+  $('body').click(function(){
+    $('.state-options').css('display','none');
+    $(document).unbind('keydown');
+  });
+
+  $("div#state-selector").click(function(e){
+    $("div#state_options").show();
+    $('.option').children().each(function(){
+      if($(this).attr('selected')=='selected'){
+        $(this).removeClass('selected').removeAttr('selected');
+      }
+    });
+                        
+  $('#state_options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+  $('.option').scrollTop(0);
+  //DropDownHandler.time = System.currentTimeMillis();
+  DropDownHandler.t = new Date().getTime();
+                        
+  $(document).unbind('keydown').bind('keydown', function(e){
+    DropDownHandler.func(e, document.getElementById('state_options'), 'state');
+  });
+e.stopPropagation();
+});
+    
+$('.option li').hover(function(){
+$('.option').children().each(function(){
+  if($(this).attr('selected')=='selected'){
+    $(this).removeClass('selected').removeAttr('selected');
+  }
+});
+$(this).addClass('selected').attr('selected', 'selected');
+});
+
+function populate_states_gift_payment(obj) {
+$("#state-selector span.label-default").attr("id",$(obj).attr("id"));
+var state_id = $(obj).attr("id");
+$("#billing_state_gift").val(state_id);
+$("#state-selector span.label-default").css("color","#000078");
+}
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_chechout_billing_form = function(){
+      showBlockShadow();
+      $('#gift_verify-loader-img').show();
+      $('#gifts_payment_verify_button').hide();
+      senders_name = $('#senders_name_pay').val();
+      senders_email = $('#senders_email_pay').val();
+      recievers_name = $('#recievers_name_pay').val();
+      recievers_email = $('#recievers_email_pay').val();
+      personal_msg = $('#personal_msg_pay').val();
+    }
+    $("#chechout_billing_form")
+    .bind("ajax:beforeSend", loading_chechout_billing_form)
+    .submit(function(){
+      checkSiginValues();
+    })
+  });
+
+jQuery(function($) {
+// create a convenient toggleLoading function
+var loading_gift_one_click_form_non_reg = function(){
+  showBlockShadow();
+  $('#confirm_button').hide();
+  $("a#preview_card_select").hide();
+  $('#gift_one_click_loader_img1').show();
+}
+$("#gift_one_click_form_non_reg")
+.bind("ajax:beforeSend", loading_gift_one_click_form_non_reg)
+});
+</script>

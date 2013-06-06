@@ -1,0 +1,49 @@
+<%
+  total_user_amt = 0.0
+  allocated_amt = 0.0
+  self_amt = 0.0
+  payments = 0.0
+  avail_amt = 0.0
+  employer_obj = Employer.find_by_id(session[:employer].id)
+  employer_obj.subtree_ids.each do |child_sub|
+  emp_obj = Employer.find_by_id(child_sub)
+  self_amt = employer_obj.spending_limits.last.spend_limit if employer_obj.spending_flag
+  avail_amt = employer_obj.spending_limits.last.available_balance if employer_obj.spending_flag
+  if employer_obj.spending_flag
+    payments = employer_obj.spending_limits.last.spend_limit - employer_obj.spending_limits.last.available_balance
+  end
+  total_user_amt = total_user_amt + emp_obj.spending_limits.last.spend_limit if emp_obj.spending_flag
+  allocated_amt = total_user_amt - self_amt
+  end
+%>
+<div class="add-user">
+  <span class="cross"></span>
+  <span><%=t ("user_admin.accounts.user_calculation.add_user") %></span>
+</div>
+<div class="calculation-content">
+  <div class="error-message" id="user_calc_error" style="visibility: hidden;"><!-- Only use visibility to show and hide -->
+    <%=t ("user_admin.accounts.user_calculation.spending_limit_exceededL1") %> <br />
+    <%=t ("user_admin.accounts.user_calculation.spending_limit_exceededL2") %>
+  </div>
+  <div class="clear-height"></div>
+  <div>
+    <div class="item-name" id="user_calc_name"><%=t ("user_admin.accounts.user_calculation.spending_limit") %></div>
+    <!-- <div class="item-name">Total Budget:</div> --> <!-- To be replaced in case or error -->
+    <div class="item-value">$<%= number_to_currency(total_user_amt, :unit=>"") %></div>
+  </div>
+  <div class="clear-height"></div>
+  <div class="lfloat">
+    <div class="item-name" id="user_calc_allocated"><%=t ("user_admin.accounts.user_calculation.allocated") %></div>
+    <div class="item-value">$<%= number_to_currency(allocated_amt, :unit=>"") %></div>
+  </div>
+  <div class="clear-height"></div>
+  <div class="lfloat" style="border-bottom: 1px solid;">
+    <div class="item-name"><%=t ("user_admin.accounts.user_calculation.payments") %></div>
+    <div class="item-value">$<%= number_to_currency(payments, :unit=>"") %></div>
+  </div>
+  <div class="clear-height"></div>
+  <div>
+    <div class="item-name" id="user_calc_remaining" ><%=t ("user_admin.accounts.user_calculation.remaining") %></div> <!-- Add class [error] in case of error -->
+    <div class="item-value">$<%= number_to_currency(avail_amt, :unit=>"") %></div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<%=render :partial=>"/shared/pairing_all_color_msg" -%>	
+<div class="pairing-all-color-hide">
+<%if params[:env] == "work"%>
+	<%=render :partial=>"/shared/pairing_work_msg",:locals=>{:work_txt_val => params[:txt], :work_color_val => params[:color],:user_type =>params[:user_type],:show_return => true} -%>
+<%else%>
+	<%=render :partial=>"/shared/pairing_role_msg",:locals=>{:role_txt_val => params[:txt], :role_color_val => params[:color],:user_type =>params[:user_type],:show_return => true} -%>
+<%end%>
+</div>

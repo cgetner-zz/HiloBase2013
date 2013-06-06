@@ -1,0 +1,36 @@
+<%if not ["share_hilo"].include?(controller.controller_name)%>
+  <div id="footer">
+    <!--hil-footer-kit-->
+    <div class="hil-footer-kit">
+      <!--footer-left-content-->
+      <ul class="lfloat footer-left-content">
+        <% if controller.controller_name == "account"  and controller.action_name == "pairing_profile" %>
+		<li><a href="javascript:void(0);" class="gift-hilo" title="<%= t('footer_js.gift_hilo') %>" onClick="var areYouSureResp = areYouSure('gift_hilo'); if(areYouSureResp == false) { return false; } click_gift_hilo.gift_hilo_show();" ><%= t('footer_js.gift_hilo') %></a></li>
+	<% else %>
+		<li><a href="javascript:void(0);" class="gift-hilo" title="<%= t('footer_js.gift_hilo') %>" onClick="click_gift_hilo.gift_hilo_show()" ><%= t('footer_js.gift_hilo') %></a></li>
+        <% end %>
+	
+	<li><a href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/footer-facebook.png" alt="<%= t('footer_js.facebook') %>" border="0" height="20" width="20" /></a></li>
+        <li><a href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/footer-twitter.png" alt="<%= t('footer_js.twitter') %>" border="0" height="20" width="20" /></a></li>
+        <li><a href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=<%=request.env["HTTP_HOST"]%>');"><img src="/assets/footer-linkedin.png" alt="<%= t('footer_js.linkedin') %>" border="0" height="20" width="20" /></a></li>
+        
+	<li><a href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("footer-mail.png", :size=>"20x20", :alt=>"#{t('footer_js.mail')}", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+      </ul>
+      <!--/footer-left-content-->
+
+      <!--footer-right-content-->
+      <ul class="rfloat footer-right-content">
+        <li><a href="javascript:void(0);" onclick="showAboutHilo();"><%= t('footer_js.company') %></a><span class="seperator">|</span></li>
+        <li><a href="javascript:void(0);" onclick="showTermsPopup();centralizePopup();"><%= t('footer_js.term_of_use') %></a><span class="seperator">|</span></li>
+        <li><a href="javascript:void(0);" onclick="showPrivacyPopup();centralizePopup();"><%= t('footer_js.privacy_policy') %></a><span class="seperator">|</span></li>
+        <li class="lastChlid"><label>Hilo. Inc. &copy; 2012</label></li>
+      </ul>
+      <!--footer-right-content-->
+    </div>
+    <!--/hil-footer-kit-->
+  </div>
+<%end %>
+
+<% if controller.controller_name == "questionnaire" or (controller.controller_name == "hilo_search" and controller.action_name != "pairing_results") %>
+      <div class="birkman-permission-msg"><%= t('footer_js.birkman_permission_msg') %></div>
+<% end %>

@@ -1,0 +1,67 @@
+<%=render :partial=>"/panels/blue_tab_top", :locals=>{:msg =>"Position Profile Editor",:class_name =>"pos-org-left-header"} -%>
+<div class="pos-organizer-left-list">
+	<div class="posorg-left-menu">
+		<div class="posorg-left-menu-box posorg-left-menu-brk">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right <%=(tab == "admin") ? "org-menu-selected" : ""%>">
+				<a href="/position_organizer/position_administration/<%=params[:id]%>">Position Administration</a>
+				<%=employer_pairing_complete_label(@job,"administration")%>
+			</div>
+			<br class="clear"/>
+		</div>
+		
+		<div class="posorg-left-menu-box posorg-left-menu-brk">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right <%=(tab == "overview") ? "org-menu-selected" : ""%>">
+				<a href="/position_organizer/overview/<%=params[:id]%>">Overview</a>
+				<%=employer_pairing_complete_label(@job,"overview")%>
+			</div>
+			<br class="clear"/>
+		</div>
+		<div class="posorg-left-menu-box posorg-left-menu-brk">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right <%=(tab == "personality") ? "org-menu-selected" : ""%>">
+				<div><a href="/position_organizer/personality/<%=params[:id]%>">Pairing Profile</a></div>
+				<div class="pairing-submenu">
+					<a href="/position_organizer/personality/<%=params[:id]%>">- Work Environment</a>
+					<%=employer_pairing_complete_label(@job,"work_env")%> <br/>
+					<a href="/position_organizer/personality/<%=params[:id]%>">- Work Role</a>
+					<%=employer_pairing_complete_label(@job,"work_role")%> <br/>
+				</div>
+			</div>
+			<br class="clear"/>
+		</div>
+		<div class="posorg-left-menu-box posorg-left-menu-brk">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right <%=(tab == "basics") ? "org-menu-selected" : ""%>">
+				<div><a href="/position_organizer/basics/<%=params[:id]%>">Pairing Profile</a></div>
+				<div class="pairing-submenu">
+					<a href="/position_organizer/basics/<%=params[:id]%>">- Basics</a> 
+					<%=employer_pairing_complete_label(@job,"basic")%>
+				</div>
+			</div>
+			<br class="clear"/>
+		</div>
+		<div class="posorg-left-menu-box posorg-left-menu-brk">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right <%=(tab == "credentials") ? "org-menu-selected" : ""%>" >
+				<div><a href="/position_organizer/credentials/<%=params[:id]%>">Pairing Profile</a></div>
+				<div class="pairing-submenu">
+					<a href="/position_organizer/credentials/<%=params[:id]%>">- Credentials</a>
+					<%=employer_pairing_complete_label(@job,"credential")%>
+				</div>
+			</div>
+			<br class="clear"/>
+		</div>
+		<div class="posorg-left-menu-box">
+			<div class="posorg-left-menu-left"><img src="/assets/intro_menu_arrow.jpg"/></div>
+			<div class="posorg-left-menu-right">
+				<div><a href="javascript:void(0)">Pairing Profile</a></div>
+				<div class="pairing-submenu"><a href="javascript:void(0)">- Advanced Weightings</a></div>
+			</div>
+			<br class="clear"/>
+		</div>	
+	</div>
+	<div style="height:250px;">&nbsp;</div>
+</div>
+<%=render :partial=>"/panels/blue_tab_bottom", :locals=>{:class_name =>"pos-org-left-footer"} -%>

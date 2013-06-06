@@ -1,0 +1,124 @@
+<%  current_group_name = ""
+    current_group_id = ""
+    current_owner = ""
+active_cnt = 0
+inactive_cnt = 0
+cat_ids = []
+cat_name = []
+%>
+<%
+    for item in jobs
+      cat_ids.push(item.group_id)
+      cat_name.push(item.group_name)
+    %>
+      <% if current_group_id != item.group_id %>
+        <% if current_group_name != "" %>
+        </div>
+        <% if current_owner == session[:employer].id %>
+        <div class="folder_add_position">
+          <a href="javascript:void(0);" onclick="<% if are_you_sure_link(controller) %>var areYouSureResp = areYouSure('add-position-to'); if(areYouSureResp == false) { $('#clicked-job-for-are-you-sure').val(<%=current_group_id%>); return false; } <% end %>window.location.href='/position_profile/new_employer_profile?cat_id=<%=current_group_id%>&selected=0';">Add Position</a>
+        </div>
+        <% end %>
+        <div><img src="/assets/employer/open_button_bottom.png" style="display: block;"/></div>
+        </div>
+
+        <div class="height10">&nbsp;</div>
+        </div>
+      <%end%>
+      <div id="sort_group_<%=item.group_id%>">
+        <%=render :partial=>"/employer_account/left_menu_row",:locals=>{:item => item}%>
+        <div  id="group_section_<%=item.group_id%>" style="display:none;">
+          <div class="group-section" id="group_section_drag_<%=item.group_id%>">
+            <%
+            if current_group_id != item.group_id
+              current_group_name = item.group_name
+            end
+            current_group_id = item.group_id
+            current_owner = item.id
+          end
+        %>
+
+          <%if not item.job_id.blank?
+            -%>
+
+            <%if item.deleted == false%>
+              <div id="group_job_<%=item.job_id%>" class="group-section-job <%=current_selected_job(item)%>" onmousedown="change_category_of_positions(<%=item.group_id%>)" >
+
+
+                <div class="active-image <% if item.active == 1 %><% if item.internal == 0 %>green<%else%>yellow<%end%><%else%>red<%end%>">
+
+                  <% if item.active == 1 %>
+                     <% if item.internal == 0 %>
+                        <img src="/assets/employer/green_dot.png"/>
+                     <%else%>
+                        <img src="/assets/employer/yellow_dot.png"/>
+                     <%end%>
+                  <% else %>
+                    <img src="/assets/employer/red_dot.png"/>
+                  <% end %>
+
+                </div>
+                <div class="left-menu-job">
+                  <%if item.profile_complete == 0%>
+                    <a onclick="<% if are_you_sure_link(controller) %>if(!folders_position_dragged_flag) { var areYouSureResp = areYouSure('position-profile-lm'); if(areYouSureResp == false) { $('#clicked-job-for-are-you-sure').val(<%=item.job_id%>); return false; } }<% end %> if(!folders_position_dragged_flag){window.location.href='/position_profile/new_employer_profile/<%=item.job_id%>?selected='+$('#parent_id').val();}" href="javascript:void(0);" job_id="<%=item.job_id%>"><%=truncate(item.name.force_encoding('utf-8'),:length=>25)  -%></a>
+                  <%  else %>
+                    <% if item.active == 1 %>
+                      <a onclick="<% if are_you_sure_link(controller) %>if(!folders_position_dragged_flag) { var areYouSureResp = areYouSure('candidate-pool-lm'); if(areYouSureResp == false) { $('#clicked-job-for-are-you-sure').val(<%=item.job_id%>); return false; } }<% end %> if(!folders_position_dragged_flag){window.location.href='/position_profile/candidate_pool/<%=item.job_id%>?selected='+$('#parent_id').val();}" href="javascript:void(0);" job_id="<%=item.job_id%>"><%=truncate(item.name.force_encoding('utf-8'),:length=>25)  -%></a>
+                    <% else %>
+                      <a onclick="<% if are_you_sure_link(controller) %>if(!folders_position_dragged_flag) { var areYouSureResp = areYouSure('candidate-pool-lm'); if(areYouSureResp == false) { $('#clicked-job-for-are-you-sure').val(<%=item.job_id%>); return false; } }<% end %> if(!folders_position_dragged_flag){window.location.href='/postings/new/<%=item.job_id%>?selected='+$('#parent_id').val();}" href="javascript:void(0);" job_id="<%=item.job_id%>"><%=truncate(item.name.force_encoding('utf-8'),:length=>25)  -%></a>
+                    <% end %>
+                  <%  end %>
+                </div>
+                <div class="left-menu-job-delete">
+                  <%  params[:id] ||= 0 %>
+                  <a href="javascript:void(0);" title="Delete Position" onclick="delete_job_v2.init(<%=item.job_id%>,<%= params[:id] %>);">x</a>
+                </div>
+                <div class="left-menu-job-dupliacte">
+                  <a href="javascript:void(0);" onclick="duplicatePosition(<%=item.job_id%>,<%= @job.nil? ? false : true%>)" title="Duplicate Position">Duplicate</a>
+                </div>
+              </div>
+            <%end%>
+          <%end -%>
+        <%end%>
+        <%active_cnt = 0%>
+        <%inactive_cnt = 0%>
+        <%internal_cnt = 0%>
+        <% for job in @jobs
+
+
+          if !job.deleted
+            if job.active == 1
+              if job.internal == 0
+                active_cnt=active_cnt + 1
+              else
+                internal_cnt=internal_cnt + 1
+              end
+            elsif  job.active == 0
+              inactive_cnt=inactive_cnt + 1
+            end
+          end
+
+        end %>
+        <%
+        @incount = inactive_cnt
+        @acount = active_cnt
+        @internalcount = internal_cnt
+        %>
+
+        <%if jobs.length >0%>
+        </div>
+          <% if current_owner == session[:employer].id %>
+          <div class="folder_add_position">
+            <a href="javascript:void(0);" onclick="<% if are_you_sure_link(controller) %>var areYouSureResp = areYouSure('add-position-to'); if(areYouSureResp == false) { $('#clicked-job-for-are-you-sure').val(<%=current_group_id%>); return false; } <% end %>window.location.href='/position_profile/new_employer_profile?cat_id=<%=current_group_id%>&selected=0';">Add Position</a>
+          </div>
+          <% end %>
+          <div><img src="/assets/employer/open_button_bottom.png" style="display: block;"/></div>
+      </div>
+      <div class="height10">&nbsp;</div>
+    </div>
+
+    <input type="hidden" name="uniq_cat_ids" id="uniq_cat_ids" value="<%=cat_ids.uniq.join(",")%>"/>
+    <%=submit_tag :save_category,:value=>"", :style=>"position: absolute;height:0px;width:0px;border:none;"%>
+  <%end%>
+  <!--form end -->
+  <input type="hidden" id="cat_ids" value="<%=cat_ids.join(",")%> "/>

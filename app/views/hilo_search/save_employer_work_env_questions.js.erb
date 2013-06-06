@@ -1,0 +1,83 @@
+hideBlockShadow();
+hideHiloSearchWorkEnv();
+if(graph_ajax_1)
+  graph_ajax_1.abort();
+if(graph_ajax_2)
+  graph_ajax_2.abort();
+if(graph_ajax_3)
+  graph_ajax_3.abort();
+if(graph_ajax_4)
+  graph_ajax_4.abort();
+$("#results_container").html('<%= escape_javascript render(:partial=>"/hilo_search/employer_pairing_results") %>');
+$("#results_container").fadeIn('slow');
+$('html, body').animate({
+    scrollTop: $("#results_container").offset().top-120
+}, 1000);
+
+$("a#submitSearchJobSeekersform").click(function() {
+    var location = document.getElementById('location');
+    if(validateNotEmpty(location)) {
+        if($("#search_dropdown_check_flag").val() == "0") {
+            $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+            $(location).parent().addClass("input-text-error");
+        } else {
+            $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+            $(location).parent().addClass("active-input");
+            $("#search-jobs").submit();
+            showBlockShadow();
+        }
+    } else {
+        $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+        $(location).parent().addClass("input-text-error-empty");
+    }
+});
+$("#location").blur(function(){
+    setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('location'))){
+            $('#location').val($('#location_placeholder').val());
+        }
+    }, 1);
+});
+
+function checkTab(e){
+    if (e.keyCode != 9)
+        $('#search_dropdown_check_flag').val('0');
+}
+
+function checkForEnter(e){
+    if (e.keyCode == 13){
+        if ($('#search_dropdown_check_flag').val() != '1'){
+            prevDefault(e);
+        }
+    }
+}
+
+var city = document.getElementById('location');
+var options_type = {
+    types: ['(cities)']
+};
+var autocomplete = new google.maps.places.Autocomplete(city, options_type);
+$("#location").focus(function(){
+    if(city.value=="Select a Location") {
+        $(".pac-container").addClass('hack-hidden');
+    }
+});
+$("#location").keyup(function(){
+    $("#location").removeAttr('placeholder');
+    if(city.value!="Select a Location") {
+        $(".pac-container").removeClass('hack-hidden');
+    }
+});
+google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    $.ajax({
+        url: '/ajax/cs_search_city_fetch',
+        data: 'job_seeker_city='+encodeURIComponent(city.value),
+        cache: false,
+        beforeSend: function(){
+            showBlockShadow();
+        },
+        success: function(){
+            hideBlockShadow();
+        }
+    });
+});

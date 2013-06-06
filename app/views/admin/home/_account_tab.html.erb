@@ -1,0 +1,57 @@
+<div id="header">
+  <h1 class="logo-container">
+    <%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),:controller=>:home) %>
+  </h1>
+  <div class="header-right-container">
+    <div class="hil-info-link-section">
+      <label class="welcome">WELCOME, <%= session[:administrator].first_name %></label>
+      <div class="info-links">
+        <a title="SIGNOUT" href="/login/logout">SIGNOUT</a>
+      </div>
+    </div>
+
+    <div id="page-navigation">
+      <ul>
+        <% if session[:administrator].access_levels.any?{|ac| ac.name == "All"} %>
+          <% tabCount = 2 %>
+          <li class="firstChild <% if step == 'home' or step == 'referral_fee' or step == 'corp_acc' or step == 'emp_delete_req' %>active<% end %>">
+            <a onclick="window.location='/admin'" href="javascript:void(0);" title="Employer">Employer</a>
+          </li>
+          <li class="<% if step == 'cs_delete' %>active<% end %>">
+            <a onclick="window.location='/admin/home/career_seeker'" href="javascript:void(0);" title="Career Seeker">Career Seeker</a>
+          </li>
+        <% else %>
+          <% classFirstChild = "firstChild" %>
+          <% tabCount = 0 %>
+          <% if session[:administrator].access_levels.any?{|ac| ac.name == "Employer Privileges"} or session[:administrator].access_levels.any?{|ac| ac.name == "Referral Fee"} or session[:administrator].access_levels.any?{|ac| ac.name == "Corporate Accounts"} or session[:administrator].access_levels.any?{|ac| ac.name == "Account Delete Request"} %>
+            <li class="<% if step == 'home' or step == 'referral_fee' or step == 'corp_acc' or step == 'emp_delete_req' %>active<% end %> <%=classFirstChild%>">
+              <a onclick="window.location='/admin'" href="javascript:void(0);" title="Employer">Employer</a>
+            </li>
+            <% classFirstChild = "" %>
+            <% tabCount=tabCount+1 %>
+          <% end %>
+          <% if session[:administrator].access_levels.any?{|ac| ac.name == "Account Delete Request"} %>
+            <li class="<% if step == 'cs_delete'%>active<% end %>">
+              <a onclick="window.location='/admin/home/career_seeker'" href="javascript:void(0);" title="Employer">Career Seeker</a>
+            </li>
+            <% classFirstChild = "" %>
+            <% tabCount=tabCount+1 %>
+          <% end %>
+        <% end %>
+        <% if tabCount == 3 %>
+          <li class="lastChild <% if step == 'account' %>active<% end %>">
+            <a onclick="window.location='/admin/home/account'" href="javascript:void(0);" title="Account">Account</a>
+          </li>
+        <% else %>
+          <li class="<% if step == 'account' %>active<% end %>">
+            <a onclick="window.location='/admin/home/account'" href="javascript:void(0);" title="Account">Account</a>
+          </li>
+          <% if tabCount == 1 %>
+            <li class="emptyLastChild"><a href="javascript:void(0);" title=""></a></li>
+          <% end %>
+          <li class="emptyLastChild"><a href="javascript:void(0);" title=""></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<%if job_statuses.has_key?(job_id.to_s) -%>
+     <%if !job_statuses[job_id.to_s][:considering].blank? and job_statuses[job_id.to_s][:considering] == true -%>
+		<%= image_tag("yellow-bullet.png", :size =>"16x16",:alt=>"Yellow", :class=>"active-yellow") %>
+	<%else -%>	
+		<%= image_tag("status-bg.png", :size =>"14x14",:alt=>"Status", :class=>"deactivated-yellow") %>
+	 <%end -%>
+              
+     <%if (!job_statuses[job_id.to_s][:interested].blank? and job_statuses[job_id.to_s][:interested] == true) or (!job_statuses[job_id.to_s][:wild_card].blank? and job_statuses[job_id.to_s][:wild_card] == true) -%>
+		<%= image_tag("green-bullet.png", :size =>"16x16",:alt=>"Green", :class=>"active-green") %>
+	<%else -%>		
+		<%= image_tag("status-bg.png", :size =>"14x14",:alt=>"Status", :class=>"deactivated-green") %>
+     <%end -%>
+     
+<%else -%>
+     <%= image_tag("status-bg.png", :size =>"14x14",:alt=>"Status", :class=>"deactivated-yellow") %>
+     <%= image_tag("status-bg.png", :size =>"14x14",:alt=>"Status", :class=>"deactivated-green") %>
+<%end -%>

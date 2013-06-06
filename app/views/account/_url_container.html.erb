@@ -1,0 +1,12 @@
+<% if job_seeker.video_url.blank? %>
+  <div class="customized-inner-input input-text">
+<% else %>
+  <div class="customized-inner-input active-input">
+<% end %>
+    <div class="input-left">&nbsp;</div>
+    <input type="hidden" id="youtube_url_placeholder" value="http://www.youtube.com/" />
+    <input type="text" id="youtube_url" name="video_url" value="<% if job_seeker.video_url.blank? %>http://www.youtube.com/<% else %><%= job_seeker.video_url %><% end %>" onfocus="focus_element_youtube(this); var val=this.value; this.value=''; this.value= val;" onblur="blur_element(this)" onkeydown="type_element_youtube(this);" onkeyup="validateYouTubeVideoUrl();" title="http://www.youtube.com/watch?v=<code> OR http://youtu.be/<code>"  />
+    <div class="input-right">&nbsp;</div>
+  </div>
+  <input type="button" value="" class="btn-embed" id="embed_button" />
+  <span id="embed-loader-img" style="display:none;margin-left: 37px;margin-top:-5px;" class="rfloat"><%=image_tag("ajax-loader-login-dark-texture.gif", :alt => "Loading ...")%></span>

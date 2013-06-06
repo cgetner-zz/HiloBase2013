@@ -1,0 +1,59 @@
+<div id="credit_history_popup" class="white_content" style="display: block;">
+  <div class="popup-siteActivation">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading">GIFT/PROMO CODE HISTORY</label>
+        </div>
+        <div class="table-container history">
+          <div class="table-container-top">&nbsp;</div>
+          <div class="table-container-content">
+            <div class="gradient-content overflow-visible">
+              <ul class="table-headings">
+                <li class="active" style="width: 130px;"><a class="single first decActive" href="javascript:void(0);" title="">Date</a></li>
+                <li style="width: 215px;"><a class="single" href="javascript:void(0);" title="">Promo Code</a></li>
+                <li class="lastChild" style="width: 75px;"><a class="single" href="javascript:void(0);" title="">Amount</a></li>
+              </ul>
+              <div class="table-content" id="table_block_history">
+                <div class="loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+                  <% flag = true %>
+                  <% for item in history %>
+                    <% if flag == true %>
+                      <% flag = false %>
+                      <tr>
+                        <th width="140"><label class="first"><%= item.updated_at.to_date.strftime("%d/%m/%Y")%></label></th>
+                        <th width="225"><label><%= item.code%></label></th>
+                        <th width="85"><label><span style="margin-left: 18px;">$</span><span style="text-align: right; float: right; margin-right: 5px;"><%= number_to_currency(item.amount, :unit=>"") %></span></label></th>
+                      </tr>
+                    <% else %>
+                      <tr>
+                        <td><label class="first"><%= item.updated_at.to_date.strftime("%d/%m/%Y")%></label></td>
+                        <td><label><%= item.code%></label></td>
+                        <td><label><span style="margin-left: 18px;">$</span><span style="text-align: right; float: right; margin-right: 5px;"><%= number_to_currency(item.amount, :unit=>"") %></span></label></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                  <% if history.size==0 %><center><br /><br /></center><% end %>
+                </table>
+                <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-container-bottom">&nbsp;</div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onclick="hideNormalShadow();$('#credit_history_popup').empty();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#table_block_history').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+</script>

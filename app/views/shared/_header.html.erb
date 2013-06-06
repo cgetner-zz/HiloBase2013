@@ -1,0 +1,18 @@
+<div id="header">
+	<div class="header-left">
+		<a href="<%=href_for_logo()%>"><img src="/assets/hilo_logo.png" alt="logo"/></a>
+	</div>
+	<div class="header-right" >
+		<div class="welcome-seeker">
+			<div class="welcome-text">
+				<%if session[:job_seeker]%>
+					Welcome Career Seeker <b><%=session[:job_seeker].first_name.humanize%> <%=session[:job_seeker].last_name.humanize%></b> &nbsp;&nbsp;|&nbsp;&nbsp; <%=seeker_account_link()%>
+				<%elsif session[:employer]%>
+					<a href="javascript:void(0);" id="employer_name_link"><%=session[:employer].first_name.humanize%> <%=session[:employer].last_name.humanize%> <img src="/assets/arrow_down.png"/></a>
+				<%end%>
+			</div>
+		</div>	
+		<%=render :partial=>"/shared/login_box" -%>
+	</div>
+	<div class="clear-height">&nbsp;</div>
+</div>

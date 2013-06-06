@@ -1,0 +1,112 @@
+<!-- ADD NEW CATEGORY POPUP -->
+<div style="display: none; position: fixed;" id="add-new-posotion" class="one_click_payment_position_white_content custom-select">
+
+  <div style="width: 605px;">
+    <div class="dashboard_position_popup-siteActivation">
+      <span class="position_popup-top">&nbsp;</span>
+      <div class="position_popup-content_oneclick">
+        <div class="position_gradient-content_oneclick custom-select">
+          <div class="position_popup-header-container">
+            <label class="popup-heading"><%=t ("emp_popup.add_pos_to.heading") %></label>
+          </div>
+
+          <div class="position_popup_select_box">
+            <div class="access-block">
+              <div style="width:555px;" class="lfloat error-text">
+                <%= form_tag("/position_profile/add_group", :id =>"input-text", :remote => true) do %>
+                  <input type="hidden" name="from_popup" value="1" />
+                  <div class="customized-input addCategory">
+                    <!-- CUSTOM SELECT -->
+                    <div class="position-info" id="position-type-selector">
+                      <div class="position-type-selector">
+                        <div id="state-selector" class="state-slector">
+                          <span onclick='showPositionCustomSelectBox();' id="temp-name" class="label-default-1" style="font-size: 13px;margin-top:3px;color:#000066;display: block; float: left; width: 170px;">States</span>
+                          <span class="aero" onclick="showPositionCustomSelectBox()" style="float: right; width: 20px; height: 22px;"></span>
+                          <input type="hidden" id="selected-cat-id" value="0" />
+                          <div style="display:none;" id="position_options" class="state-options">
+                            <div class="state-options-top">&nbsp;</div>
+                            <div class="state-options-content">
+                              <ul class="option" id="category-list">
+                              </ul>
+                            </div>
+                            <div class="state-options-bottom">&nbsp;</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- CUSTOM SELECT -->
+
+                    <div id="category_popup_form" style="display:none;">
+                      <!--<input id="new-category-name_placeholder" type="hidden" value="Category Name"/>-->
+                      <div class="input-field-select-type">
+                        <span class="aero" onclick="$('#category_popup_form').hide();$('#state-selector').show();showPositionCustomSelectBox();" style="float: right; width: 20px; height: 22px;"></span>
+                        <input placeholder="<%=t ("emp_popup.add_pos_to.label") %>" type='text' class="placeholder support-placeholder input-popup-position" name='add_group_field' id="new-category-name"  value="<%=t ("emp_popup.add_pos_to.label") %>" onfocus="removeError();" onkeyup='return activeSubmitButtonOnPopup(this);' />
+                      </div>
+                    </div>
+                  </div>
+                  <input class="enter-button-active rfloat" id="add_category_button_from_popup" value="" type="submit" onclick="return checkExistingCat();" style="display:block;"/>
+                  <span id="loader_img123" style="display:none;float:left;margin-left: 275px;margin-top: -10px;"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <a class="position_close_oneclick" href="javascript:void(0);" onclick="$('#add-new-posotion').hide();return hideDashboardWarningPopup();" id="oneclick-close">Close</a>
+      </div>
+      <span class="position_popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.aero').click(function(e){
+    if($("#position_options").is(':visible')){
+      showPositionCustomSelectBox();
+    }
+    e.stopPropagation();
+  })
+  $('body').click(function(){
+    hidePositionCustomSelectBox();
+  });
+  /*
+    $('.option li').hover(function(){
+            $('.option').children().each(function(){
+                if($(this).attr('selected')=='-1'){
+                    $(this).removeClass('selected').attr('selected', '');
+                }
+            });
+            $(this).addClass('selected').attr('selected', '-1');
+        });
+   */
+  
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_add_category = function(){
+      if(!validateCategoryName(document.getElementById('new-category-name'))){
+        return false;
+      }
+      $("#add_category_button_from_popup").hide();
+      $("#loader_img123").show();
+    }
+    var loaded_add_category = function(){
+      $("#add_category_button_from_popup").show();
+      $("#loader_img123").hide();
+    }
+    $("#input-text")
+    .bind("ajax:beforeSend", loading_add_category)
+    //.bind("ajax:complete", loaded_add_category)
+  });
+
+  function validateCategoryName(ele){
+    if($("#"+ele.id).hasClass("placeholder")){
+      return false;
+    }
+    if($("#"+ele.id).hasClass("filled-input") && $("#"+ele.id).val()==""){
+      return false
+    }
+    return true;
+  }
+</script>

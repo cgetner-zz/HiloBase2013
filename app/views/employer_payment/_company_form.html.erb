@@ -1,0 +1,326 @@
+<!--dark-paper-container-->
+<div class="dark-paper-container">
+  <%= form_tag "/employer_payment/company_info", :id=> 'company-profile', :onsubmit => "" do -%>
+    <div id="site_activation" class="form-container">
+      <!--<input type="hidden" value="<%#=(@payment_done ? 1 : 0)%>" id="payment_status"/>-->
+      <input type="hidden" value="0" id="submit_type" name="submit_type"/>
+      <!--<input type="hidden" value="<%#if(!@company_info.nil?)%><%#=@company_info.state_id%><%#end%>" id="state" name="company_state"/>-->
+      <!--<input type="hidden" value="1" id="new_record" name="new_record"/>-->
+      <span id="fill_up_company"></span>
+      <input type="hidden" value="<%if(!@company_info.nil?)%><%=@company_info.id%><%end%>" id="id" name="id"/>
+      <!--company-info-container-->
+
+      <div id="site_activation_company_info" class="company-info">
+        <div class="company-info-heading"><h2 class="title"><%=t ("emp_site_activation.heading1") %></h2></div>
+
+        <div id="company-info" class="company-info" style="">
+          <input type="hidden" value="" id="error_element" />
+          <span style="float:left;color: #000066; font-size: 13px; font-weight: 700;" id="processing_msg"></span>
+          <div class="error-message-container" id="error_msg"></div>
+          <ul>
+            <li>
+              <div class="customized-input text-billingAddress <%if !@company_info.nil? && !@company_info.name.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="company_name_placeholder" value="<%=t ("emp_site_activation.comp_name") %>"/>
+                <input tabindex="1" type="text" name="name" maxlength="30" id="company_name" value="<%=(@company_info.nil? || @company_info.name.to_s.empty?) ? t("emp_site_activation.comp_name") : @company_info.name.force_encoding('utf-8')%>" onblur="searchCompany(this);blur_element(this);validateCompanyForm();" onfocus="searchCompany(this);focus_element(this);" onkeydown="type_element(this);" onkeyup="validateCompanyForm();" />
+                <div class="input-right">&nbsp;</div>                
+              </div>
+              <div id="search-result" style="display:none;"></div>
+            </li>            
+            <li>
+              <div class="customized-input text-billingAddress <%if !@company_info.nil? && !@company_info.street_one.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="company_suite_placeholder" value="<%=t ("emp_site_activation.add1") %>"/>
+                <input tabindex="2" type="text" name="address_two" maxlength="100" id="company_suite" value="<%=(@company_info.nil? || @company_info.street_one.to_s.empty?) ? t("emp_site_activation.add1") : @company_info.street_one.force_encoding('utf-8')%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);" onkeyup="validateCompanyForm();" />
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+            <li>
+              <div class="customized-input text-city <%if !@company_info.nil? && !@company_info.city.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="city_placeholder" value="<%=t ("emp_site_activation.city") %>"/>
+                <input tabindex="3" type="text" name="city" maxlength="100" id="city" value="<%=(@company_info.nil? || @company_info.city.to_s.empty?) ? t("emp_site_activation.city") : @company_info.city.force_encoding('utf-8')%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this)" onkeyup="validateCompanyForm(); checkTab(event);"/>
+                <div class="input-right">&nbsp;</div>
+            </li>
+            <li>
+              <ul>
+                <li style="width: 220px;">
+                  <div class="customized-input text-state <%if !@company_info.nil? && !@company_info.state.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="state_placeholder" value="<%=t ("emp_site_activation.state") %>"/>
+                    <input tabindex="4" type="text" name="state" maxlength="100" id="state" value="<%=(@company_info.nil? || @company_info.state.to_s.empty?) ? t("emp_site_activation.state") : @company_info.state.force_encoding('utf-8')%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this)" onkeyup="validateCompanyForm();"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-input text-state <%if !@company_info.nil? && !@company_info.country.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="country_placeholder" value="<%=t ("emp_site_activation.country") %>"/>
+                    <input style="width: 175px;" tabindex="5" type="text" name="country" id="country" maxlength="100" value="<%=(@company_info.nil? || @company_info.country.to_s.empty?) ? t("emp_site_activation.country") : @company_info.country.force_encoding('utf-8')%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);" onkeyup="validateCompanyForm();" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li class="lastChild">
+              <ul>
+                <li style="width:222px;">
+                  <div class="customized-input text-state <%if !@company_info.nil? && !@company_info.zip.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="zip_code_placeholder" value="<%=t ("emp_site_activation.zip") %>"/>
+                    <input tabindex="6" type="text" name="zip_code" maxlength="10" id="zip_code" value="<%=(@company_info.nil? || @company_info.zip.to_s.empty?) ? t("emp_site_activation.zip") : @company_info.zip.force_encoding('utf-8')%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);" onkeyup="validateCompanyForm();"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li style="width:100px;">
+                  <div class="customized-input <%if !@company_info.nil? && !@company_info.phone.to_s.empty?%>active-input<%else%>input-text<%end%> text-areaCode ">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="area_code_placeholder" value="<%=t ("emp_site_activation.area_code") %>"/>
+                    <input tabindex="7" type="text" name="area_code" maxlength="10" id="area_code" value="<%=(@company_info.nil? || @company_info.phone.to_s.empty?) ? t("emp_site_activation.area_code") : @company_info.phone.split("-")[0]%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCompanyForm();"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li style="width:93px;">
+                  <div class="customized-input <%if !@company_info.nil? && !@company_info.phone.to_s.empty?%>active-input<%else%>input-text<%end%> text-areaCode ">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="telephone_number_placeholder" value="<%=t ("emp_site_activation.telephone") %>"/>
+                    <input tabindex="8" type="text" maxlength="30" name="telephone" id="telephone_number" value="<%=(@company_info.nil? || @company_info.phone.to_s.empty?) ? t("emp_site_activation.telephone") : @company_info.phone.split("-")[1]%>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCompanyForm();"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <div class="customized-input text-billingAddress <%if !@company_info.nil? && !@company_info.website.to_s.empty?%>active-input<%else%>input-text<%end%>">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="website_placeholder" value="<%=t ("emp_site_activation.website") %>"/>
+                <input tabindex="9" type="text" name="website" id="website" maxlength="100" value="<%=(@company_info.nil? || @company_info.website.to_s.empty?) ? t("emp_site_activation.website") : @company_info.website.force_encoding('utf-8') %>" onblur="websiteFieldError(this);blur_element(this);" onfocus="websiteFieldError(this);focus_element(this);" onkeydown="type_element(this);" onkeyup="validateCompanyForm();"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="site_activation_payment_dtl" class="payment-dtl">
+        <h2 class="title"><%=t ("emp_site_activation.site_active_details.heading") %></h2>
+        <!-- Commented out based on the new requirements that no payment is required for registration -->
+        <!--<p class="method-txt">Select your one-click payment method</p>
+        <ul class="method-icon clearfix" id="before_validate">
+          <li class="method1 disable1"><a href="javascript:void(0)" title="Master Card" >Master card</a></li>
+          <li class="method2 disable2"><a href="javascript:void(0)" title="Visa">Visa</a></li>
+          <li class="method3 disable3"><a title="American Express" href="javascript:void(0)">American Express</a></li>
+          <li class="method4 disable4"><a title="Discover" href="javascript:void(0)">Discover</a></li>
+          <li class="method5 disable5 last"><a title="Paypal" href="javascript:void(0)">Paypal</a></li>
+        </ul>
+        <ul class="method-icon clearfix hidden" id="after_validate">
+          <li class="method1<%#if @payment_done%> disable1<%#end%>"><a href="javascript:void(0)" title="Master Card" onclick="<%#if !@payment_done%>_openCCBillingInfo('master'); setCardType('master');<%#end%>">Master card</a></li>
+          <li class="method2<%#if @payment_done%> disable2<%#end%>"><a onclick="<%#if !@payment_done%>_openCCBillingInfo('visa'); setCardType('visa');<%#end%>" href="javascript:void(0)" title="Visa">Visa</a></li>
+          <li class="method3<%#if @payment_done%> disable3<%#end%>"><a onclick="<%#if !@payment_done%>_openCCBillingInfo('american_express'); setCardType('american_express');<%#end%>" title="American Express" href="javascript:void(0)">American Express</a></li>
+          <li class="method4<%#if @payment_done%> disable4<%#end%>"><a onclick="<%#if !@payment_done%>_openCCBillingInfo('discover'); setCardType('discover');<%#end%>" title="Discover" href="javascript:void(0)">Discover</a></li>
+          <li class="method5 last<%#if @payment_done%> disable5<%#end%>"><a onclick="<%#if !@payment_done%>_openCCBillingInfo('paypal'); setCardType('paypal');<%#end%>" title="Paypal" href="javascript:void(0)">Paypal</a></li>
+        </ul>
+        -->
+        <!-- /Commented out based on the new requirements that no payment is required for registration -->
+        <div class="payment_info">
+          <div class="top"></div>
+          <div class="content">
+            <div class="gradient-content">
+              <div class="column_one" style="width:192px !important;">
+                <div class="heading"><%=t ("emp_site_activation.site_active_details.contentL1") %></div>
+                <p>
+                  <%=t ("emp_site_activation.site_active_details.contentL2") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL3") %><strong><%=t ("emp_site_activation.site_active_details.contentB1") %></strong><br />
+                  <strong><%=t ("emp_site_activation.site_active_details.contentB2") %></strong><%=t ("emp_site_activation.site_active_details.contentL4") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL5") %><strong><%=t ("emp_site_activation.site_active_details.contentB3") %></strong><br />
+                  <strong><%=t ("emp_site_activation.site_active_details.contentB4") %></strong><%=t ("emp_site_activation.site_active_details.contentL6") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL7") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL8") %>
+                </p>
+                <br />
+                <p>
+                  <%=t ("emp_site_activation.site_active_details.contentL9") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL10") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL11") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL12") %>
+                </p>
+              </div>
+              <div class="column_two" style="width:172px !important;">
+                <div class="heading"><%=t ("emp_site_activation.site_active_details.contentL13") %></div>
+                <p>
+                  <%=t ("emp_site_activation.site_active_details.contentL14") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL15") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL16") %><br />
+                </p>
+                <br />
+                <p>
+                  <%=t ("emp_site_activation.site_active_details.contentL17") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL18") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL19") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL20") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL21") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL22") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL23") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL24") %><br />
+                  <%=t ("emp_site_activation.site_active_details.contentL25") %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bottom"></div>
+        </div>
+      </div><!-- payment-detail-container end-->
+    </div><!-- form container end-->
+    <!--button-container-->
+    <div class="button-container">
+      <input tabindex="11" type="button" id="snr_button" class="saveReturnLater-button active lfloat" value=""/>
+      <input tabindex="10" type="button" id="basic_button" class="enter-button active rfloat" value=""/>
+      <div id="company-form-loader-img" style="display:none;" class="rfloat">
+        <img alt="Ajax-loader-login" src="/assets/ajax-loader-login.gif?1322821128"/>
+      </div>
+    </div>
+    <!--/button-container-->
+  <%end -%>
+
+</div>
+
+<input type="hidden" name="state_flag" id="state_flag" value="0" />
+<input type="hidden" name="city_flag" id="city_flag" value="0" />
+<input type="hidden" name="pincode_flag" id="pincode_flag" value="0" />
+<input type="hidden" name="country_flag" id="country_flag" value="0" />
+<input type="hidden" name="dropdown_check_flag" id="dropdown_check_flag" value="<%if !@company_info.nil? && !@company_info.city.to_s.empty?%>1<%else%>0<%end%>" />
+<input type="hidden" name="city_validation_flag" id="city_validation_flag" value="0" />
+
+<script type="text/javascript">
+  validateCompanyForm();
+  $(document).ready(function(){
+    $("#snr_button").unbind().click(function(){
+      $('#submit_type').val(1);
+      resetCompanyPlaceHolder();
+      $("#company-profile").submit();
+    })
+    $("#basic_button").click(function(){
+      validateEmpOnInactiveButtonClick();  
+    })
+  });
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+
+<script type="text/javascript">
+  // Address Autocomplete
+  
+  $("#city").blur(function(){
+    setTimeout(function(){
+      if(!validateNotEmpty(document.getElementById('city'))) {
+        $("#city").removeAttr('placeholder');
+        $("#city").val($("#city_placeholder").val());
+      }
+      else {
+        validateCompInfo();
+      }
+      },1000);
+  });
+  
+  var city = document.getElementById('city');
+  
+  var options_type = {
+      types: ['(cities)']
+    };
+    $("#city").focus(function(){
+      if(city.value=="City / Location") {
+        $(".pac-container").addClass('hack-hidden');
+      }
+    })
+    $("#city").keyup(function(){
+      if(city.value!="City / Location") {
+        $(".pac-container").removeClass('hack-hidden');
+      }
+    })
+  var autocomplete = new google.maps.places.Autocomplete(city, options_type);
+  
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+  var city = document.getElementById('city').value;
+  city = encodeURIComponent(city);
+     showBlockShadow();
+    $.ajax({
+      url: '/ajax/geocode_fetch_for_employer_payment',
+      data: "city="+city+"",
+      cache: false,
+      beforeSend: function() {
+        showBlockShadow();
+	$("#city_validation_flag").val(1);
+      },
+      success: function(){
+        hideBlockShadow();
+        if($("#state_flag").val()==1) {
+          $("#state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#state").parent().addClass("active-input");
+          $("#state").attr('readonly', true);
+        }
+        else {
+          $("#state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#state").parent().addClass("input-text");
+          $("#state").removeAttr('readonly');
+          $("#state").val($("#state_placeholder").val());
+        }
+        if($("#city_flag").val()==1) {
+          $("#city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#city").parent().addClass("active-input");
+        }
+        else {
+          $("#city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#city").parent().addClass("input-text");
+          $("#city").removeAttr('readonly');
+          $("#city").val($("#city_placeholder").val());
+        }
+        if($("#pincode_flag").val()==1) {
+          $("#zip_code").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#zip_code").parent().addClass("active-input");
+          $("#zip_code").attr('readonly', true);
+        }
+        else {
+          $("#zip_code").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#zip_code").parent().addClass("input-text");
+          $("#zip_code").removeAttr('readonly');
+          $("#zip_code").val($("#zip_code_placeholder").val());
+        }
+        if($("#country_flag").val()==1) {
+          $("#country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#country").parent().addClass("active-input");
+          $("#country").attr('readonly', true);
+        }
+        else {
+          $("#country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+	  $("#country").parent().addClass("input-text");
+          $("#country").removeAttr('readonly');
+          $("#country").val($("#country_placeholder").val());
+        }
+        validateCompanyForm();
+    }
+    });
+  });    
+  
+
+</script>
+
+<style>
+.pac-container {
+	width:409px!important;
+	font-weight:400 !important;
+	font-size:13px !important;
+	border: 2px solid #000066 !important;
+	border-top: 1px solid #CCCCCC !important;
+	background:#fff url(../assets/autocomplete-bg-409.png) left top repeat-y !important;
+      	margin-top:-2px;
+        margin-left:-5px;
+	
+}
+</style>
+
+<script type="text/javascript">
+  function checkTab(e){
+    if (e.keyCode != 9)
+      $('#dropdown_check_flag').val(0);
+  }
+</script>

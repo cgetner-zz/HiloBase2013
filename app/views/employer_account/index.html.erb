@@ -1,0 +1,161 @@
+<%content_for :page_js do -%>
+  <!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+  <%= javascript_include_tag 'jquery.flot.js','jquery.flot.symbol.js' %>
+<%end-%>
+
+<!-- Content area start-->
+<input type="hidden" id="current_employer_id" value="<%=session[:employer].id%>"/>
+<div id="content">
+  <!-- Content area Heading-->
+  <div id="menu">
+    <%=render :partial => "/employer_account/shared/employer_tabs",:locals=>{:tab=>"home"}  -%>
+  </div>
+  <!--Content area heading end-->
+  <!-- Content area center part-->
+  <div class="tab-content-top">&nbsp;</div>
+  <div id="tab-content">
+    <div class="tab-content-area-left">
+      <div class="emp-left-menu" id="update_categories">
+        <%=render :partial=>"/employer_account/employer_left_menu",:locals=>{:jobs => @jobs}%>
+      </div>
+      <div class="dash-left-bottom">&nbsp;</div>
+    </div>
+    <!--Right Content Area Start-->
+    <div class="tab-content-area-right">
+      <div class="emp-right-content">
+        <div class="emp-content-box">
+          <div class="chart-container">
+            <%=render :partial=>"/employer_account/activity_summary_panel"-%>
+            <div class="employer-chart-box" id="dashboard_chart" style="position:relative; min-height:220px;">
+              <%=render :partial=>"/employer_account/home_chart" -%>
+            </div>
+          </div>
+          <input type="hidden" name="filter_value" id ="filter_value" value="0" />
+          <input type="hidden" name="search_result_arr" id ="search_result_arr" value="-1" />
+          <div class="table-container-dashboard" id="table-container-dashboard">
+            <div class="loader"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></div>
+          </div>
+          <!-- Seeker Details Popup-->
+          <div id="seeker_details_popup" style="z-index:11000; position:absolute; left:0; top:-18px">
+
+          </div>
+        </div>
+      </div>
+      <div class="dash-right-bottom">&nbsp;</div>
+      <%=render :partial =>"/shared/employer/footer" -%>
+    </div>
+    <!-- Right Content Area End-->
+    <div class="clear-height">&nbsp;</div>
+  </div>
+</div>
+
+<!-- Content area center part
+</div>
+Content area end -->
+<script type="text/javascript">
+  $(document).ready(function(){
+<% if params[:selected].present? %>
+  <% if session[:employer].account_type_id != 3 %>
+    $("#parent_id").val('<%= params[:selected] %>');
+    <% case params[:selected].to_i %>
+    <% when -1 %>
+          $("#outer_pos label").html("ALL POSITIONS");
+          sortDashboardTables('pairing','desc', 0, -1);
+          $("#company-group-list-section").addClass("disable");
+    <% when 0 %>
+          $("#outer_pos label").html("MY POSITIONS");
+          sortDashboardTables('pairing','desc', 0, 0);
+          $("#company-group-list-section").sortable("enable");
+          $("#company-group-list-section").removeClass("disable");
+          emp_left_menu_event.group_drag();
+          emp_left_menu_event.job_section_drag();
+    <% else %>
+      <% if @name.present? %>
+            $("#outer_pos label").html('<%= @name %>');
+            $("#company-group-list-section").addClass("disable");
+      <% else %>
+            $("#outer_pos label").html("ALL POSITIONS");
+            $("#company-group-list-section").addClass("disable");
+      <% end %>
+          sortDashboardTables('pairing','desc', 0, <%= params[:selected].to_i %>);
+    <% end %>
+  <% else %>
+        sortDashboardTables('pairing','desc', 0, 0);
+  <% end %>
+<% else %>
+  <% if session[:employer].account_type_id != 3 %>
+        sortDashboardTables('pairing','desc', 0, -1);
+        $("#company-group-list-section").addClass("disable");
+  <% else %>
+        sortDashboardTables('pairing','desc', 0, 0);
+  <% end %>
+<% end %>
+
+<% if  session[:express_payment_complete] == 1%>
+      _showSeekerPopup(<%=session[:seeker_id_one_click]%>, <%=session[:job_id_one_click]%>, <%= session[:employer].id %>);
+  <%=  session[:express_payment_complete] = nil %>
+<% end %>
+    setInterval(function() {
+      updateNotificationCount()
+    }, 300000);
+
+<% if !session[:account_popup].nil? and session[:legacy_data_emp].nil? %>
+      showNormalShadow();
+      $("#account_popup").show();
+      centralizePopup();
+      footerOnOpeningPopup();
+  <% session[:account_popup] = nil %>
+<% elsif not session[:legacy_data_emp].nil? %>
+      showNormalShadow();
+      $("#legacy_data_popup").show();
+      centralizePopup();
+      footerOnOpeningPopup();
+<% end %>
+<% if session[:job_deleted_warning] == true %>
+      hideBlockShadow();
+      $("#job_deleted").show();
+      showErrorShadow();
+      footerOnOpeningPopup();
+      centralizePopup();
+      addFocusButton('job_deleted_button');
+  <% session[:job_deleted_warning] = nil %>
+<% end %>
+<% if session[:job_access_denied_warning] == true %>
+      hideBlockShadow();
+      $("#permission_denied").show();
+      showErrorShadow();
+      footerOnOpeningPopup();
+      centralizePopup();
+      addFocusButton('ok-button-active_button');
+  <% session[:job_access_denied_warning] = nil %>
+<% end %>
+
+<% if session[:category_deleted_warning] == true %>
+      hideBlockShadow();
+      $("#folder_deleted").show();
+      showErrorShadow();
+      footerOnOpeningPopup();
+      centralizePopup();
+      addFocusButton('folder_deleted_button');
+  <% session[:category_deleted_warning] = nil %>
+<% end %>
+  
+  });
+	
+</script>
+
+<%= javascript_include_tag("https://"+$FAYE_URL+".js") %>
+
+<script type="text/javascript">
+
+  $(function() {
+    var faye = new Faye.Client('<%="https://"+$FAYE_URL%>');
+    
+    faye.subscribe("/employer_update/<%= session[:employer].company_id %>/dashboard", function(data) {
+      eval(data);
+    });
+
+  });
+
+
+</script>

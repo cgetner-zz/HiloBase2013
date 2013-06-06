@@ -1,0 +1,30 @@
+<div id="save_search_popup" class="white_content" style="position: fixed;">
+  <div class="popup-upper-block-auth">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('search_popup.heading') %></label>
+        </div>
+        <div class="left-content" >
+          <ul class="auth_popup_elements">
+            <li style="width: 300px;">
+              <div class="customized-input input-text" style="margin-right:10px;">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="search_name_placeholder" value="<%= t('search_popup.search_name') %>" />
+                <input type="text" value="<%= t('search_popup.search_name') %>" onfocus="focus_element(this);" onkeyup="checkForEnter(event);" onblur="blur_element(this);" onkeydown="type_element(this);" id="search_name" style="width: 245px;"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="right-content" style="padding-top: 20px;" >
+          <input type="button" id="save_search" class="btn-save blue" onclick="saveSearchKeyword();" />
+          <span id="search_save_loader" style="display:none; position:absolute; right:69px;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="closeSaveSearch();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

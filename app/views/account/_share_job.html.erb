@@ -1,0 +1,28 @@
+<div class="dc-share-inner">
+	<div class="dc-share-inner-head">
+		<div  style="padding:3px 0px 0px 2px;">
+		Share this opportunity:
+		</div>
+	</div>
+
+	<div class="dc-share-inner-row">
+		<a href="javascript:void(0);" onclick="share_job.share('<%=SHARE_PLATFORM_FACEBOOK_ID%>','<%=job.id%>');">
+			<img src="/assets/small_facebook_icon.png"/> Facebook
+		</a>
+		&nbsp;&nbsp;&nbsp;
+		<a href="javascript:void(0);" onclick="share_job.share('<%=SHARE_PLATFORM_TWITTER_ID%>','<%=job.id%>');">
+			<img src="/assets/small_twitter_icon.png"/> Twitter
+		</a>
+		
+		&nbsp;&nbsp;&nbsp;
+
+		<a href="javascript:void(0);" onclick="share_job.share('<%=SHARE_PLATFORM_LINKEDIN_ID%>','<%=job.id%>');">
+			<img src="/assets/small_linkedin_icon.png"/> Linkedin
+		</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<%= mail_to "", image_tag("small_email_icon.png"), :subject => "Hilo career code: #{job.code}",:body => (job.company.name.to_s + "\n\n" + job.name.to_s + "\n\n" + "Job Code: " + job.code.to_s + "\n\n"+ job.summary.to_s), :encode => "hex", :onclick => "job_seeker_email(#{job.id}, 6);" %>
+		
+		<%= mail_to "", "Email", :subject => "Hilo career code: #{job.code}",:body => (job.company.name.to_s + "\n\n" + job.name.to_s + "\n\n" + "Job Code: " + job.code.to_s + "\n\n"+ job.summary.to_s), :encode => "hex", :onclick => "job_seeker_email(#{job.id}, 6);" %>
+
+	</div>
+</div>

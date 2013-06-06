@@ -1,0 +1,1645 @@
+<style>
+  .pac-container {
+    color: #000066;
+    width:196px !important;
+    font-weight:400 !important;
+    font-size:13px !important;
+    border: 2px solid #000066 !important;
+    border-top: 1px solid #CCCCCC !important;
+    background:#fff url("../../assets/autocomplete-bg-409.png") left top repeat-y !important;
+    margin-top:-2px;
+    margin-left:-4px;
+
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) { .pac-container{margin-left:-5px;} }
+</style>
+<!--[if IE 9]>
+<style>
+    .pac-container{margin-left:-5px;}
+</style>
+<![endif]-->
+<!--[if IE 8]>
+<style>
+    .pac-container{margin-left:-5px;}
+</style>
+<![endif]-->
+
+<%= form_tag('/position_profile/create_new_emp_profile', :id => "position-overview", :remote => true) do %>
+  <input type="hidden" id="company_group_id" name="company_group_id" value="<%= company_group_id %>" />
+  <input type="hidden" name="company_state_flag" id="company_state_flag" value="0" />
+  <input type="hidden" name="company_city_flag" id="company_city_flag" value="0" />
+  <input type="hidden" name="company_street_one_flag" id="company_street_one_flag" value="0" />
+  <input type="hidden" name="company_zip_flag" id="company_zip_flag" value="0" />
+  <input type="hidden" name="company_country_flag" id="company_country_flag" value="0" />
+  <input type="hidden" name="company_latitude" id="company_latitude" value="<% if not job_location.nil? %><%= job_location.latitude %><% end %>" />
+  <input type="hidden" name="company_longitude" id="company_longitude" value="<% if not job_location.nil? %><%= job_location.longitude %><% end %>" />
+  <input type="hidden" name="dropdown_check_flag" id="dropdown_check_flag" value="<% (!job_location.nil? && !job_location.city.to_s.empty?) ? '1' : '0' %>" />
+  <input type="hidden" name="overview_complete" id="overview_complete" value="0" />
+  <input type="hidden" name="job_id_save" id="job_id_save" value="<%= job.id if not job.nil? %>" />
+  <input type="hidden" name="tab-1_hasThisFormBeenEdited" id="tab-1_hasThisFormBeenEdited" value="0" />
+  <input type="hidden" name="position_parent_id" id="position_parent_id" value="0"/>
+  <input type="hidden" name="street_address_check" id="street_address_check" value="0"/>
+  <%=hidden_field_tag :compensation_value_min -%>
+  <%=hidden_field_tag :compensation_value_max -%>
+  <%=hidden_field_tag :desired_employment_ids -%>
+  <%=hidden_field_tag :certificate_param%>
+  <%=hidden_field_tag :selected_languages%>
+  <%=hidden_field_tag :required_certificates -%>
+  <%=hidden_field_tag :required_languages -%>
+  <%=hidden_field_tag :required_degree %>
+  <%=hidden_field_tag :selected_colleges %>
+  <%=hidden_field_tag :degree_param %>
+  <%=hidden_field_tag :selected_roles %>
+  <input type="hidden" id="destination_path" name="destination_path" value="" />
+  <!--accordion-content-->
+  <!--Company Information-->
+  <div class="multiple-block-cont">
+    <div class="blocks position-info height-170px">
+      <h4><%=t("position_overview.hiring_compnay.heading") %><img width="26" height="27" style="cursor:pointer;" class="rfloat" onclick="open_hiringcompany_popup();" src="/assets/position-preview-info.gif" /></h4>
+      <span class="hiring-behalf"><%=t("position_overview.hiring_compnay.content") %></span>
+      <ul class="comp-web-cls">
+        <li>
+          <div class="hiring-company-radio-btns margin-L-11px">
+            <input type="radio" <%= (job.hiring_company.nil? || job.hiring_company == true) ? "checked = 'checked'" : "" %> value="1" name="hiring_company" class="customize-radio" id="hiring_company_true" style="display: none;" />
+            <label style="float: left;margin-top: 4px; padding-left: 5px;margin-right: 3px; font-size:13px; font-weight:400; padding-right: 5px;"><%=t("position_overview.hiring_compnay.own") %></label>
+          </div>
+        </li>
+        <li>
+          <div class="hiring-company-radio-btns margin-L-11px">
+            <input type="radio" <%= (!job.hiring_company.nil? && job.hiring_company == false) ? "checked = 'checked'" : "" %> value="0" name="hiring_company" class="customize-radio" id="hiring_company_false" style="display: none;" />
+            <label style="float: left;margin-top: 4px; padding-left: 5px;margin-right: 3px; font-size:13px; font-weight:400;"><%=t("position_overview.hiring_compnay.thrid_party") %></label>
+          </div>
+        </li>
+        <div id="hiring_company_name_container" class="customized-input <%if job.hiring_company_name.nil? %>input-text<% else %>active-input<% end %> margin-L-11px margin-T-10px height-170px" <% if !job.hiring_company.nil? && job.hiring_company == false %>style="display:block;"<% else %>style="display:none;"<% end %>>
+          <div class="input-left"></div>
+          <input type="hidden" id="hiring_company_name_placeholder" value="<%=t("position_overview.hiring_compnay.label") %>" />
+          <input type="text" maxlength="50" class="hiring-comp-txt" name="hiring_company_name" id="hiring_company_name" onblur="blur_element(this);" onkeydown="type_element(this); " onfocus="focus_element(this);" value="<%= job.hiring_company_name.nil? ?  t("position_overview.hiring_compnay.label") : job.hiring_company_name %>" />
+          <div class="input-right"></div>
+        </div>
+      </ul>
+    </div>
+
+    <div class="blocks responsibility">
+      <h4>
+        <%=t("position_overview.websites.heading") %>
+        <span class="character-remaining"><%=t("position_overview.websites.optional") %></span>
+      </h4>
+      <div class="pp_error_message" id="web_err_msg"></div>
+      <div class="company-information" style="margin-top:12px;">
+        <ul class="comp-web-cls">
+
+          <li class="webname_li">
+            <div class="customized-input <% if job.website_one.blank? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input id="website_1_placeholder" type="hidden" value="<%=t("position_overview.websites.label1") %>" />
+              <input class="webname" maxlength="250" type="text" value="<%= job.website_one.blank? ? t("position_overview.websites.label1")  : job.website_one %>" id="website_1" name="website_1" onfocus="focus_element(this);" onblur="validatePositionPreviewOnBlur(this);blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="webtitle_li">
+            <div class="customized-input <% if job.website_title_one.blank? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%=t("position_overview.websites.label2") %>" id="website_title_1_placeholder"  />
+              <input class="webtitle" maxlength="20" type="text" value="<%= job.website_title_one.blank? ? t("position_overview.websites.label2")  : job.website_title_one %>" id="website_title_1" name="website_title_1" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li class="webname_li">
+            <div class="customized-input <% if job.website_two.blank? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input id="website_2_placeholder" type="hidden" value="<%=t("position_overview.websites.label1") %>"  />
+              <input class="webname" maxlength="250" type="text" value="<%= job.website_two.blank? ? t("position_overview.websites.label1") : job.website_two %>" id="website_2" name="website_2" onfocus="focus_element(this);" onblur="validatePositionPreviewOnBlur(this);blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="webtitle_li">
+            <div class="customized-input <% if job.website_title_two.blank? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%=t("position_overview.websites.label2") %>" id="website_title_2_placeholder"  />
+              <input class="webtitle" maxlength="20" type="text" value="<%= job.website_title_two.blank? ? t("position_overview.websites.label2")  : job.website_title_two %>" id="website_title_2" name="website_title_2" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li class="webname_li">
+            <div class="customized-input <% if job.website_three.blank? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input id="website_3_placeholder" type="hidden" value="<%=t("position_overview.websites.label1") %>" name="website_placeholder"  />
+              <input class="webname" maxlength="250" type="text" value="<%= job.website_three.blank? ? t("position_overview.websites.label1")  : job.website_three %>" id="website_3" name="website_3" onfocus="focus_element(this);" onblur="validatePositionPreviewOnBlur(this);blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="webtitle_li">
+            <div class="customized-input <% if job.website_title_three.blank? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%=t("position_overview.websites.label2") %>" id="website_title_3_placeholder"  />
+              <input class="webtitle" maxlength="20" type="text" value="<%= job.website_title_three.blank? ? t("position_overview.websites.label2")  : job.website_title_three %>" id="website_title_3" name="website_title_3" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="hiring-company-popup" class="hiring-company-tooltip" style="display:none;">
+      <div class="hiring-company-tooltip-right"><img src="/assets/employer_v2/hiring-popup-arrow.png" style="height:21px;width:12px;margin-top: 31px;" /></div>
+      <div class="hiring-company-tooltip-content">
+        <label><%=t("position_overview.hiring_compnay.pop_up.heading") %></label>
+        <div class="separator"></div>
+        <p><%=t("position_overview.hiring_compnay.pop_up.contentL1") %></p>
+        <p><%=t("position_overview.hiring_compnay.pop_up.contentL2") %><b><%=t("position_overview.hiring_compnay.pop_up.contentL2B") %></b><%=t("position_overview.hiring_compnay.pop_up.contentL3") %></p>
+        <div class="separator"></div>
+      </div>
+    </div>
+  </div>
+  <div id="fade_normal_status_hiring-company" class="black_overlay_light" onclick="close_hiringcompany_popup();"></div>
+  <!--Company Information End-->
+
+  <!--multiple-block-cont-->
+  <div class="multiple-block-cont">
+    <!--blocks-->
+    <div class="blocks position-info height-367px">
+      <h4><%=t("position_overview.position_info.heading") %><img class="rfloat" width="26" height="27" src="/assets/position-preview-info.gif" onclick="open_position_information_popup();" style="cursor:pointer;" /></h4>
+      <div class="pp_two_error_message" id="pi_error_msg" style="width: 165px;height: 14px;">&nbsp;</div>
+      <div class="company-information margin-T-3px overflow-visible">
+        <ul>
+          <li>
+            <div class="customized-input position-title <%if(job.nil? || job.name.to_s.empty?) %>input-text<% else %>active-input<% end %>">
+              <div class="input-left"></div>
+              <input type="hidden" id="name_placeholder" value="<%=t("position_overview.position_info.pos_title") %>" />
+              <input class="<% if(job.nil? || job.name.to_s.empty?) %><% else %>filled-input<% end %>" id="name" maxlength="60" name="name" type="text" value="<%= job.name.nil? ? t("position_overview.position_info.pos_title")  : job.name %>" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)"/>
+              <% if !job.id.blank? %>
+                <%= hidden_field_tag :id, job.id%>
+              <% end %>
+              <div class="input-right"></div>
+            </div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <!-- CUSTOM SELECT -->
+            <div class="position-info" id="position-type-selector">
+              <div class="position-type-selector">
+                <div class="state-slector">
+                  <span id="selected-position-name" class="placeholder label-default" style="margin-top:3px;color:#000066;display: block; float: left; width: 170px;"><%=t("position_overview.position_info.type") %></span>
+                  <div class="position-aero" style="float: right; width: 20px; height: 22px;"></div>
+                  <input type="hidden" id="desired_employments" name="desired_employments[]" value="<%= selected_employment_ids[0].to_i %>" />
+                  <% for desired_employment in desired_employments %>
+                    <% if selected_employment_ids[0].to_i == desired_employment.id %>
+                      <input type="hidden" id="selected-from-db" value="<%=desired_employment.name%>" />
+                    <% end %>
+                  <% end %>
+                  <div style="display:none;" id="position_overview_options" class="state-options">
+                    <div class="state-options-top">&nbsp;</div>
+                    <div class="state-options-content">
+                      <label class="label-default" style="width:184px;"><%=t("position_overview.position_info.type") %></label>
+                      <ul class="option" id="position-list">
+                        <% for desired_employment in desired_employments %>
+                          <li selected="" class="Position-TypeDD" value="<%=desired_employment.id%>" onclick='$("#selected-position-name").removeClass("placeholder");$("#selected-position-name").text("<%=h(desired_employment.name)%>");$("#desired_employments").val("<%=desired_employment.id%>");$("#tab-1_hasThisFormBeenEdited").val(1);'><label id="<%= desired_employment.id %>"><%=h(desired_employment.name)%></label></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                    <div class="state-options-bottom">&nbsp;</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- CUSTOM SELECT -->
+          </li>
+        </ul>
+        <ul>
+          <li style="margin-bottom: 7px;margin-top:9px">
+            <div class="personal-radio-btns" style="margin-top:2px;">
+              <input id="remote_work_false" class="customize-radio" type="radio" name="remote_work" value="0" <%= (job.remote_work.nil? || job.remote_work == false) ? "checked = 'checked'" : "" %>/>
+              <label style="float: left;margin-top: 4px; padding-left: 5px;margin-right: 3px; font-size:13px; font-weight:400; padding-right: 5px;"><%=t("position_overview.position_info.in_office") %></label>
+              <input id="remote_work_true" class="customize-radio" type="radio" name="remote_work" value="1" <%= job.remote_work == true ? "checked = 'checked'" : "" %>/>
+              <label style="float: left;margin-top: 4px; padding-left: 5px;margin-right: 3px; font-size:13px; font-weight:400;"><%=t("position_overview.position_info.virtual") %></label>
+            </div>
+          </li>
+
+          <li class="remote_work_fields">
+            <div class="customized-input street-area <% if(job_location.nil? || job_location.street_one.to_s.empty?) %>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="company_street_one_placeholder" value="<%=t("position_overview.position_info.street_add") %>" />
+              <input id="company_street_one" class="<% if(job_location.nil? || job_location.street_one.to_s.empty?)%><%else%>filled-input<%end%>" name="company_street_one" value="<%= job_location.nil? || job_location.street_one.to_s.empty? ? t("position_overview.position_info.street_add")  :  job_location.street_one%>" type="text" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)" onkeyup="$('#street_address_check').val('1');"/>
+              <div class="input-right"></div>
+            </div>
+          </li>
+
+          <li class="remote_work_fields">
+            <div class="customized-input company_city <% if(job_location.nil? || job_location.city.to_s.empty?)%>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="company_city_placeholder" value="<%=t("position_overview.position_info.city") %>" />
+              <input type="text" name="company_city" id="company_city" value="<%= job_location.nil? || job_location.city.to_s.empty? ? t("position_overview.position_info.city")  : job_location.city.force_encoding('utf-8') %>" autocomplete="off" onfocus="focus_element(this)" onblur="validatePositionPreviewOnBlur(this);blur_element(this);" onkeydown="type_element(this);$('#dropdown_check_flag').val(0);"/>
+              <div class="input-right"></div>
+            </div>
+          </li>
+
+          <li class="remote_work_fields">
+            <div class="customized-input company_state <% if(job_location.nil? || job_location.state.to_s.empty?)%>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="company_state_placeholder" value="<%=t("position_overview.position_info.state") %>" />
+              <input type="text" class="<% if(job_location.nil? || job_location.state.to_s.empty?)%><%else%>filled-input<%end%>" value="<%= job_location.nil? || job_location.state.to_s.empty? ? t("position_overview.position_info.state")  : job_location.state.force_encoding('utf-8') %>" id="company_state" name="company_state" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)"/>
+              <div class="input-right"></div>
+            </div>
+          </li>
+
+          <!-- Zip Code -->
+          <li class="remote_work_fields">
+            <div class="customized-input zip-code <% if(job_location.nil? || job_location.zip_code.to_s.empty?)%>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="company_zip_placeholder" value="<%=t("position_overview.position_info.zip") %>" />
+              <input type="text" class="<% if(@job_location.nil? || @job_location.zip_code.to_s.empty?)%><%else%>filled-input<%end%>" value="<%=@job_location.nil? || @job_location.zip_code.to_s.empty? ? t("position_overview.position_info.zip")  : @job_location.zip_code%>" id="company_zip" name="company_zip" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)" maxlength="10"/>
+              <div class="input-right"></div>
+            </div>
+          </li>
+          <!-- Country -->
+          <li class="remote_work_fields">
+            <div class="customized-input company_country <% if(job_location.nil? || job_location.country.to_s.empty?)%>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="company_country_placeholder" value="<%=t("position_overview.position_info.country") %>" />
+              <input type="text" class="<% if(job_location.nil? || job_location.country.to_s.empty?)%><%else%>filled-input<%end%>" value="<%= job_location.nil? || job_location.country.to_s.empty? ? t("position_overview.position_info.country")  : job_location.country.force_encoding('utf-8') %>" id="company_country" name="company_country" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)"/>
+              <div class="input-right"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--/blocks-->
+
+    <!--blocks-->
+    <div class="blocks responsibility">
+      <h4>
+        <%=t("position_overview.responsibilities.heading") %>
+        <span class="character-remaining">(Unranked)</span>
+        <span class="character-remaining rfloat" id="resp_char_remain"><%=t("position_overview.responsibilities.char_remaining") %></span>
+      </h4>
+      <div class="pp_error_message">&nbsp;</div>
+      <div class="company-information">
+        <ul class="daily-repo">
+          <%j = 1
+          for pr in job.profile_responsibilities.all(:order => "job_profile_responsibilities.id")%>
+            <li class="tto">
+              <div class="customized-input <%if pr.name.to_s.empty?%>input-text<%else%>active-input<%end%>">
+                <div class="input-left"></div>
+                <input type="hidden" id="resp_<%=j%>_placeholder" value="<%=t("position_overview.responsibilities.label1") %><%=j %> <% if j!=1 %><%=t("position_overview.responsibilities.label2") %><%end%> " />
+                <input type="text" id="resp_<%=j%>" maxlength="60" class="<%if pr.name.to_s.empty?%><%else%>filled-input<%end%>" value="<%=pr.name%>" name="responsiblities[]" onfocus="focus_element(this);calculateChars(this, 60);" onkeydown="type_element(this); " onblur="blur_element(this);" onkeyup="calculateChars(this, 60);" />
+                <div class="input-right"></div>
+              </div>
+            </li>
+            <%break if j == 5
+            j = j + 1
+          end%>
+          <%(job.profile_responsibilities.length + 1).upto(5) do |i|%>
+            <li>
+              <div class="customized-input input-text">
+                <div class="input-left"></div>
+                <input type="hidden" id="resp_<%=i%>_placeholder" value="<%=t("position_overview.responsibilities.label1") %><%=i%> <% if i!=1 %><%=t("position_overview.responsibilities.label2") %><%end%>" class="plc"/>
+                <input type="text" id="resp_<%=i%>" maxlength="60" value="<%=t("position_overview.responsibilities.label1") %><%=i%> <% if i!=1 %><%=t("position_overview.responsibilities.label2") %><%end%>" name="responsiblities[]"  onfocus="focus_element(this); calculateChars(this, 60);" onkeydown="type_element(this);" onblur="blur_element(this);" onkeyup="calculateChars(this, 60);"/>
+                <div class="input-right"></div>
+              </div>
+            </li>
+          <%end%>
+        </ul>
+      </div>
+      <!--Position information pop up blocks-->
+      <div id="position-information-popup" class="position-information-tooltip" style="display:none;">
+        <div class="position-information-tooltip-right"><img src="/assets/employer_v2/hiring-popup-arrow.png" style="height:21px;width:12px;margin-top: 8px;" /></div>
+        <div class="position-information-tooltip-content">
+          <label><%=t("position_overview.position_info.pop_up.heading") %></label>
+          <div class="separator"></div>
+          <p><%=t("position_overview.position_info.pop_up.contentL1") %></p>
+          <p><%=t("position_overview.position_info.pop_up.contentL2") %><b><%=t("position_overview.position_info.pop_up.contentL2B") %></b><%=t("position_overview.position_info.pop_up.contentL3") %></p>
+          <p><%=t("position_overview.position_info.pop_up.contentL4") %><b><%=t("position_overview.position_info.pop_up.contentL4B") %></b><%=t("position_overview.position_info.pop_up.contentL5") %></p>
+          <div class="separator"></div>
+        </div>
+      </div>
+      <!--Position information pop up blocks Ends-->
+    </div>
+    <div id="fade_normal_status_position-information" class="black_overlay_light" onclick="close_position_information_popup();"></div>
+    <!--/blocks-->
+    <!--U. S. ARMED FORCES blocks-->
+    <div class="blocks responsibility">
+      <h4><%=t("position_overview.us_armed_force.heading")%></h4>
+      <div class="company-information">
+        <div class="US-armed-text"><%=t("position_overview.us_armed_force.content")%></div>
+        <div class="us-radio-btns">
+          <input type="radio" class="customize-radio" id="us_armed_forces_yes" name="armed_forces" value="1" <%= (job.armed_forces.nil? || job.armed_forces == true) ? "checked = 'checked'" : "" %>/>
+          <label style="float: left;margin-top: 4px; padding-left: 5px;width:65px;"><%=t("position_overview.us_armed_force.yes")%></label>
+          <input type="radio" class="customize-radio" id="us_armed_forces_no" name="armed_forces" value="0" <%= job.armed_forces == false ? "checked = 'checked'" : "" %>/>
+          <label style="float: left;margin-top: 4px;margin-right: 5px; padding-left: 5px;"><%=t("position_overview.us_armed_force.no")%></label>
+        </div>
+      </div>
+    </div>
+    <!--U. S. ARMED FORCES blocks Ends Here-->
+  </div>
+  <!--/multiple-block-cont-->
+  <!--blocks-->
+  <div class="blocks compensation">
+    <h4>
+      <%=t("position_overview.compensation.heading")%>
+      <span class="character-remaining rfloat"><%=t("position_overview.compensation.content")%></span>
+    </h4>
+    <div class="company-information padding-L1px" style="overflow: visible;">
+
+      <!--discription-->
+      <div class="discription">
+        <div class="top"></div>
+        <!--content-->
+        <div class="content" style="position: relative;">
+          <div id="salary-tooltip" class="vet-tooltip salary-tooltip"  style="display:none;">
+            <div class="xref-tooltip-top">&nbsp;</div>
+            <div class="xref-tooltip-content">
+              <p>
+                Minimum compensation can't be greater than $200,000.
+              </p>
+            </div>
+            <div class="xref-tooltip-bottom">&nbsp;</div>
+          </div>
+          <div class="myintro-section-content">
+            <div style="float:right; font-weight:400; font-size:14px;">
+              <span id="compensation-range"></span><%=t("position_overview.compensation.content2")%>
+            </div>
+
+            <br class="clear"/>
+            <div class="emp-comp-slider-cotainer"><div id="slider"></div></div>
+            <br class="clear"/>
+
+            <div class="emp-comp-slider-labels">
+              <div class="emp-comp-slider-label" style="left: 0px;">20</div>
+              <div class="emp-comp-slider-label" style="left: 41px;">40</div>
+              <div class="emp-comp-slider-label" style="left: 85px;">60</div>
+              <div class="emp-comp-slider-label" style="left: 128px;">80</div>
+              <div class="emp-comp-slider-label" style="left: 168px;">100</div>
+              <div class="emp-comp-slider-label" style="left: 211px;">120</div>
+              <div class="emp-comp-slider-label" style="left: 254px;">140</div>
+              <div class="emp-comp-slider-label" style="left: 297px;">160</div>
+              <div class="emp-comp-slider-label" style="left: 339px;">180</div>
+              <div class="emp-comp-slider-label" style="left: 383px;">200</div>
+              <div class="emp-comp-slider-label" style="left: 426px;">220</div>
+              <div class="emp-comp-slider-label" style="left: 470px;">240</div>
+              <div class="emp-comp-slider-label" style="left: 512px;">260</div>
+              <div class="emp-comp-slider-label" style="left: 554px;">280</div>
+              <div class="emp-comp-slider-label" style="left: 589px;">300+</div>
+              <br class="clear"/>
+            </div>
+
+            <div class="basic-table" style="width:525px;">
+              <div class="basic-table-header">
+                <div class="basic-table-col1"><%=t("position_overview.compensation.annual_comp")%></div>
+                <div class="basic-table-col2" id="comp11"></div>
+                <div class="basic-table-col3" id="comp12"></div>
+
+              </div>
+              <div class="basic-table-row">
+                <div class="basic-table-col1"><%=t("position_overview.compensation.hourly")%></div>
+                <div class="basic-table-col2" id="comp21"></div>
+                <div class="basic-table-col3" id="comp22"></div>
+
+              </div>
+              <span style="font-size:11px; font-weight:400; padding-left:2px;"><%=t("position_overview.compensation.content3")%></span>
+            </div>
+
+          </div>
+        </div>
+        <!--content-->
+        <div class="bottom"></div>
+      </div>
+      <!--/discription-->
+    </div>
+  </div>
+  <!--/blocks-->
+  <!--blocks-->
+  <div class="blocks">
+    <h4>
+      <%=t("position_overview.pos_preview.heading")%>
+      <!--
+      <img width="26" height="27" src="/assets/position-preview-info.gif" onclick="showHelpPopup2();" style="cursor:pointer;" />
+      -->
+      <!--
+      <span class="character-remaining rfloat"><%#=t("position_overview.pos_preview.char_remaining")%><%#=(job.overview.to_s.length >= 300 ? "0" : (300- job.overview.to_s.length))%></span>
+      -->
+    </h4>
+    <div class="company-information">
+      <div class="textarea-container">
+        <div class="top">&nbsp;</div>
+        <div class="middle">
+          <textarea id="overview-text" name="summary" class="<%if(job.nil? || job.summary.to_s.empty?)%>placeholder<%else%>filled-input<%end%> support-placeholder" onfocus="removeErrorPositionProfile(this);" placeholder="<%=t("position_overview.pos_preview.label")%>"><%=h(job.summary) if(!job.nil?)%></textarea>
+        </div>
+        <div class="bottom">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+  <!--/blocks-->
+  <!--blocks Attachment-->
+
+  <div class="blocks" id="skill-cnt">
+    <h4><%=t ("position_profile.credentials.roles.title") %></h4>
+    <!--discription-->
+    <div class="discription">
+      <div class="top"></div>
+      <!--content-->
+      <div class="content">
+        <span class="innerHeading">
+          <%=t ("position_profile.credentials.roles.unranked") %> <br/><%=t ("position_profile.credentials.roles.content") %>
+        </span>
+        <%= hidden_field_tag 'populate_role_field' %>
+
+        <div class="clear-float"></div>
+
+        <!--Roles Start-->
+        <div class="emp_roles_section">
+          <ul>
+            <li>
+              <div style="" id="add-edit-skill" class="add-edit-skill">
+                <%= render :partial => "/pairing_profile/role1_edu_exp_detail" %>
+              </div>
+            </li>
+
+            <li>
+              <div style="" id="add-edit-skill" class="add-edit-skill">
+                <%= render :partial => "/pairing_profile/role2_edu_exp_detail" %>
+              </div>
+            </li>
+
+            <li>
+              <div style="" id="add-edit-skill" class="add-edit-skill">
+                <%= render :partial => "/pairing_profile/role3_edu_exp_detail" %>
+              </div>
+            </li>
+          </ul>
+          <div class="clear-float">&nbsp;</div>
+        </div>
+        <!--Roles End-->
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+  </div>
+  <!--/blocks-->
+
+  <!--blocks-->
+  <div class="blocks" id="lang-cnt">
+    <h4><%=t ("position_profile.credentials.languages.title") %></h4>
+    <!--discription-->
+    <div class="discription">
+      <div class="top"></div>
+      <!--content-->
+      <div class="content">
+        <span class="innerHeading">
+          <%=t ("position_profile.credentials.languages.contentL1") %><br /><%=t ("position_profile.credentials.languages.contentL2") %>
+        </span>
+
+        <div class="clear-float"></div>
+
+        <div id="langauges-Div" class="langauges-Div" style="display:none;">
+        </div>
+
+        <a href="javascript:void(0)" title="+Add" class="add-skill" id="add-skill-2">+<%=t ("position_profile.credentials.languages.add") %></a>
+        <div class="addition-coulmn" id="addition-column-2"></div>
+
+        <div class="addition-coulmn active padding-T-0px" id="languages" style="display:none;">
+          <ul>
+            <li>
+
+              <input type="hidden" id="validate-language" value="0"/>
+
+              <div class="language-slector" id ="langauge-selector">
+                <span class="label-default" id="temp"><%=t ("position_profile.credentials.languages.language_label") %></span>
+
+                <div class="language-options" id="lo" style="display:none;">
+                  <div class="language-options-top">&nbsp;</div>
+                  <div class="language-options-content" id="language-options-content">
+                    <label class="label-default"><%=t ("position_profile.credentials.languages.language_label") %></label>
+                    <ul class="option">
+                      <% for language in @languages -%>
+                        <li selected=""><label onclick="language_ev2.add_show(this);unbindKeydown();" id=<%= "'"+"#{language.id}"+"'" %> ><%= language.name %></label></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                  <div class="language-options-bottom">&nbsp;</div>
+
+                </div>
+              </div>
+
+              <div class="fluency-selector" id="fluency-selector">
+                <label class="label-default-top"><%=t ("position_profile.credentials.languages.fluency_label") %></label>
+
+                <div class="fluency-options" id="fo" style="display:none;">
+                  <div class="fluency-options-top">&nbsp;</div>
+                  <div class="fluency-options-content" id="fluency-options-content">
+                    <label class="label-default"><%=t ("position_profile.credentials.languages.fluency_label") %></label>
+                    <ul class="option">
+                      <li selected=""><label class="conventional" onclick="language_ev2.adv_conv(this);unbindKeydown();" id="1"><%=t ("position_profile.credentials.languages.conversational") %></label></li>
+                      <li selected=""><label class="advanced" onclick="<% if @employer.advanced_alert == false %>language_ev2.adv_conv(this);<% end %>centralizePopup();unbindKeydown();" id="2"><%=t ("position_profile.credentials.languages.advanced") %></label></li>
+                    </ul>
+                  </div>
+                  <div class="fluency-options-bottom">&nbsp;</div>
+                </div>
+              </div>
+              <a href='javascript:void(0)' id="language-remove" class='remove lang-rem' style="display:none;"><img src='/assets/remove-skill.png' alt='Remove Certificate' width='20' height='20' /></a>
+              <span class="radio-btn-container">
+                <a href="javascript:void(0)" id="lang_required_flag_1" class="custom-radio" checked="checked"><img src="/assets/employer_v2/btn-radio-active.png"/></a>
+                <label style="margin: 3px 10px 0 5px;"><%=t ("position_profile.credentials.languages.desired") %></label>
+                <a href="javascript:void(0)" id="lang_required_flag_2" class="custom-radio" checked=""><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>
+                <label style="margin: 3px 0 0 5px;"><%=t ("position_profile.credentials.languages.required") %></label>
+              </span>
+              <input type="hidden" id="language-flag" value="0"/>
+              <input type="hidden" id="selected-lang-id" value="" />
+              <label class="btn-add-another" id="lang-button" onclick="language_ev2.add_another($('#langauge-selector span.label-default').text(), $('#fluency-selector .label-default-top').text(), $('#language-flag').val());">+<%=t ("position_profile.credentials.languages.add_another") %></label>
+            </li>
+          </ul>
+          <ul class="lang-table" id="lang-table"></ul>
+        </div>
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+  </div>
+  <!--/blocks-->
+
+  <!--blocks blocks for Desired Education-->
+  <div class="blocks" id="deg-cnt">
+    <h4><%=t ("position_profile.credentials.desired_education.title") %><span class="opt-white">(<%=t ("position_profile.credentials.desired_education.optional") %>)</span></h4>
+    <!--discription-->
+    <div class="discription">
+      <div class="top"></div>
+      <!--content-->
+      <div class="content">
+        <span class="innerHeading">
+          <%=t ("position_profile.credentials.desired_education.contentL1") %><br /><%=t ("position_profile.credentials.desired_education.contentL2") %>
+        </span>
+
+        <div class="clear-float"></div>
+
+        <div class="addition-coulmn active padding-T-0px" id="degrees" style="sdisplay:none">
+          <ul class="text-autocomplete-certs">
+            <li>
+
+              <input type="hidden" id="validate-degree" value="0"/>
+
+              <div class="customized-inner-input input-text">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="add_deg_text_placeholder" value="<%=t ("position_profile.credentials.desired_education.label") %>" />
+                <input type="text" id="add_deg_text" name="add_deg_text" value="<%=t ("position_profile.credentials.desired_education.label") %>" onkeyup="disableValidateDegree();" onFocus="focus_element(this);" onBlur="blur_element(this);" onkeydown="type_element(this);" style="width:327px;"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <span class="radio-btn-container">
+                <a href="javascript:void(0)" id="degree_required_flag_1" class="custom-radio" style="margin-left: 15px;" checked="checked" ><img src="/assets/employer_v2/btn-radio-active.png"/></a>
+                <label style="margin: 3px 10px 0 5px;"><%=t ("position_profile.credentials.desired_education.desired") %></label>
+                <a href="javascript:void(0)" id="degree_required_flag_2" class="custom-radio" checked="" ><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>
+                <label style="margin: 3px 0 0 5px;"><%=t ("position_profile.credentials.desired_education.required") %></label>
+              </span>
+
+              <input type="hidden" id="degree-flag" value="0"/>
+            </li>
+          </ul>
+
+          <ul class="credential-table" id="cert-table">
+          </ul>
+        </div>
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+  </div>
+  <!--blocks for Desired Education End-->
+  <!--blocks for Preferred Colleges and universities Starts-->
+  <div class="blocks">
+    <h4><%=t ("position_profile.credentials.colleges_and_universities.title") %><span class="opt-white">(<%=t ("position_profile.credentials.colleges_and_universities.optional") %>)</span></h4>
+    <!--discription-->
+    <div class="discription">
+      <div class="top"></div>
+      <!--content-->
+      <div class="content">
+        <span class="innerHeading">
+          <%=t ("position_profile.credentials.colleges_and_universities.contentL1") %><br /><%=t ("position_profile.credentials.colleges_and_universities.contentL2") %>
+        </span>
+
+        <div class="clear-float"></div>
+
+        <div id="collegeAndUniversities-Div" class="collegeAndUniversities-Div" style="display:none;">
+
+        </div>
+
+        <div class="addition-coulmn active padding-T-0px" id="" >
+          <ul class="text-autocomplete-certs">
+            <li>
+
+              <input type="hidden" value="1" id="validate-college"/>
+              <input type="hidden" value="0" id="college-textbox"/>
+
+              <div class="customized-inner-input input-text">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="add_uni_text_placeholder" value="<%=t ("position_profile.credentials.colleges_and_universities.label") %>" />
+                <input type="text" id="add_uni_text" name="add_uni_text" value="<%=t ("position_profile.credentials.colleges_and_universities.label") %>" onkeyup="" onFocus="focus_element(this);" onBlur="blur_element(this);" onkeydown="type_element(this);" style="width:528px;"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+            <li><label class="rfloat ädd_another"style="" onclick="college_emp.add_another($('#add_uni_text').val());" style="cursor:pointer">+<%=t ("position_profile.credentials.colleges_and_universities.add_another") %></label></li>
+          </ul>
+
+          <ul class="credential-table" id="cert-table">
+          </ul>
+        </div>
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+  </div>
+  <!--blocks for Preferred Colleges and universities End-->
+
+  <!--blocks-->
+  <div class="blocks">
+    <h4><%=t ("position_profile.credentials.licenses.title") %><span class="opt-white">(<%=t ("position_profile.credentials.licenses.optional") %>)</span></h4>
+    <!--discription-->
+    <div class="discription">
+      <div class="top"></div>
+      <!--content-->
+      <div class="content">
+        <span class="innerHeading">
+          <%=t ("position_profile.credentials.licenses.contentL1") %><br /><%=t ("position_profile.credentials.licenses.contentL2") %>
+        </span>
+
+        <div class="clear-float"></div>
+
+        <div id="licensesAndCertifications-Div" class="licensesAndCertifications-Div" style="display:none;">
+        </div>
+
+        <!--<a href="javascript:void(0)" title="+Add" class="add-skill" id="add-skill-3">+Add</a>
+        <div class="addition-coulmn" id="addition-column-3"></div>-->
+
+        <div class="addition-coulmn active" id="degrees" >
+          <ul class="text-autocomplete-certs">
+            <li>
+
+              <input type="hidden" value="1" id="validate-certificate"/>
+              <input type="hidden" value="0" id="certificate-textbox"/>
+
+              <div class="customized-inner-input input-text">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="add_cert_text_placeholder" value="<%=t ("position_profile.credentials.licenses.label") %>" />
+                <input type="text" id="add_cert_text" name="add_cert_text" value="<%=t ("position_profile.credentials.licenses.label") %>" onkeyup="" onFocus="focus_element(this);" onBlur="blur_element(this);" onkeydown="type_element(this);" style="width:327px;"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <span class="radio-btn-container">
+                <a href="javascript:void(0)" id="cert_required_flag_1" class="custom-radio" style="margin-left: 15px;" checked="checked" ><img src="/assets/employer_v2/btn-radio-active.png"/></a>
+                <label style="margin: 3px 10px 0 5px;"><%=t ("position_profile.credentials.licenses.desired") %></label>
+                <a href="javascript:void(0)" id="cert_required_flag_2" class="custom-radio" checked="" ><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>
+                <label style="margin: 3px 0 0 5px;"><%=t ("position_profile.credentials.licenses.required") %></label>
+              </span>
+
+              <input type="hidden" id="cert-flag" value="0"/>
+            </li>
+            <li>
+              <label class="btn-add-another" id="cert-button class" onclick="certificate_ev2.add_another($('#add_cert_text').val(), $('#cert-flag').val());">+<%=t ("position_profile.credentials.licenses.add_another") %></label>
+            </li>
+          </ul>
+
+          <ul class="credential-table" id="cert-table">
+          </ul>
+        </div>
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+  </div>
+  <!--/blocks-->
+
+  <div class="blocks details attachment-block">
+    <h4><%=t("position_overview.attachment.heading")%><span class="character-remaining"><%=t("position_overview.attachment.optional")%></span>
+      <span class="character-remaining rfloat"><%=t("position_overview.attachment.type")%><br/><%=t("position_overview.attachment.size")%></span>
+    </h4>
+    <div class="attachment-information" id="attachment-content">
+      <%= render :partial=>"position_profile/attachment", :locals=>{:job=> job} %>
+    </div>
+  </div>
+
+  <div class="button-container attachment-block-btn">
+    <p id="error-message" class="emp-error-message" style="width:86px;margin-left: 5px;">&nbsp;</p>
+    <!--
+    <p id="role_err_msg" class="emp-error-message" style="width:86px;margin-left: 5px;display: none;">ERROR Role section contains incomplete fields.</p>
+    <p id="language_err_msg" class="emp-error-message" style="width:86px;margin-left: 5px;display: none;">ERROR Language section contains incomplete fields.</p>
+    <p id="degree_err_msg" class="emp-error-message" style="width:86px;margin-left: 5px;display: none;">ERROR Please select degree from the dropdown.</p>
+    -->
+    <p style="width:87px;">
+      <input type="button" value="Save" id="new_employer_job_submit" class="btn-save active" name="check" onclick="return save_employer_basics.validate_before_save(this,true);"/>
+    </p>
+  </div>
+
+  <!--/accordion-content-->
+  <input type="hidden" id="jobid" name="jobid" value="<%= job.id %>" />
+<% end %>
+
+<input type="hidden" id="attachmentpresent" value="<%= (!job.job_attachments.blank?) ? true : false %>"/>
+<div id="form-container">
+  <%= form_for job.job_attachments.new, :url => { :controller=>"position_profile", :action => "upload_attachment" }, :html => { :multipart => true, :id=>"job_attachment_form", :name=>"job_attachment_form" } do |j| %>
+    <%= j.file_field 'attachment', :onchange=>"submitAttachment();" %>
+    <input type="hidden" name="job[id]" id="job_id" value="<%= job.id %>" />
+  <% end %>
+  <iframe id='upload_frame' name="upload_frame" style="display:none" src="about:blank"></iframe>
+</div>
+
+<script type="text/javascript">
+  var compensation_arr  = eval("[<%= compensation_range.join(',')%>]");
+  var paidtime_arr  = eval("[<%= paidtime_range.join(',')%>]");
+  var commute_arr  = eval("[<%= commute_range.join(',')%>]");
+
+  $(document).ready(function() {
+    $('#position_parent_id').val($('#parent_id').val());
+    $("input[type=text]").keyup(function(){
+      if(!$(this).hasClass('edit-group-name ')) {
+        $("#tab-1_hasThisFormBeenEdited").val(1);
+      }
+    });
+    $("textarea").keyup(function(){
+      $("#tab-1_hasThisFormBeenEdited").val(1);
+    });
+    $("#position-overview").bind("ajax:beforeSend",function(){showBlockShadow();});
+    // Initialize radio buttons
+    $("input['radio'].customize-radio").each(function() {
+      $(this).hide();
+      var onclick_behav = "toggleRadio(this);$('#tab-1_hasThisFormBeenEdited').val(1);";
+      if($(this).is(':checked') == true){
+        $(this).after('<a onclick="' + onclick_behav + '" class="custom-radio" style="float:left" href="javascript:void(0)"><img src="/assets/employer_v2/btn-radio-active.png"/></a>');
+      }else{
+        $(this).after('<a onclick="' + onclick_behav + '" class="custom-radio" style="float:left" href="javascript:void(0)"><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>');
+      }
+    });
+
+    // Removing Google API functionality of placeholders and restoring value
+    $("#company_city").blur(function(){
+      setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('company_city'))){
+          $('#company_city').removeAttr('placeholder');
+          $('#company_city').val($('#company_city_placeholder').val());
+        }
+      }, 50);
+    });
+
+    $("#company_street_one").blur(function(){
+      setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('company_street_one'))){
+          $('#company_street_one').removeAttr('placeholder');
+          $('#company_street_one').val($('#company_street_one_placeholder').val());
+        }
+      }, 50);
+    });
+
+    // Checks if job is virtual, hides not required fields
+    <%if job.remote_work == true %> $(".remote_work_fields").hide(); <% end %>
+    BrowserDetect.init();
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7") { $("#form-container").html(""); }
+    if($("#attachmentpresent").val()=="true"){ increaseButtonHeight(); }
+    $("#selected-position-name").text($("#selected-from-db").val());
+    <%if selected_employment_ids.length > 0%> $("#selected-position-name").removeClass("placeholder"); <%end%>
+
+    $('.state-slector').click(function(e) {
+      if($(".state-options").is(':visible') == true) { hidePositionOverviewCustomSelectBox(); }
+      else { $("#position-type-selector .state-slector").removeClass("error"); showPositionOverviewCustomSelectBox(); }
+      e.stopPropagation();
+    });
+
+    $('body').click(function() { hidePositionOverviewCustomSelectBox(); });
+
+    $('.option li').hover(function(){
+      $('.option').children().each(function(){
+        if($(this).attr('selected')=='selected'){ $(this).removeClass('selected').removeAttr('selected'); }
+      });
+      $(this).addClass('selected').attr('selected', 'selected');
+    });
+
+<%if job.profile_responsibilities.length == 0%> add_more_responsibility.add(); <%end%>
+    add_more_responsibility.init();
+    ownership_event.init();
+    create_slider.call();    
+<%  if job.minimum_compensation_amount != 0.0 and job.id != nil  %>
+      mark_slider_values.call(<%=job.minimum_compensation_amount*1000%>,<%=job.maximum_compensation_amount*1000%>);
+      calculate_compensation.initialize([<%=job.minimum_compensation_amount*1000%>,<%=job.maximum_compensation_amount*1000%>]);
+<%  end %>
+    adjustBasicJobTypeHeight();
+
+    $("#hiring_company_true").next().click(function(){
+      $("#hiring_company_name_container").hide();
+      $("#hiring_company_name_container").removeClass("active-input").addClass("input-text");
+      $("#hiring_company_name").val($("#hiring_company_name_placeholder").val());
+    });
+
+    $("#hiring_company_false").next().click(function(){
+      $("#hiring_company_name_container").show();
+      $("#hiring_company_name_container").removeClass("active-input").addClass("input-text");
+      $("#hiring_company_name").val($("#hiring_company_name_placeholder").val());
+    });
+
+    $("#remote_work_true").next().click(function(){
+      $(".remote_work_fields").hide();
+      $("#pi_error_msg").html('');
+      $("#company_street_one").parent().removeClass("active-input").addClass("input-text");
+      $("#company_street_one").val($("#company_street_one_placeholder").val());
+      $("#company_zip").parent().removeClass("active-input").addClass("input-text");
+      $("#company_zip").val($("#company_zip_placeholder").val());
+      $("#company_city").parent().removeClass("input-text-error active-input").addClass("input-text");
+      $("#company_city").val($("#company_city_placeholder").val());
+      $("#company_state").parent().removeClass("active-input").addClass("input-text");
+      $("#company_state").val($("#company_state_placeholder").val());
+      $("#company_country").parent().removeClass("active-input").addClass("input-text");
+      $("#company_country").val($("#company_country_placeholder").val());
+    });
+
+    $("#remote_work_false").next().click(function(){
+      $(".remote_work_fields").show();
+      $("#company_street_one").parent().removeClass("active-input").addClass("input-text");
+      $("#company_street_one").val($("#company_street_one_placeholder").val());
+      $("#company_zip").parent().removeClass("active-input").addClass("input-text");
+      $("#company_zip").val($("#company_zip_placeholder").val());
+      $("#company_city").parent().removeClass("input-text-error active-input").addClass("input-text");
+      $("#company_city").val($("#company_city_placeholder").val());
+      $("#company_state").parent().removeClass("active-input").addClass("input-text");
+      $("#company_state").val($("#company_state_placeholder").val());
+      $("#company_country").parent().removeClass("active-input").addClass("input-text");
+      $("#company_country").val($("#company_country_placeholder").val());
+    })
+  });
+</script>
+
+<script type="text/javascript">
+  var company_city = document.getElementById('company_city');
+  var options_type = {
+    types: ['(cities)']
+  };
+  $("#company_city").focus(function(){
+    if(company_city.value=="City / Location") {
+      $(".pac-container").addClass('hack-hidden');
+    }
+  })
+  $("#company_city").keyup(function(){
+    if(company_city.value!="City / Location") {
+      $(".pac-container").removeClass('hack-hidden');
+    }
+  })
+  var autocomplete = new google.maps.places.Autocomplete(company_city, options_type);
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var company_city = document.getElementById('company_city').value;
+    company_city = encodeURIComponent(company_city);
+    $.ajax({
+      type: 'POST',
+      url: '/ajax/geocode_fetch_for_employer',
+      data: "company_city="+company_city+"",
+      cache: false,
+      beforeSend: function() {
+        showBlockShadow();
+        $("#company_city").parent().removeClass("input-text-error");
+        $("#company_city").parent().addClass("active-input");
+      },
+      success: function(){
+        hideBlockShadow();
+
+        if($("#company_state_flag").val()==1) {
+          $("#company_state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_state").parent().addClass("active-input");
+          $("#company_state").attr('readonly', true);
+        }
+        else {
+          $("#company_state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_state").parent().addClass("input-text");
+          $("#company_state").removeAttr('readonly');
+          $("#company_state").val($("#company_state_placeholder").val());
+        }
+
+        if($("#company_city_flag").val()==1) {
+          $("#company_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_city").parent().addClass("active-input");
+
+        }
+        else {
+          $("#company_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_city").parent().addClass("input-text");
+          $("#company_city").removeAttr('readonly');
+          $("#company_city").val($("#company_city_placeholder").val());
+        }
+
+        if($("#company_zip_flag").val()==1) {
+          $("#company_zip").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_zip").parent().addClass("active-input");
+          $("#company_zip").attr('readonly', true);
+        }
+        else {
+          $("#company_zip").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_zip").parent().addClass("input-text");
+          $("#company_zip").removeAttr('readonly');
+          $("#company_zip").val($("#company_zip_placeholder").val());
+        }
+
+        if($("#company_country_flag").val()==1) {
+          $("#company_country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_country").parent().addClass("active-input");
+          $("#company_country").attr('readonly', true);
+        }
+        else {
+          $("#company_country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_country").parent().addClass("input-text");
+          $("#company_country").removeAttr('readonly');
+          $("#company_country").val($("#company_country_placeholder").val());
+        }
+        $("#pi_error_msg").html('');
+        if(!validateNotEmpty(document.getElementById('company_city'))){
+          $('#company_city').val($('#company_city_placeholder').val());
+        }
+        else{
+          if($("#dropdown_check_flag").val() == "0") {
+            $('#company_city').parent().removeClass("input-text active-input input-text-active input-text-unactive input-text-error");
+            $('#company_city').parent().addClass("input-text-error");
+            $("#pi_error_msg").html('Select a city from the list.');
+          }
+        }
+      }
+    });
+  });
+
+  var company_street_one = document.getElementById('company_street_one');
+  var company_street_one_options_type = {
+    types: []
+  };
+  $("#company_street_one").focus(function(){
+    if(company_street_one.value==$("#company_street_one_placeholder").val()) {
+      $(".pac-container").addClass('hack-hidden');
+    }
+  })
+  $("#company_street_one").keyup(function(){
+    if(company_street_one.value!=$("#company_street_one_placeholder").val()) {
+      $(".pac-container").removeClass('hack-hidden');
+    }
+  })
+  var autocomplete = new google.maps.places.Autocomplete(company_street_one, company_street_one_options_type);
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var company_street_one = document.getElementById('company_street_one').value;
+    company_street_one = encodeURIComponent(company_street_one);
+    $.ajax({
+      type: 'POST',
+      url: '/ajax/street_address_handler',
+      data: "company_street_one="+company_street_one+"",
+      cache: false,
+      beforeSend: function() {
+        showBlockShadow();
+        $("#company_street_one").parent().removeClass("input-text-error");
+        $("#company_street_one").parent().addClass("active-input");
+      },
+      success: function(){
+        hideBlockShadow();
+
+        if($("#company_state_flag").val()==1) {
+          $("#company_state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_state").parent().addClass("active-input");
+          $("#company_state").attr('readonly', true);
+        }
+        else {
+          $("#company_state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_state").parent().addClass("input-text");
+          $("#company_state").removeAttr('readonly');
+          $("#company_state").val($("#company_state_placeholder").val());
+        }
+
+        if($("#company_city_flag").val()==1) {
+          $("#company_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_city").parent().addClass("active-input");
+
+        }
+        else {
+          $("#company_city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_city").parent().addClass("input-text");
+          $("#company_city").removeAttr('readonly');
+          $("#company_city").val($("#company_city_placeholder").val());
+        }
+
+        if($("#company_street_one_flag").val()==1) {
+          $("#company_street_one").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_street_one").parent().addClass("active-input");
+
+        }
+        else {
+          $("#company_street_one").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_street_one").parent().addClass("input-text");
+          $("#company_street_one").removeAttr('readonly');
+          $("#company_street_one").val($("#company_street_one_placeholder").val());
+        }
+
+        if($("#company_zip_flag").val()==1) {
+          $("#company_zip").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_zip").parent().addClass("active-input");
+          $("#company_zip").attr('readonly', true);
+        }
+        else {
+          $("#company_zip").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_zip").parent().addClass("input-text");
+          $("#company_zip").removeAttr('readonly');
+          $("#company_zip").val($("#company_zip_placeholder").val());
+        }
+
+        if($("#company_country_flag").val()==1) {
+          $("#company_country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_country").parent().addClass("active-input");
+          $("#company_country").attr('readonly', true);
+        }
+        else {
+          $("#company_country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#company_country").parent().addClass("input-text");
+          $("#company_country").removeAttr('readonly');
+          $("#company_country").val($("#company_country_placeholder").val());
+        }
+        $("#pi_error_msg").html('');
+        if(!validateNotEmpty(document.getElementById('company_street_one'))){
+          $('#company_street_one').val($('#company_street_one_placeholder').val());
+        }
+      }
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".ui-slider-handle img").click(function(){
+      $("#tab-1_hasThisFormBeenEdited").val(1);
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    if($('.cert-list')){
+      $('.cert-list').parent().parent().remove();
+    }
+
+    if($('.college-university-list')){
+      $('.college-university-list').parent().parent().remove();
+    }
+
+    cert_autocomplete.create();
+    uni_autocomplete.create();
+    degree_autocomplete.create();
+
+    $('.cert-list').parent().append("<div id='cert-dd-textbox' onclick='changeToTextBoxCertificate(event);' class='collegeUniversity-autoComplete-txt collegeUniversity-licencesCls' style='display:none'>Other (enter your own)</div>");
+    $('.college-university-list').parent().append("<div id='college-univ-textbox' onclick='changeToTextBoxCollege(event);' class='collegeUniversity-autoComplete-txt collegeUniversity-preferedCollegesCls' style='display:none'>Other (enter your own)</div>");
+
+    certificate_ev2.initialize("<%= @new_selected_certificates.html_safe%>", "<%= @required_certificates_arr.html_safe%>");
+    language_ev2.initialize("<%= @selected_languages.html_safe %>", "<%= @required_languages_arr.html_safe %>");
+    college_emp.initialize("<%= @selected_colleges.html_safe %>");
+    degree_emp.initialize("<%= @selected_degree.html_safe %>", "<%=h @degree_flag %>");
+
+    if($('#credentials span').html()=="Completed"){
+      $("#skills").show();
+      $("#add-skill-1").hide();
+      $("#addition-column-1").hide();
+      $("#languages").show();
+      $("#add-skill-2").hide();
+      $("#addition-column-2").hide();
+      $("#degrees").show();
+      $("#add-skill-3").hide();
+      $("#addition-column-3").hide();
+    }
+
+    if($('.language-options', this).is(":visible")) { $('.language-options', this).hide(); }
+
+    $('body').click(function(e){
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+      $('.college-university-list').css('display','none');
+      $('.degree-list').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+
+      $('.collegeUniversity-autoComplete-txt').hide();
+      $('.collegeUniversity-autoComplete-txt').html("Other (enter your own)");
+      $('#certificate-textbox').val('0');
+      $('#college-textbox').val('0');
+      $(document).unbind('keydown');
+      e.stopPropagation();
+    });
+
+    $('.language-slector').click(function(e){
+      $(this).parents('.inner-paring-block').addClass('activeBlock');
+      $('.default-level',this).css('display','none');
+      if($('.language-options', this).is(":visible") == true){ $('.language-options', this).hide(); }
+      else{
+        $('.language-options', this).show();
+        $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){ $(this).removeClass('selected').removeAttr('selected'); }
+        });
+
+        $('.language-options .option').find('#1').parent().addClass('selected').attr('selected','selected');
+        $('.option').scrollTop(0);
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('lo'), 'language_emp');
+        });
+      }
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+      e.stopPropagation();
+    });
+
+    $('.option li').hover(function(){
+      $('.option').children().each(function(){
+        if($(this).attr('selected')=='selected'){
+          $(this).removeClass('selected').removeAttr('selected');
+        }
+      });
+      $(this).addClass('selected').attr('selected', 'selected');
+    });
+
+    $('.fluency-selector').click(function(e){
+      $(this).parents('.inner-paring-block').addClass('activeBlock');
+      $('.default-level',this).css('display','none');
+      if($('.fluency-options', this).is(":visible") == false){
+        $('.fluency-options', this).show();
+        $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+
+        $('.fluency-options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('fo'), 'fluency_emp');
+        });
+      }
+      else{
+        $('.fluency-options', this).hide();
+      }
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+      $('.language-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+      e.stopPropagation();
+    });
+
+    $('.language-options-content ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.language-slector .label-default').text(_labelVale);
+        $('.language-slector .label-default-top').text(_labelVale);
+        $('.language-slector .label-default').addClass("text-active");
+        $('.language-slector .label-default-top').addClass("text-active");
+        //$("#language-remove").show();
+        if($('#fluency-selector .label-default-top').text()!="Level of Fluency"){
+          $('#validate-language').val("1");
+        }
+        $("#tab-1_hasThisFormBeenEdited").val('1');
+      });
+    });
+
+    $('.fluency-options ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.fluency-selector .label-default-top').text(_labelVale);
+        $('#fluency-options-content label.label-default').text(_labelVale);
+        if(_labelVale=="Conversational") {
+          $('.fluency-selector .label-default-top').removeClass("text-active-blue text-active-red");
+          $('.fluency-selector .label-default-top').addClass("text-active-blue");
+          $('#fluency-options-content label.label-default').removeClass("text-active-blue text-active-red");
+          $('#fluency-options-content label.label-default').addClass("text-active-blue");
+        }
+        else if(_labelVale=="Advanced") {
+          $('.fluency-selector .label-default-top').removeClass("text-active-blue text-active-red");
+          $('.fluency-selector .label-default-top').addClass("text-active-red");
+          $('#fluency-options-content label.label-default').removeClass("text-active-blue text-active-red");
+          $('#fluency-options-content label.label-default').addClass("text-active-red");
+        }
+        //$("#language-remove").show();
+        if($('#langauge-selector').find('span.label-default').text()!="Language"){
+          $('#validate-language').val("1");
+        }
+        $("#tab-1_hasThisFormBeenEdited").val('1');
+      });
+    });
+
+    $("#add-skill-1").click(function(){
+      $("#skills").show();
+      $("#add-skill-1").hide();
+      $("#addition-column-1").hide();
+    });
+
+    //$("#add-skill-2").click(function(){
+    $("#languages").show();
+    $("#add-skill-2").hide();
+    $("#addition-column-2").hide();
+    //});
+
+    //$("#add-skill-3").click(function(){
+    $("#degrees").show();
+    $("#add-skill-3").hide();
+    $("#addition-column-3").hide();
+    //});
+
+    $("#cert_required_flag_1").click(function(){
+      $("#cert-flag").val("0");
+      $("#cert_required_flag_2").attr("checked","");
+      $("#cert_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#cert_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#cert_required_flag_1").attr("checked","checked");
+
+      if($("#validate-certificate").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#cert_required_flag_2").click(function(){
+      $("#cert-flag").val("1");
+      $("#cert_required_flag_1").attr("checked","");
+      $("#cert_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#cert_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#cert_required_flag_2").attr("checked","checked");
+
+      if($("#validate-certificate").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#lang_required_flag_1").click(function(){
+      $("#language-flag").val("0");
+      $("#lang_required_flag_2").attr("checked","");
+      $("#lang_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#lang_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#lang_required_flag_1").attr("checked","checked");
+
+      if($("#validate-language").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#lang_required_flag_2").click(function(){
+      $("#language-flag").val("1");
+      $("#lang_required_flag_1").attr("checked","");
+      $("#lang_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#lang_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#lang_required_flag_2").attr("checked","checked");
+
+      if($("#validate-language").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#degree_required_flag_1").click(function(){
+      $("#degree-flag").val("0");
+      $("#degree_required_flag_2").attr("checked","");
+      $("#degree_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#degree_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#degree_required_flag_1").attr("checked","checked");
+
+      if($("#validate-degree").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#degree_required_flag_2").click(function(){
+      $("#degree-flag").val("1");
+      $("#degree_required_flag_1").attr("checked","");
+      $("#degree_required_flag_1").html('<img src="/assets/employer_v2/btn-radio-inactive.png"/>');
+      $("#degree_required_flag_2").html('<img src="/assets/employer_v2/btn-radio-active.png"/>');
+      $("#degree_required_flag_2").attr("checked","checked");
+
+      if($("#validate-degree").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+      return false;
+    });
+
+    $("#lang-button").click(function(){
+      //language_ev2.langbox_submit();
+    });
+
+    $("#validate-degree").bind('change', function(){
+      if($("#validate-degree").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+    });
+
+    $("#validate-language").change(function(){
+      if($("#validate-language").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+    });
+
+    $("#validate-certificate").change(function(){
+      if($("#validate-certificate").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+    });
+
+    $("#validate-college").change(function(){
+      if($("#validate-college").val()=="1"){
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+      }
+    });
+
+    $('.educationLevel').click(function(e){
+      if($('.education-options', this).is(":visible") == true)
+        $('.education-options', this).hide();
+      else{
+        $('.education-options', this).show();
+
+        $('.option').children().each(function(){
+          if($(this).attr('selected') == 'selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+        $('.education-options .option').find('#1_').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('education-options'), 'edulevel1');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+
+      e.stopPropagation();
+    });
+
+    $('.skillLevel').click(function(e){
+      if($('.skill-options', this).is(":visible") == true)
+        $('.skill-options', this).hide();
+      else{
+        $('.skill-options', this).show();
+        $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+
+        $('.skill-options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('skill-options'), 'explevel1');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+      e.stopPropagation();
+    });
+
+    $('.educationLevelRole2').click(function(e){
+      if($('.education-options-role2', this).is(":visible") == true)
+        $('.education-options-role2', this).hide();
+      else{
+        $('.education-options-role2', this).show();
+
+        $('.option').children().each(function(){
+          if($(this).attr('selected') == 'selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+        $('.education-options-role2 .option').find('#1_').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        //DropDownHandler.time = System.currentTimeMillis();
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('education-options-role2'), 'edulevel2');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+      e.stopPropagation();
+    });
+
+    $('.skillLevelRole2').click(function(e){
+      if($('.skill-options-role2', this).is(":visible") == true)
+        $('.skill-options-role2', this).hide();
+      else{
+        $('.skill-options-role2', this).show();
+        $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+
+        $('.skill-options-role2 .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        //DropDownHandler.time = System.currentTimeMillis();
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('skill-options-role2'), 'explevel2');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role3').css('display','none');
+
+      e.stopPropagation();
+    });
+
+    $('.educationLevelRole3').click(function(e){
+      if($('.education-options-role3', this).is(":visible") == true)
+        $('.education-options-role3', this).hide();
+      else{
+        $('.education-options-role3', this).show();
+
+        $('.option').children().each(function(){
+          if($(this).attr('selected') == 'selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+        $('.education-options-role3 .option').find('#1_').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        //DropDownHandler.time = System.currentTimeMillis();
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('education-options-role3'), 'edulevel3');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+      $('.skill-options-role3').css('display','none');
+
+      e.stopPropagation();
+    });
+
+    $('.skillLevelRole3').click(function(e){
+      if($('.skill-options-role3', this).is(":visible") == true)
+        $('.skill-options-role3', this).hide();
+      else{
+        $('.skill-options-role3', this).show();
+        $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){
+            $(this).removeClass('selected').removeAttr('selected');
+          }
+        });
+
+        $('.skill-options-role3 .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+        $('.option').scrollTop(0);
+        //DropDownHandler.time = System.currentTimeMillis();
+        DropDownHandler.t = new Date().getTime();
+
+        $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('skill-options-role3'), 'explevel3');
+        });
+      }
+      $('.language-options').css('display','none');
+      $('.fluency-options').css('display','none');
+      $('.cert-list').css('display','none');
+      $('.skill-dropdown').css('display','none');
+
+      $('.education-options').css('display','none');
+      $('.education-options-role2').css('display','none');
+      $('.education-options-role3').css('display','none');
+
+      $('.skill-options').css('display','none');
+      $('.skill-options-role2').css('display','none');
+
+      e.stopPropagation();
+    });
+
+    $('.education-options-content ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.educationLevel .education-default').text(_labelVale);
+        $(".educationLevel .education-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole1Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole1Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+
+    $('.skill-options-content ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.skillLevel .skill-default').text(_labelVale);
+        $(".skillLevel .skill-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole1Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole1Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+
+    $('.education-options-content-role2 ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.educationLevelRole2 .education-default').text(_labelVale);
+        $(".educationLevelRole2 .education-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole2Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole2Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+
+    $('.skill-options-content-role2 ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.skillLevelRole2 .skill-default').text(_labelVale);
+        $(".skillLevelRole2 .skill-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole2Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole2Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+
+    $('.education-options-content-role3 ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.educationLevelRole3 .education-default').text(_labelVale);
+        $(".educationLevelRole3 .education-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole3Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole3Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+
+    $('.skill-options-content-role3 ul li').each(function(){
+      $('label',this).click(function(){
+        _labelVale = $(this).html();
+        $('.skillLevelRole3 .skill-default').text(_labelVale);
+        $(".skillLevelRole3 .skill-default").addClass("text-active");
+        $("#tab-1_hasThisFormBeenEdited").val("1");
+        $("div#removeRole3Contents").html("<a href='javascript:void(0)' class='remove' onclick='clearRole3Contents();'><img src='/assets/remove-skill.png' alt='Remove Role' width='20' height='20' /></a>");
+      });
+    });
+  });
+  function skills_add_button_binding(){
+    $("div#proficiencyOccurence").html("<input type='hidden' value='occured' id='match-occured' />");
+    skills_ev2.add_show_val();
+  }
+  $(function(){
+    if($('#jid').val() != "0") {
+      save_employer_basics.validate_before_save(this,false);
+    }
+  })
+</script>

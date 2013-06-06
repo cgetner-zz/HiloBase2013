@@ -1,0 +1,66 @@
+<div class="expand-all"><span class="expand" <% if session[:employer].account_type_id == 3 %>style="visibility: hidden;"<% end %>><%=t ("user_admin.team_map.expand_all") %></span></div>
+<div class="account-top"></div>
+<div class="account-middle">
+  <div class="account-middle-content">
+    <div class="header">
+      <div class="inline-div">
+        <div class="heading"><%=t ("user_admin.team_map.title") %></div>
+        <div class="sub-heading"><%=t ("user_admin.team_map.content") %></div>
+      </div>
+      <div class="nav-container">
+        <a onclick="openUserAdminTab();" href="javascript:void(0)"></a>
+        <a onclick="openPositionAssignTab();" href="javascript:void(0)"></a>
+        <a class="active" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <% if session[:employer].account_type_id == 3 %><%= render :partial=> "/shared/employer/user_admin_sample_data_message" %><% end %>
+    <div class="full-screen">
+      <img src="/assets/employer_v2/fullscreen.png" title="<%=t ('user_admin.team_map.full_screen') %>"/>
+    </div>
+    <div class="content team-map" style="height: 592px !important;">
+      <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+        <%= render :partial=>'shared/employer/team_map', :locals=>{:type=>nil}  %>
+      <% else %>
+        <ul class="org-map" id="org" style="display:none">
+          <li class='me-node'>
+            <%=t ("user_admin.team_map.sample_team_map.me") %>
+            <ul>
+              <li class="even"><%=t ("user_admin.team_map.sample_team_map.sub_user_1") %>
+                <ul>
+                  <li class="odd"><%=t ("user_admin.team_map.sample_team_map.sub_user_a") %></li>
+                  <li class="odd"><%=t ("user_admin.team_map.sample_team_map.sub_user_b") %></li>
+                </ul>
+              </li>
+              <li class="even"><%=t ("user_admin.team_map.sample_team_map.sub_user_2") %></li>
+              <li class="even"><%=t ("user_admin.team_map.sample_team_map.sub_user_3") %></li>
+            </ul>
+          </li>
+        </ul>
+      <% end %>
+      <div id="chart" class="orgChart"></div>
+    </div>
+  </div>
+</div>
+<div class="account-bottom"></div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.account-middle-content .content').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+    $("#org").jOrgChart({
+      chartElement : '#chart',
+      dragAndDrop  : true
+    });
+<% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+      $(".full-screen").click(function(){
+        openTeamMapFullScreen();
+      });
+<% end %>
+    removeArrowFromEmptyNodes();
+    checkStatusOfTeamMap();
+<% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+      $(".expand-all span").unbind().click(function(){ expandAllTab3(this); });
+<% end %>
+  })
+</script>

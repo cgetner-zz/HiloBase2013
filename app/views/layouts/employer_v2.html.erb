@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=yield :page_title%>Hilo - Meaningful employment.</title>
+    <meta name="Author" content="Hilo"/>
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo"/>
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider."/>
+
+    <%= render :partial => "/shared/google_analytics" %>
+    <%= csrf_meta_tag %>
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <!--<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>-->
+    <%=stylesheet_link_tag("employer_v2","common","jquery-ui-1.8.custom")%>
+    <!--[if IE 7]>
+    <%=stylesheet_link_tag("employer_v2-IE7")%>
+	 <![endif]-->
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("employer_v2-IE8")%>
+	 <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("employer_v2-IE9")%>
+	 <![endif]-->
+    <%=yield :page_css%>
+    <%=javascript_include_tag "application_employer", "jquery.form.js","common","employer_v2","elementCheck","jquery.caret","jquery.numeric","custom_form_element","customdropdown","slimScroll"%>
+    <%=yield :page_js%>
+
+    <%=yield :video_frame%>
+
+
+  </head>
+
+
+  <body id="inner-Page">
+
+    <div id="page-container-accountSetup">
+      <div class="top-bar">&nbsp;</div>
+      <!--main-container-->
+      <div id="main-container">
+        <%=render :partial => "/employer/employer_header"%>
+
+        <!--content-container-->
+        <div id="content-container">
+          <%=yield -%>
+
+        </div>
+        <!-- Content container end-->
+
+        <%=render :partial => "/employer/employer_footer"%>
+        <%= render :partial => "/shared/employer/employer_success_sharing" %>
+
+      </div>
+
+      <!--/main-container-->
+
+    </div>
+
+    <div id="fade_normal_status" class="black_overlay_light" style="display:none;" onclick="clickOutside(this);"></div>
+    <div id="fade_normal" class="black_overlay" style="display: none;" onclick="clickOutside(this);"></div>
+    <div id="fade_success" class="sucess_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_error" class="error_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+    <div id="fade_success_sharing" class="sucess_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+    <div id="gift_hilo_popup" class="white_content"></div>
+    <div id="gift_hilo_success_msg" class="white_content"></div>
+    <div id="checkout_billing_info" class="white_content"></div>
+    <div id="gift_hilo_popup" class="white_content"></div>
+    <div id="gift_purchase_review" class="white_content"></div>
+    <div id="gift_cc_billing_popup" class="white_content"></div>
+    <input type="hidden" id="page_url_job" value="<%=CGI::escape(request.url)%>" />
+    <%= render :partial => "/shared/employer/privacy_policy" -%>
+    <%= render :partial => "/shared/employer/terms_of_use" -%>
+    <%= render :partial => "/employer/email_error" -%>
+    <%= render :partial => "/shared/about_hilo" %>
+    <%= render :partial => "shared/success_sharing_msg" %>
+    <%= render :partial => "shared/success_sharing_hilo_msg" %>
+
+    <%= render :partial => "/home/gift_hilo_failure" %>
+    <%= render :partial => "/home/gift_hilo_signin_failure" %>
+    <%= render :partial => "/home/gift_hilo_one_click_signin_failure" %>
+    <%= render :partial => "/home/gift_hilo_failure" %>
+    <%= render :partial => "/gift/complete_purchase_one_click" %>
+    <%= render :partial => "/gift/complete_payment_no_one_click" %>
+    <%= render :partial => "/home/gift_hilo_registered_signin_failure" %>
+    <% if controller.controller_name == "employer" %>
+      <%= render :partial => "home/signin_failure_popup" %>
+      <%= render :partial => "/home/forgot_password" %>
+      <!-- Login Error Popup -->
+      <%= render :partial => "home/login_failure_popup" %>
+      <!-- /Login Error Popup -->
+      <% if params[:forgot_pass] %>
+        <%= render :partial => "reset_password" %>
+      <% end %>
+    <% end %>
+    <div id="fade_normal_warning" class="black_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+    <%= render :partial => "/shared/webengage" %>
+  </body>
+</html>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    body_load_function();
+
+
+<%if not session[:job_code].blank?%>
+      show_job_with_code("<%=session[:job_code]%>");
+  <%
+  session[:job_code] = nil
+end
+%>
+
+<%if flash[:notice]%>
+      msg_box.show_error("<%=json_from_flashnotice(flash[:notice])%>","Success");
+<%end%>
+
+<%=show_gift_payment_msg_onload()%>
+<%=show_job_payment_msg_onload()%>
+<%=show_job_after_job_pay_load()%>
+
+
+<%
+if !session[:gift_success].blank? && session[:gift_success] == "success"
+  session[:gift_success] = nil
+%>
+      msg_box.show_error("[{msg: 'Gift card sent successfully'}]","Success");
+<%end%>
+
+
+<% if session[:success_share] %>
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessHiloSharingMsg('<%= session[:hilo_msg] %>')
+  <% end %>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share] = nil %>
+<% end %>
+
+<% if session[:success_share_gift] %>
+      hideBlockShadow();
+      click_gift_hilo.gift_hilo_show();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_gift] = nil %>
+<% end %>
+
+<% if session[:success_share_about] %>
+      hideBlockShadow();
+      showAboutHilo();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_about] = nil %>
+<% end %>
+
+<% if session[:gift_express] %>
+      hideBlockShadow();
+      hideNormalShadow();
+      $('#gift_verify-loader-img').hide();
+      $('#gifts_payment_verify_button').show();
+      $("#checkout_billing_popup").hide();
+      $("#gift_cc_billing_popup").empty();
+      showSuccessShadow();
+      showSuccessGiftMsg();
+      centralizePopup();
+  <% session[:gift_express] = nil %>
+  <% session[:gift_url] = nil%>
+<% end %>
+  });
+
+  var seeker_registration_cost = "<%=REGISTRATION_COST%>";
+
+<%if session[:employer]%>
+    var login_section_type = "employer";
+<%end%>
+<%if session[:job_seeker]%>
+    var login_section_type = "job_seeker";
+<%end%>
+
+
+</script>

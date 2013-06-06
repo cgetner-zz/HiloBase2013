@@ -1,0 +1,50 @@
+body{
+    color:#000078;
+    font-family:Helvetica Nue, Helvetica, Sans Serif;
+    font-size:12px;
+    font-weight:normal;
+    margin: 0px;
+    background-color:transparent;
+}
+h1{
+    font-size:140%;
+    letter-spacing:-0.01em;
+    line-height:1.1
+}
+form, p, h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+    padding: 0px;
+}
+
+input{
+    font-family:Helvetica Nue, Helvetica, Sans Serif;
+    padding: 0px;
+    margin: 0px;
+
+}
+img{
+    border: 0px;
+}
+a{
+    color: #000078;
+    text-decoration:none;
+}
+a:active { 
+    outline:none; 
+} 
+a:focus { 
+    outline:none; 
+} 
+
+a:hover{
+    text-decoration: underline;
+}
+.pos-left{
+    float:left;
+}
+.clear{
+    clear: both;
+    height: 0px;
+    margin: 0px;
+    padding: 0px;
+}

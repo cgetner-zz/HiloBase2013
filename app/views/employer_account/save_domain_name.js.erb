@@ -1,0 +1,12 @@
+<%if @success == false%>
+  $("#domain_name").parent().removeClass("input-text-active active-input input-text").addClass("input-text-error");
+  //show popup
+  $('#domain_error').html("<%= escape_javascript render(:partial=>"/employer_account/domain_error", :locals=>{:context=>@context, :domain=>@domain}) %>");
+  $('#domain_error').show();
+  $("#fade_error").show();
+  centralizePopup();
+  footerOnOpeningPopup();
+  $('.dashboard_position_popup-siteActivation_button').focus();
+<%else%>
+  $("#domain_name").parent().removeClass("input-text-active input-text input-text-error").addClass("active-input");
+<%end%>

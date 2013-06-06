@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% if controller.class.to_s.split("::").first!="Admin" %>
+      <% if not session[:sharing_job].nil? %>
+        <title><%=session[:sharing_job].company.name%> (<%=session[:sharing_job].name%>) | Hilo - Meaningful employment.</title>
+      <% elsif not @company.nil? %>
+        <title><%=@company.name%> | <%=t ("page_titles.meaningful_employment")%></title>
+      <%else%>
+        <title><%=yield :page_title%><%=t ("page_titles.meaningful_employment")%></title>
+      <%end%>
+    <% else %>
+        <title><%=yield :page_title%><%=t ("page_titles.meaningful_employment")%></title>
+    <% end %>
+    <%  if controller.class.to_s.split("::").first!="Admin" %>
+      <%= render :partial => "/shared/google_analytics" %>
+      <% if not session[:sharing_job].nil? %>
+        <meta property="og:title" content="The Hilo Project" />
+        <meta property="og:description" content="Check out this career opportunity with <%=session[:sharing_job].company.name%> for a <%=session[:sharing_job].name%>." />
+        <meta property="og:image" content="https://thehiloproject.com/assets/hilo_small.jpg" />
+      <% elsif not @company.nil? %>
+        <meta property="og:title" content="The Hilo Project" />
+        <% if @employer_privilege.nil? %>
+          <meta property="og:description" content="<%=@company.name%> has teamed up with Hilo to bring you invitation-only membership to an exclusive new talent marketplace. Start your journey today!" />
+        <% elsif @employer_privilege.status == true %>
+          <% if @employer_privilege.discount_value == REGISTRATION_COST %>
+            <meta property="og:description" content="<%=@company.name%> has teamed up with Hilo to bring you FREE membership to an exclusive new talent marketplace. Start your journey today!" />
+          <% elsif @employer_privilege.discount_value > 0 %>
+            <meta property="og:description" content="<%=@company.name%> has teamed up with Hilo to bring you discounted membership to an exclusive new talent marketplace. Start your journey today!" />
+          <% else %>
+            <meta property="og:description" content="<%=@company.name%> has teamed up with Hilo to bring you invitation-only membership to an exclusive new talent marketplace. Start your journey today!" />
+          <% end %>
+        <% elsif @employer_privilege.status == false %>
+          <meta property="og:description" content="<%=@company.name%> has teamed up with Hilo to bring you invitation-only membership to an exclusive new talent marketplace. Start your journey today!" />
+        <% end %>
+        <meta property="og:image" content="https://thehiloproject.com/assets/hilo_small.jpg" />
+      <%else%>
+        <meta property="og:title" content="The Hilo Project" />
+        <meta property="og:description" content="Check out The Hilo Project's limited free beta release at https://www.thehiloproject.com. Hilo is the first human-centered career search tool designed to empower YOU, the Career Seeker, to find truly meaningful employment." />
+        <meta property="og:image" content="https://thehiloproject.com/assets/hilo_small.jpg" />
+      <%end%>
+      <% session[:sharing_job] = nil %>
+    <% end %>
+    <%= csrf_meta_tag %>
+    <meta name="Author" content="Hilo" />
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo" />
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider." />
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <%=stylesheet_link_tag("jquery-ui-1.8.custom","stylesheet")%>
+    <!--[if IE 7]>
+    <%=stylesheet_link_tag("stylesheet-IE7")%>
+    <![endif]-->
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("stylesheet-IE8")%>
+    <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("stylesheet-IE9")%>
+    <![endif]-->
+    <%=yield :page_css%>
+    <%=javascript_include_tag "application", "common","main","elementCheck","jquery.caret","jquery.numeric","customdropdown"%>
+    <%=yield :page_js%>
+    <%=yield :video_frame%>
+<%#= fb_connect_javascript_tag -%>
+<%#= init_fb_connect('XFBML', :js => :jquery) -%>
+<%#= javascript_include_tag "swfobject" %>
+  </head>
+  <%=yield -%>
+  <%  if controller.class.to_s.split("::").first!="Admin" %>
+    <div id="gift_hilo_popup" class="white_content"></div>
+    <div id="gift_hilo_success_msg" class="white_content"></div>
+    <div id="checkout_billing_info" class="white_content"></div>
+    <div id="gift_purchase_review" class="white_content"></div>
+  <% end %>
+  <%  if controller.class.to_s.split("::").first!="Admin" %>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        centralizePopup();
+        body_load_function();
+  <%if not session[:job_code].blank?%>
+        show_job_with_code("<%=session[:job_code]%>");
+    <%
+    session[:job_code] = nil
+  end
+%>
+  <%if flash[:notice]%>
+        msg_box.show_error("<%=json_from_flashnotice(flash[:notice])%>","Success");
+  <%end%>
+    });
+
+    var seeker_registration_cost = "<%=REGISTRATION_COST%>";
+  <%if session[:employer]%>
+      var login_section_type = "employer";
+  <%end%>
+  <%if session[:job_seeker]%>
+      var login_section_type = "job_seeker";
+  <%end%>
+    </script>
+  <% end %>
+
+</html>

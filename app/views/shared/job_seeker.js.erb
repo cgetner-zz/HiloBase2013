@@ -1,0 +1,6 @@
+<% broadcast "/job_seeker#{@job_seeker_id}" do %>
+  $("#refresh_link").show();
+  $("#refresh_link").children().click(function(){
+    refreshHandler();
+  });
+<% end %>

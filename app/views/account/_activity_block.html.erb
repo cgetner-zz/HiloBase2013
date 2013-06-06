@@ -1,0 +1,33 @@
+ <div class="small-blocks small-blocksActivity">
+                                    <div class="block-top">&nbsp;</div><!--block-top-->
+                                    <div class="block-content"><!--block-content-->
+                                    	<!--gradient-content-->
+                                        <div class="gradient-content">
+                                    		<h3 class="heading">Activity</h3>
+                                            <ul class="activity-list">
+                                            	<li onclick="window.location='/account/opportunities/inbox'" href="/account/opportunities/inbox">
+                                                	<a href="javascript:void(0)" title="Inbox">
+                                                    	<span>Inbox</span>
+							
+							
+                                                    	<span class="count active inbox"><%=count_hash[:new_count]%></span>
+                                                    </a>
+                                                </li>
+                                            	<li onclick="window.location='/account/opportunities/employer_view'" href="/account/opportunities/employer_view">
+                                                	<a href="javascript:void(0);" title="Employee Views">
+                                                        <span>Employer Views</span>
+                                                        <span class="count employer_view"><%=count_hash[:emp_view_count]%></span>
+                                                    </a>
+                                                </li>
+                                            	<li onclick="window.location='/account/opportunities/following'" href="/account/opportunities/following">
+                                                	<a href="javascript:void(0);" title="Following">
+                                                    	<span>Following</span>
+                                                    	<span class="count following"><%=count_hash[:following_count]%></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    	<!--/gradient-content-->
+                                    </div>
+                                    <div class="block-bottom">&nbsp;</div><!--block-bottom-->
+                                </div>

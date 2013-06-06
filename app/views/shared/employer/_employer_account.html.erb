@@ -1,0 +1,26 @@
+<div class="account-top"></div>
+<div class="account-middle">
+  <div class="account-middle-content">
+    <div class="left-panel">
+      <%= render :partial=>"shared/employer/panel_account_info" %>
+      <div class="clear-float">&nbsp;</div>
+      <%= render :partial=>"shared/employer/panel_company" %>
+    </div>
+    <div class="center-border">&nbsp;</div>
+    <div class="right-panel">
+      <%= render :partial=>"shared/employer/panel_payment_details" %>
+      <div class="clear-float">&nbsp;</div>
+      <%= render :partial=>"shared/employer/panel_eeo_compliance" %>
+      <div class="clear-float">&nbsp;</div>
+      <%= render :partial=>"shared/employer/panel_alerts" %>
+    </div>
+  </div>
+</div>
+<div class="account-bottom"></div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    create_slider_alerts.call();
+    Custom.init();
+  });
+</script>

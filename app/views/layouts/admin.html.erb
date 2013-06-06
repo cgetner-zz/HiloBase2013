@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en">
+  <head>
+    <title>Hilo - Meaningful employment.</title>
+    <%= csrf_meta_tag %>
+    <meta name="Author" content="Hilo" />
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo"/>
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider."/>
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <%=stylesheet_link_tag("jquery-ui-1.8.custom","stylesheet","admin")%>
+    <!--[if IE 7]>
+    <%=stylesheet_link_tag("stylesheet-IE7")%>
+    <![endif]-->
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("stylesheet-IE8")%>
+    <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("stylesheet-IE9")%>
+    <![endif]-->
+    <%=yield :page_css%>
+    <%=javascript_include_tag("application","common","main","jquery.caret","jquery.numeric","elementCheck","slimScroll","admin","custom_form_element")%>
+    <%=yield :page_js%>
+  </head>
+  <body id="inner-Page" oncontextmenu="">
+    <div id="<%=yield :page_container_id%>" class="<%=yield :page_container_class%>">
+      <div class="top-bar">&nbsp;</div>
+      <div id="main-container">
+        <%=yield -%>
+        <%=render :partial =>"/shared/admin/footer" -%>
+      </div>
+    </div>
+
+    <!-- Common Shadows -->
+    <div id="fade_normal" class="black_overlay"><span class="popup-loader loader" style="display:none; float:left; margin-left: 50%; margin-top: 20%;"><%=image_tag("ajax-loader-login-grey.gif", :alt => "Loading ...")%></span></div>
+    <div id="fade_success" class="sucess_overlay"></div>
+    <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+    <div id="fade_error" class="error_overlay"></div>
+    <!--// Common Shadows -->
+    <!-- Other popup's -->
+    <div id="old_pass_mismatch" class="white_content"></div>
+    <div id="admin_delete_confirmation" class="white_content"></div>
+    <%= render :partial=>"/admin/home/user_does_not_exist" %>
+    <div id="ajax-content"></div>
+    <!--// Other popup's -->
+  </body>
+</html>

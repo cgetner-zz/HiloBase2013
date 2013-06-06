@@ -1,0 +1,32 @@
+<% if not session[:legacy_data_emp].nil? %>
+<div id="legacy_data_popup" class="white_content">
+  <div class="popup-upper-block-positionPrevew">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="popup_background_box_bg_table">
+        <div class="popup-header-container">
+          <label class="popup-heading transform-letter">
+		Welcome back!
+          </label>
+        </div>
+        <div class="position-popup-content-table" style="padding: 10px 20px 0;">
+          <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td style="font-size: 13px; font-weight: 400; width: 500px; text-align: justify;">
+                 We at Hilo have made some exciting upgrades to our system based upon feedback from users like you. In particular, we have significantly enhanced the Credentials section of the posting and pairing system. As a result, any existing positions that you have actively been sharing via Hilo have been marked off line so that you have a chance to update the credentials information. Once you complete this updated section, you can share an post your positions as you normally would.
+              </td>
+              <td style="vertical-align: bottom;">
+                <input type="button" class="continue-button-active rfloat" value="" style="margin-left: 85px;" onclick="window.location.href='/position_profile/new_employer_profile/<%=session[:legacy_data_emp].id %> '"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="clear-float">&nbsp;</div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideNormalShadow();$('#legacy_data_popup').empty();footerOnClosingPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<% end %>
+<% session[:legacy_data_emp]=nil %>

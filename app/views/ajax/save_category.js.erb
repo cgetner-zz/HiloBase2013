@@ -1,0 +1,11 @@
+var name = $("#outer_pos label").html();
+$('#update_categories').html("<%= escape_javascript render(:partial => '/employer_account/employer_left_menu', :locals=>{:jobs => @jobs}) %>");
+$('#parent_id').val('<%= params[:parent_id] %>');
+$("#outer_pos label").html(name);
+if($('#parent_id').val() == "0") {
+emp_left_menu_event.group_drag();
+emp_left_menu_event.job_section_drag();
+}
+hideBlockShadow();
+$("body").unbind('click');
+check_folder_double_submit = false;

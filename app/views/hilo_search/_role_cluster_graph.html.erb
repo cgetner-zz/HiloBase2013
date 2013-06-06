@@ -1,0 +1,147 @@
+<script type="text/javascript">
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+    $("#fade_white").show();
+    function drawRoleChartFs() {
+      var data = google.visualization.arrayToDataTable([
+  <% if @src == 'employer' %>
+          ['Location', 'Candidates'],
+  <% else %>
+          ['Location', 'Jobs'],
+  <% end %>
+  <% @max_value = 0 %>
+  <% if !@cluster_count.blank? %>
+    <% flag = false %>
+    <% @cluster_count.each do |cluster, number| %>
+      <% if number.to_i > @max_value %>
+        <% @max_value = number.to_i %>
+      <% end %>
+      <% if flag %>,<% end %><% flag = true %>['<%= cluster %>', <%= number.to_i %>]
+    <% end %>
+  <% else %>
+          ['', 0]
+  <% end %>
+      ]);
+  <% if @max_value%4 != 0 %>
+    <% @div = (@max_value/4).to_i %>
+    <% @max_value = (4*(@div+1)).to_i %>
+  <% end %>
+
+      var options = {
+        height: $('#fade_white').height()-250,
+        width: $('#fade_white').width()-300,
+        fontName: "'Lato',sans-serif",
+        hAxis: {title: 'CAREER CLUSTER', titleTextStyle: {color: '#000066', fontSize: '22'}},
+  <% if @src == 'employer' %>
+          vAxis: {title: 'CANDIDATES', titleTextStyle: {color: '#000066', fontSize: '22'},minValue:0,maxValue:<%=@max_value%>},
+  <% else %>
+          vAxis: {title: 'JOBS', titleTextStyle: {color: '#000066', fontSize: '22'},minValue:0,maxValue:<%=@max_value%>},
+  <% end %>
+        backgroundColor: {fill: 'transparent'},
+        legend: {position: 'none'},
+        chartArea:{top: 20},
+        tooltip: {textStyle: {fontSize: '18'}}
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('roleChart_div_fs'));
+      chart.draw(data, options);
+    }
+    $(document).ready(function() {
+      drawRoleChartFs();
+    });
+<% else %>
+    function drawRoleChart() {
+      var data = google.visualization.arrayToDataTable([
+  <% if @src == 'employer' %>
+          ['Location', 'Candidates'],
+  <% else %>
+          ['Location', 'Jobs'],
+  <% end %>
+  <% @max_value = 0 %>
+  <% if !@cluster_count.blank? %>
+    <% flag = false %>
+    <% @cluster_count.each do |cluster, number| %>
+      <% if number.to_i > @max_value %>
+        <% @max_value = number.to_i %>
+      <% end %>
+      <% if flag %>,<% end %><% flag = true %>['<%= cluster %>', <%= number.to_i %>]
+    <% end %>
+  <% else %>
+          ['', 0]
+  <% end %>
+      ]);
+  <% if @max_value%4 != 0 %>
+    <% @div = (@max_value/4).to_i %>
+    <% @max_value = (4*(@div+1)).to_i %>
+  <% end %>
+      var options = {
+        chartArea:{width:"60%",height:"60%"},
+        fontName: "'Lato',sans-serif",
+        hAxis: {title: 'CAREER CLUSTER', titleTextStyle: {color: '#000066', fontSize: '14'}},
+  <% if @src == 'employer' %>
+          vAxis: {title: 'CANDIDATES', titleTextStyle: {color: '#000066', fontSize: '14'},minValue:0,maxValue:<%=@max_value%>},
+  <% else %>
+          vAxis: {title: 'JOBS', titleTextStyle: {color: '#000066', fontSize: '14'},minValue:0,maxValue:<%=@max_value%>},
+  <% end %>
+        backgroundColor: {fill: 'transparent'},
+        legend: {position: 'none'}
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('roleChart_div'));
+      chart.draw(data, options);
+    }
+    $(document).ready(function() {
+      drawRoleChart();
+    });
+<% end %>
+</script>
+
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <div class="header">
+    <div class="inline-div">
+      <div class="heading">TOP 10 CAREER CLUSTERS</div>
+      <div class="sub-heading">
+        <% if @src == 'employer' %>
+          The bar graph below shows the number of candidates by Career Cluster who fit this role's work environment
+          and are local to or nearby the location you selected. It also includes those candidates willing to move!
+        <% else %>
+          Rather than confuse you with arbitrary job titles, Hilo relies on objective definitions provided by the
+          US Bureau of Labor Statistics, which categorizes jobs into 'Career Clusters.' The pie chart below shows
+          the number of open positions by Career Cluster in the location you selected that fit your ideal work environment.
+        <% end %>
+      </div>
+    </div>
+    <div class="close">
+      <img src="/assets/employer_v2/close_fullscreen.png" onclick="closeGraphFullScreen();" title="Exit full screen" height="35"/>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 120px;">
+    <div id="roleChart_div_fs" style="padding-left: 13px;"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#fade_white .header').width($('#fade_white').width()-50);
+      $('body').css('overflow','hidden');
+    })
+  </script>
+<% else %>
+  <div id="graph_3">
+    <% if @src == 'employer' %>
+      <div style="font-size: 16px; font-weight: 400; margin-left: 10px; margin-top: 10px;">CAREER CLUSTERS</div>
+    <% else %>
+      <div style="font-size: 14px; font-weight: 700; margin-left: 10px; margin-top: 10px;">CAREER CLUSTERS</div>
+    <% end %>
+    <div class="fs_open_link">
+      <a href="javascript:void(0);" style="font-weight: 400; margin-left: 10px; margin-top: 0px; font-style: italic; font-size: 14px;">
+        Click for more information
+      </a>
+    </div>
+    <div id="roleChart_div" style="width: 415px; height: 380px; cursor: pointer;"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#graph_3 .fs_open_link a,#roleChart_div').click(function(){
+        role_cluster_graph($('#search_latitude').val(),$('#search_longitude').val(), '<%=@src%>', true);
+      });
+    });
+  </script>
+<% end %>

@@ -1,0 +1,252 @@
+<% content_for :page_title do -%>Career Seeker - Payment | <% end %>
+<%=render :partial=>"/job_seeker/account_tab",:locals=>{:step=>"payment"} -%>
+<!--content-container-->
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container site-activation-free-for-limited-time">
+      <!--page-heading-container-->
+      <div class="page-heading-container">
+        <h2 class="page-heading" style="margin-left: 8px;"><%=t ("site_activation.headerP1") %><br /><%=t ("site_activation.headerP2") %></h2><!--page-heading-->
+      </div>
+      <!--/page-heading-container-->
+      <!--checkoutContainer-->
+      <div class="checkoutContainer">
+        <div class="left-video-container">
+          <iframe class="youtube-player" type="text/html" width="548" height="356" src="https://www.youtube.com/embed/o5tAcq840qk?wmode=transparent&rel=0" frameborder="0"></iframe>
+        </div>
+         
+
+         <div class="site-activation-options" id="payment_invoice">
+          <%= render :partial => "invoice_site_activation" %>
+         </div>
+
+         <!-- Promo Code Block -->
+        <%= form_for :coderequest, :url => { :controller => :payment,:action => :check_payment_options}, :html => { :method => :post, :id=>"discount_form"}, :remote => true  do |f| %>
+        <div class="limitedtime-bottom-block" id="limitedtime_bottom_block" style="visibility: hidden;">
+            <div class="customized-inner-input input input-text">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="coderequest_promotional_code_placeholder" value="<%=t ("site_activation.promo_label") %>" />
+                <%=f.text_field :promotional_code, :onfocus => "focus_element(this)", :onblur =>"validatePromoCode(this);blur_element(this)", :onkeyup => "validatePromoCode(this)", :onkeydown=>"type_element(this)", :value => "#{t('site_activation.promo_label')}"%>
+                <div class="input-right">&nbsp;</div>
+            </div>
+            <input type="button" id="verify_button" class="apply-button-active rfloat" style="width:86px; margin-top: 2px;" />
+            <span id="beta-loader-img" style="display:none;margin-right: 7px;margin-top: -7px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+        </div>
+        <% end %>
+        <!-- Promo Code Block -->
+        
+        <div class="site-activation-options" id="post_pay_text" style="display: none;">
+          <div class="activation-block promo-code">
+            <div class="top-bar">&nbsp;</div>
+              <div class="block-inner-content">
+                 <div class="gradient-content" style="padding: 7px 11px 10px;">
+                   <label class="limitedtime transform-letter"><%=t ("site_activation.payment_done.heading") %></label>
+                   <ul class="payment">
+                     <li style="margin-top: 5px;">
+                        <span><%=t ("site_activation.payment_done.contentL1") %></span>
+                      </li>
+                      <li style="margin-top: 5px;">
+                        <span><%=t ("site_activation.payment_done.contentL2") %></span>
+                      </li>
+                   </ul>
+                 </div>
+              </div>
+            <div class="bottom-bar">&nbsp;</div>
+          </div>
+        </div>
+
+        <div class="site-activation-options" id="payment_option" style="display: none;">
+          <%= render :partial => "payment_option_site_activation" %>
+        </div>
+        
+         
+        
+        <!--Free for a limited time block End-->
+        <div class="clear-float">&nbsp;</div>
+      </div>
+      <!-- /checkoutContainer-->
+      <!--button-container-->
+      <div class="button-container">
+        <%= render :partial => "payment_button" %>
+      </div>
+      <!--/button-container-->
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+  
+
+  <!-- Code Confirmed Popup -->
+  <div id="code_confirmed_popup" class="white_content">
+    <div class="popup-siteActivation">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%=t ("site_activation.promo_confirm.heading") %></label>
+          </div>
+          <div class="payment-options" style="color:#000066;"><%=t ("site_activation.promo_confirm.contentL1") %><br /><%=t ("site_activation.promo_confirm.contentL2") %>
+            <input type="button" class="finish-button-active rfloat" onClick="_closeConfirmedCode()" id="code_confirmed"/>
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="_closeConfirmedCode()">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Code Confirmed Popup -->
+  
+  <!-- Code error Popup -->
+  <div id="code_error_popup" class="white_content">
+    <div class="popup-siteActivation">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%=t ("site_activation.wrong_promo.heading") %></label>
+          </div>
+          <div class="payment-options">
+		<div class="access-block">
+			<div class="lfloat error-text">
+				<label class="free-text"><%=t ("site_activation.wrong_promo.contentL1") %><br /><%=t ("site_activation.wrong_promo.contentL2") %></label>
+			</div>
+			<div class="rfloat margin-T-5px">
+				<input type="button" id="code_error_popup_button" class="retry-button-active rfloat" onclick="$('#code_error_popup').hide();$('#fade_error').hide();_applyPromoCode();$('#verify_button').show();$('#beta-loader-img').hide();centralizePopup();$('#coderequest_promotional_code').val(''); blur_element(document.getElementById('coderequest_promotional_code')); " />
+			</div>
+		</div>
+	  </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onclick="_applyPromoCode();$('#code_error_popup').hide();$('#fade_error').hide();$('#jw_player').show();">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Code Error Popup -->
+  
+  <%=  render :partial=>"/payment/credit_card_form" %>
+
+  <!-- Paypal Popup -->
+  <div id="paypal_popup" class="white_content">
+    <div class="popup-siteActivation">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%=t ("site_activation.paypal") %></label>
+            
+          </div>
+          
+
+          <ul class="payment-options">
+            <li><a href="javascript:void(0);" title="Master Card"><img src="/assets/master-card.png" alt="Master Card" height="25" width="42" /></a></li>
+            <li><a href="javascript:void(0);" title="Visa"><img src="/assets/visa-card.png" alt="Visa Card" height="25" width="40" /></a></li>
+            <li><a href="javascript:void(0);" title="American Express"><img src="/assets/americanExpress-cardd.png" alt="American Express" height="25" width="25" /></a></li>
+            <li><a href="javascript:void(0)" title="Discover" onclick="_openCCBillingInfo()"><img src="/assets/discover-card.png" alt="Discover" width="40" height="25" border="0" /></a></li>
+            <li><a href="javascript:void(0);" title="PayPal" class="payPal"><img src="/assets/paypal.png" alt="Pay Pal" height="15" width="56" /></a></li>
+          </ul>
+
+          <div class="paypal-info">
+            <ul>
+              <li>
+                <input type="text" value="PayPal Username" class="paypal-email active" />
+                <input type="password" value="PayPal Password" class="paypal-password" />
+              </li>
+              <li>
+                <input type="image" src="/assets/signIn-payPal.png" class="signInpal"  />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <a href="javascript:void(0)" class="close" onClick="_closePaypalPopup()">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+  <!-- /Paypal Popup -->
+</div>
+<!--/content-container-->
+<script type="text/javascript">
+  $('body').click(function(){
+    $('.activation-block').removeClass('activeBlock');
+  });
+
+  $(document).ready(function(){
+    <%
+          if session[:promotional_code_amount] == REGISTRATION_COST
+          %>
+          $("#post_pay_text").show();
+          $("#payment_option").hide();
+          $("#limitedtime_bottom_block").css('visibility','hidden');
+          $("#limitedtime_bottom_block").empty();
+          <%
+          elsif ((!session[:paypal_amount].nil? and session[:paypal_amount].to_i == 0) or @job_seeker.activated == true)
+          %>
+          $("#post_pay_text").show();
+          $("#payment_option").hide();
+          $("#limitedtime_bottom_block").css('visibility','hidden');
+          $("#limitedtime_bottom_block").empty();
+          <%
+          else
+          %>
+          $("#post_pay_text").hide();
+          $("#payment_option").show();
+          $("#limitedtime_bottom_block").css('visibility','visible');
+          <%
+          end
+          %>
+          <% if !session[:discount_amount].nil? and (((REGISTRATION_COST - session[:discount_amount])*100).round.to_f / 100) == 0.0
+          %>
+          $("#post_pay_text").show();
+          $("#payment_option").hide();
+          $("#limitedtime_bottom_block").css('visibility','hidden');
+          $("#limitedtime_bottom_block").empty();
+          <% end
+          %>
+    jQuery(function($) {
+      // create a convenient toggleLoading function
+      var loading_discount_code = function(){
+        if($('#coderequest_promotional_code').val()==''){
+          return false;
+        };
+        showBlockShadow();
+        $('#verify_button').hide();
+        $('#beta-loader-img').show();
+      }
+      var loaded_discount_code = function(){
+        $('#verify_button').show();
+        $('#beta-loader-img').hide();
+        button = document.getElementById('verify_button');
+        button.className = "apply-button-active rfloat";
+        hideBlockShadow();
+      }
+      $("#discount_form")
+      .bind("ajax:beforeSend", loading_discount_code)
+      .bind("ajax:complete",loaded_discount_code)
+    });
+    $('div.paring-cont-interest').live("click", function() {
+      if($('.activation-block').hasClass('activeBlock')) {
+        $('.activation-block').removeClass('activeBlock');
+      } else if($('.activation-block').hasClass('activeBlock')) {
+        $('.activation-block').removeClass('activeBlock');
+      }
+
+      $(this).addClass('activeBlock');
+    });
+     $("#verify_button").unbind('click').bind('click', function(){
+
+        if(validateEmptyDiscount()){
+
+        }
+        else{
+            $("#discount_form").submit();
+        }
+
+
+    });
+
+
+  });
+ </script>

@@ -1,0 +1,8 @@
+if @success
+	page.redirect_to :controller => "account",:action => "opportunities"
+else
+	page.call "login_page.after_complete",@success
+end
+
+
+

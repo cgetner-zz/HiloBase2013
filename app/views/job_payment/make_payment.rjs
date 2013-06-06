@@ -1,0 +1,28 @@
+if @resp_case == "error"
+
+	page.call "hide_job_view_load"
+	page.call "job_view_pay.msg_json",@error_json
+
+elsif @resp_case == "message"
+
+	page.call "job_view_pay.show_message",@message
+	page.call "hide_job_view_load"
+
+elsif @resp_case == "payment_success"
+	
+	if params[:pay_for] == "consider"
+		page.call "job_detail_view.show", params[:job_id], params[:pay_for]
+	else
+		page.call "back_to_job", params[:job_id]
+	end
+
+
+elsif @resp_case == "redirect"
+
+	page.redirect_to @redirect_url
+
+end
+
+
+
+

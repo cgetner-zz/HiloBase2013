@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="height:10px;"></div>
+
+    <span>Hello <%=@employer_name%>,</span>
+    <br/><br/>
+    <span>Hilo is always looking out for candidates that might be of interest to you. Based on your position profiles and</span><br/>
+    <span>system settings the following items may be of interest:</span>
+    <br/><br/>
+    <ul>
+      <% for alert in @alerts %>
+        <li><%=employer_email_alert_msg(alert).html_safe%></li>
+      <% end %>
+    </ul>
+    <br/><br/>
+    <span>Remember, you can change your email preferences by going to the account tab once you log into</span><br/>
+    <span>TheHiloProject.com, and we wish you continued success finding the best candidates for all your</span><br/>
+    <span>staffing needs.</span>
+    <br/><br/>
+    <span>The Hilo Team</span>
+    <br/><br/>
+    
+    <img alt="logo" src="https://thehiloproject.com/assets/logo-hilo_new.png" width="120" height="103" />
+  </body>
+</html>

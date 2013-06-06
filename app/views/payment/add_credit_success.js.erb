@@ -1,0 +1,6 @@
+$("#beta-loader-img").hide();
+$("#verify_button").show();
+$("#credit_amt").html('<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>');
+check_payment_options.show_confirmed_code_msg();
+$("#code_confirmed").focus();
+hideBlockShadow();

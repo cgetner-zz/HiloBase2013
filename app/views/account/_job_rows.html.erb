@@ -1,0 +1,101 @@
+<div class="opp-row opp-header">
+	<div class="opp-col-dot"><img src="/assets/blue_dot.png"/></div>
+	<div style="width:60px;float:left;">Paid for</div>
+	<div class="opp-col">Fit</div>
+	<div class="opp-col">Company</div>
+	<div class="opp-col">Position</div>
+	<div class="opp-col">Location</div>
+	<%if params[:job_type] != "employer_view"%>
+	<div class="opp-col">Posted</div>
+	<%end%>
+	<div class="opp-col">Expires</div>
+
+	<%if params[:job_type] == "employer_view"%>
+	<div class="opp-col">Purchased on</div>	
+	<%end%>
+
+	<br class="clear"/>
+</div>
+<%for job in jobs%>
+	
+	<div class="opp-row <%=mark_read(job.id,job_statuses)%> " id="job_row_<%=job.id%>" <%=job_row_attr_considering(job.id,job_statuses)%> >
+		<div class="opp-col-dot"><%=unread_dot(job.id,job_statuses)%></div>
+		<div class="opp-col-paid">
+			<%=render :partial => "/shared/paid_icon_job_rows" , :locals => {:job_id => job.id, :job_statuses => job_statuses} -%>
+		</div>
+		
+		<div class="opp-col">
+			<%if job.fit_name_by_pairing.blank?%>
+				&nbsp;
+			<%else%>
+				<a href="javascript:void(0);"><%=job.fit_name_by_pairing%></a>
+			<%end%>
+		</div>
+		<div class="opp-col">
+			<%if job.company.name.blank?%>
+				&nbsp;
+			<%else%>
+				<a href="javascript:void(0);"><%=h(job.company.name) -%></a>
+			<%end%>
+		</div>
+		<div class="opp-col">
+			<%if job.name.blank?%>
+				&nbsp;
+			<%else%>
+				<a href="javascript:void(0);"><%=h(job.name)%></a>
+			<%end%>
+	
+		</div>
+		<div class="opp-col">
+			<%if job.location_name.blank?%>
+				&nbsp;
+			<%else%>
+				<a href="javascript:void(0);"><%=h(job.location_name)%></a>
+			<%end%>
+			
+		</div>
+		<%if params[:job_type] != "employer_view"%>
+			<div class="opp-col">
+				<a href="javascript:void(0);"><%=job.created_at.strftime("%m/%d/%Y")%></a>
+			</div>
+		<%end%>
+		<div class="opp-col">
+			<a href="javascript:void(0);"><%=job.expire_at.strftime("%m/%d/%Y")%></a>
+		</div>
+
+		<%if params[:job_type] == "employer_view"%>
+			<div class="opp-col">
+				<a href="javascript:void(0);"><%=Date.parse(job.purchased_on).strftime("%m/%d/%Y")%></a>
+			</div>
+		<%end%>
+	
+		<br class="clear"/>
+	</div>
+<%end%>
+
+<div class="job-row-legend">
+	<div class="account-page-links">
+		<%if params[:page_num].to_i > 1%>
+			<a href="javascript:void(0);" onclick="fetch_jobs.ajax('<%=params[:job_type]%>','<%=params[:page_num].to_i - 1%>')">&#60;&#60; Previous 10</a> 
+			&nbsp;&nbsp;&nbsp;&nbsp;
+		<%end%>
+		<%if jobs.length != 0 && jobs.length == 10%>
+			<a href="javascript:void(0);" onclick="fetch_jobs.ajax('<%=params[:job_type]%>','<%=params[:page_num].to_i + 1%>')">Next 10&#62;&#62;</a>
+		<%end%>
+	</div>
+
+	<div class="paid-icon-legends">
+		Paid for: 
+		<img src="/assets/detail_paid.jpg"/> Position Details &nbsp;&nbsp;
+		<img src="/assets/express_interest_paid.jpg"/> Interested &nbsp;&nbsp;
+		<img src="/assets/wild_card_paid.jpg"/> Wild Card &nbsp;&nbsp;
+	</div>
+	<div class="clear-height"></div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		job_row_view.init();
+	});
+</script>
+

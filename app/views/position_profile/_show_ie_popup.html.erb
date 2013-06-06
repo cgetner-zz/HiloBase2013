@@ -1,0 +1,25 @@
+<div class="dashboard_position_popup-siteActivation">
+  <span class="position_popup-top">&nbsp;</span>
+  <div class="position_popup-content_oneclick">
+    <div class="position_gradient-content_oneclick">
+      <div class="position_popup-header-container">
+        <label class="popup-heading"><%= t('file_upload_ie.heading') %></label>
+      </div>
+
+      <div class="position_popup_select_box">
+        <div class="access-block">
+          <div class="lfloat error-text" style="width:80%;">
+            <%= form_for @job.job_attachments.new, :url => { :controller=>"position_profile", :action => "upload_attachment" }, :html => { :multipart => true, :id=>"job_attachment_form", :name=>"job_attachment_form" } do |j| %>
+                <%= j.file_field 'attachment', :onchange=>"submitAttachment();" %>
+                <input type="hidden" name="job[id]" id="job_id" value="<%= @job.id %>" />
+            <% end %>
+            <iframe id='upload_frame' name="upload_frame" style="display:none" src="about:blank"></iframe>
+          </div>
+          <div class="rfloat margin-T-5px" id="action-button" style="margin-left:0px;margin-top:0px"></div>
+        </div>
+      </div>
+    </div>
+    <a id="oneclick-close" onclick="hideIEPopupAttachment();" href="javascript:void(0)" class="position_close_oneclick">Close</a>
+  </div>
+  <span class="position_popup-bottom">&nbsp;</span>
+</div>

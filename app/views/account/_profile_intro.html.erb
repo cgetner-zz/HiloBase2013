@@ -1,0 +1,273 @@
+<div class="profile" id="profile">
+
+  <label class="profile-owner">
+    <%= session[:job_seeker].first_name.force_encoding('utf-8')+" "+session[:job_seeker].last_name.force_encoding('utf-8') %>
+  </label>
+
+  <input type="button" value="" class="btn-emp-view" onclick="showEmployerViewPopup('<%=youtube_video_id(@job_seeker.video_url)%>');stopIntroPlayer('profileIntroVideo','stopVideo');" />
+  <!--profile-comps-->
+  <div class="profile-comps">
+    <div class="pic-contact-resume-container">
+      <div class="pic-contact-resume-cell" style="width:480px;float:left;">
+        <!--profile-image-->
+        <div id="photo-ajax">
+          <%= render :partial=>"profile_picture" , :locals =>{ :job_seeker => session[:job_seeker]}%>
+        </div>
+        <!--/profile-image-->
+
+        <!--bock-contact-info-->
+        <%= render :partial=>"profile_contact_info" %>
+        <!--/bock-contact-info-->
+
+        <!--block-resume-->
+        <div class="block-resume" id="resume-ajax">
+          <%= render :partial=>"profile_resume", :locals=>{:job_seeker=>job_seeker} %>
+        </div>
+        <!--/block-resume-->
+      </div>
+      <%= render :partial=>"profile_online_presence" %>
+
+      <!--videoNsummaryRow-->
+      <div class="videoNsummaryRow">
+        <!--summary-container-->
+        <%= render :partial=>"profile_summary" %>
+        <!--summary-container-->
+
+        <!--video-container-->
+        <div id="video-ajax">
+          <%= render :partial=>"profile_video", :locals=>{:job_seeker=>job_seeker} %>
+        </div>
+        <!--video-container-->
+      </div>
+      <!--/videoNsummaryRow-->
+      <div class="button-container" style="min-height: 38px;">
+        <%=  form_tag("/account/save_video_url", :remote => true, :id=>'video_form') do |j| %>
+          <div class="url-container rfloat margin-L-6px" id="url-container" style="display:none; height:46px;">
+            <%= render :partial=>"url_container", :locals=>{:job_seeker=>job_seeker} %>
+          </div>
+        <% end %>
+        <div class="clear-float" ></div>
+        <div style="display:block;">
+          <input type="button" value="" id="submit-button-intro" class="btn-save" style="margin-top:8px;" tabindex="10"/>
+        </div>
+        <span id="submit-loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login-dark-texture.gif", :alt => "Loading ...")%></span>
+        <div id="addresumeform">
+          <%= form_for @job_seeker, :url => { :controller=>"account", :action => "upload_resume" }, :html => { :multipart => true, :id=>"js-resume", :name=>"js-resume" } do |j| %>
+            <%= j.file_field :resume, :onchange=>"submitResume();"%>
+            <!--<input type="submit" id="res_submit" value="Submit" />-->
+          <% end %>
+          <iframe id='upload_frame' name="upload_frame" style="display:none" src="about:blank"></iframe>
+        </div>
+
+      </div>
+    </div>
+    <!--/profile-comps-->
+
+  </div>
+
+  <script type="text/javascript">
+    $(function(){
+        
+      //var flag = 0;
+      BrowserDetect.init();
+      if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+        $("#addresumeform").html("");
+      }
+
+      $(".profile-breadcrumb").children().each(function(){
+        if($(this).hasClass("active")){
+          if($(this).children().attr("title")!="Intro"){
+            $("#info-dummy").hide();
+            return;
+          }
+          else if($(this).children().attr("title")=="Intro"){
+            $("#info-dummy").show();
+            return;
+          }
+        }
+    
+      });
+
+      $('.block-contact-info').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('.block-contact-info').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+        
+      $('.video-container').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('.video-container').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+        
+      $('.url-container').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('.video-container').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+
+      $('#resume-ajax').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('#resume-ajax').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+      
+      $('.summary-container').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('.summary-container').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+        
+      $('.online-presence-cell').live("click",function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+        $('.online-presence-cell').addClass('activeBlock');
+        e.stopPropagation();
+        //flag = 1;
+      });
+        
+      $('body').click(function(e){
+        $('.profile-comps').find('div.activeBlock').removeClass('activeBlock');
+      });
+    })
+
+    function submitForm(){
+      $('#edit_contact').submit();
+    }
+  
+    function submitResume(){
+      $('#js-resume').attr('target', 'upload_frame');
+      //$('#progress_attach').show(); // for ajax displaying image loader
+      //$('#js-resume').submit();
+      document.forms["js-resume"].submit();
+      $('#js-resume').removeAttr("target");
+    }
+
+    function submitPhoto(){
+      $('#js-photo').attr('target', 'upload_photo');
+      //$('#progress_attach').show(); // for ajax displaying image loader
+      //$('#js-resume').submit();
+      document.forms["js-photo"].submit();
+      $('#js-photo').removeAttr("target");
+    }
+
+    function submitResumeForm(){
+      var flag;
+      var error = "";
+         
+      showNormalShadow();
+      $(".popup-loader").show();
+        
+      if($("#submit-button-intro").hasClass("active")){
+        flag = true ;
+      }
+      /*
+           if($("#intro-error").html()==""){
+                  flag = true ;
+           }
+       */
+      else{
+        flag  = false;
+        error = $("#intro-error").html();
+      }
+      if($('#contact_email').parent().hasClass('input-text-active') || $('#contact_email').parent().hasClass('active-input') || $('#contact_email').parent().hasClass('input-text-error')){
+        var contact_email = $('#contact_email').val();
+      }
+      else{
+        var contact_email = "";
+      }
+      if($('#phone_one').parent().hasClass('input-text-active') || $('#phone_one').parent().hasClass('active-input') || $('#phone_one').parent().hasClass('input-text-error')){
+        var phone_one = $('#phone_one').val();
+      }
+      else{
+        var phone_one = "";
+      }
+      if($('#area_code').parent().hasClass('input-text-active') || $('#area_code').parent().hasClass('active-input') || $('#area_code').parent().hasClass('input-text-error')){
+        var area_code = $('#area_code').val();
+      }
+      else{
+        var area_code = "";
+      }
+      if($('textarea#summary').parent().hasClass('input-text-active') || $('textarea#summary').parent().hasClass('active-input')){
+        var summary = $('#summary').val()
+      }
+      else {
+        var summary = "";
+      }
+      var preferred = $("#pref_one").attr("checked")==true?"first":"second";
+      var armed_forces = $("#yes").attr("checked")==true?true:false;
+         
+      persistDetails(area_code, phone_one, contact_email, preferred, armed_forces, summary, "resume", flag, error);
+    }
+  
+    function submitPhotoForm(){
+      //document.getElementById("edit_job_seeker_"+<%= session[:job_seeker].id %>).onsubmit();
+          
+      var flag;
+      var error = "";
+          
+      showNormalShadow();
+      $(".popup-loader").show();
+        
+      if($("#submit-button-intro").hasClass("active")){
+        flag = true ;
+      }
+      /*
+           if(($("#intro-error").html()=="")){
+                  flag = true ;
+           }
+       */
+      else{
+        flag  = false;
+        error = $("#intro-error").html();
+      }
+      if($('#contact_email').parent().hasClass('input-text-active') || $('#contact_email').parent().hasClass('active-input') || $('#contact_email').parent().hasClass('input-text-error')){
+        var contact_email = $('#contact_email').val();
+      }
+      else{
+        var contact_email = "";
+      }
+      if($('#phone_one').parent().hasClass('input-text-active') || $('#phone_one').parent().hasClass('active-input') || $('#phone_one').parent().hasClass('input-text-error')){
+        var phone_one = $('#phone_one').val();
+      }
+      else{
+        var phone_one = "";
+      }
+      if($('#area_code').parent().hasClass('input-text-active') || $('#area_code').parent().hasClass('active-input') || $('#area_code').parent().hasClass('input-text-error')){
+        var area_code = $('#area_code').val();
+      }
+      else{
+        var area_code = "";
+      }
+      if($('textarea#summary').parent().hasClass('input-text-active') || $('textarea#summary').parent().hasClass('active-input')){
+        var summary = $('#summary').val()
+      }
+      else {
+        var summary = "";
+      }
+      var preferred = $("#pref_one").attr("checked")==true?"first":"second";
+      var armed_forces = $("#yes").attr("checked")==true?true:false;
+         
+         
+      persistDetails(area_code, phone_one, contact_email, preferred, armed_forces, summary, "photo", flag, error);
+    }
+
+    jQuery(function($) {
+      // create a convenient toggleLoading function
+      var loading_video_form = function(){
+        if(!validateYouTubeVideoUrl(this)){
+          return false;
+        };
+        $('#embed_button').hide();
+        $('#embed-loader-img').show();
+      }
+
+      $("#video_form")
+      .bind("ajax:beforeSend", loading_video_form)
+    });
+  
+  </script>

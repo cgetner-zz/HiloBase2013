@@ -1,0 +1,29 @@
+
+<div >
+	<%=render :partial=>"/panels/layer_top_750"-%>
+	<%=render :partial=>"/panels/midsize_header_close"%>
+	<div class="color-desc-box">
+		<div style="padding:15px;">
+			<div>
+				<div class="pop-work-env-img"> 
+					<img src="<%=workenv_img_by_section(@img_section)%>"/> 
+					<div class="pop-work-env-img-txt"> 
+						Work Environment
+					</div>
+				</div>
+		
+				<div style="float:right;"> 
+					<img src="/assets/powered_by_birkman.jpg">
+				</div>
+				<br class="clear"/>
+			</div>
+			<br/>
+			<div style="margin: 15px 0px 10px 0px;font-weight:bold;font-size:14px;">
+				<%=workenv_text_for_table_header(@img_section)%>
+			</div>
+			
+			<%=render :partial=>"/panels/work_color_description",:locals=>{:image_section=>@img_section}%>	
+		</div>
+	</div>
+	<%=render :partial=>"/panels/layer_bottom_750"-%>
+</div>

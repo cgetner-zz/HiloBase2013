@@ -1,0 +1,71 @@
+<div class="heading-container">
+  <label class="heading"><%=t ("employer_account.account_information.title") %></label>
+</div>
+<%= form_tag({:controller => "/employer", :action=> "update_account"}, :id =>"employer_account_info", :remote => true) do %>
+  <div class="panel-content with-system-msg acc-info">
+    <div class="system-msg">
+      <input type="hidden" value="" id="err-msg-lock" />
+      <div class="error_msg" id="error_msg" style="color:#D71F0C; float:left;margin-top: -2px;font-size: 13px;font-weight: 700;"></div>
+      <div class="success_msg" id="success_msg" style="color:green; float:left;margin-top: -2px; font-size: 13px;font-weight: 700;"></div>
+    </div>
+
+    <ul class="account-info">
+      <li>
+        <div class="half first">
+          <div class="customized-input active-input">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="first_name_placeholder" value="<%=t ("employer_account.account_information.first_name") %>" />
+            <input type="text" maxlength="30" id="first_name" name="first_name" value="<%= @employer.first_name %>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" onkeyup="checkActivationAccountInfoOnKey();submitAccountFormonEnterButton(event);" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+        </div>
+        <div class="half">
+          <div class="customized-input active-input">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="last_name_placeholder" value="<%=t ("employer_account.account_information.last_name") %>" />
+            <input type="text" maxlength="30" id="last_name" name="last_name" value="<%= @employer.last_name %>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" onkeyup="checkActivationAccountInfoOnKey();submitAccountFormonEnterButton(event);" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="customized-input active-input">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="email_placeholder" value="<%=t ("employer_account.account_information.email") %>" />
+          <input type="text" maxlength="30" id="email" name="email" value="<%= @employer.email %>" onfocus="focus_element(this);accInfoValidate(this);" onblur="accInfoValidate(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="checkActivationAccountInfoOnKey();submitAccountFormonEnterButton(event);" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+      </li>
+      <div id="changePassword">
+        <%= render :partial => "shared/employer/emp_password" %>
+      </div>
+    </ul>
+    <div class="button-container">
+      <input type="hidden" id="lock" value="" />
+      <input type="hidden" id="edit_password" name="edit_password" value="" />
+      <input class="update-button-active rfloat" type="button" id="update_account_info" onclick="checkChangePasswordActivationAccountInfo();" />
+      <span class="loader" id="acc-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  jQuery(function($) {
+      var loading_account_info = function(){
+          showBlockShadow();
+          $("span#acc-loader").show();
+          $("#update_account_info").hide();
+      }
+      var loaded_account_info = function(){
+          hideBlockShadow();
+          $("span#acc-loader").hide();
+           $("#update_account_info").show();
+           $("#update_account_info").blur();
+      }
+      $("#employer_account_info")
+      .bind("ajax:beforeSend", loading_account_info)
+      .bind("ajax:complete", loaded_account_info)
+  });
+  $("body").on("keydown", ".acc-info .customized-input input", function(){ $("div#success_msg").empty(); });
+  $("body").on("click", ".acc-info .customized-input input", function(){ $("div#success_msg").empty(); });
+</script>

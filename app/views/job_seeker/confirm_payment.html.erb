@@ -1,0 +1,103 @@
+
+<%=render :partial=>"account_tab",:locals=>{:step=>"account"}%>
+
+<div class="wizard-content">
+	<div class="payment-msg-container">
+		<div class="payment-msg-box">
+				<%if @express_error%>
+					<%=@message%>
+					<br/><br/>
+					<a href="/job_seeker/new">Return</a>
+				<%else%>
+					<b> Please Confirm Your Payment Details</b>
+					<div class="confirm-address-box">
+										
+						<div class="confirm-address-label">
+							Name
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['name'] %>
+						</div>
+						<br class="clear"/>
+						<div class="height5">&nbsp;</div>
+						<div class="confirm-address-label">
+							Shipping Address
+						</div>
+
+						<div class="confirm-address-field">
+							&nbsp;
+						</div>
+						<br class="clear"/>
+						<div class="height5">&nbsp;</div>
+						<div class="confirm-address-label">
+							Company
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['company'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							Address 1
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['address1'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							Address 2
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['address2'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							City
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['city'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							State
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['state'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							Country
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['country'] %>
+						</div>
+						<br class="clear"/>
+						<div class="confirm-address-label">
+							Zip
+						</div>
+						<div class="confirm-colon">:</div>
+						<div class="confirm-address-field">
+							<%= @address['zip'] %>
+						</div>
+						<br class="clear"/>
+
+						
+					</div>
+
+					<%= form_tag :controller=>"job_seeker",:action => "payment_complete", :token => params[:token], :payer_id => params[:PayerID] do %>
+						  <%=image_submit_tag("complete_payment.gif")%>
+					<% end %>
+				<%end%>
+		</div>
+	</div>
+</div>
+
+
+
+

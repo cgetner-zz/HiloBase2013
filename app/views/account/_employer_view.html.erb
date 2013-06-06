@@ -1,0 +1,342 @@
+<!-- popup content -->
+<div class="popup-jobtitle">
+  <div class="popup-top">&nbsp;</div>
+  <div class="popup-content">
+    <div class="gradient-content">
+      <div class="popup-header-container">
+        <label class="popup-heading"><%= t('account.pairing_profile.intro.employer_view.heading1') %></label>
+        <label class="popup-heading rfloat"><%= t('account.pairing_profile.intro.employer_view.heading2') %></label>
+      </div>
+      <div class="job-content-popup">
+        <table class="popup-table-jobtitle" cellspacing="0" cellpadding="0" border="0" style="border-spacing: 19px 5px;">
+          <tr>
+            <th style="width:330px;">
+              <h4>
+                <span class="lfloat">
+                  <% if job_seeker && job_seeker.first_name && job_seeker.last_name -%>
+                    <%=h(job_seeker.first_name).force_encoding('utf-8') + " " + h(job_seeker.last_name).force_encoding('utf-8')-%>
+                  <% end %>
+                </span>
+
+                <%= image_tag("US-Veteran.png", :width =>"23px", :height =>"21px", :class=>"usVeteran", :id=>"usVeteran") %>
+
+                <span class="email-text" id="email-text">
+                  <% if job_seeker && job_seeker.email %>
+                    <%= job_seeker.email %>
+                  <%end%>
+                </span>
+              </h4>
+            </th>
+            <th style="width:222px;"> <h4></h4></th>
+            <th style="width:155px;"> <h4><label class="rfloat"><%= t('account.pairing_profile.intro.employer_view.job_code_text') %></label></h4></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="job-details-block">
+                <div class="job-details">
+                  <p id="summary" class="margin-B-20px image-cnt-back-img" style="overflow-y:auto;">
+                    <span class="image-cnt">
+                      <% if job_seeker && !job_seeker.photo.url.blank? && job_seeker.photo_file_name.to_s != "" %>
+                        <%= image_tag(job_seeker.photo.url(:original), :width =>"110px", :height =>"110px") %>
+                      <% else %>
+                        <%= image_tag('candidate_img.png', :width =>"110px", :height =>"110px") %>
+                      <% end %>
+                    </span>
+                  </p>
+                  <!-- <p class="margin-B-20px"></p>-->
+                  <div class="video-container" id="empVideoPlayer">
+                    <% if job_seeker && !job_seeker.video_url.blank? %>
+                      <iframe class="youtube-player" name="empVplayer" id="vplayer" type="text/html" width="330" height="208" src="https://www.youtube.com/embed/<%=youtube_video_id(job_seeker.video_url)%>?wmode=transparent&rel=0" frameborder="0"></iframe>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="right-center-content">
+                <!--content-blocks-->
+                <div class="content-blocks">
+                  <div class="discription">
+                    <!--position-details-->
+                    <div class="position-details">
+                      <label class="detials-heading"><a href="javascript:void(0);" id="skillpopup-id" onclick="open_skill_tooltip_popup();"><%= t('account.pairing_profile.intro.employer_view.desired_role_text') %></a></label>
+                      <ul class="details">
+                        <%if job_seeker && job_seeker_roles%>
+                          <%for item in job_seeker_roles%>
+                            <li>
+                              <% if item.title %>
+                                <%= h(item.title).force_encoding('utf-8') -%>
+                              <% end %>
+                            </li>
+                          <%end-%>
+                        <%end-%>
+                      </ul>
+                    </div>
+                    <!--/position-details-->
+
+                    <!--position-details-degree-->
+                    <div class="position-details">
+                      <label class="detials-heading"><%= t('account.pairing_profile.intro.employer_view.highest_degree_text') %></label>
+                      <% if job_seeker_degree.size > 0 %>
+                        <ul class="details">
+                          <%for item in job_seeker_degree%>
+                            <li>
+                              <% if item %>
+                                <%= item.name %>
+                              <% end %>
+                            </li>
+                          <%end%>
+                        </ul>
+                      <% end %>
+                    </div>
+                    <!--/position-details-degree-->
+
+                    <!--position-details-->
+                    <div class="position-details">
+                      <% size_cert = job_seeker_licenses.size + job_seeker_certifications.size %>
+                      <% count_cert = 1%>
+                      <% if !job_seeker_certifications.blank? || !job_seeker_licenses.blank? %><label class="detials-heading" id="lic_cert_id"><%= t('account.pairing_profile.intro.employer_view.lic_cert_text') %></label><% end %>
+                      <ul class="details">
+                        <%if job_seeker && job_seeker_licenses%>
+                          <%for item in job_seeker_licenses%>
+                            <li>
+                              <% if item %>
+                                <%= t('account.pairing_profile.intro.employer_view.lic_text') %> <%= h(item).force_encoding('utf-8') -%>
+                              <% end %>
+                            </li>
+                            <% count_cert = count_cert+1 %>
+                            <% if count_cert > 4 %>
+                              <% break %>
+                            <% end %>
+                          <%end%>
+                        <%end%>
+                        <%if job_seeker && job_seeker_certifications%>
+                          <%for item in job_seeker_certifications%>
+                            <li>
+                              <% if item %>
+                                <%= t('account.pairing_profile.intro.employer_view.cert_text') %> <%= h(item).force_encoding('utf-8') -%>
+                              <% end %>
+                            </li>
+                            <% count_cert = count_cert+1 %>
+                            <% if count_cert > 4 %>
+                              <% break %>
+                            <% end %>
+                          <%end%>
+                        <%end%>
+                        <% if size_cert > 4 %>
+                          <li onclick="open_cert_tooltip_popup();" class="see-all"><%= t('account.pairing_profile.intro.employer_view.see_all_text') %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                    <!--/position-details-->
+
+                    <!--position-details-->
+                    <div class="position-details">
+                      <label class="detials-heading"><%= t('account.pairing_profile.intro.employer_view.lang_text') %></label>
+                      <ul class="details">
+                        <%if job_seeker && job_seeker_languages%>
+                          <%for item in job_seeker_languages%>
+                            <li>
+                              <% item_profici_val = "" %>
+                              <% if item.name && item.proficiency_val%>
+                                <% if item.proficiency_val == "c"%>
+                                  <% item_profici_val = "Conversational" %>
+                                  <% lang_class = "lang_blue" %>
+                                <%elsif item.proficiency_val == "a"%>
+                                  <% item_profici_val = "Advanced" %>
+                                  <% lang_class = "lang_red" %>
+                                <% end %>
+                                <%= h(item.name).force_encoding('utf-8') -%>&nbsp;<span class="<%=lang_class%>"><%= item_profici_val.downcase %></span>
+                              <% end %>
+                            </li>
+                          <%end%>
+                        <%end%>
+                      </ul>
+                    </div>
+                    <!--/position-details-->
+
+                    <!-- Resume -->
+                    <div class="resume">
+                      <label class="heading">R&eacute;sum&eacute;<%= t('account.pairing_profile.intro.employer_view.cv_text') %></label>
+                      <div class="download-anchor">
+                        <ul class="details">
+                          <li>
+                            <% if job_seeker.resume_file_name.blank?%>
+                              <a href="javascript:void(0)" title="<%= t('account.pairing_profile.intro.employer_view.resume_text') %>" class="resumeImage inactive"><%= image_tag("resume-image.png", :size=>"39x49", :alt=>"Resume", :border=>"0", :class=>"lfloat") %></a>
+                            <% else %>
+                              <a href="/download_file/resume/<%=job_seeker.id%>" title="<%= t('account.pairing_profile.intro.employer_view.resume_text') %>" class="resumeImage"><%= image_tag("resume-image_active.png", :size=>"39x49", :alt=>"Resume", :border=>"0", :class=>"lfloat") %></a>
+                            <% end %>
+                          </li>
+                          <% if not job_seeker.resume_file_name.blank?%>
+                            <li class="download"><a href="/download_file/resume/<%=job_seeker.id%>" title="<%= t('account.pairing_profile.intro.employer_view.resume_text') %>"><%= t('account.pairing_profile.intro.employer_view.download_text') %></a></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /Resume -->
+                  </div>
+                </div>
+                <!--/content-blocks-->
+              </div>
+            </td>
+            <td>
+              <div class="right-content">
+                <div class="information-blocks">
+                  <div id="cards-block">
+                    <ul>
+                      <li class="pos-prev-li"><label class="best"><%= t('account.pairing_profile.intro.employer_view.best') %></label></li>
+                      <li class="pos-prev-li"><label class="better active"><%= t('account.pairing_profile.intro.employer_view.better') %></label></li>
+                      <li class="pos-prev-li"><label class="good"><%= t('account.pairing_profile.intro.employer_view.good') %></label></li>
+                      <li class="pos-prev-li"><label class="wildCard"><%= t('account.pairing_profile.intro.employer_view.wild_card') %></label></li>
+                    </ul>
+                    <div id="card-rating">
+                      <span class="wild-card active">&nbsp;</span>
+                      <span class="good active">&nbsp;</span>
+                      <span class="better active">&nbsp;</span>
+                      <span class="best">&nbsp;</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="information-blocks">
+                  <h4 class="heading">
+                    ROLE
+                    <%= image_tag("birkmanLogo.png", :alt=>"Birkman", :size=>"86x15", :class=>"rfloat") %>
+                  </h4>
+                  <div class="envNrole-cont" onclick="seeker_role();">
+                    <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                      <div class="random-block">
+                        <label class="random-heading"><%= t('account.pairing_profile.intro.employer_view.you_text') %></label>
+                        <% if seeker_role_txt_by_score(job_seeker_birkman_detail) %>
+                          <label class="small-text"><%=seeker_role_txt_by_score(job_seeker_birkman_detail)%></label>
+                          <div class="random-image">
+                            <% if seeker_role_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+
+                      <div class="random-block random-block-right">
+                        <label class="random-heading"><%= t('account.pairing_profile.intro.employer_view.position_text') %></label>
+                        <label class="small-text"><%= t('account.pairing_profile.intro.employer_view.communicator_text') %></label>
+                        <div class="random-image">
+                          <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                        </div>
+                      </div>
+                      <div class="clear-float"></div>
+                    <%end%>
+                  </div>
+                </div>
+
+                <div class="information-blocks">
+                  <h4 class="heading" style="line-height:20px;"><%= t('account.pairing_profile.intro.employer_view.work_env_text') %></h4>
+                  <div class="envNrole-cont" onclick="seeker_workenv();">
+                    <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                      <div class="random-block">
+                        <label class="random-heading"><%= t('account.pairing_profile.intro.employer_view.you_text') %></label>
+                        <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) %>
+                          <label class="small-text"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></label>
+                          <div class="random-image">
+                            <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+
+                      <div class="random-block random-block-right">
+                        <label class="random-heading"><%= t('account.pairing_profile.intro.employer_view.position_text') %></label>
+                        <label class="small-text"><%= t('account.pairing_profile.intro.employer_view.communicator_text') %></label>
+                        <div class="random-image">
+                          <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                        </div>
+                      </div>
+                      <div class="clear-float"></div>
+                    <%end%>
+                  </div>
+                </div>
+
+                <div class="information-blocks">
+                  <h4 class="heading"><%= t('account.pairing_profile.intro.employer_view.basic_text') %></h4>
+                  <div style="font-size:13px; font-weight:400;margin-top: 5px;">
+                    <% if @job_seeker%>
+                      <%if job_seeker.minimum_compensation_amount %>
+                        <%=compensation_range_by_value(job_seeker.minimum_compensation_amount)%><br />
+                      <%end%>
+                      <% if job_seeker.desired_employments %>
+                        <ul style="list-style-position: inside; list-style-type: disc; padding-left: 1px; width:155px; margin-top: 5px;">
+                          <%for item in job_seeker.desired_employments%>
+                            <% if item.name %>
+                              <li style="float:left; <% if item.id == 1 %>margin-right:14px;<%else%>margin-right:10px;<%end%>"><%= h(item.name).force_encoding('utf-8') -%></li>
+                            <% end %>
+                          <%end%>
+                        </ul>
+                      <%end%>
+                    <%end%>
+                  </div>
+                  <div style="float:left; width:155px; margin-top: 5px;" id="weblisitng">
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close" onClick="hideEmployerViewPopup();callPlayer('empVideoPlayer','pauseVideo');$('#employer_view_popup').empty();">Close</a>
+  </div>
+  <div class="popup-bottom">&nbsp;</div>
+</div>
+
+<!-- popup content -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".envNrole-cont:first").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','71px');
+    })
+    $(".envNrole-cont:last").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','203px');
+    })
+    $("#skill-tooltip-content").slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+
+  function seeker_role() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_role_employer_view',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+
+  function seeker_workenv() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_workenv_employer_view',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+</script>

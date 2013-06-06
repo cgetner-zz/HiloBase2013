@@ -1,0 +1,102 @@
+<div class="page-heading-container">
+  <label class="heading">PENDING REQUEST</label>
+</div>
+<div class="sub-heading">Click to view details and create account</div>
+<div class="table-container history corp_request">
+  <div class="table-container-top">&nbsp;</div>
+  <div class="table-container-content">
+    <div class="gradient-content overflow-visible">
+      <ul class="table-headings">
+        <li style="width: 120px;"><a href="javascript:void(0);" title="">Name</a></li>
+        <li style="width: 120px;"><a href="javascript:void(0);" title="">Company</a></li>
+        <li class="lastChild" style="width: 150px;"><a href="javascript:void(0);" title="">Contact No.</a></li>
+      </ul>
+      <div class="table-content">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+          <% flag = true %>
+          <% @corporate_accounts.each do |corporate_account| %>
+            <% if flag %>
+              <tr>
+                <th width="120" onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.full_name %></label>
+                </th>
+                <th width="120" onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.company_name %></label>
+                </th>
+                <th width="120" onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.contact %></label>
+                </th>
+                <th width="30" class="remove-row" id="remove-row-<%=corporate_account.id %>">
+                  <%= image_tag("remove-skill.png", :width => 18, :height => 18, :border => 0, :style => "display: none; margin-left: 0; margin-right: 0;") %>
+                </th>
+              </tr>
+              <% flag = false %>
+            <% else %>
+              <tr>
+                <td onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.full_name %></label>
+                </td>
+                <td onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.company_name %></label>
+                </td>
+                <td onclick="populateValuesIntoForm('<%= corporate_account.first_name %>', '<%= corporate_account.last_name %>', '<%= corporate_account.email %>', '<%= corporate_account.company_name %>');">
+                  <label><%= corporate_account.contact %></label>
+                </td>
+                <td class="remove-row" id="remove-row-<%=corporate_account.id %>">
+                  <%= image_tag("remove-skill.png", :width => 18, :height => 18, :border => 0, :style => "display: none; margin-left: 0; margin-right: 0;") %>
+                </td>
+              </tr>
+            <% end %>
+
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="table-container-bottom">&nbsp;</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.table-content').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+    $(".remove-row img").click(function() {
+      showBlockShadow();
+      var id = $(this).parent().attr('id').split('-');
+      id = id[2];
+      var element = $(this);
+      $.ajax({
+        url: "/admin/home/delete_corp_account",
+        type: "GET",
+        error: function() {
+          hideBlockShadow();
+        },
+        cache: false,
+        data: "id="+id,
+        success: function(data) {
+          if(data=="success")
+            element.parent().parent().fadeOut();
+          hideBlockShadow();
+        }
+      });
+    });
+  });
+  $('.table-content tr').hover(function() {
+    $(this).find('img').show();
+  },
+  function() {
+    $(this).find('img').hide();
+  });
+
+  function populateValuesIntoForm(first_name, last_name, email, company_name) {
+    $("div.customized-input").removeClass("input-text").addClass("active-input");
+    $("input#employer_first_name").val(first_name);
+    $("input#employer_last_name").val(last_name);
+    $("input#employer_email").val(email);
+    $("input#company_name").val(company_name);
+    $("label#intro_error").html("");
+    $("div#success-message").html("");
+    $("div.customized-input").removeClass("input-text-error");
+  }
+</script>

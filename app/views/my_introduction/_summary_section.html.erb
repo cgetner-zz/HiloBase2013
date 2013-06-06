@@ -1,0 +1,19 @@
+<div class="myint-section-head">
+	Describe yourself
+</div>
+
+<div class="myint-summary-bg">
+	<div  class="myint-summary-content">
+		<%=job_seeker.summary%>
+	</div>
+
+	<div class="myint-summary-edit myint-edit-link">
+			<a href="javascript: void(0);" onclick="open_summary_edit.toggle();">Edit</a>
+	</div>
+	
+
+	<div id="myint-summary-form" style="display:none;">
+			<%=render :partial =>"edit_summary",:locals =>{ :job_seeker => @job_seeker}%>
+	</div>
+
+</div>

@@ -1,0 +1,424 @@
+<% content_for :page_title do -%>Career Seeker - Registration | <% end %>
+<%content_for :page_js do -%>
+  <%=javascript_include_tag "jquery.numeric"%>
+<%end-%>
+
+<!--header-->
+<%=render :partial=>"account_tab",:locals=>{:step=>"account"}%>
+<!--/header-->
+
+<!--content-container-->
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div>
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+      <%= form_for @job_seeker, :html=>{:id=>"job_seeker", :autocomplete=>"off"}, :url => { :action => "create" } do |j| %>
+        <%=hidden_field_tag :save_type%>
+        <%=j.hidden_field :id%>
+        <%=j.hidden_field :track_shared_job_id %>
+        <%=j.hidden_field :track_platform_id %>
+        <%=j.hidden_field :track_shared_company_id  %>
+        <%=j.hidden_field :bridge_response %>
+        <%=j.hidden_field :random_token%>
+        <%=j.hidden_field :internal_candidate%>
+        <!--form-container-->
+        <div class="form-container">
+          <div class="video-container">
+            <iframe class="youtube-player" type="text/html" width="549" height="334" src="https://www.youtube.com/embed/XnF7PcuqIis?wmode=transparent&rel=0" frameborder="0"></iframe>
+          </div><!--video-container-->
+          <!--form-element-container-->
+          <input type="hidden" value="" id="error_type" />
+          <div class="error-message-container" id="error_msg"></div>
+          <div class="form-element-container">
+            <ul>
+              <li>
+                <div class="customized-input <%if !session[:pass_through].blank? or @email == false or !@job_seeker.first_name.blank?%> active-input <%else%> input-text <%end%>">
+                  <%# if !session[:pass_through].blank? or @email == false or !@job_seeker.first_name.blank? %>
+                    <!--<div class="customized-input active-input">
+                  <%# else %>
+                    <div class="customized-input input-text">-->
+                  <%# end %>
+
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="job_seeker_first_name_placeholder" value="<%=t ("cs_account_set_up.place_holder.first_name") %>" />
+
+                  <% if !session[:pass_through].blank? %>
+                    <%=j.text_field :first_name, :maxLength=>"30",:onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '1'%>
+                  <% elsif @email == false %>
+                    <%=j.text_field :first_name, :maxLength=>"30",:onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '1'%>
+                  <% elsif !@job_seeker.first_name.blank? %>
+                    <%=j.text_field :first_name, :maxLength=>"30",:onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '1'%>
+                  <% else %>
+                    <%=j.text_field :first_name, :maxLength=>"30",:value =>"#{t('cs_account_set_up.place_holder.first_name')}", :maxlength => 50, :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '1'%>
+                  <% end %>
+
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+              <li>
+                <div class="customized-input <%if !session[:pass_through].blank? or @email == false or !@job_seeker.last_name.blank?%> active-input <%else%> input-text <%end%>">
+                  <%# if !session[:pass_through].blank? or @email == false or !@job_seeker.last_name.blank? %>
+                    <!--<div class="customized-input active-input">
+                  <%# else %>
+                    <div class="customized-input input-text">-->
+                  <%# end %>
+
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="job_seeker_last_name_placeholder" value="<%=t ("cs_account_set_up.place_holder.last_name") %>" />
+
+                  <% if !session[:pass_through].blank? %>
+                    <%=j.text_field :last_name, :maxLength=>"30", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '2'%>
+                  <% elsif @email == false %>
+                    <%=j.text_field :last_name, :maxLength=>"30", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '2'%>
+                  <% elsif !@job_seeker.last_name.blank? %>
+                    <%=j.text_field :last_name, :maxLength=>"30", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '2'%>
+                  <% else %>
+                    <%=j.text_field :last_name, :maxLength=>"30", :value =>"#{t('cs_account_set_up.place_holder.last_name')}", :maxlength => 50, :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"validateBasicInfo(this);checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '2'%>
+                  <% end %>
+
+                  <div class="input-right">&nbsp;</div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="customized-input <%if(!session[:pass_through].blank? and !@job_seeker.email.nil?) or (@email == false and !@job_seeker.zip_code.nil?) or !@job_seeker.email.blank?%> active-input <%else%> input-text <%end%>">
+                  <%# if (!session[:pass_through].blank? and !@job_seeker.email.nil?) or (@email == false and !@job_seeker.zip_code.nil?) or !@job_seeker.email.blank?%>
+                    <!--<div class="customized-input active-input">
+                  <%# else %>
+                    <div class="customized-input input-text"> -->
+                  <%# end %>
+
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="job_seeker_email_placeholder" value="<%=t ("cs_account_set_up.place_holder.email") %>" />
+
+                  <% if !session[:pass_through].blank? and !@job_seeker.email.nil? %>
+                    <%=j.text_field :email, :maxLength=>"100", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '3'%>
+                  <% elsif (@email == false and !@job_seeker.email.nil?)%>
+                    <%=j.text_field :email, :maxLength=>"100", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '3'%>
+                  <% elsif !@job_seeker.email.blank? %>
+                    <%=j.text_field :email, :maxLength=>"100", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '3'%>
+                  <% else %>
+                    <%=j.text_field :email, :maxLength=>"100", :value =>"#{t('cs_account_set_up.place_holder.email')}", :maxlength => 100, :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);" , :onkeyup=>"checkForSaveReturnButton();", :onkeydown=>"type_element(this)", :tabIndex => '3'%>
+                  <% end %>
+
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+              <li>
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="job_seeker_password_placeholder" value="<%=t ("cs_account_set_up.place_holder.password") %>" />
+                  <%=j.text_field :password,:class=>"password",:value =>"#{t('cs_account_set_up.place_holder.password')}", :maxLength => 30, :onFocus=>"focus_element(this); validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"validatePasswordOnKeyUp(this);checkForSaveReturnButton();", :onkeypress=>"type_element(this,event);", :tabIndex => '4'%>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+              <li>
+                <div class="customized-input input-text">
+
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="job_seeker_password_confirmation_placeholder" value="<%=t ("cs_account_set_up.place_holder.conf_password") %>" />
+                  <%=j.text_field :password_confirmation,:class=>"password",:value =>"#{t('cs_account_set_up.place_holder.conf_password')}", :maxLength => 30, :onFocus=>"focus_element(this); validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"checkForSaveReturnButton();", :onkeypress=>"type_element(this,event);", :tabIndex => '5'%>
+
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+              <li>
+                <div class="customized-input <%if(@email == false and !@job_seeker.city.nil?) or !@job_seeker.city.blank?%> active-input <%else%> input-text <%end%>">
+                  <%# if (@email == false and !@job_seeker.city.nil?) or !@job_seeker.city.blank? %>
+                    <!--<div class="customized-input active-input">
+                  <%# else %>
+                    <div class="customized-input input-text">-->
+                  <%# end %>
+
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="city_flag" value=""/>
+                  <input type="hidden" id="job_seeker_city_placeholder" value="<%=t ("cs_account_set_up.place_holder.city") %>" />
+                  <% if (@email == false and !@job_seeker.city.nil?) or !@job_seeker.city.blank? %>
+                    <%=j.text_field :city, :onFocus=>"focus_element(this); validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"checkForSaveReturnButton();", :onkeydown=>"type_element(this);", :onchange=>"$('#dropdown_flag').val(0);", :tabIndex => '6'%>
+                  <% else %>
+                    <%=j.text_field :city, :value =>"#{t('cs_account_set_up.place_holder.city')}", :onFocus=>"focus_element(this);validateBasicInfo(this);", :onBlur=>"validateBasicInfo(this);blur_element(this);", :onkeyup=>"checkForSaveReturnButton();", :onchange=>"$('#dropdown_flag').val(0);", :onkeydown=>"type_element(this);", :tabIndex => '6'%>
+                  <% end %>
+
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+              <li class="last-child">
+                <%=j.check_box "terms_of_service", :class=>"styled checkbox cs_signup", :id=>"privacyText", :onclick=>"validateBasicInfo(this);", :onFocus=>"$('#privacyText').prev().css('border','thin dotted');",:onBlur=>"$('#privacyText').prev().css('border','none');" , :tabIndex => '7'%>
+              </li>
+              <li style="float:left;">
+                <label class="label-privacy-text" ><div onclick="Custom.check($('.cs_signup').prev());validateBasicInfo(this);"><%=t ("cs_account_set_up.i_agree")%><sup>&reg;</sup></div>
+                  <a href="javascript:void(0);" title="Terms of Use" id = "terms" onclick="showTermsPopup();centralizePopup();"><%=t ("cs_account_set_up.terms_of_use")%></a> <%=t ("cs_account_set_up.and")%> <a href="javascript:void(0);" id="policy" onclick="showPrivacyPopup();centralizePopup();" title="Privacy Policy"><%=t ("cs_account_set_up.privacy_policy")%></a>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <!--/form-element-container-->
+        </div>
+        <!--/form-container-->
+
+        <!--button-container-->
+        <div class="button-container">
+          <input type="button" value="" class="saveReturnLater-button-active lfloat" id="snr_button" />
+          <input type="button" value="" class="enter-button-active rfloat" id="basic_button" tabindex='8' />
+        </div>
+        <!--/button-container-->
+      <% end %>
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+
+<!-- Email Error Popup -->
+<div id="email_error" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("cs_account_set_up.error_pop_up.header")%></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat beta-error-text">
+            <label class="free-text"><%=t ("cs_account_set_up.error_pop_up.content")%></label>
+          </div>
+          <div class="rfloat margin-T10px">
+            <input id="email_error_button" type="button" class="retry-button-active" onclick="hideErrorShadow();$('#email_error').hide();" />
+          </div>
+        </div>  
+      </div>  
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideErrorShadow();$('#email_error').hide();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>  
+</div>
+<!-- /Email Error Popup -->
+<input type="hidden" value="<% if  @job_seeker.city.blank? %>0<%else%>1<%end%>" id="dropdown_flag" name="dropdown_flag" />
+<script type="text/javascript">
+  $(document).ready(function(){
+    BrowserDetect.init();
+
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version == "8"){	
+      $("#privacyText").change(function(){
+        if($("#privacyText").prev().css('background-position-x')=="0px" && $("#privacyText").prev().css('background-position-y')=="-50px") {
+          $(".cs_signup").attr("checked", "checked");
+          Custom.check($(".cs_signup").prev());
+          validateBasicInfo();
+        }
+        else {
+          $(".cs_signup").removeAttr("checked");
+          Custom.check($(".cs_signup").prev());
+          validateBasicInfo();
+        }
+      });
+    }
+    else {
+      $("#privacyText").change(function(){
+        if($("#privacyText").prev().css('background-position')=="0px -50px") {
+          $(".cs_signup").attr("checked", "checked");
+          Custom.check($(".cs_signup").prev());
+          validateBasicInfo();
+        }
+        else {
+          $(".cs_signup").removeAttr("checked");
+          Custom.check($(".cs_signup").prev());
+          validateBasicInfo();
+        }
+      });
+    }
+    
+    <%if session[:track_shared_job_id]%>
+      $("#job_seeker_track_shared_job_id").val("<%=session[:track_shared_job_id]%>");
+      <%session[:track_shared_job_id] = nil %>
+    <%end%>
+    <%if session[:track_shared_platform_id]%>
+      $("#job_seeker_track_platform_id").val("<%=session[:track_shared_platform_id]%>");
+      <%session[:track_shared_platform_id] = nil%>
+    <%end%>
+    <%if session[:track_shared_company_id]%>
+      $("#job_seeker_track_shared_company_id").val("<%=session[:track_shared_company_id]%>");
+      <%session[:track_shared_company_id] = nil%>
+    <%end%>
+    <%if session[:bridge_response]%>
+      $("#job_seeker_bridge_response").val("<%=session[:bridge_response]%>");
+      <%session[:bridge_response] = nil%>
+    <%end%>
+      
+    <%if session[:random_token]%>
+      $("#job_seeker_random_token").val("<%=session[:random_token]%>");
+      <%session[:random_token] = nil%>
+    <%end%>
+      
+    <%if session[:internal_candidate]%>
+      $("#job_seeker_internal_candidate").val("<%=session[:internal_candidate]%>");
+      <%session[:internal_candidate] = nil%>
+    <%end%>
+    
+    $("#retry_button").unbind('click').bind('click', function(){
+      $("#login_error").hide();
+      hideErrorShadow();
+      openLoginBox();
+    });
+    $("#job_seeker_city").blur(function(){
+      setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('job_seeker_city'))){
+          $('#job_seeker_city').val($('#job_seeker_city_placeholder').val());
+        }  
+      }, 1);
+    });
+  
+    $("#basic_button").click(function(){
+      validateJobSeekerNewOnInactiveButtonClick();
+    })
+    $(".saveReturnLater-button").click(function(){
+      validateJobSeekerNewOnInactiveButtonClickSnR();
+    })
+    //var isIE = ( document.all != null );
+    BrowserDetect.init();
+  
+    document.getElementById("job_seeker_first_name").focus();
+    Custom.init();
+    $(".checkbox").live('click', function(e) { 
+      validateBasicInfo();
+    });
+
+<% if @email == false %>
+      $("#email_error").show();
+      $("#fade_error").show();
+      $("#jw_player").hide();
+      centralizePopup();
+      addFocusButton('email_error_button');
+      document.getElementById("job_seeker_first_name").blur();
+<% end %>
+    /*
+  document.getElementById('job_seeker_password').attachEvent('onkeyup', function(event){
+      alert(this.which);
+      alert(this.value);
+    });
+     */
+  
+		  
+    //alert(isIE);
+		  
+    if ( BrowserDetect.browser == "Explorer" )  
+    {
+      //wiring to onkeydown event
+      //alert("IE");
+      document.getElementById('job_seeker_password').attachEvent('onkeydown', function(e){
+        editorEvents(document.getElementById('job_seeker_password'), e);
+      });
+      document.getElementById('job_seeker_password_confirmation').attachEvent('onkeydown',function(e){
+        editorEvents(document.getElementById('job_seeker_password_confirmation'), e);
+      });
+    }
+		    
+    else if ( BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Safari" ){
+      document.getElementById('job_seeker_password').addEventListener('keydown', function(e){
+        editorEvents(document.getElementById('job_seeker_password'), e);
+      }, false);
+      document.getElementById('job_seeker_password_confirmation').addEventListener('keydown',function(e){
+        editorEvents(document.getElementById('job_seeker_password_confirmation'), e);
+      }, false);
+    }
+    
+    $(".pac-item").click(function(){
+      
+    });
+  });
+
+		  
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+  
+  
+  // Address Autocomplete
+  var job_seeker_city = document.getElementById('job_seeker_city');
+  var options_type = {
+      types: ['(cities)']
+    };
+  var autocomplete = new google.maps.places.Autocomplete(job_seeker_city, options_type);
+  
+  $("#job_seeker_city").focus(function(){
+    if(job_seeker_city.value=="City / Location") {
+      $(".pac-container").addClass('hack-hidden');
+    }
+  })
+  $("#job_seeker_city").keyup(function(){
+    if(job_seeker_city.value!="City / Location") {
+      $(".pac-container").removeClass('hack-hidden');
+    }
+  })
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+  $.ajax({
+     url: '/ajax/cs_new_city_fetch',
+     data: 'job_seeker_city='+encodeURIComponent(job_seeker_city.value),
+     cache: false,
+     beforeSend: function(){
+       showBlockShadow();
+     },
+     success: function(){
+       hideBlockShadow();
+       if($('#city_flag').val()=="1"){
+         $("#dropdown_flag").val(1);
+         validateBasicInfo(job_seeker_city, true);
+         checkForSaveReturnButton();
+       }
+       else{
+         $("#dropdown_flag").val(0);
+         $('#job_seeker_city').val('');
+         $('#job_seeker_city').blur();
+       }
+       $('#privacyText').focus();
+     }
+   })
+    
+  });    
+  
+</script>
+<style>
+.pac-container {
+        color: #000066;
+	width:287px !important;
+	font-weight:400 !important;
+	font-size:13px !important;
+	border: 2px solid #000066 !important;
+	border-top: 1px solid #CCCCCC !important;
+	background:#fff url(/assets/autocomplete-bg-409.png) left top repeat-y !important;
+      	margin-top:-2px;
+        margin-left:-5px;
+
+}
+</style>
+<!--[if IE 8]>
+<style>
+.pac-container {
+        width:282px !important;
+}
+</style>
+<![endif]-->
+
+<!--[if IE 9]>
+<style>
+.pac-container {
+        width:282px !important;
+}
+</style>
+<![endif]-->
+

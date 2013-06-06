@@ -1,0 +1,72 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("employer_account")%>
+<%end-%>
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js' %>
+<%end-%>
+<%=render :partial=>"/employer_account/employer_tab",:locals=>{:tab=>"home"} -%>
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="emp-box">
+	<div class="emp-home-content">
+		
+		<div class="pairing-color-content" id="pairing-color-content">
+		
+		</div>
+		<div class="pairing-color-hide">
+			<div class="emp-left">
+				<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs} -%>
+			</div>
+
+			<div class="emp-right right-menu-adjust">
+				<%=render :partial=>"/employer_account/activity_summary_panel" -%>
+				<%=render :partial=>"/employer_account/home_chart" -%>
+
+				<%=render :partial=>"/position_profile/position_profile_tab",:locals=>{:current_tab => "view_pos_profile"} -%>
+
+				<div>
+					<div class="<%= (@show_preview_flag ? '' : 'emp-pairing-contanainer')%>">
+						<div style="padding:10px;">
+							<div class="pos-prof-edit-link">
+								<a href="/position_profile/edit/<%=@job.id%>" class="button-a buttton_106X23">Edit Profile</a>
+							</div>
+							<%if @show_preview_flag%>						
+							<div class="pos-prof-activate-chk">
+								<input type="checkbox" onclick="make_job_active(<%=@job.id%>);" <%=@job.active ? "checked='checked'" : ""%>/> Activate 
+							</div>
+							<%end%>
+							<div class="clear-height"></div>
+						</div>
+
+						<div class="height10"></div>
+
+						<%if @show_preview_flag%>
+
+							<%=render :partial =>"/account/job_detail",:locals=>{:job=>@job,:company=>@job.company,:view_type=>"employer",:desired_emp=>@desired_emp}%>
+
+							<div class="height10"></div>
+							
+							<%=render :partial => "/account/detail_comparison",:locals=>{:job_location => @job_location, :job => @job, :address_str =>@address_str, :company => @job.company, :language_skills => @language_skills, :desired_emp => @desired_emp, :job_certifications => @job_certifications
+							}%>
+
+						<%else%>
+							<div class="pos-prof-perview-not-availble">
+								Preview not available, please complete all steps to preview job.
+							</div>
+						<%end%>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear-zero-height"></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		//adjust_left_panel_height();
+	});
+</script>

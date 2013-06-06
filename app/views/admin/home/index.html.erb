@@ -1,0 +1,11 @@
+<%content_for :page_container_id do -%>page-container-opportinities<%end-%>
+<%=render :partial=>"account_tab",:locals=>{:step=>"home"}%>
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <%=render :partial=>"employer_sub_menu",:locals=>{:step=>"home"}%>
+      <%=render :partial=>"employer_privileges_table" %>
+    </div>
+  </div>
+</div>

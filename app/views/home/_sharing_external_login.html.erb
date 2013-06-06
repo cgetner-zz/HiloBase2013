@@ -1,0 +1,57 @@
+
+<div class="white_content" id="sharing_external_login" style="left: -12px;">
+  <div id="gift-hilo-bridge-signin-popup">
+    <div class="popup-top">&nbsp;</div>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading">TO ACCESS THIS JOB POSTING...</label>
+        </div>
+
+        <!-- gift-hilo-bridge-popup-left-->
+        <div class="gift-hilo-bridge-popup-left">
+          <div class="popup-header-container-small">
+            <label class="popup-heading-small">NEW TO HILO<span class="registered">&reg;</span>?</label>
+          </div>
+          <p>
+            Hilo<span class="registered">&reg;</span> is the world's most advanced dynamic job pairing system. Sign-up now to access truly meaningful employment opportunities and evolve your career.
+          </p>
+          <input type="button" class="signup-button-active rfloat" onclick="shareSignup();">
+        </div>
+        <!--/gift-hilo-bridge-popup-left-->
+
+        <div id="gift-hilo-bridge-signin-popup-center-border"></div>
+
+                                                        <!--gift-hilo-bridge-popup-right-->
+                                                        <div class="gift-hilo-bridge-popup-right">
+                                                                <div class="popup-header-container-small">
+                                                                        <label class="popup-heading-small">SIGN-IN</label>
+                                                                </div>
+                                                                <%= form_tag :url => ("/home/share_login"), :html => {:id => "share_login_form"} , :remote => true do -%>
+                                                                    <div class="customized-inner-input input-text text-email">
+                                                                            <div class="input-left">&nbsp;</div>
+                                                                            <input type="hidden" id="share_login_name_placeholder" value="Email" />
+                                                                            <input type="text" name="login_name" id="share_login_name" value="Email" onkeyup="sharing_activate_login_form()" onkeydown="type_element(this)" onfocus="focus_element(this);" onblur="blur_element(this);"/>
+                                                                            <div class="input-right">&nbsp;</div>
+                                                                    </div>
+
+            <div class="customized-inner-input input-text text-password">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="share_login_pass_placeholder" value="Hilo Password" />
+              <input type="text" name="login_pass" id="share_login_pass" class="password" value="Hilo Password" onkeyup="sharing_activate_login_form()" onkeypress="type_element(this,event);" onfocus="focus_element(this);" onblur="blur_element(this);"/>
+              <div class="input-right">&nbsp;</div>
+            </div>
+            <span id="loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login-light-grey.gif", :alt => "Loading ...")%></span>
+            <input type="submit"  disabled="disabled" value="" id="share_login_form_submit" class="enter-button rfloat" />
+          <% end %>
+        </div>
+        <!-- /gift-hilo-bridge-popup-right -->
+        <a class="close" onclick="closeShareLoginPopup()" href="javascript:void(0)">Close</a>
+      </div>
+      <!-- /gradient-content -->
+    </div>
+    <!--/popup-content-->
+    <div class="popup-bottom">&nbsp;</div>
+  </div>
+  <!--/gift-hilo-popup-->
+</div>

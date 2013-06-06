@@ -1,0 +1,129 @@
+<% color = ""
+index= 1
+flag = true
+%>
+
+<% for seeker in @job_seekers %>
+  <% @start = @start+1 %>
+  <% row_css = cycle("light-row","dark-row")
+  days_to_go = ((DateTime.now - 2) - DateTime.now)/(24*60*60)
+  color = index%2 == 0 ? "#ededed" : "white"
+  if @start != 1 %>
+    <tr id="job_row_<%=seeker.id%>" class="<%if seeker.internal == 1%>internal<%end%>">
+      <td style="overflow: visible;">
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div><%=@start%>
+      </td>
+      <!-- FIT -->
+      <td><%if seeker.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=seeker.fit_name_by_pairing%><%end%></td>
+      <!-- STATUS -->
+      <td><%=get_status_value(seeker)%></td>
+
+      <!--CANDIDATE -->
+      <td>
+        <div class="break-word-pool-candidate" onmouseover="$('#id_<%=@start%>').css('height',$('#name_<%=@start%>').height()+'px');$('#name_<%=@start%>').hide();$('#id_<%=@start%>').show();" onmouseout="$('#name_<%=@start%>').show();$('#id_<%=@start%>').hide();">
+          <%if seeker.first_name.blank?%>&nbsp;<%else%>
+            <a style="cursor: pointer;" id="name_<%=@start%>" href="/position_profile/xref/CS<%=seeker.id%>/<%=@job.id%>"><% count = 1 %><%= h(seeker.first_name).force_encoding('utf-8') %></a>
+            <% if session[:employer].account_type_id != 3 %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" onclick="window.location.href='/position_profile/xref/CS<%=seeker.id%>?selected='+$('#parent_id').val();">CS<%=seeker.id%></a>
+            <% else %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" href="/position_profile/xref/CS<%=seeker.id%>">CS<%=seeker.id%></a>
+            <% end %>
+          <%end%>
+        </div>
+      </td>
+      <!--source -->
+      <td><%if seeker.share_name.blank?%><span>---</span><%else%><%= seeker.share_name %><%end%></td>
+      <!--xref-->
+      <% if session[:employer].account_type_id != 3 %>
+        <td><label class="xref_margin"><a onclick="window.location.href='/position_profile/xref/CS<%=seeker.id%>?selected='+$('#parent_id').val();;"><img style="cursor: pointer;" src="/assets/employer_v2/blue-circle.png"></img></a></label></td>
+      <% else %>
+        <td><label class="xref_margin"><a href="/position_profile/xref/CS<%=seeker.id%>"><img style="cursor: pointer;" src="/assets/employer_v2/blue-circle.png"></img></a></label></td>
+      <% end %>
+      <!-- VET-->
+      <td><label class="vet_margin"><%if seeker.vet == 1%><%if seeker.armed_forces.blank?%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png"></img><%end%><%end%></label></td>
+      <!-- VIEW PROFILE -->
+      <td>
+        <label>
+          <%if seeker.fit_name_by_pairing == "Wildcard" and get_status_value(seeker) == "Wildcard"%>
+            <a href="javascript:void(0)" onclick="_showSeekerPopup(<%=seeker.id%>, <%=params[:id]%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+          <%else%>
+            <%=profile_buy_button(seeker.id, session[:employer].id, @job.id, seeker.internal)%>
+          <%end%>
+        </label>
+        <script>
+          $("#job_row_<%=seeker.id%> .disable").css('height',$("#job_row_<%=seeker.id%>").height()-2);
+          $("#job_row_<%=seeker.id%> .disable").css('top',-(($("#job_row_<%=seeker.id%>").height()-2)/2)+($("#job_row_<%=seeker.id%> .disable-container").height()/2));
+        </script>
+      </td>
+    </tr>
+  <% else %>
+    <tr id="job_row_<%=seeker.id%>" class="<%if seeker.internal == 1%>internal<%end%>">
+      <th width="41" style="overflow: visible;">
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div><%=@start%>
+      </th>
+      <!-- FIT -->
+      <th width="94"><%if seeker.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=seeker.fit_name_by_pairing%><%end%></th>
+      <!-- STATUS -->
+      <th width="91"><%=get_status_value(seeker)%></th>
+
+      <!--CANDIDATE -->
+      <th width="111">
+        <div class="break-word-pool-candidate" onmouseover="$('#id_<%=@start%>').css('height',$('#name_<%=@start%>').height()+'px');$('#name_<%=@start%>').hide();$('#id_<%=@start%>').show();" onmouseout="$('#name_<%=@start%>').show();$('#id_<%=@start%>').hide();">
+          <%if seeker.first_name.blank?%>&nbsp;<%else%>
+            <a style="cursor: pointer;" id="name_<%=@start%>" href="/position_profile/xref/CS<%=seeker.id%>/<%=@job.id%>"><% count = 1 %><%= h(seeker.first_name).force_encoding('utf-8') %></a>
+            <% if session[:employer].account_type_id != 3 %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" window.location.href="'/position_profile/xref/CS<%=seeker.id%>?selected='+$('#parent_id').val();">CS<%=seeker.id%></a>
+            <% else %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" href="/position_profile/xref/CS<%=seeker.id%>">CS<%=seeker.id%></a>
+            <% end %>
+          <%end%>
+        </div>
+      </th>
+
+      <!--source -->
+      <th width="113"><%if seeker.share_name.blank?%><span>---</span><%else%><%= seeker.share_name %><%end%></th>
+      <!--xref-->
+      <% if session[:employer].account_type_id != 3 %>
+        <th width="49"><label class="xref_margin"><a onclick="window.location.href='/position_profile/xref/CS<%=seeker.id%>?selected='+$('#parent_id').val();;"><img style="cursor: pointer;" src="/assets/employer_v2/blue-circle.png"></img></a></label></th>
+      <% else %>
+        <th width="49"><label class="xref_margin"><a href="/position_profile/xref/CS<%=seeker.id%>"><img style="cursor: pointer;" src="/assets/employer_v2/blue-circle.png"></img></a></label></th>
+      <% end %>
+      <!-- VET-->
+      <th width="51"><label class="vet_margin"><%if seeker.vet == 1%><%if seeker.armed_forces.blank?%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png"></img><%end%><%end%></label></th>
+      <!-- VIEW PROFILE -->
+      <th width="126">
+        <label>
+          <%if seeker.fit_name_by_pairing == "Wildcard" and get_status_value(seeker) == "Wildcard"%>
+            <a href="javascript:void(0)" onclick="_showSeekerPopup(<%=seeker.id%>, <%=params[:id]%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+          <%else%>
+            <%=profile_buy_button(seeker.id, session[:employer].id, params[:id], seeker.internal)%>
+          <%end%>
+        </label>
+        <script>
+          $("#job_row_<%=seeker.id%> .disable").css('height',$("#job_row_<%=seeker.id%>").height()-2);
+          $("#job_row_<%=seeker.id%> .disable").css('top',-(($("#job_row_<%=seeker.id%>").height()-2)/2)+($("#job_row_<%=seeker.id%> .disable-container").height()/2));
+        </script>
+      </th>
+    </tr>
+    <% flag = false %>
+  <% end %>
+  <% index = index + 1 %>
+<% end %>
+<script>
+  if($("#search_result_arr").val() != "-1"){
+    var arr = new Array();
+    var search_arr_val = $("#search_result_arr").val();
+    var search_arr = search_arr_val.split(",");
+    for (var i=0; i< search_arr.length; i++){
+      arr.push(search_arr[i]);
+    }
+    $('tr').each(function(){
+      if ($(this).attr('id') != undefined){
+        var id = $(this).attr('id').split('_')[2];
+        if (!arr.has(id)){
+          $(this).addClass('filter');
+        }
+      }
+    });
+  }
+</script>

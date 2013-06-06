@@ -1,0 +1,26 @@
+<div id="gift_hilo_signin_failure" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('gift_hilo.gift_hilo_signin_failure.heading') %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text">
+            <label class="free-text" style="font-weight: 400; font-size: 13px;"><%= t('gift_hilo.gift_hilo_signin_failure.free_text') %></label>
+          </div>
+          <div class="rfloat" style="margin-top: 10px;">
+            <input type="button" id="retry_button_hilo" class="retry-button-active gift_hilo_signin_failure_button" onclick="hideErrorLogin(); $('#gift_hilo_signin_failure').hide(); showNormalShadow(); $('#checkout_billing_info').show(); setCardTypeGift('signin'); centralizePopup();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideErrorLogin(); window.location.reload();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

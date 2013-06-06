@@ -1,0 +1,132 @@
+<div class="page-header" id="results_header">
+  <div class="lfloat">
+    <h1 class="txtLalign"><%=t("emp_search_non_loggedin.graphs.heading")%></h1>
+    <p class="txtLalign"><%=t("emp_search_non_loggedin.graphs.content")%></p>
+    <div style="padding: 0 10px 50px 0;">
+      <%= form_tag("/hilo_search/search_job_seekers", :id =>"search-jobs", :remote => true) do %>
+        <input type="hidden" id="search_latitude" name="search_latitude"/>
+        <input type="hidden" id="search_longitude" name="search_longitude"/>
+        <input type="hidden" id="search_dropdown_check_flag" name="search_dropdown_check_flag" value="0"/>
+        <div class="customized-input input-text" style="width: 296px;">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="location_placeholder" value="<%=t('emp_search_non_loggedin.graphs.location')%>" />
+          <input type="text" id="location" name="location" value="<%=t('emp_search_non_loggedin.graphs.location')%>" onblur="validateSearchLocationOnBlur(this);blur_element(this);" onkeydown="type_element(this);$('#search_dropdown_check_flag').val('0');" onfocus="focus_element(this);" onkeyup="checkTab(event);" onkeypress="checkForEnter(event);" style="width: 273px;" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+        <a href="javascript:void(0)" id="submitSearchJobSeekersform" style="display: inline-block; margin-top: -2px; margin-left: 6px;">
+          <%= image_tag("employer_landing/search_button.png") %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+  <div id="result-box" class="rfloat">
+    <p class="txtLalign" style="padding-top: 62px; padding-bottom: 16px; font-weight: 400;"><%=t("emp_search_non_loggedin.graphs.content2")%></p>
+    <div class="question-set-box graph_boxes lfloat" style="display: block;">
+      <div class="question_set_box_top_bg">&nbsp;</div>
+      <div class="question_set_box_middle_bg">
+        <div class="gradient-content" style="height: 30px ! important;">
+          <span style="text-transform: uppercase; font-size: 24px; font-weight: 300;">
+            <%= session[:emp_workenv_text] %>
+          </span>
+        </div>
+      </div>
+      <div class="question_set_box_bottom_bg">&nbsp;</div>
+    </div>
+  </div>
+</div>
+<div style="min-height: 500px; overflow: auto;">
+  <!-- BOX 1 -->
+  <div class="question-set-box graph_boxes lfloat" style="padding-bottom: 24px; padding-right: 34px;">
+    <div class="question_set_box_top_bg">&nbsp;</div>
+    <div class="question_set_box_middle_bg">
+      <div class="gradient-content">
+        <div id="location_graph">
+          <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+        </div>
+      </div>
+    </div>
+    <div class="question_set_box_bottom_bg">&nbsp;</div>
+  </div>
+  <!-- BOX 1 -->
+
+  <!-- BOX 2 -->
+  <div class="question-set-box graph_boxes lfloat" style="padding-bottom: 24px;">
+    <div class="question_set_box_top_bg">&nbsp;</div>
+    <div class="question_set_box_middle_bg">
+      <div class="gradient-content">
+        <div id="birkman_graph">
+          <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+        </div>
+      </div>
+    </div>
+    <div class="question_set_box_bottom_bg">&nbsp;</div>
+  </div>
+  <!-- BOX 2 -->
+
+  <!-- BOX 3 -->
+  <div class="question-set-box graph_boxes lfloat" style="padding-right: 34px;">
+    <div class="question_set_box_top_bg">&nbsp;</div>
+    <div class="question_set_box_middle_bg">
+      <div class="gradient-content">
+        <div id="role_cluster_graph">
+          <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+        </div>
+      </div>
+    </div>
+    <div class="question_set_box_bottom_bg">&nbsp;</div>
+  </div>
+  <!-- BOX 3 -->
+
+  <!-- BOX 4 -->
+  <div class="question-set-box graph_boxes lfloat">
+    <div class="question_set_box_top_bg">&nbsp;</div>
+    <div class="question_set_box_middle_bg">
+      <div class="gradient-content">
+        <div id="wordle_graph">
+          <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+        </div>
+      </div>
+    </div>
+    <div class="question_set_box_bottom_bg">&nbsp;</div>
+  </div>
+  <!-- BOX 4 -->
+</div>
+<div class="button-container" style="display: none; overflow: auto; padding: 10px 0px;">
+  <a class="home-button lfloat" href="/">&nbsp;</a>
+  <a class="get-started-button rfloat" href="/employer/new">&nbsp;</a>
+</div>
+<style>
+  .pac-container {
+    color: #000066;
+    width:287px !important;
+    font-weight:400 !important;
+    font-size:13px !important;
+    border: 2px solid #000066 !important;
+    border-top: 1px solid #CCCCCC !important;
+    background:#fff url(/assets/autocomplete-bg-409.png) left top repeat-y !important;
+    margin-top:-2px;
+    margin-left:-4px;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    .pac-container {
+      margin-left:-5px;
+    }
+  }
+</style>
+<!--[if IE 8]>
+<style>
+.pac-container {
+        margin-left:-5px;
+        width:287px !important;
+}
+</style>
+<![endif]-->
+
+<!--[if IE 9]>
+<style>
+.pac-container {
+        margin-left:-5px;
+        width:287px !important;
+}
+</style>
+<![endif]-->

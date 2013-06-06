@@ -1,0 +1,40 @@
+<div id="upload-error" class="white_content">
+<div class="popup-upper-block-uploaderr">
+  <span class="popup-top">&nbsp;</span>
+  <div class="popup-content">
+    <div class="gradient-content">
+      <div class="popup-header-container">
+        <label class="popup-heading">OOPS!</label>
+      </div>
+      <div class="access-block">
+        <div class="lfloat error-text" style="width:290px;">
+          <label class="free-text">
+          <!-- Photo error -->
+          <span id="photo_err_msg" style="display:none;">
+            There was an error in uploading your file.<br />
+            Your photo should be a JPEG less than 1MB.
+          </span>
+          <!-- /Photo error -->
+          
+          <!-- CV error -->
+          <span id="cv_err_msg" style="display:none;">
+            There was an error in uploading your file.<br />
+            Your r&eacute;sum&eacute; should be a docx, doc, pdf, txt less than 1MB.
+          </span>
+          <!-- /CV error -->
+          </label>
+        </div>
+        <div class="rfloat margin-T-5px">
+          <input id="upload-error_button" type="button" class="retry-button-active" onclick="$('#upload-error').hide();hideErrorShadow();" />
+        </div>
+      </div>
+    </div>
+
+    <div class="home-popup-contnet">
+
+    </div>
+    <a href="javascript:void(0)" class="close" onClick="$('#upload-error').hide();hideErrorShadow();">Close</a>
+  </div>
+  <span class="popup-bottom">&nbsp;</span>
+</div>
+</div>

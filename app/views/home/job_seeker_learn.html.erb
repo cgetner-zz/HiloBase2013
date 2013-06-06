@@ -1,0 +1,44 @@
+<%=render :partial=>"youtube_video",:locals=>{:video_url=>"wr6itOBLVQA"}%>
+<%= fb_connect_javascript_tag %>
+<%= init_fb_connect('XFBML', :js => :jquery) %>
+<div class="home_content">
+	
+	
+	
+	<!---- start - video section     -->
+	<div id="video-section">
+		<div id="video-content">
+			
+			<div class="video-box-seeker">
+				
+				<div class="video-embed">
+					
+					<div id="videoDiv">
+					Loading...
+					</div>
+					
+					
+			
+				</div>
+				<%=render :partial=>"/shared/shared_links"%>
+				<br class="clear"/>
+			</div>
+			
+			
+		</div>
+		
+		<div class="seeker-signup-link">
+			<a href="/job_seeker/new" ><%=image_tag("signup.png")%></a>
+		</div>
+		<br class="clear"/>
+	</div>
+
+	
+	<!---- end - video section     -->
+
+</div>
+
+
+
+
+

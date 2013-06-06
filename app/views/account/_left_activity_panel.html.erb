@@ -1,0 +1,100 @@
+<div class="seeker-left left-menu-adjust">
+	<div class="seeker-left-content">
+		<div class="activity-separator">&nbsp;</div>
+		<div class="common-left-menu-header">
+			Activity
+		</div>
+		<div class="activity-separator">&nbsp;</div>
+		<div class="activities">
+				
+				<div class="activity-menu-row">
+					<div class="activity-left" id="new_menu"><a href="/account/opportunities/new">New Posts</a></div>
+					<div class="activity-right" id="new_cnt"><%=count_hash[:new_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+				
+				<div  class="activity-menu-row">
+					<div class="activity-left" id="employer_view_menu"><a href="/account/opportunities/employer_view">Employer Views</a></div>
+					<div class="activity-right" id="emp_view_cnt"><%=count_hash[:emp_view_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+				
+				<div  class="activity-menu-row">
+					<div class="activity-left" id="following_menu"><a href="/account/opportunities/following">Following</a></div>
+					<div class="activity-right" id="following_cnt"><%=count_hash[:following_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+
+
+				<div  class="activity-menu-row">
+					<div class="activity-left" id="active_menu"><a href="/account/opportunities/active">Explore All Active Posts</a></div>
+					<div class="activity-right" id="all_cnt"><%=count_hash[:all_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+
+				<div  class="activity-menu-row">
+					<div class="activity-left" id="archived_menu"><a href="/account/opportunities/archived">Archived Posts</a></div>
+					<div class="activity-right" id="archived_cnt"><%=count_hash[:archived_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+
+			
+				<div class="common-left-menu-header">
+					 Purchases
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+				<div class="activity-menu-row">
+					<div class="activity-left" id="considering_menu"><a href="/account/opportunities/considering">Position Details</a></div>
+					<div class="activity-right" id="consider_cnt"><%=count_hash[:consider_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+
+				<div  class="activity-menu-row">
+					<div class="activity-left" id="interested_menu"><a href="/account/opportunities/interested">Interested</a></div>
+					<div class="activity-right" id="interest_cnt"><%=count_hash[:interest_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="activity-separator">&nbsp;</div>				
+
+				<div class="activity-menu-row">
+					<div class="activity-left" id="wild_card_menu"><a href="/account/opportunities/wild_card">Wild Cards</a></div>
+					<div class="activity-right" id="wild_cnt"><%=count_hash[:wild_count]%></div>
+					<div class="clear-height"></div>
+				</div>
+				<div class="clear-height"></div>
+		</div>
+		
+		
+		<%if tab == "home"%>
+			
+			
+			<div class="career-box">
+				<div class="activity-separator">&nbsp;</div>
+				<div class="common-left-menu-header">
+					Your Career Forward Guide
+				</div>
+				<div class="activity-separator">&nbsp;</div>
+
+				<div class="career-content">
+					<a href="javascript:void(0);" onclick="birkman_report.request_pdf();"><img src="/assets/donwload_pic.png" /></a>
+					
+					<img src="/assets/login-loader.gif" style="display:none;" id="career_guide_loader"/>
+				</div>
+			</div>
+
+
+		<%end%>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		left_activity_menu_hover_effect();
+	});
+</script>

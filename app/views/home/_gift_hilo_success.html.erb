@@ -1,0 +1,51 @@
+<div id="gift_hilo_success" >
+    <div class="popup-upper-block-fogetPwd">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" ><%= t('gift_hilo.popup_second.payment.success_popup.heading') %></label>
+          </div>
+          <div class="access-block">
+            <div class="lfloat error-text" style="margin-top: 10px !important; width: 304px !important;">
+              <label class="free-text" style="font-weight: 400; font-size: 13px;">
+                <%= t('gift_hilo.popup_second.payment.success_popup.free_text') %>
+              </label>
+            </div>
+            <div class="rfloat" style="margin-top: 18px;">
+              <input type="button" id="continue_button" class="continue-button-active"  />
+            </div>
+          </div>
+        </div>
+
+        <div class="home-popup-contnet">
+
+        </div>
+        <a href="javascript:void(0)" class="close" id="checkout_billing_success_close" >Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#checkout_billing_success_close").click(function(){
+        <%  if session[:job_seeker] or session[:employer] %>
+            window.location.reload();
+        <% else %>
+            hideSuccessShadow();
+            $('#gift_hilo_success_msg').empty();
+        <% end %>
+      });
+
+       $("#continue_button").click(function(){       
+       $('#verify-loader-img').show();       
+        <%  if session[:job_seeker] or session[:employer] %>
+            window.location.reload();
+        <% else %>
+            hideSuccessShadow();
+            $('#gift_hilo_success_msg').empty();
+        <% end %>
+      });
+    });
+</script>

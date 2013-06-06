@@ -1,0 +1,4 @@
+emptyFormSection();
+showBlockShadow();
+$("#photo-ajax").html("<%= escape_javascript render(:partial=>"/account/profile_picture", :locals=>{:job_seeker=>@job_seeker}) %>");
+hideBlockShadow();

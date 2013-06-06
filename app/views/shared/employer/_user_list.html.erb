@@ -1,0 +1,35 @@
+<div class="user-list dropdown">
+  <div class="top"></div>
+  <div class="middle">
+    <div class="middle-cnt">
+      <ul>
+        <li emp_id="0"><%=t ("user_admin.position_reassign.user_admin_dropdown.me") %></li>
+        <% @children.each do |c| %>
+          <% if @children.index(c) != @children.size-1 %>
+            <%= fetch_children_list(c) %>
+          <%else%>
+            <%= fetch_children_last(c) %>
+          <%end%>
+        <%end%>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+<script type="text/javascript">
+  $(".user-list.dropdown ul li").unbind().click(function(){
+    var element = $(this);
+    //alert($(this).parent().parent().parent().parent().parent().attr('id').split("-")[2]);
+    switch(parseInt($(this).parent().parent().parent().parent().parent().attr('id').split("-")[2])){
+      case 1: populateUserFolders(element, 1);
+        break;
+      case 2: populateUserFolders(element, 2);
+        break;
+      case 3: populateUserFolders(element, 3);
+        break;
+    }
+    
+  });
+  
+  
+</script>

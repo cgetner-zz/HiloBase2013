@@ -1,0 +1,8 @@
+<% if @job_status.considering == true %>
+  career_code.show_details_success_msg();
+  job_detail_view.show('<%=@job.id%>','');
+<% else %>
+  career_code.show_preview_success_msg('<%=@job.id%>', '<%=@this_was_not_read%>');
+  $("#position_overview").html("<%= escape_javascript render(:partial =>"/account/preview_popup",:locals=>{:job=>@job, :job_location=>@job_location, :job_status=>@job_status, :company=>@company, :following_company_flag=>@following_company_flag, :view_type=>"seeker", :desired_emp=>@desired_emp, :watchlist_flag=>@watchlist_flag}) %>");
+  centralizePopup();
+<% end %>

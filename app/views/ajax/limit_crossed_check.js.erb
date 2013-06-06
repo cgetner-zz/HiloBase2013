@@ -1,0 +1,65 @@
+<% if @value.class.to_s == "Fixnum" %>
+  $("#spending_form_"+<%= @emp.id %>).submit();
+  $('#fade_normal_status_signout').click(function(){
+  closeUserAdminTab();
+  });
+<% elsif @value.class.to_s == "String"%>
+  <% if @value.split('_')[0] == "limit"  %>
+  <% if not @emp_spend_limit.nil? %>
+    $('.user-box').each(function(){
+      if($(this).hasClass('error')){
+        $(this).find('.limit').val("$<%= number_to_currency(@emp_spend_limit, :unit=>"") %>");
+        $(this).removeClass('error');
+      }
+    });
+  <% end %>
+    $("#user_box_"+<%= @emp.id %>).addClass('error');
+    $("#user_calc_error").css('visibility','visible');
+    $("#user_calc_name").html('Total Budget:');
+    $("#user_calc_remaining").addClass('error');
+    $("#user_calc_remaining").next().addClass('error');
+    $("#user_calc_remaining").next().text('$<%= number_to_currency(@value.split('_')[2], :unit=>"") %>');
+    $('#fade_normal_status_signout').click(function(){
+    closeUserAdminTab();
+    });
+  <% elsif @value.split('_')[0] == "under" %>
+    $("#spending_form_"+<%= @emp.id %>).submit();
+    $("#user_box_"+<%= @emp.id %>).removeClass('error');
+    $("#user_calc_error").css('visibility','hidden');
+    $("#user_calc_name").html('Spending Limit:');
+    $("#user_calc_remaining").removeClass('error');
+    $("#user_calc_remaining").next().removeClass('error');
+    //$("#user_calc_remaining").next().text('$<%= number_to_currency(@value.split('_')[2], :unit=>"") %>');
+    //$("#user_calc_allocated").next().text('$<%= number_to_currency(@value.split('_')[3], :unit=>"") %>');
+    <% if not @emp_spend_limit.nil? %>
+    $('.user-box').each(function(){
+      if($(this).hasClass('error')){
+        $(this).find('.limit').val("$<%= number_to_currency(@emp_spend_limit, :unit=>"") %>");
+        $(this).removeClass('error');
+      }
+    });
+  <% end %>
+    $('#fade_normal_status_signout').click(function(){
+    closeUserAdminTab();
+    });
+  <% end %>
+<% elsif @value.class.to_s == "Float" %>
+  $("#fade_error_warning").show();
+  $("#limit_crossed_warning").show();
+  addFocusButton('limit_crossed_button');
+  $(".limit_amount").text('$<%= number_to_currency(@value, :unit=>"") %>');
+  $("#limit_crossed_button").unbind().bind('click', function(){
+  $("#limit_crossed_warning").hide();
+  $("#fade_error_warning").hide();
+  $("#limit_"+<%= @emp.id %>).parent().removeClass('input-text-error').addClass('active-input');
+  $("#limit_"+<%= @emp.id %>).focus();
+  });
+  $("#limit_crossed_cross").unbind().bind('click', function(){
+  $('#limit_crossed_warning').hide();
+  $('#fade_error_warning').hide();
+  $("#spending_form_"+<%= @emp.id %>).submit();
+  $('#fade_normal_status_signout').click(function(){
+  closeUserAdminTab();
+  });
+  });
+<% end %>

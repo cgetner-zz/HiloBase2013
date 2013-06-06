@@ -1,0 +1,80 @@
+<div id="privileged_history_popup" class="white_content" style="display: block;">
+  <div class="popup-upper-block-positionPrevew popup-upper-block-positionPrevew-special">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="popup_background_box_bg_table">
+        <div class="popup-header-container-table">
+          <label class="popup-heading-table transform-letter">
+            PRIVILEGE HISTORY (<%= @employer.email %>)
+          </label>
+        </div>
+        <div class="table-container admin">
+          <div class="table-container-top">&nbsp;</div>
+          <div class="table-container-content">
+            <div class="gradient-content overflow-visible">
+              <ul class="table-headings">
+                <li class="active" style="width: 186px;"><a class="single first decActive" href="javascript:void(0);" title="">Start Date</a></li>
+                <li style="width: 186px;"><a class="single" href="javascript:void(0);" title="">End Date</a></li>
+                <li style="width: 125px;"><a class="single" href="javascript:void(0);" title="">Credit Value</a></li>
+                <li class="lastchild" style="width: 145px;"><a class="" href="javascript:void(0);" title="">Discount on<br />registration fee</a></li>
+              </ul>
+              <div class="table-content" id="table_block_history">
+                <div class="loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+                  <% flag = true %>
+                  <% for item in history %>
+                    <% if flag == true %>
+                      <% flag = false %>
+                      <tr>
+                        <th width="196"><label class="first"><%= item.created_at.to_formatted_s(:long_ordinal) %> UTC</label></th>
+                        <th width="196">
+                          <label>
+                            <% if item.created_at == item.updated_at %>
+                              Currently Privileged<br />
+                            <% else %>
+                              <%= item.updated_at.to_formatted_s(:long_ordinal) %> UTC<br />
+                            <% end %>
+                          </label>
+                        </th>
+                        <th width="135"><label style="margin-right: 10px;"><span style="margin-left: 46px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(item.credit_value, :unit=>"") %></span></label></th>
+                        <th width="155"><label style="margin-right: 10px;"><span style="margin-left: 65px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(item.discount_value, :unit=>"") %></span></label></th>
+                      </tr>
+                    <% else %>
+                      <tr>
+                        <td><label class="first"><%= item.created_at.to_formatted_s(:long_ordinal) %> UTC</label></td>
+                        <td>
+                          <label>
+                            <% if item.created_at == item.updated_at %>
+                              Currently Privileged<br />
+                            <% else %>
+                              <%= item.updated_at.to_formatted_s(:long_ordinal) %> UTC<br />
+                            <% end %>
+                          </label>
+                        </td>
+                        <td><label style="margin-right: 10px;"><span style="margin-left: 46px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(item.credit_value, :unit=>"") %></span></label></td>
+                        <td><label style="margin-right: 10px;"><span style="margin-left: 65px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(item.discount_value, :unit=>"") %></span></label></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                  <% if history.size==0 %><center><br /><br /></center><% end %>
+                </table>
+                <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-container-bottom">&nbsp;</div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideNormalShadow();$('#privileged_history_popup').empty();" id="oneclick-close">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#table_block_history').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+</script>

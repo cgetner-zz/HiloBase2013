@@ -1,0 +1,54 @@
+<div class="user-box open new"><!-- Use class [open] or [close] -->
+  <div class="top">
+    <span class="yellow-dot"></span><!-- Use class [green-dot] or [yellow-dot] -->
+    <span class="user-name"><%=t ("user_admin.accounts.add_new_user.title") %></span>
+  </div>
+  <div class="slide" style="display: block;">
+    <div class="middle">
+      <!-- ERROR MESSAGE CONTAINER -->
+      <!-- Limit error messages to one line only. For anything bigger than that please use a popup -->
+      <div class="error-message" id="new_user_error_message"></div>
+      <!-- /ERROR MESSAGE CONTAINER -->
+      <%= form_for @employer,:url=>'/ajax/create_new_user',:remote => true, :html => {:id=>"create_new_user",:autocomplete=>"off"} do |employer| %>
+        <ul class="new-user">
+          <li>
+            <div class="customized-inner-input input-text">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="employer_first_name_placeholder" value="<%=t ("user_admin.accounts.add_new_user.first_name") %>"/>
+              <%= employer.text_field :first_name,:value =>"#{t('user_admin.accounts.add_new_user.first_name')}",:maxLength=>"30",:onFocus=>"focus_element(this);validateNewUserFormOnBlur(this);", :onBlur=>"validateNewUserFormOnBlur(this);blur_element(this);", :onkeyup=>"enterHandlingForNewUser(event);", :onkeydown=>"type_element(this)", :tabIndex => '100'%>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li>
+            <div class="customized-inner-input input-text">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="employer_last_name_placeholder" value="<%=t ("user_admin.accounts.add_new_user.last_name") %>"/>
+              <%=employer.text_field :last_name,:value =>"#{t('user_admin.accounts.add_new_user.last_name')}",:maxLength=>"30",:onFocus=>"focus_element(this);validateNewUserFormOnBlur(this);", :onBlur=>"validateNewUserFormOnBlur(this);blur_element(this);", :onkeyup=>"enterHandlingForNewUser(event);", :onkeydown=>"type_element(this)", :tabIndex => '101'%>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li>
+            <div class="customized-inner-input input-text">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="employer_email_placeholder" value="<%=t ("user_admin.accounts.add_new_user.email") %>"/>
+              <%=employer.text_field :email,:value =>"#{t('user_admin.accounts.add_new_user.email')}",:maxLength=>"30",:onFocus=>"focus_element(this);validateNewUserFormOnBlur(this);", :onBlur=>"validateNewUserFormOnBlur(this);blur_element(this);", :onkeyup=>"enterHandlingForNewUser(event);", :onkeydown=>"type_element(this)", :tabIndex => '102'%>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="button-cnt">
+            <input type="button" class="create-new-user-button" onclick="$('#create_new_user').submit();" />
+          </li>
+        </ul>
+      <% end %>
+    </div>
+    <div class="bottom"></div>
+  </div>
+</div>
+<script type="tetext/javascript">
+  $("#create_new_user").bind("ajax:beforeSend",function(){
+    if(!validateNewUserForm()) { return false; }
+    showBlockShadow();
+  }).bind("ajax:complete",function(){
+    hideBlockShadow();
+  });
+</script>

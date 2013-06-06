@@ -1,0 +1,238 @@
+<% content_for :page_js do -%>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+  </script>
+  <%=javascript_include_tag "jqcloud-1.0.2"%>
+<% end -%>
+
+<% content_for :page_css do -%>
+  <%=stylesheet_link_tag("jqcloud")%>
+<% end -%>
+
+<!--header-->
+<%=render :partial=>"/hilo_search/search_tabs", :locals => { :step => "search_tab_2" } %>
+<!--/header-->
+
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div>
+  <div class="container-shadow-box">
+    <div class="dark-paper-container" style="overflow: auto; min-height: 500px;">
+      <div id="question_set_box">
+        <div class="page-heading-container">
+          <h2 class="page-heading" style="text-transform: uppercase; float: left; width: 432px;"><%=t("c_search_non_loggedin.graph.heading1")%></h2>
+          <h2 class="page-heading" style="text-transform: uppercase; float: left; width: 420px;"><%=t("c_search_non_loggedin.graph.heading2")%></h2>
+        </div>
+        <div>
+        </div>
+        <div class="question-set-box graph_boxes lfloat" style="display: block;">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content" style="height: auto ! important;">
+              <div style="padding: 12px 10px 6px;">
+                <%= form_tag("/hilo_search/search_jobs", :id =>"search-jobs", :remote => true) do %>
+                  <input type="hidden" id="search_latitude" name="search_latitude"/>
+                  <input type="hidden" id="search_longitude" name="search_longitude"/>
+                  <input type="hidden" id="search_dropdown_check_flag" name="search_dropdown_check_flag" value="0"/>
+                  <div class="customized-input input-text" style="width: 295px;">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="location_placeholder" value="<%=t("c_search_non_loggedin.graph.label")%>" />
+                    <input type="text" id="location" name="location" value="<%=t("c_search_non_loggedin.graph.label")%>" onblur="validateSearchLocationOnBlur(this);blur_element(this);" onkeydown="type_element(this);$('#search_dropdown_check_flag').val('0');" onfocus="focus_element(this);" onkeyup="checkTab(event);" onkeypress="checkForEnter(event);" style="width: 273px;" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <a href="javascript:void(0)" id="submitSearchJobSeekersform" style="display: inline-block; margin-left: 14px; margin-top: 5px;">
+                    <%= image_tag("employer_v2/searchbtn_credential_green.png") %>
+                  </a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <div class="question-set-box graph_boxes" style="display: block;">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content" style="height: auto ! important;">
+              <div style="text-transform: uppercase; text-align: center; font-size: 24px; padding: 20px 10px">
+                <%= session[:js_workenv_text] %>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <!-- BOX 1 -->
+        <div class="question-set-box graph_boxes lfloat">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content">
+              <div id="location_graph">
+                <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <!-- BOX 1 -->
+
+        <!-- BOX 2 -->
+        <div class="question-set-box graph_boxes lfloat">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content">
+              <div id="birkman_graph">
+                <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <!-- BOX 2 -->
+
+        <!-- BOX 3 -->
+        <div class="question-set-box graph_boxes lfloat">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content">
+              <div id="role_cluster_graph">
+                <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <!-- BOX 3 -->
+
+        <!-- BOX 4 -->
+        <div class="question-set-box graph_boxes lfloat">
+          <div class="question_set_box_top_bg">&nbsp;</div>
+          <div class="question_set_box_middle_bg">
+            <div class="gradient-content">
+              <div id="wordle_graph">
+                <div class="graph-loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+              </div>
+            </div>
+          </div>
+          <div class="question_set_box_bottom_bg">&nbsp;</div>
+        </div>
+        <!-- BOX 4 -->
+
+      </div>
+      <div class="button-container" style="display: none;">
+        <!--
+        <input type="button" class="home-button-active next-button-active lfloat" value="" onclick="window.location.href='/career_seeker'" style="margin-top: 12px;"/>
+        -->
+        <input type="button" class="new-register-button-active" value="" onclick="window.location.href='/job_seeker/new'" style="margin: 0px auto; display: block;"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+<% if not session[:search_work_env_msg].nil? %>
+  <% session[:search_work_env_msg] = nil %>
+      showNormalShadow();
+      $('#hilo_search_work_env_job').show();
+      centralizePopup();
+      addFocusButton('hilo_search_job_msg_button');
+<% end %>
+    $("a#submitSearchJobSeekersform").click(function() {
+      var location = document.getElementById('location');
+      if(validateNotEmpty(location)) {
+        if($("#search_dropdown_check_flag").val() == "0") {
+          $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+          $(location).parent().addClass("input-text-error");
+        } else {
+          $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+          $(location).parent().addClass("active-input");
+          $("#search-jobs").submit();
+          showBlockShadow();
+        }
+      } else {
+        $(location).parent().removeClass("input-text input-text-active active-input input-text-error");
+        $(location).parent().addClass("input-text-error-empty");
+      }
+    });
+    $("#location").blur(function(){
+      setTimeout(function(){
+        if(!validateNotEmpty(document.getElementById('location'))){
+          $('#location').val($('#location_placeholder').val());
+        }
+      }, 1);
+    });
+  });
+
+  function checkTab(e){
+    if (e.keyCode != 9)
+      $('#search_dropdown_check_flag').val('0');
+  }
+
+  function checkForEnter(e){
+    if (e.keyCode == 13){
+      if ($('#search_dropdown_check_flag').val() != '1'){
+        prevDefault(e);
+      }
+    }
+  }
+
+  var city = document.getElementById('location');
+  var options_type = {
+    types: ['(cities)']
+  };
+  var autocomplete = new google.maps.places.Autocomplete(city, options_type);
+  $("#location").focus(function(){
+    if(city.value=="Select a Location") {
+      $(".pac-container").addClass('hack-hidden');
+    }
+  });
+  $("#location").keyup(function(){
+    $("#location").removeAttr('placeholder');
+    if(city.value!="Select a Location") {
+      $(".pac-container").removeClass('hack-hidden');
+    }
+  });
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    $.ajax({
+      url: '/ajax/cs_search_city_fetch',
+      data: 'job_seeker_city='+encodeURIComponent(city.value),
+      cache: false,
+      beforeSend: function(){
+        showBlockShadow();
+      },
+      success: function(){
+        hideBlockShadow();
+      }
+    });
+  });
+</script>
+<style>
+  .pac-container {
+    color: #000066;
+    width:287px !important;
+    font-weight:400 !important;
+    font-size:13px !important;
+    border: 2px solid #000066 !important;
+    border-top: 1px solid #CCCCCC !important;
+    background:#fff url(/assets/autocomplete-bg-409.png) left top repeat-y !important;
+    margin-top:-2px;
+    margin-left:-5px;
+
+  }
+</style>
+<!--[if IE 8]>
+<style>
+.pac-container {
+        width:282px !important;
+}
+</style>
+<![endif]-->
+
+<!--[if IE 9]>
+<style>
+.pac-container {
+        width:282px !important;
+}
+</style>
+<![endif]-->

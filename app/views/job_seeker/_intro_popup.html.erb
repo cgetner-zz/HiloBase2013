@@ -1,0 +1,114 @@
+
+
+<div class="intro-popup-outer-box" style="display:none;" id="intro_popup">
+	<div >
+		<div class="corner-close-box">	
+			<div class="intro-popup-close">
+				<a href="javascript:void(0);" onclick="load_intro_popup.hide();" title="close"><img src="/assets/lightbox-cross.png"/></a>
+			</div>
+		</div>
+		<div class="clear-zero-height">&nbsp;</div>
+		<div ><img src="/assets/privacy_horizontal_top.png"/></div>
+		<div class="intro-popup-inner-box">
+			<div class="intro-pop-content">
+				<div>
+					<b>Welcome to The Hilo Project beta release!</b>
+				</div>
+				<div class="height10">&nbsp;</div>
+				<div>
+					Hilo is the first human-centered career pairing system designed to empower YOU, the Career Seeker, to find truly meaningful employment.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+				<div>
+					Less data entry. More relevant opportunities. Delivered directly to you.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+
+				<div>
+					Rather than relying on keywords, which only tell employers about your past, Hilo conveys your potential and what you want to do in the future.
+				</div>
+				<div class="height10">&nbsp;</div>
+				<div>
+					Our proprietary, highly sophisticated pairing engine matches you to specific opportunities based on your unique strengths and ideal work environment in addition to your accomplishments.
+				</div>	
+				<div class="height10">&nbsp;</div>
+				
+				<div>
+					Our partner Birkman International, Inc. is providing FREE access to the site during this early adopter phase.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+				
+				<div>
+					Free site activation includes your personalized Career Forward Guide and access to your "Introduction to Employers" page.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+
+				<div>
+					Although the position pairing system is currently in demo mode, live career opportunities will be added shortly.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+
+				<div>
+					Tell a friend, family member or associate about TheHiloProject.com today as complementary access is only available until the position pairing system goes live.
+				</div>
+				<div class="height10">&nbsp;</div>
+				<div>
+					If you do not have a Hilo access code, Please enter your e-mail id to get one.
+					
+				</div>
+        <br />
+				
+				
+				<%= form_for :coderequest, @coderequest,:remote => true, :loading => "$('#ajax-loader-image').show();", :loaded => "$('#ajax-loader-image').hide();", :url => { :controller => :access_code,:action => :send_email}, :html => { :method => :post} do |f| %>
+				<div id="email-popup">
+						
+							
+							<b>Your Email:</b>
+							<br>
+							
+							<div id="email-field">
+								<%=f.text_field :email,:class=>"input-field-style"%>	
+
+								<%=submit_tag('Send Request',:class=>"button-style-shared buttton_106X23")%>
+
+								<%=image_tag("ajax-loader.gif",:id=>"ajax-loader-image")%>
+							</div>					
+
+							
+
+	
+				<% end %>					
+				</div>
+				
+				<div id="code-request-thank-msg">
+					Your Promotion code has been successfully sent to your Email address.
+					Kindly check your Inbox.
+				</div>
+				
+				<div class="height10">&nbsp;</div>
+				<div>
+					We're in your corner.
+				</div>
+				<div>
+					- Team Hilo
+				</div>
+			
+			</div>
+		</div>
+		<div><img src="/assets/privacy_horizontal_bottom.png"/></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		load_intro_popup.show();
+    $('#email-popup').show();
+    $('#coderequest_email').focus();
+	});
+</script>

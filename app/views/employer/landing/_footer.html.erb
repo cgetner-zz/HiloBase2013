@@ -1,0 +1,13 @@
+<div class="footer">
+  <%= render :partial => "/employer/landing/menu" %>
+  <ul class="social-media">
+    <li><a class="facebook-icon" href="http://www.facebook.com/thehiloproject" title="<%=t('emp_search_non_loggedin.footer.facebook')%>" target="_blank">&nbsp;</a></li>
+    <li><a class="twitter-icon" href="http://twitter.com/thehiloproject" title="<%=t('emp_search_non_loggedin.footer.twitter')%>" target="_blank">&nbsp;</a></li>
+  </ul>
+  <ul class="footer-links <%=I18n.locale%>">
+    <li><a href="javascript:void(0);" id="web_engage_contact"><%=t("emp_search_non_loggedin.footer.contract")%></a></li>
+    <li><a href="javascript:showTermsPopup();centralizePopup();"><%=t("emp_search_non_loggedin.footer.terms_of_use")%></a></li>
+    <li><a href="javascript:showPrivacyPopup();centralizePopup();"><%=t("emp_search_non_loggedin.footer.privacy_policy")%></a></li>
+    <li class="hilo"><label><%=t("emp_search_non_loggedin.footer.hilo").html_safe%></label></li>
+  </ul>
+</div>

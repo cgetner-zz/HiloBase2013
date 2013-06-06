@@ -1,0 +1,21 @@
+  <%
+  def determine_adapter
+    if Gem.loaded_specs.key?("mysql2")
+      "mysql2"
+    else
+      "mysql"
+    end
+  rescue
+    "mysql2"
+  end
+  %>
+
+production:
+  adapter:   <%= determine_adapter %>
+  database:  'hiloProduction'
+  username:  'deploy'
+  password:  '3MxeYjsVac'
+  host:      'ec2-54-234-22-123.compute-1.amazonaws.com'
+  reconnect: true
+
+

@@ -1,0 +1,36 @@
+<!-- HEADER -->
+<div class="main-container header-container">
+  <div class="floating-header">
+    <div class="header">
+      <div class="logo">
+        <a href="/" title="Hilo - Meaningful employment.">
+          <img alt="HILO Logo" src="/assets/employer_landing/logo.png"/>
+        </a>
+      </div>
+      <div class="nav-container <%=I18n.locale%>">
+        <ul class="button-container">
+          <li>
+            <a class="signup-button <%=I18n.locale%>" href="/employer/new">&nbsp;</a>
+          </li>
+          <li style="position: relative;">
+            <a class="signin-button <%=I18n.locale%>" href="javascript:openLoginBox();">&nbsp;</a>
+          </li>
+        </ul>
+      </div>
+      <div class="menu-container">
+        <%= render :partial => "/employer/landing/menu" %>
+        <div class="candidate-link">
+          <a href="/career_seeker_bridge"><%=t ("employer_landing_page.headerCandidateSite") %></a>
+        </div>
+      </div>
+      <% if page == "home" %>
+        <%= render :partial => "/shared/locale_list", :locals => {:for_class=>"employer"} %>
+        <div class="hilo_search_link">
+          <a href="javascript:showHiloEmployerSearchPopup();" ><%=t ("employer_landing_page.headerPairingEngine") %></a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <%= render :partial=>"/shared/new_login_box" %>
+</div>
+<!-- HEADER -->

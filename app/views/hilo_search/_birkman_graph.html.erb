@@ -1,0 +1,123 @@
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <script type="text/javascript">
+    $("#fade_white").show();
+    function drawChartFs() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Work Environment');
+  <% if @src == 'employer' %>
+        data.addColumn('number', 'Candidates');
+  <% else %>
+        data.addColumn('number', 'Jobs');
+  <% end %>
+      data.addRows([
+        ['Analyzer', <%= @analyzer_count %>],
+        ['Thinker', <%= @thinker_count %>],
+        ['Doer', <%= @doer_count %>],
+        ['Communicator', <%= @communicator_count %>]
+      ]);
+
+      // Set chart options
+      var options = {
+        height: $('#fade_white').height()-250,
+        width: $('#fade_white').width()-300,
+        fontName: "'Lato',sans-serif",
+        chartArea:{top: 20},
+        backgroundColor: {fill: 'transparent'},
+        legend: {textStyle: {color: '#000066', fontSize: '18' }}
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div_fs'));
+      chart.draw(data, options);
+    }
+    $(document).ready(function() {
+      drawChartFs();
+    });
+  </script>
+<% else %>
+  <script type="text/javascript">
+    function drawChart() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Work Environment');
+  <% if @src == 'employer' %>
+        data.addColumn('number', 'Job Seekers');
+  <% else %>
+        data.addColumn('number', 'Jobs');
+  <% end %>
+      data.addRows([
+        ['Analyzer', <%= @analyzer_count %>],
+        ['Thinker', <%= @thinker_count %>],
+        ['Doer', <%= @doer_count %>],
+        ['Communicator', <%= @communicator_count %>]
+      ]);
+
+      // Set chart options
+      var options = {
+        chartArea:{width:"100%",height:"80%", left: '100'},
+        fontName: "'Lato',sans-serif",
+        backgroundColor: {fill: 'transparent'},
+        legend: {textStyle: {color: '#000066'}}
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+    $(document).ready(function() {
+      drawChart();
+    });
+  </script>
+<% end %>
+
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <div class="header">
+    <div class="inline-div">
+      <div class="heading">BIRKMAN ROLE</div>
+      <div class="sub-heading">
+        <% if @src == 'employer' %>
+          The pie chart below show the percentage of candidates by Birkman Role who fit this role's work environment
+          and are local to or nearby the location you selected. It also includes those candidates willing to move!
+        <% else %>
+          Backed by over 60 years of research and implementation at the executive level of Fortune 100 companies around the world, Hilo's partner
+          Birkman International is the benchmark professional assessment firm. In addition to an Ideal Work Environment, you also have a preferred Role.
+          This pie chart below shows the relative distribution of available Roles in the location you selected that fit your ideal work environment.
+        <% end %>
+      </div>
+    </div>
+    <div class="close">
+      <img src="/assets/employer_v2/close_fullscreen.png" onclick="closeGraphFullScreen();" title="Exit full screen" height="35"/>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 120px;">
+    <div id="chart_div_fs" style="padding-left: 13px;"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#fade_white .header').width($('#fade_white').width()-50);
+      $('body').css('overflow','hidden');
+    })
+  </script>
+<% else %>
+  <div id="graph_2">
+    <% if @src == 'employer' %>
+      <div style="font-size: 16px; font-weight: 400; margin-left: 10px; margin-top: 10px;">BIRKMAN ROLE</div>
+    <% else %>
+      <div style="font-size: 14px; font-weight: 700; margin-left: 10px; margin-top: 10px;">BIRKMAN ROLE</div>
+    <% end %>
+    <div class="fs_open_link">
+      <a href="javascript:void(0);" style="font-weight: 400; margin-left: 10px; margin-top: 0px; font-style: italic; font-size: 14px;">
+        Click for more information
+      </a>
+    </div>
+    <div id="chart_div" style="height: 380px; width: 415px; cursor: pointer;"></div>
+  </div>
+  <script type="tetext/javascript">
+    $(document).ready(function(){
+    $('#graph_2 .fs_open_link a,#chart_div').click(function(){
+    birkman_graph($('#search_latitude').val(),$('#search_longitude').val(), '<%=@src%>', true);
+    });
+    });
+  </script>
+<% end %>

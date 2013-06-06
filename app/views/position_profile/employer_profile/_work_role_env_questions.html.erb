@@ -1,0 +1,126 @@
+<input type="hidden" id="work_modify" val="0" />
+<input type="hidden" name="tab-2_hasThisFormBeenEdited" id="tab-2_hasThisFormBeenEdited" value="0" />
+<%= form_tag("/position_profile/save_work_and_role_env_questions", :id=>"new_work_role_env_form", :style=>"display:block;", :remote => true) do %>
+      <!--blocks-->
+      <%=hidden_field_tag :job_id,@job.id%>
+      <%=hidden_field_tag :slider_values_work,@job_we_ques.join(",")%>
+      <%=hidden_field_tag :slider_values_role,@job_role_ques.join(",")%>
+      <%= hidden_field_tag :tab2_workenv_role %>
+      <%= hidden_field_tag :tab2_workenv_work %>
+      <div class="blocks" id="we_block">
+          <h4><%=t ("position_profile.work_environment_and_role.ideal_work_environment.title") %></h4>
+          <!--discription-->
+          <div class="discription">
+              <div class="top"></div>
+              <!--content-->
+              <div class="content">
+                  <span class="innerHeading">
+                      <%=t ("position_profile.work_environment_and_role.ideal_work_environment.contentL1") %> <%= @job.name %> <%=t ("position_profile.work_environment_and_role.ideal_work_environment.contentL2") %>
+                  </span>
+                  <span class="innerHeading rfloat">
+                      <img src="/assets/logo-birkman.gif" alt="Birkman" height="18" width="99" />
+                  </span>
+                  <div class="clear-float"></div>
+                  <div class="questioneer-block">
+                      <ul class="options">
+                          <li><%=t ("position_profile.work_environment_and_role.ideal_work_environment.none") %></li>
+                          <li><%=t ("position_profile.work_environment_and_role.ideal_work_environment.slightly") %></li>
+                          <li><%=t ("position_profile.work_environment_and_role.ideal_work_environment.moderately") %></li>
+                          <li><%=t ("position_profile.work_environment_and_role.ideal_work_environment.greatly") %></li>
+                          <li class="lastChid"><%=t ("position_profile.work_environment_and_role.ideal_work_environment.almost_always") %></li>
+                      </ul>
+                      <ul class="question-n-answer">
+                        <% work = 1 %>
+                        <%for ques in @work_questions%>
+                          <li id="work_<%=work%>" >
+                            <label><%=h(ques.question)%></label>
+                            <ul class="work-radio-slider">
+                              <%0.upto(4){|i| -%>
+                                <li <%if i==4%>class="last-child"<%end%>>
+                                    <a href="javascript:void(0);" onclick="pos_profile_work_role_ques.check_workenv_img(this); checkLastModified(this);" data-val="<%=i%>"><img src="/assets/employer_v2/btn-radio-small-inactive.png"/></a>
+                                </li>
+                              <%} -%>
+                            </ul>
+                          </li>
+                          <%work=work+1%>
+                        <%end%>
+                      </ul>
+                  </div>
+              </div>
+              <!--content-->
+              <div class="bottom"></div>
+          </div>
+          <!--/discription-->
+      </div>
+      <!--/blocks-->
+      <!--blocks-->
+      <div class="blocks" id="role_block">
+          <h4><%=t ("position_profile.work_environment_and_role.role.title") %></h4>
+          <!--discription-->
+          <div class="discription">
+              <div class="top"></div>
+              <!--content-->
+              <div class="content">
+                  <span class="innerHeading">
+                    <%=t ("position_profile.work_environment_and_role.role.contentL1") %> <%=@job.name%>, <%=t ("position_profile.work_environment_and_role.role.contentL2") %>
+                  </span>
+                  <span class="innerHeading rfloat">
+                      <img src="/assets/logo-birkman.gif" alt="Birkman" height="18" width="99" />
+                  </span>
+                  <div class="clear-float"></div>
+                  <div class="questioneer-block">
+                    <ul class="options">
+                        <li><%=t ("position_profile.work_environment_and_role.role.none") %></li>
+                        <li><%=t ("position_profile.work_environment_and_role.role.slightly") %></li>
+                        <li><%=t ("position_profile.work_environment_and_role.role.moderately") %></li>
+                        <li><%=t ("position_profile.work_environment_and_role.role.greatly") %></li>
+                        <li class="lastChid"><%=t ("position_profile.work_environment_and_role.role.almost_always") %></li>
+                    </ul>
+                    <ul class="question-n-answer">
+                      <% role=1 %>
+                      <% for ques in @role_questions %>
+                          <li id="role_<%=role%>">
+                            <label><%=h(ques.question)%></label>
+                            <ul class="role-radio-slider">
+                              <%0.upto(4){|i| -%>
+                                <li <%if i==4%>class="last-child"<%end%>>
+                                  <a href="javascript:void(0);" onclick="pos_profile_work_role_ques.check_role_img(this); checkLastModified(this);" data-val="<%=i%>"><img src="/assets/employer_v2/btn-radio-small-inactive.png"/></a>
+                                </li>
+                              <%} -%>
+                            </ul>
+                          </li>
+                        <%role=role+1%>
+                        <%end%>
+                    </ul>
+                  </div>
+              </div>
+              <!--content-->
+              <div class="bottom"></div>
+          </div>
+          <!--/discription-->
+      </div>
+      <div class="button-container">
+        <input type="submit" onclick="return pos_profile_work_role_ques.save(this,true);" class="btn-save active" name="check" id="work_role_env_questions" value="Save" />
+        <span id="we_err_msg" style="display: none; color: #D71F0C;font-size: 13px;font-weight: 700;float: right;margin-right: 5px;margin-top: 5px;"><%=t ("position_profile.work_environment_and_role.incomplete_message") %></span>
+      </div>
+      <!--/blocks-->
+<%end%>
+			
+<script type="text/javascript">
+    $(document).ready(function(){
+      $("#new_work_role_env_form").bind("ajax:beforeSend",function(){showBlockShadow();});
+      $("#new_work_role_env_form ul.question-n-answer li a").click(function(){
+          $("#tab-2_hasThisFormBeenEdited").val(1);
+      });
+
+      $('#work-env-other').click(function(e){
+          e.stopPropagation();
+      })
+
+      pos_profile_work_role_ques.onload_work_role_questions();
+      if($("#work-env-first-time").val() == "false") {
+        pos_profile_work_role_ques.save(this,false);
+      }
+      $("#work-env-first-time").val('false');
+    });
+</script>

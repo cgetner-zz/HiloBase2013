@@ -1,0 +1,187 @@
+  <div style="width: 515px;">
+    <!--Popup site activation area-->
+    <div class="popup-siteActivation popup-siteActivation418px">
+      <span class="popup-top">&nbsp;</span>
+      <div class="popup-content">
+
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading" id="payment_header">CREDIT CARD BILLING INFORMATION</label>
+            <div class="error-message-container" id="payment_error_msg"></div>
+            <div class="error-succes-container" id="payment_success_msg"></div>
+          </div>          
+          <ul class="payment-options">
+            <div id="payment_images">
+              <li>
+                <a onclick="setCardType('master');" title="Master Card" href="javascript:void(0)">
+                  <img width="52" height="31" border="0" alt="Master Card" src="/assets/Mastercard_2.png"/>
+                </a>
+              </li>
+              <li>
+                <a onclick="setCardType('visa');" title="Visa" href="javascript:void(0);">
+                  <img width="47" height="31" alt="Visa Card" src="/assets/Visa_1.png"/>
+                </a>
+              </li>
+              <li>
+                <a onclick="setCardType('american_express');" title="American Express" href="javascript:void(0);">
+                  <img width="30" height="31" alt="American Express Card" src="/assets/AmericanExpress_2.png"/>
+                </a>
+              </li>
+              <li>
+                <a onclick="setCardType('discover');" title="Discover" href="javascript:void(0);">
+                  <img width="46" height="31" alt="Discover Card" src="/assets/Discover_2.png"/>
+                </a>
+              </li>
+              <li>
+                <a onclick="setCardType('paypal');" title="Paypal" href="javascript:void(0);">
+                  <img width="72" height="31" alt="Paypal" src="/assets/Paypal_2.png"/>
+                </a>
+              </li>
+            </div>
+          </ul>
+
+          <%=  form_tag "/employer_payment/make_payment", :id => 'payment-form', :onsubmit => "return validatePaymentForm();" do |p| -%>
+            <div id="card_entry_form"></div>
+            <input type="hidden" value="paypal_pro" name="payment_type" id="payment_type"/>
+            
+            <div style="" class="credit-card-info" id="credit-card-info">
+              <div class="customized-inner-input text-credit-card input-text">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" value="Credit Card Number" id="card_num_placeholder"/>
+                <input type="text" maxlength="16" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onfocus="focus_element(this);" onblur="blur_element(this);" value="Credit Card Number" name="card_num" id="card_num"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <div class="customized-inner-input input-text text-month">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" value="mm" id="month_placeholder"/>
+                <input type="text" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onfocus="focus_element(this);" onblur="blur_element(this);" value="mm" id="month" maxlength="2" name="month"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <img width="10" height="33" src="/assets/seperator-MMYY.png" class="mmyySeperator"/>
+              <div class="customized-inner-input input-text text-year">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" value="yyyy" id="year_placeholder"/>
+                <input type="text" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onfocus="focus_element(this);" onblur="blur_element(this);" value="yyyy" id="year" maxlength="4" name="year"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <div class="customized-inner-input input-text text-securityCode">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" value="Security Code" id="cvv_placeholder"/>
+                <!--<input type="text" class="password" id="password" onfocus="focus_element(this); validateBasicInfo(this);" onblur="validateBasicInfo(this);blur_element(this);" onkeyup="validatePasswordOnKeyUp(this.value)" onkeydown="type_element(this)" name="employer[password]" <%if @disable_password_field%>disabled="disabled"<%end%> size="30" value="Create Password" /> -->
+                <input type="text" class="password" id="cvv" onkeyup="validateCreditCardInfo(this);" class = 'password' onkeypress="type_element(this,event);" onkeydown="$(this).numeric({decimal: false, negative: false});" onfocus="focus_element(this);" onblur="blur_element(this);" value="Security Code" maxlength="3" name="cvv"/>
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </div>
+            <!-- Personal Info block-->
+            <div style="" class="personal-info" id="personal-info">
+               <ul class="pymentDD1">
+                <li class="frstCls">
+                  <div style="padding-right:10px;" class="customized-inner-input input-text text-lname">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="First Name" id="fname_placeholder"/>
+                    <input type="text" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="First Name" id="fname" name="holder_first_name"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <div class="customized-inner-input input-text text-lname">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Last Name" id="lname_placeholder"/>
+                    <input type="text" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Last Name" id="lname" name="holder_last_name"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li style="<%=params[:promotional_code].blank? ? "display:none;" : ""%>">
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="text" name="promotional_code" id="promotional_code" class="reg-field-text input-field-style" value="<%=params[:promotional_code]%>" onkeyup="validateCreditCardInfo(this);" onkeydown="type_element(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Apt., suite, bldg." />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Company Name (if applicable) " id="payment_company_name_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Company Name" id="payment_company_name" name="payment_company_name"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Billing Address" id="billing_address_one_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Billing Address" id="billing_address_one" name="billing_address_one"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-inner-input input-text text-billingAddress">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Apt., suite, bldg." id="billing_address_two_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Apt., suite, bldg." id="billing_address_two" name="billing_address_two"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-inner-input input-text text-city">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="City" id="billing_city_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="City" id="billing_city" name="billing_city"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <%=select_tag("billing_state", options_for_select([["Select",""]] + State.find(:all).map {|s| [s.name,s.id]}, ""),:class=>"reg-field-text reg-field-select state") %>
+                  <div class="customized-inner-input input-text text-zip">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Zip Code" id="billing_zip_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Zip Code" id="billing_zip" maxlength="5" name="billing_zip"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li class="lastChild">
+                  <div class="customized-inner-input input-text text-areaCode">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Area Code" id="billing_area_code_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="(Area Code)" id="billing_area_code" maxlength="3" name="billing_area_code"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <div class="customized-inner-input input-text text-telephone">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" value="Telephone" id="billing_telephone_number_placeholder"/>
+                    <input type="text" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCreditCardInfo(this);" onfocus="focus_element(this);" onblur="blur_element(this);" value="Telephone" name="billing_telephone_number" id="billing_telephone_number" maxlength="7"/>
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                  <input type="submit" class="verify-button rfloat" disabled="disabled" id="payment_verify_button" name="commit" value=""/>
+                  <span id="verify-loader-img-payment" style="display:none;" class="rfloat">
+                    <img alt="Ajax-loader-login" src="/assets/ajax-loader-login.gif?1322821128"/>
+                  </span>
+                  <input type="button" class="finish-button-active" id="finish-button-success" style="display:none;"/>
+                </li>             
+              </ul>
+            </div><!--//Personal Info block -->
+            <!-- paypal Info block-->
+            <div id="paypal-info" class="billing-information" style="display: none;">
+              You will be redirected to the PayPal<br/> website to complete this transaction.<br/>Do you wish to proceed?
+              <a href="javascript:void(0)" class="btnContinue rfloat" onclick="redirectToPaypal();">Continue..</a>
+            </div><!-- Paypal Info block-->
+          </div>
+
+        <%end-%>
+
+        <a href="javascript:void(0)" class="close" onclick="_closeCCBillingInfo('master_card')">Close</a>
+      </div>
+      <span class="popup-bottom">&nbsp;</span>
+    </div><!-- //Popup site activation area-->
+  </div>
+  
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      //payment numeric fields
+      $("#card_num").numeric({decimal: false, negative: false});
+      $("#year").numeric({decimal: false, negative: false});
+      $("#month").numeric({decimal: false, negative: false});
+      $("#cvv").numeric({decimal: false, negative: false});
+      $("#billing_zip").numeric({decimal: false, negative: false});
+      $("#billing_area_code").numeric({decimal: false, negative: false});
+      $("#billing_telephone_number").numeric({decimal: false, negative: false});
+  });
+</script>

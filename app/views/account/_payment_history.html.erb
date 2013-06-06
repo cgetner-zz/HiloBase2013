@@ -1,0 +1,86 @@
+<div id="credit_history_popup" class="white_content" style="display: block;">
+  <div class="popup-siteActivation">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container" style="padding-bottom: 5px;">
+          <label class="popup-heading" style="margin-top: 6px;">TRANSACTION HISTORY</label>
+          <span class="rfloat have-a-ques">
+            <a href="mailto:feedback@thehiloproject.com?Subject=Question%20a%20transaction&Body=Question%20from%20<%=session[:job_seeker].first_name + ' ' + session[:job_seeker].last_name + ' ' + '(' + session[:job_seeker].email + ')' %>">HAVE A QUESTION?</a>
+           </span>
+        </div>
+        <div class="table-container history">
+          <div class="table-container-top">&nbsp;</div>
+          <div class="table-container-content">
+            <div class="gradient-content overflow-visible">
+              <ul class="table-headings">
+                <li class="active" style="width: 90px;"><a class="single first decActive" href="javascript:void(0);" title="">Date</a></li>
+                <li style="width: 75px;"><a class="single" href="javascript:void(0);" title="">Job Code</a></li>
+                <li style="width: 170px;"><a class="single" href="javascript:void(0);" title="">Type</a></li>
+                <li class="lastChild" style="width: 75px;"><a class="single" href="javascript:void(0);" title="">Amount</a></li>
+              </ul>
+              <div class="table-content" id="table_block_history">
+                <div class="loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></div>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+                  <% flag = true %>
+                  <% for item in history %>
+                    <% if flag == true %>
+                      <% if not item.amount_charged.nil? %>
+                      <% flag = false %>
+                      <tr>
+                        <th width="100"><label class="first"><%= item.created_at.to_date.strftime("%d/%m/%Y")%></label></th>
+                        <th width="85">
+                          <label>
+                            <% if item.payment_purpose=="seeker_registration" or item.payment_purpose=="gift" %>
+                              NA
+                            <% else %>
+                              HL<%=item.job_id %>
+                            <% end %>
+                          </label>
+                        </th>
+                        <th width="180"><label><%=payment_type_text(item.payment_purpose)%></label></th>
+                        <th width="85"><label><span style="margin-left: 18px;">$</span><span style="text-align: right; float: right; margin-right: 5px;"><%= number_to_currency(item.amount_charged, :unit=>"") %></span></label></th>
+                      </tr>
+                      <% end %>
+                    <% else %>
+                      <% if not item.amount_charged.nil? %>
+                      <tr>
+                        <td><label class="first"><%= item.created_at.to_date.strftime("%d/%m/%Y")%></label></td>
+                        <td>
+                          <label>
+                            <% if item.payment_purpose=="seeker_registration" or item.payment_purpose=="gift" %>
+                              NA
+                            <% else %>
+                              HL<%=item.job_id %>
+                            <% end %>
+                          </label>
+                        </td>
+                        <td><label><%=payment_type_text(item.payment_purpose)%></label></td>
+                        <td><label><span style="margin-left: 18px;">$</span><span style="text-align: right; float: right; margin-right: 5px;"><%= number_to_currency(item.amount_charged, :unit=>"") %></span></label></td>
+                      </tr>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <% if history.size==0 %><center><br /><br /></center><% end %>
+                </table>
+                <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-container-bottom">&nbsp;</div>
+        </div>
+        <%= link_to "DOWNLOAD", {:controller => "download_file", :action => "download_payment_history"}, :style => "float:right;color: #000066;font-size: 13px;font-weight: 400;text-transform: uppercase;" %>
+      </div>
+      <a href="javascript:void(0)" class="close" onclick="hideNormalShadow();$('#credit_history_popup').empty();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#table_block_history').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+</script>

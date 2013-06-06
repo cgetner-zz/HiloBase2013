@@ -1,0 +1,10 @@
+<% if !@result.nil? %>
+  <%  if !@result.first.nil? %>
+    $("#city_flag").val(1);
+    $("#job_seeker_city").blur();
+    $("#job_seeker_city").val('<%= @result.first.address%>');
+  <% else %>
+    $("#job_seeker_city").val('');
+    $("#city_flag").val(0);
+  <% end %>
+<% end %>

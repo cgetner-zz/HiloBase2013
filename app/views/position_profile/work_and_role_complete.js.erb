@@ -1,0 +1,8 @@
+$("div#work-env-other").html("<%= escape_javascript render(:partial => 'work_environment_and_role')%>");
+active_tab_1to3('work-env');
+<% if @job.basic_complete == true and @job.personality_work_complete == true and @job.personality_role_complete == true and @job.credential_complete == true %>
+  active_tab_4();
+<% else %>
+  deactive_tab_4();
+<% end  %>
+hideBlockShadow();

@@ -1,0 +1,28 @@
+check_payment_options.show_confirmed_code_msg();
+$('#coderequest_promotional_code').blur();
+$('#code_confirmed').focus();
+$("#payment_invoice").html("<%= escape_javascript  render(:partial => "invoice_site_activation") %>");
+$(".button-container").html("<%= escape_javascript  render(:partial => "payment_button") %>");
+
+<% if session[:promotional_code_amount] == REGISTRATION_COST %>
+  $("#payment_option").hide();
+  $("#post_pay_text").show();
+  $("#payment_option").hide();
+  $("#limitedtime_bottom_block").css('visibility','hidden');
+  $("#limitedtime_bottom_block").empty();
+  $("#invoice_details").addClass("paid-discount");
+<% elsif ((!session[:paypal_amount].nil? and session[:paypal_amount].to_i == 0) or session[:job_seeker].activated == true)%>
+  $("#payment_option").hide();
+  $("#post_pay_text").show();
+  $("#payment_option").hide();
+  $("#limitedtime_bottom_block").css('visibility','hidden');
+  $("#limitedtime_bottom_block").empty();
+  $("#invoice_details").addClass("paid-discount");
+<% else %>
+  $("#payment_option").show();
+  $("#post_pay_text").hide();
+  $("#payment_option").show();
+  $("#limitedtime_bottom_block").css('visibility','visible');
+  $("#invoice_details").removeClass("paid-discount");
+<% end %>
+hideBlockShadow();

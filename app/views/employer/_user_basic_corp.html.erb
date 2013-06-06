@@ -1,0 +1,98 @@
+<div class="form-element-container">
+      <ul>
+            <li style="padding-bottom: 0px;">
+                  <%= render :partial => "user_type_selection"%>
+            </li>
+            <li>
+                <div class="customized-input input-text">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="first_name_corp_placeholder" value="<%= t ("employer_acc_setup.first_name")  %>"/>
+                      <input type="text" onfocus="focus_element(this);validateEmpBasicInfoCorporateError(this);" onblur="validateEmpBasicInfoCorporateError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfoCorporate(this);" id="first_name_corp" name="corporate_account[first_name]" maxlength="30" value="<%= t ("employer_acc_setup.first_name")  %>" tabindex='1' />
+                      <div class="input-right">&nbsp;</div>
+                </div>
+            </li>
+            <li>
+                <div class="customized-input input-text">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="last_name_corp_placeholder" value="<%= t ("employer_acc_setup.last_name")  %>"/>
+                      <input type="text" onfocus="focus_element(this);validateEmpBasicInfoCorporateError(this);" onblur="validateEmpBasicInfoCorporateError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfoCorporate(this);" id="last_name_corp" name="corporate_account[last_name]" maxlength="30" value="<%= t ("employer_acc_setup.last_name")  %>" tabindex='2' />
+                      <div class="input-right">&nbsp;</div>
+                </div>
+            </li>
+            <li>
+                <div class="customized-input input-text">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="email_corp_placeholder" value="<%= t ("employer_acc_setup.email")  %>"/>
+                      <input type="text" onfocus="focus_element(this);validateEmpBasicInfoCorporateError(this);" onblur="validateEmpBasicInfoCorporateError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfoCorporate(this);" id="email_corp" name="corporate_account[email]" maxlength="100" value="<%= t ("employer_acc_setup.email")  %>" tabindex='3' />
+                      <div class="input-right">&nbsp;</div>
+                </div>
+            </li>
+            <li>
+                <div class="customized-input input-text">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="company_corp_placeholder" value="<%= t ("employer_acc_setup.company")  %>"/>
+                      <input type="text" onfocus="focus_element(this);validateEmpBasicInfoCorporateError(this);" onblur="validateEmpBasicInfoCorporateError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfoCorporate(this);" id="company_corp" name="corporate_account[company_name]" maxlength="100" value="<%= t ("employer_acc_setup.company")  %>" tabindex='3' />
+                      <div class="input-right">&nbsp;</div>
+                </div>
+            </li>
+            <li>
+                <div class="customized-input input-text">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="contact_corp_placeholder" value="<%= t ("employer_acc_setup.contact")  %>"/>
+                      <input type="text" onfocus="focus_element(this);validateEmpBasicInfoCorporateError(this);" onblur="validateEmpBasicInfoCorporateError(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="validateEmpBasicInfoCorporate(this);" id="contact_corp" name="corporate_account[contact]" maxlength="10" value="<%= t ("employer_acc_setup.contact")  %>" tabindex='3' />
+                      <div class="input-right">&nbsp;</div>
+                </div>
+            </li>
+
+            <li class="last_child term_corp">
+                  <%= j.check_box "terms_of_service", :class=>"styled checkbox employer_signup_corp", :id=>"privacyText_corp", :onclick=>"", :onFocus=>"$('.employer_signup_corp').prev().css('border','thin dotted');", :onBlur=>"$('.employer_signup_corp').prev().css('border','none');", :tabIndex => '6' %>
+            </li>
+            <li style="float:left; padding-top: 35px;">
+                  <label class="label-privacy-text"><span onclick="Custom.check($('.term_corp span.checkbox'));validateEmpBasicInfoCorporate();"><%= t ("employer_acc_setup.i_agree")  %><sup>&reg;</sup></span> <a href="javascript:void(0);" id="terms_corp" title="Terms of Use" onclick="showTerms(event);" style="text-decoration: none;"><%= t ("employer_acc_setup.terms")  %></a> </label>
+            </li>
+      </ul>
+</div>
+<!-- Form element container end-->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		BrowserDetect.init();
+
+		if (BrowserDetect.browser == "Explorer" && BrowserDetect.version == "8") {
+			$("#privacyText_corp").change(function() {
+				if ($("#privacyText_corp").prev().css('background-position-x') == "0px" && $("#privacyText").prev().css('background-position-y') == "-50px") {
+					$(".employer_signup_corp").attr("checked", "checked");
+					Custom.check($(".employer_signup_corp").prev());
+					validateEmpBasicInfoCorporate();
+				} else {
+					$(".employer_signup_corp").removeAttr("checked");
+					Custom.check($(".employer_signup_corp").prev());
+					validateEmpBasicInfoCorporate();
+				}
+			});
+		} else {
+			$("#privacyText_corp").change(function() {
+				if ($("#privacyText_corp").prev().css('background-position') == "0px -50px") {
+					$(".employer_signup_corp").attr("checked", "checked");
+					Custom.check($(".employer_signup_corp").prev());
+					validateEmpBasicInfoCorporate();
+				} else {
+					$(".employer_signup_corp").removeAttr("checked");
+					Custom.check($(".employer_signup_corp").prev());
+					validateEmpBasicInfoCorporate();
+				}
+			});
+		}
+
+		Custom.init();
+		$(".checkbox").live('click', function(e) {
+			validateEmpBasicInfoCorporate();
+		});
+		$("#new_employer_corporate .account-type .free_user span.checkbox").unbind().live('click', function(e) {
+			showFreeUser();
+		});
+		$("#new_employer_corporate .account-type .corp_user .checkbox").unbind().live('click', function(e) {
+			showCorpUser();
+		});
+	}); 
+</script>

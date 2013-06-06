@@ -1,0 +1,54 @@
+<%if step == "personality"%>
+	<div class="pairing-tab-outer-box">
+		<div class="pairing-tab-inner-box">
+			<div class="pairing-step">
+				<%=image_tag("personality-active.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Basics-inactive.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Credentials-inactive.jpg")%>
+			</div>
+			<br class="clear"/>
+		</div>
+	</div>
+<%elsif step == "basics"%>
+	<div class="pairing-tab-outer-box">
+		<div class="pairing-tab-inner-box">
+			<div class="pairing-step">
+				<%=image_tag("personality-inactive.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Basics-active.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Credentials-inactive.jpg")%>
+			</div>
+			<br class="clear"/>
+		</div>
+	</div>
+
+<%else%>
+	<div class="pairing-tab-outer-box">
+		<div class="pairing-tab-inner-box">
+			<div class="pairing-step">
+				<%=image_tag("personality-inactive.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Basics-inactive.jpg")%>
+			</div>
+			<div class="pairing-break"><%=image_tag("tabs_line.jpg")%></div>
+			<div class="pairing-step">
+				<%=image_tag("Credentials-active.jpg")%>
+			</div>
+			<br class="clear"/>
+		</div>
+	</div>
+<%end%>
+

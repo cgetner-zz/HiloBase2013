@@ -1,0 +1,93 @@
+<%=render :partial=>"/panels/grey_curve_top",:locals=>{:class_name=>"emp-basic-gross-cover"} -%>
+<div class="emp-basics-block1">
+
+	<div class="basics-block-content">
+		<div>
+			<b>Total Gross First Year Compensation(000s)</b>
+		</div>
+
+		<div style="float:right;">
+			<span id="compensation-range"></span> per year
+		</div>
+		<br class="clear"/>
+		<br/>
+		<div class="emp-comp-slider-cotainer"><div id="slider"></div></div><div class="emp-comp-slider-dummy-pad">&nbsp;</div>
+	
+		<br class="clear"/>
+
+		<div class="emp-comp-slider-labels">
+			<div class="emp-comp-slider-label" style="left: 0%;"><%=@compensation_range[0]%></div>
+			<div class="emp-comp-slider-label" style="left: 11%;"><%=@compensation_range[1]%></div>
+			<div class="emp-comp-slider-label" style="left: 22.5%;"><%=@compensation_range[2]%></div>
+			<div class="emp-comp-slider-label" style="left: 36%;"><%=@compensation_range[3]%></div>
+			<div class="emp-comp-slider-label" style="left: 49.5%;"><%=@compensation_range[4]%></div>
+			<div class="emp-comp-slider-label" style="left: 61.5%;"><%=@compensation_range[5]%></div>
+			<div class="emp-comp-slider-label" style="left: 76%;"><%=@compensation_range[6]%></div>
+			<div class="emp-comp-slider-label" style="left: 90%;"><%=@compensation_range[7]%></div>
+			<div class="emp-comp-slider-label" style="left: 101%;"><%=@compensation_range[8]%></div>
+			<div class="emp-comp-slider-label" style="left: 114%;"><%=@compensation_range[9]%></div>
+			<div class="emp-comp-slider-label" style="left: 127%;"><%=@compensation_range[10]%></div>
+			<div class="emp-comp-slider-label" style="left: 139%;"><%=@compensation_range[11]%></div>
+			<div class="emp-comp-slider-label" style="left: 149%;"><%=@compensation_range[12]%>+</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="basic-table" style="width:525px;">
+			<div class="basic-table-header">
+				<div class="basic-table-col1">Annual Salary</div>
+				<div class="basic-table-col2" id="comp11"></div>
+				<div class="basic-table-col3" id="comp12"></div>
+				<br class="clear"/>
+			</div>
+			<div class="basic-table-row">
+				<div class="basic-table-col1">Hourly Pay Equivalent</div>
+				<div class="basic-table-col2" id="comp21"></div>
+				<div class="basic-table-col3" id="comp22"></div>
+				<br class="clear"/>
+			</div>
+			
+		</div>
+		7 hours per day, 5 days per week, 48 weeks per year
+	</div>
+</div>
+<%=render :partial=>"/panels/grey_curve_bottom",:locals=>{:class_name=>"emp-basic-gross-cover"} -%>
+
+<div class="height10"></div>
+
+
+<div class="basics-block2">
+	<%=render :partial=>"/panels/grey_curve_top",:locals=>{:class_name=>"emp-basic-jobtype-cover"} -%>
+	<div class="basics-block-content basics-block3-content-jobtype">
+		<b>I'm interested in (check all that apply)*</b><div class="height10"></div> 
+		<%for desired_employment in @desired_employments%>
+			<div class="job-type">
+				<input type="checkbox" name="desired_employments[]" value="<%=desired_employment.id%>" <%=@selected_employment_ids.include?(desired_employment.id) ? "checked='checked'" : ""%>/> <%=h(desired_employment.name) -%>
+			</div>
+		<%end%>
+	</div>	
+	<%=render :partial=>"/panels/grey_curve_bottom",:locals=>{:class_name=>"emp-basic-jobtype-cover"} -%>
+</div>
+
+
+<div class="basics-block3" style="width:195px;">
+	<%=render :partial=>"/panels/grey_curve_top",:locals=>{:class_name=>"emp-job-location-cover"} -%>
+	<div class="basics-block-content basics-block4-content">
+		<b>Position Location*</b><div class="height10"></div> 
+		<%for desired_location in @desired_locations%>
+			<input type="radio" name="desired_locations" value="<%=desired_location.id%>" <%=@selected_location_ids.include?(desired_location.id) ? "checked='checked'" : ""%>/> <%=h(desired_location.name) -%>&nbsp;&nbsp;&nbsp;&nbsp;
+		<%end%>
+	</div>	
+	<%=render :partial=>"/panels/grey_curve_bottom",:locals=>{:class_name=>"emp-job-location-cover"} -%>
+</div>
+<script type="text/javascript">
+	var compensation_arr  = eval("[<%=@compensation_range.join(',')%>]");
+	var paidtime_arr  = eval("[<%=@paidtime_range.join(',')%>]");
+	var commute_arr  = eval("[<%=@commute_range.join(',')%>]");
+
+	$(document).ready(function(){
+		create_slider.call('<%=(@compensation_range.length - 2)%>','employer');
+		mark_slider_values.call('<%=@job.minimum_compensation_amount%>','<%=@job.desired_paid_offs%>','<%=@job.desired_commute_radius%>');
+		adjustBasicJobTypeHeight();
+		
+	});
+</script>

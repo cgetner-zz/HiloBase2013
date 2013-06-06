@@ -1,0 +1,87 @@
+<script type="text/javascript">
+  var word_array = [
+<% weight = 1 %>
+<% @wordle_users.each do |key, val| %>
+      {text: "<%= key %>", weight: <%=weight%>, html: {title: "<%= key %>"}},
+  <% weight = weight + 1 %>
+  <% if weight > 30
+    weight = 1
+  end
+%>
+<% end %>
+    {text: "", weight: 0, html: {title: ""}}
+  ];
+</script>
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <script type="text/javascript">
+    $(function() {
+      // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+      $("div#wordle_graph_search_fs").jQCloud(word_array);
+    });
+  </script>
+<% else %>
+  <script type="text/javascript">
+    $(function() {
+      // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+      $("div#wordle_graph_search").jQCloud(word_array);
+    });
+  </script>
+<% end %>
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <div class="header">
+    <div class="inline-div">
+      <div class="heading">
+        <% if @src == "employer" %>
+          CANDIDATE WORD CLOUD
+        <% else %>
+          WORD CLOUD
+        <% end %>
+      </div>
+      <div class="sub-heading">
+        <% if @src == 'employer' %>
+          The word cloud below is a data visualization of the most common words associated with the profiles of
+          candidates who fit this role's work environment and are local to or nearby the location you selected.
+          It also includes those candidates willing to move!
+        <% else %>
+          We scan every open position in the location you selected that fits your ideal work environment and
+          create a data visualization that reflects the most common words associated with those positions.
+        <% end %>
+      </div>
+    </div>
+    <div class="close">
+      <img src="/assets/employer_v2/close_fullscreen.png" onclick="closeGraphFullScreen();" title="Exit full screen" height="35"/>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 120px;">
+    <div id="wordle_graph_search_fs" style="width: 900px; height: 700px; position: relative;"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#fade_white .header').width($('#fade_white').width()-50);
+      $('body').css('overflow','hidden');
+    })
+  </script>
+<% else %>
+  <div id="graph_4">
+    <div style="font-size: 14px; font-weight: 700; margin-left: 10px; margin-top: 10px;">
+      <% if @src == 'employer' %>
+        <div style="font-size: 16px; font-weight: 400; margin-top: 10px;">CANDIDATE WORD CLOUD</div>
+      <% else %>
+        <div style="font-size: 14px; font-weight: 700; margin-top: 10px;">WORD CLOUD</div>
+      <% end %>
+      <div class="fs_open_link">
+        <a href="javascript:void(0);" style="font-weight: 400; margin-top: 0px; font-style: italic; font-size: 14px;">
+          Click for more information
+        </a>
+      </div>
+    </div>
+    <div id="wordle_graph_search" style="width: 415px; height: 380px; position: relative; cursor: pointer;" ></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#graph_4 .fs_open_link a,#wordle_graph_search').click(function(){
+        wordle_graph($('#search_latitude').val(),$('#search_longitude').val(), '<%=@src%>', true);
+      });
+    });
+  </script>
+<% end %>

@@ -1,0 +1,238 @@
+<!--header-->
+<%=render :partial=>"account_tab",:locals=>{:step=>"account"}%>
+<!--/header-->
+<div id="content-container">
+  <!--content-container-top-->
+  <div class="content-container-top">&nbsp;</div>
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+      <div id="siteActivation-account">
+        <div class="top-bar">&nbsp;</div>
+        <div class="block-inner-content">
+          <!--inner backgound starts-->
+          <div class="gradient-content">
+            <div class="siteActivation-account-billing-left">
+              <div class="page-heading-container">
+                <label class="heading"><%= t('account.account_info.personal_info.heading') %></label>
+                <div class="name-error-message-container"></div>
+              </div>
+              <%= form_tag("/account/save_name_email", :id=>"change_personal_details", :remote => true) do %>
+                <ul class="acc-personal-info">
+                  <li>
+                    <div class="customized-input active-input">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="first_name_placeholder" value="<%= t('account.account_info.personal_info.first_name') %>" />
+                      <input type="text" maxlength="30" id="first_name" name="first_name" value="<%= session[:job_seeker].first_name.force_encoding('utf-8') %>" class="text-short  customized-input-pinfo" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" onkeyup="activateUpdateButton(event);" />
+                      <div class="input-right">&nbsp;</div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="customized-input active-input">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="last_name_placeholder" value="<%= t('account.account_info.personal_info.last_name') %>" />
+                      <input type="text" maxlength="30" id="last_name" name="last_name" value="<%= session[:job_seeker].last_name.force_encoding('utf-8') %>" class="text-short-right  customized-input-pinfo-right" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" onkeyup="activateUpdateButton(event);"/>
+                      <div class="input-right">&nbsp;</div>
+                    </div>
+                  </li>
+                  <li class="email-text">
+                    <div class="customized-input active-input">
+                      <div class="input-left">&nbsp;</div>
+                      <input type="hidden" id="Email_placeholder" value="<%= t('account.account_info.personal_info.email') %>Email" />
+                      <input maxlength="100" type="text" id="Email" name="Email" value="<%= session[:job_seeker].email %>" class="text-long" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);" onkeyup="removeEmailErrorOutline();activateUpdateButton(event);" <%if session[:job_seeker].ics_type_id == 3%>readonly="readonly"<%end%>/>
+                      <div class="input-right">&nbsp;</div>
+                    </div>
+                  </li>
+                </ul>
+                <div class="input-right" style="display: block; height: 43px;">
+                  <input class="update-button-active rfloat" type="button" value="" id="update1" />
+                  <span id="loader_name" style="display:none; float: right;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                </div>
+              <% end %>
+              <div class="clear-float">&nbsp;</div>
+
+              <div class="page-heading-container promo-code-header">
+                <label class="heading"><%= t('account.account_info.gift_card.heading') %></label>
+              </div>
+              <div class="billing-message" style="height: 130px;">
+                <div><%= t('account.account_info.gift_card.credit_remain') %> $<span id="credit_amt" style="float: none; margin: 0; padding: 0;"><%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %></span></div>
+                <div><a href="javascript:void(0);" onclick="viewCreditHistory();"><%= t('account.account_info.gift_card.view_gift_link') %></a></div>
+                <div style="margin-top: 8px;">
+                  <%= form_for :coderequest, :url => { :controller => :payment,:action => :add_credit}, :html => { :method => :post, :id=>"discount_form"}, :remote => true  do |f| %>
+                    <ul>
+                      <li>
+                        <div class="customized-input input-text">
+                          <div class="input-left">&nbsp;</div>
+                          <input type="hidden" id="coderequest_promotional_code_placeholder" value="<%= t('account.account_info.gift_card.gift_code_enter') %>" />
+                          <%=f.text_field :promotional_code, :onfocus => "focus_element(this)", :onblur =>"blur_element(this)", :onkeyup => "validatePromoCode(this);", :onkeydown=>"type_element(this)", :value => "#{t('account.account_info.gift_card.gift_code_enter')}", :style=>"width: 285px;"%>
+                          <div class="input-right">&nbsp;</div>
+                        </div>
+                      </li>
+                      <li>
+                        <input class="apply-button-active rfloat" type="button" value="" id="verify_button" style="margin-top: 3px;"/>
+                        <span id="beta-loader-img" style="display:none;margin-right: 7px;margin-top: -5px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                      </li>
+                    </ul>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="clear-float">&nbsp;</div>
+
+              <div class="page-heading-container">
+                <label class="heading"><%= t('account.account_info.one_click_payment.heading') %></label>
+              </div>
+              <div class="billing-message">
+                <label style="margin-bottom: 14px;"><a href="javascript:void(0);" onclick="viewPaymentHistory();"><%= t('account.account_info.one_click_payment.trans_history') %></a></label>
+                <div class="clear-float">&nbsp;</div>
+                <% if @old_payment_obj.nil? and @promo_code_obj.nil? %>
+                  <label><%= t('account.account_info.one_click_payment.no_set_text1') %><br /> <%= t('account.account_info.one_click_payment.no_set_text2') %></label>
+                <% else %>
+                  <label><%= t('account.account_info.one_click_payment.set_text1') %> </label>
+                  <span class="last-payment-option">
+                    <% if @old_payment_obj.card_type == "master" %>
+                      <%= image_tag("Mastercard_1.png", :alt=>"Master Card", :size=>"52x31") %>
+                    <% elsif @old_payment_obj.card_type == "visa" %>
+                      <%= image_tag("Visa_1.png", :alt=>"Visa Card", :size=>"47x31") %>
+                    <% elsif @old_payment_obj.card_type == "american_express" %>
+                      <%= image_tag("AmericanExpress_1.png", :alt=>"American Express Card", :size=>"30x31") %>
+                    <% elsif @old_payment_obj.card_type == "discover" %>
+                      <%= image_tag("Discover_1.png", :alt=>"Discover Card", :size=>"46x31") %>
+                    <% elsif @old_payment_obj.card_type == "NA" %>
+                      <%= image_tag("Paypal_1.png", :alt=>"Paypal", :size=>"72x31") %>
+                    <% end %>
+                  </span>
+                  <label><%= t('account.account_info.one_click_payment.set_text2') %></label>
+                  <label style="margin-top: 8px; line-height: 16px;"><%= t('account.account_info.one_click_payment.set_text3') %><br/> <%= t('account.account_info.one_click_payment.set_text4') %></label>
+                <% end %>
+              </div>
+            </div>
+            <!--/siteActivation-account-billing-left -->
+            <div id="siteActivation-account-billing-center-border" style="height: 482px;"></div>
+            <div class="siteActivation-account-billing-right">
+              <div class="siteActivation-account-billing-right" id="change_password" style="height: 206px;">
+                <%= render :partial => '/account/change_password' %>
+              </div>
+              <div class="clear-float">&nbsp;</div>
+              <div class="page-heading-container">
+                <label class="heading"><%= t('account.account_info.alerts_notification.heading') %></label>
+              </div>
+              <%= form_tag("/account/save_alert", :id=>"alert_notifications", :remote => true) do %>
+                <div class="alerts">
+                  <input type="hidden" id="alert_threshhold_val" name="alert_threshhold_val" value="" />
+                  <input type="hidden" id="alert_method_val" name="alert_method_val" value="" />
+                  <div class="sub-heading"><%= t('account.account_info.alerts_notification.alert_threshold') %></div>
+                  <div class="alerts-content" style="height: 88px;">
+                    <div class="comp-slider-cotainer"><div id="slider"></div></div>
+                    <div class="comp-slider-labels">
+                      <label class="first" style="" ><%= t('account.account_info.alerts_notification.good_fit') %></label>
+                      <label class="margin-left-90px-IE8" style="margin-left:98px;"><%= t('account.account_info.alerts_notification.better_fit') %></label>
+                      <label class="" style="margin-left:100px;"><%= t('account.account_info.alerts_notification.best_fit') %></label>
+                      <br class="clear"/>
+                    </div>
+                  </div>
+                  <div class="sub-heading"><%= t('account.account_info.alerts_notification.alerts_notification_sub') %></div>
+                  <div class="alerts-content">
+                    <ul class="alerts-type">
+                      <li><input value="4" type="checkbox" class="styled checkbox" /><label class="lbl"><%= t('account.account_info.alerts_notification.on_event') %></label></li>
+                      <li><input value="3" type="checkbox" class="styled checkbox" /><label class="lbl"><%= t('account.account_info.alerts_notification.daily') %></label></li>
+                      <li><input value="2" type="checkbox" class="styled checkbox" /><label class="lbl"><%= t('account.account_info.alerts_notification.weekly') %></label></li>
+                      <li><input value="1" type="checkbox" class="styled checkbox" /><label class="lbl"><%= t('account.account_info.alerts_notification.off') %></label></li>
+                    </ul>
+                    <div class="button-container" style="padding: 10px 0 0;">
+                      <input class="update-button-active rfloat" type="button" value="" id="alert_update_button" />
+                      <span id="alert_loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <div class="delete_account">
+                <a href="javascript:void(0);" id="deleted_button" onclick="job_seeker_delete.showDeleteConfirmationPopup();"><%= t('account.account_info.delete_account') %></a>
+              </div>
+            </div>
+          </div>
+          <!--/inner backgound starts-->
+        </div>
+        <!--/block-inner-content-->
+        <div class="bottom-bar">&nbsp;</div>
+      </div>
+      <!--/siteActivation-account-->
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#alert_threshhold_val").val(<%= session[:job_seeker].alert_threshold %>);
+    $("#alert_method_val").val(<%= session[:job_seeker].alert_method %>);
+    create_slider_alerts.call();
+    var index_val = <%= session[:job_seeker].alert_threshold %>;
+    $("#slider").slider("value",(index_val));
+
+    $(".alerts-type").children().each(function(){
+      if ($(this).find('span.checkbox').next().val() == <%= session[:job_seeker].alert_method %>){
+        Custom.check($(this).find('span.checkbox'));
+      }
+    });
+
+    $(".alerts-type span.checkbox").unbind().click(function(){
+      $(".alerts-type").children().each(function(){
+        if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+          Custom.check($(this).find('span.checkbox'));
+        }
+      });
+      Custom.check($(this));
+      $("#alert_method_val").val($(this).next().val());
+      document.getElementById('alert_update_button').className = 'update-button-active rfloat';
+    });
+
+    $(".alerts-type label.lbl").unbind().click(function(){
+      $(".alerts-type").children().each(function(){
+        if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+          Custom.check($(this).find('span.checkbox'));
+        }
+      });
+      Custom.check($(this).prev().prev());
+      $("#alert_method_val").val($(this).prev().val());
+      document.getElementById('alert_update_button').className = 'update-button-active rfloat';
+    });
+    //mark_slider_values.call('0');
+    $("#verify_button").unbind('click').bind('click', function(){
+      if(validateEmptyDiscount()){ } else { $("#beta-loader-img").show();$("#verify_button").hide();showBlockShadow();$("#discount_form").submit(); }
+    });
+
+    $("#alert_update_button").bind('click', function(){
+      if ($(this).hasClass('update-button-active')){
+        $("#alert_notifications").submit();
+      }
+    });
+    $("#discount_form")
+    .bind("ajax:beforeSend",function(){
+      if(validateEmptyDiscount()){
+        return false;
+      }
+      else {
+        $("#verify_button").hide();
+        $("#beta-loader-img").show();
+        showBlockShadow();
+        return true;
+      }
+    })
+
+    $("#alert_notifications")
+    .bind("ajax:beforeSend", function(){
+      $("#alert_update_button").hide();
+      $("#alert_loader").show();
+      showBlockShadow();
+    })
+    .bind("ajax:complete", function(){
+      $("#alert_update_button").show();
+      document.getElementById('alert_update_button').className = 'update-button-active rfloat';
+      $("#alert_loader").hide();
+      hideBlockShadow();
+    })
+  });
+</script>

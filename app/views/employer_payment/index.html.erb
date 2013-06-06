@@ -1,0 +1,23 @@
+<% content_for :page_title do -%>Employer - Site Activation | <% end %>
+<div class="content-container-top">&nbsp;</div>
+<!--container-shadow-box-->
+<div class="container-shadow-box" id="company-form">  
+  <%= render :partial => "company_form" %>
+</div>
+<!-- Container shadow box end-->
+<div style="display: none;" id="cc_billing_popup" class="white_content">
+    <%=render :partial => "payment_form"%>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      //company form numeric fields
+      $("#area_code").numeric({decimal: false, negative: false});
+      $("#telephone_number").numeric({decimal: false, negative: false});
+
+      $("#page-container-accountSetup .top-bar").css("background-color", "#81B872");
+      $("#header #page-navigation li.lastChild").css("border-top", "4px solid #81B872");
+      $("#header #page-navigation li.lastChild").css("border-bottom", "0px");
+      $("#page-container-accountSetup #footer .hil-footer-kit").css("background-color", "#86BD79");
+  });
+</script>

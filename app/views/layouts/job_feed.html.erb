@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en">
+  <head>
+    <title><%=yield :page_title%>Hilo - Meaningful employment.</title>
+    <%= render :partial => "/shared/google_analytics" %>
+    <%= csrf_meta_tag %>
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <%=stylesheet_link_tag("jquery-ui-1.8.custom","job_feed")%>
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("job_feed_IE8")%>
+    <![endif]-->
+    <%=javascript_include_tag("application","https://"+$FAYE_URL+".js","slimScroll") %>
+    <script type="text/javascript">
+      $(function() {
+        var faye = new Faye.Client('<%="https://"+$FAYE_URL%>');
+        faye.subscribe("/job_feed/<%=@company.id%>", function(data) {
+          eval(data);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

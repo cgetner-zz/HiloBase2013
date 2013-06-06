@@ -1,0 +1,41 @@
+<div id="preview_chart" class="employer-chart-holder" style="min-height:160px; min-width: 100%; position:absolute; top:0; left:0;">
+  <% if(@jobs_preview_arr.length <= 0) %>
+    <span class="noPurchaseData"><%=t ("emp_dashboard_graphs.no_data_pos_view") %></span>
+  <%end %>
+</div>
+
+<div id="preview_chart_legend" class="legend-right" style=" position:absolute; right:0; top:165px;"></div>
+<div style="min-height:160px; min-width:100%; position:absolute; top:0; left:0;">
+  <div id="interest_chart" class="employer-chart-holder" style="visibility:hidden; min-height: 160px; ">
+    <% if (@jobs_new_interest.length <= 0) and (@jobs_new_wild.length <= 0)%>
+      <span class="noPurchaseData"><%=t ("emp_dashboard_graphs.no_data_applied") %></span>
+    <% end %>
+  </div>
+  <div id="interest_chart_legend" class="legend-right" style="visibility:hidden; position:absolute; right:0; top:165px;">
+  </div>
+</div>
+
+<div style="min-height:160px; min-width:100%; position:absolute; top:0; left:0;">
+  <div id="profile_chart" class="employer-chart-holder" style="visibility:hidden;  min-height: 160px;">
+    <% if (@jobs_purchased_profiles.length <= 0) %>
+      <span class="noPurchaseData"><%=t ("emp_dashboard_graphs.no_data_pro_view") %></span>
+    <% end %>
+  </div>
+  <div id="profile_chart_legend" class="legend-right" style="visibility:hidden; position:absolute; right:0; top:165px;">
+  </div>
+</div>
+
+<div style="min-height:220px; min-width:100%; position:absolute; top:0; left:0;">
+  <div id="sharing_chart" class="employer-chart-holder" style="visibility:hidden;  min-height: 160px;">
+    <%  if (@jobs_new_facebook.length<=0 or  @jobs_new_twitter.length<=0 or @jobs_new_linkedin.length <=0 or @jobs_new_email.length <=0)%>
+      <span class="noPurchaseData"><%=t ("emp_dashboard_graphs.no_data_sharing") %></span>
+    <% end %>
+  </div>
+  <div id="sharing_chart_legend" class="legend-right" style="visibility:hidden; position:absolute; right:0; top:150px;">
+  </div>
+</div>
+
+<%=render :partial=>"/employer_account/charts/preview_chart"%>	 
+<%=render :partial=>"/employer_account/charts/interest_chart"%>
+<%=render :partial=>"/employer_account/charts/profile_chart"%>
+<%=render :partial=>"/employer_account/charts/sharing_chart"%>

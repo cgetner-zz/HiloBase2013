@@ -1,0 +1,4 @@
+$("#skills_ajax").html("<%=escape_javascript render(:partial => '/account/skills_popup')%>");
+$("#emp_detailed_view").html("<%=escape_javascript render(:partial => 'seeker_profile_popup', :locals=>{:job_seeker_degree=>@job_seeker_degree, :job_seeker_roles=>@job_seeker_roles, :job => @job, :language_skills => @job_seeker_languages, :job_seeker_birkman_detail => @job_seeker_birkman_detail, :job_licenses => @job_licenses, :job_certifications => @job_certifications, :proficiencies => @proficiencies, :min => @min, :max => @max})%>");
+showNormalShadow();
+

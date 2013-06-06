@@ -1,0 +1,58 @@
+$("#active_inactive").html("<%= escape_javascript render(:partial => '/employer_account/shared/position_listing_popup', :locals=>{:jobs => @jobs})%>");
+$("#edit_category_id").html("<%= escape_javascript render(:partial=>'/employer_account/edit_category')%>");
+<%case params[:controller_name]%>
+<%when 'employer_account' %>
+  <% if params[:action_name] =="index" %>
+  $("#dashboard_chart").html("<%= escape_javascript render(:partial => '/employer_account/home_chart')%>");
+  $(".summary-tabs-inner").children().each(function(){
+    if($(this).attr('data-section')){
+      $(this).removeClass('summary-open-tab').addClass("summary-close-tab");
+    }
+  });
+  $(".summary-tabs-inner a").first().addClass('summary-open-tab').removeClass('summary-close-tab');
+  sortDashboardTables('pairing','desc', '0', '<%= @pos %>');
+  $("span.chart-header").addClass("hidden");
+  $("span.chart-header").first().removeClass("hidden");
+  dashboardChartsSelect();
+  <% elsif params[:action_name] =="recruiting_manager" %>
+    $("#rm_chart_ajax").html("<%= escape_javascript render(:partial => "/employer_account/rm_bar_chart", :locals=>{})%>");
+  <% end %>
+<%when 'position_profile'%>
+  <%if params[:action_name] == "xref"%>
+    $("#xref-table").html("<%= escape_javascript render(:partial => "/employer_account/charts/xref_chart") %>");
+    sortXrefTables('pairing', 'desc', '<%= @pos %>');
+  <%end%>
+<%when 'postings'%>
+
+<%end%>
+
+$("#company-group-list-section").html("<%= escape_javascript render(:partial => '/employer_account/company_group_list',:locals=>{:jobs => @jobs})%>");
+$("#group_container").html("<%= escape_javascript render(:partial => '/employer_account/group_container')%>");
+<% if @name.present? %>
+  $("#outer_pos label").html('<%= @name %>');
+<% end %>
+if ($("#outer_pos label").html() == "MY POSITIONS"){
+$("#company-group-list-section").sortable("enable");
+$("#company-group-list-section").removeClass("disable");
+emp_left_menu_event.group_drag();
+emp_left_menu_event.job_section_drag();
+}
+else{
+$("#company-group-list-section").sortable("disable");
+$("#company-group-list-section").addClass("disable");
+$(".group-section").each(function(){
+var temp_id = $(this).attr("id");
+$("#" + temp_id).unbind();
+});
+}
+emp_left_menu_event.toggle_group_event();
+emp_left_menu_event.edit_name();
+emp_left_menu_event.toggle_job_delete_icon();
+emp_left_menu_event.toggle_group_delete_icon();
+
+leftmenuBodyClick();
+<% 
+session[:dummy] = nil
+session[:dummy] =1
+%>
+

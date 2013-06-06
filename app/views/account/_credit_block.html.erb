@@ -1,0 +1,5 @@
+<div class="creadit-label">
+  <span id="credit-amt-dash"><%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %></span>
+  <span>$</span>
+  <label><%= t('credit_label') %></label>
+</div>

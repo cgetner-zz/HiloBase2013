@@ -1,0 +1,108 @@
+
+<div class="" style="display:none;">
+	<div class="enter_seeker_id">
+		<%if (controller.controller_name == "position_profile" and controller.action_name == "xref") or (controller.controller_name == "position_profile" and controller.action_name == "xref")%>
+			<%=  form_tag('/position_profile/xref/') do%>
+				<div class="search-seeker-left">
+					<input type="text" id="enter_seeker_id" name="id" value="Enter Career Seeker ID"  class="inline-grey-text"/>
+				</div>
+
+				<div class="search-seeker-right">
+					<input type="image" src="/assets/employer/Go_button.png"/>
+				</div>
+				<div class="clear-height">&nbsp;</div>
+			<%end%>
+		<%else%>
+			&nbsp;
+		<%end%>
+
+	</div>
+	
+	<div class="bottom_hilo_logo">
+		<a href="javascript:void(0);" id="bottom_hilo_logo" onclick="bottom_logo_click(event);"><img src="/assets/h_logo.png"></a>
+
+		<div class="hilo_help_pop body-click-hide">
+			<div class="hilo_help_content">
+				<div class="hilo_help_btn">
+					<div class="height10">&nbsp;</div>
+					<div class="hilo_help_btn_inner">
+						<a href="javascript: void(0);" class="about-hilo-btn-selected">About Hilo</a>
+						<a href="javascript: void(0);" class="about-hilo-btn">Terms</a>
+						<a href="javascript: void(0);" class="about-hilo-btn">Privacy</a>
+						<a href="javascript: void(0);" class="about-hilo-btn">Contact</a>
+						<div class="clear-height">&nbsp;</div>
+					</div>				
+
+
+					<div class="hilo-help-box">
+						<div>
+							<div>
+								Candidate Pool
+							</div>
+
+							View candidates ranked in order of fit for this position by clicking on the graph categories above. 
+							Or click on a Position to view all canditates in the Hilo database ranked by fit.
+
+						</div>
+					</div>
+
+					<div class="hilo-help-box">
+						<div>
+							<div>
+								Position Profile 
+							</div>
+
+							Create or edit a profile for any position and see exactly what the career seeker sees when considering it.
+							The more compelling your profile the more candidates you'll have to choose from, increasing your chances of 
+							hiring the right person.
+
+						</div>
+					</div>
+
+					<div class="hilo-help-box">
+						<div>
+							<div>
+								Posting Manager
+							</div>
+
+							When you're ready to tell the world about the position you are trying to fill, select the Posting Manager.
+							<br/>
+							Open, manage and track responses through multiple channels.
+
+						</div>
+					</div>
+
+					<div class="hilo-help-box">
+						<div>
+							<div>
+								Analytics
+							</div>
+
+							Coming Soon
+						</div>
+					</div>
+
+					<div class="clear-height">&nbsp;</div>
+
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="clear-height">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#enter_seeker_id").focus(function(){
+		$(this).val("").removeClass("inline-grey-text");
+	}).blur(function(){
+		if($(this).val() == ""){
+			$(this).val("Enter Career Seeker ID").addClass("inline-grey-text");
+		}
+	});
+
+
+
+});
+</script>

@@ -1,0 +1,164 @@
+<div id="purchase_review_popup"> <!-- Change the id cc_billing_popup, same to be reflected in JS-->
+  <div id="gift-hilo-popup">
+    <div class="review-popup">
+    <div class="popup-top-billing-review">&nbsp;</div>
+    <div class="popup-content-billing-review">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('gift_hilo.popup_second.heading') %></label>
+          <div class="error-message-container" style="display:none;"></div>
+        </div>
+        
+        <div class="gift-hilo-review-popup-left"><!--gift-hilo-popup-left-->          
+          <p><%= t('gift_hilo.popup_second.msg_text1') %></p>
+          <p><%= t('gift_hilo.popup_second.msg_text2') %></p>
+          <p><%= t('gift_hilo.popup_second.msg_text3') %></p>
+        </div><!--/gift-hilo-popup-left-->
+        
+        <div class="gift-hilo-review-popup-right">
+          <div class="gift-hilo-review-popup-right-top">
+            <div class="gift-hilo-popup-right-top-box"></div>          
+            <div id="review_purchase_summary" class="gift-hilo-popup-right-content">
+              
+            </div><!-- /gift-hilo-popup-right-top-content-->            
+            <div class="gift-hilo-popup-right-bottom-box"></div>
+          </div><!-- /gift-hilo-popup-right-top-->
+          
+          <div class="gift-hilo-review-popup-right-bottom">
+            <div class="gift-hilo-popup-right-top-box"></div>
+            <div class="gift-hilo-popup-right-content">
+              <table cellspacing="0" cellpadding="0">
+                <tr>
+                  <th class="hilo-gift"><%= t('gift_hilo.popup_second.gift_text') %></th>
+                  <th class="hilo-quantity"><%= t('gift_hilo.popup_second.qty_text') %></th>
+                  <th class="hilo-qty-right-spacer"></th>
+                  <th class="hilo-unitprice"><%= t('gift_hilo.popup_second.unit_price_text') %></th>
+                  <th class="hilo-ut-right-spacer"></th>
+                  <th class="lesswidth"><%= t('gift_hilo.popup_second.subtotal_text') %></th>
+                </tr>
+                <tr>
+                  <td class="separator"><%= t('gift_hilo.popup_second.site_activation_text') %></td>
+                  <td class="separator textright"><label>1</label></td>
+                  <td class="separator"></td>
+                  <td class="separator textright"><label>$<%= REGISTRATION_COST %></label></td>
+                  <td class="separator"></td>
+                  <td class="lesswidth separator textright"><label>$<%= REGISTRATION_COST %></label></td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="textright lessheight"><%= t('gift_hilo.popup_second.subtotal_text') %></td>
+                  <td class="textright"><label>$<%= REGISTRATION_COST %></label></td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="textright lessheight"><%= t('gift_hilo.popup_second.tax_text') %></td>
+                  <td class="textright"><label></label></td>
+                </tr>
+                <tr>
+                  <td colspan="5" class="textright lessheight"><%= t('gift_hilo.popup_second.order_total_text') %></td>
+                  <td class="textright"><label>$<%= REGISTRATION_COST %></label></td>
+                </tr>
+              </table>
+            </div><!-- /gift-hilo-popup-right-top-content-->
+            <div class="gift-hilo-popup-right-bottom-box"></div>
+          </div><!-- /gift-hilo-popup-right-bottom-->
+        </div><!-- /gift-hilo-popup-right -->
+        
+        <!--Popup footer clear-float-->
+        <div style="clear:both;">
+          <div class="popup-footer">
+            <ul class="lfloat">
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/facebook_icon-popup.png" alt="Facebook" border="0"/></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/twitter-popup.png" alt="Twitter" border="0" /></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=thehiloproject.com');"><img src="/assets/linkedin-popup.png" alt="Linked In" border="0"/></a></li>
+              <li><a href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :alt=>"Mail", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+            </ul>
+            <input type="hidden" value="" name="senders_name_pay_purchase" id="senders_name_pay_purchase"/>
+            <input type="hidden" value="" name="senders_email_pay_purchase" id="senders_email_pay_purchase"/>
+            <input type="hidden" value="" name="recievers_name_pay_purchase" id="recievers_name_pay_purchase"/>
+            <input type="hidden" value="" name="recievers_email_pay_purchase" id="recievers_email_pay_purchase"/>
+            <input type="hidden" value="" name="personal_msg_pay_purchase" id="personal_msg_pay_purchase"/>
+            <div class="gift-hilo-purchase-popup">
+              <input class="back-button-active lfloat" type="button" value="" onclick="backToGiftHiloPopup();" />
+              <% if session[:job_seeker] or session[:employer] %>
+                <input id="gift_purchase_review_button" class="checkout-button-active rfloat" type="button" value="" onclick="registeredGiftPurchase();" />
+              <% else %>
+                <input id="gift_purchase_review_button" class="checkout-button-active rfloat" type="button" value="" onclick="showCheckoutBillingInfoPopup();showBlockShadow();" />
+              <%end%>
+            </div>
+          </div>
+        </div><!-- /Popup footer-->
+        
+        <a href="javascript:void(0)" class="close" onClick="hidePurchaseReviewPopup()">Close</a>
+      </div><!-- /gradient-content -->
+    </div>
+    <div class="popup-bottom-billing-review">&nbsp;</div>
+    </div>
+     <!-- Checkout billing Review your purchase Authorize Purchase oneClick-payment -->
+    <div id="oneClick-payment_gift" class="oneClick-payment" style="display:none;">
+      <div class="payment-pop-top-billing-review">&nbsp;</div>
+      <div class="payment-pop-cont-billing-review">
+        <div class="gradient-content">
+          <div class="popup-header-container">
+            <label class="popup-heading"><%= t('gift_hilo.popup_second.payment.one_click_header') %></label>
+          </div>
+          <%= form_tag("/gift/authenticate_one_click", :id => "gift_one_click_form", :remote => true) do -%>
+                <input type="hidden" value="purchase_billing" name="checkout_billing" id="checkout_billing_purchase"/>
+                <input type="hidden" id="pay_method_purchase" value="promo" name="pay_method_purchase" />
+                <input type="hidden" id="purchase_call" value="default" name="purchase_call" />
+                  <ul class="oneClick-details width-345px lfloat">
+                    <li style="width: 333px;">
+                          <div class="customized-input active-input">
+                              <div class="input-left">&nbsp;</div>
+                              <input type="hidden" id="gift_pay_name_placeholder" value="<%= t('gift_hilo.popup_second.payment.email') %>" />
+                              <input type="text" name="pay_name" class="email" id="gift_pay_name" value="<% if not session[:job_seeker].blank?%><%=session[:job_seeker].email%><% end%><% if not session[:employer].blank?%><%=session[:employer].email%><% end%>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click_gift();checkEnterForForm(event, 'gift_confirm_button', 'gift_one_click_form', 'btn-Confirm-active');" onkeydown="type_element(this)" />
+                              <div class="input-right">&nbsp;</div>
+                          </div>
+                      </li>
+                      <li style="width: 333px;">
+                          <div class="customized-input input-text margin-R-0px">
+                              <div class="input-left">&nbsp;</div>
+                              <input type="hidden" id="gift_pay_pass_placeholder" value="<%= t('gift_hilo.popup_second.payment.password') %>" />
+                              <input type="text" name="pay_pass" class="password" id="gift_pay_pass" value="<%= t('gift_hilo.popup_second.payment.password') %>" onfocus="focus_element(this)" onblur="blur_element(this)" onkeyup="activate_one_click_gift();checkEnterForForm(event, 'gift_confirm_button', 'gift_one_click_form', 'btn-Confirm-active');" onkeypress="type_element(this,event);" />
+                              <div class="input-right">&nbsp;</div>
+                          </div>
+                      </li>
+                  </ul>
+                <div class="rfloat" style="width:90px;">
+            <% if credit_value.nil? or credit_value == 0 %>
+              <span id ="credit_remaining" class="credit_block">
+                <a href="javascript:void(0)" onclick="gift_hilo.openPopup();" id="preview_card_select"><%= t('gift_hilo.popup_second.payment.modify_payment_method') %></a>
+              </span>
+            <% else %>
+              <span id ="credit_remaining" class="credit_block">
+                <%= t('gift_hilo.popup_second.payment.credit_text') %><br /><%= t('gift_hilo.popup_second.payment.remaining_text') %><br />$<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>
+              </span>
+            <% end %>
+            <span>
+              <input type="button" id="gift_confirm_button"  value="" class="btn-Confirm rfloat" style="position:relative;"/>
+                        <span id="gift_one_click_loader_img" style="display:none; margin-top: 1px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            </span>
+          </div>
+            <% end %>
+        </div>
+      </div>
+      <div class="payment-pop-bottom-billing-review">&nbsp;</div>
+  </div>
+  <!-- /Checkout billing Review your purchase Authorize Purchase oneClick-payment -->
+  </div><!--/gift-hilo-popup-->
+</div><!-- /cc_billing_popup-->
+
+<script type="text/javascript">
+  jQuery(function($) {
+  // create a convenient toggleLoading function
+  var loading_gift_one_click_form = function(){
+    showBlockShadow();
+    $('#gift_confirm_button').hide();
+    $("#preview_card_select").hide();
+    $('#gift_one_click_loader_img').show();
+  }
+  $("#gift_one_click_form")
+  .bind("ajax:beforeSend", loading_gift_one_click_form)
+  });
+</script>
+		
+  
+  

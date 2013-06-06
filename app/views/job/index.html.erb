@@ -1,0 +1,74 @@
+
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="forgot-pwd-box">
+	<div class="forgot-pwd-content">
+		<div class="account-box">
+			<%=render :partial=>"/account/panels/account_top_cover" -%>
+			<div class="fpwd-box-inner">
+				<%if @error%>
+					Invalid parameters
+				<%else%>
+					<div class="login-page-header">
+						Please login as a career seeker to view job - <%=@job.name%>
+					</div>
+					<div class="separator"></div>
+					<div class="height10"></div>
+					<div class="height10"></div>
+					<%= form_tag :url => ("/job/login"),:before=>"login_page.before_call()", :remote => true do -%>
+						<div>
+
+							<div class="login-page-field">
+								<div class="login-page-lbl">
+									Your Email:	
+								</div>
+
+								<div class="login-page-text">
+									<input type="text" name="login_name" class="login-input input-field-style"/>
+								</div>
+								<div class="clear-height"></div>
+							</div>
+
+							<div class="login-page-field">
+								<div class="login-page-lbl">
+									Password:
+								</div>
+
+								<div class="login-page-text">
+									<input type="password" name="login_pass" class="login-input input-field-style"/>
+								</div>
+								<div class="clear-height"></div>
+							</div>
+							
+							<div class="login-page-field">
+								<div class="login-page-lbl">
+									&nbsp;
+								</div>
+
+								<div class="login-page-text">
+									<input type="submit" value="Sign In" class="button-style-shared buttton_81X19" />
+								</div>
+								<div class="clear-height"></div>
+							</div>
+
+							<div class="login-page-field">
+								<div class="login-page-lbl">
+									&nbsp;
+								</div>
+
+								<div class="login-page-text">
+									<a href="/job_seeker/new">Sign Up</a>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; 
+									<a href="/forgot_pwd">Forgot Password?</a> 
+									
+								</div>
+								<div class="clear-height"></div>
+							</div>
+						</div>
+					<%end%>
+				<%end%>
+			</div>
+			<%=render :partial=>"/account/panels/account_bottom_cover" -%>
+		</div>
+
+	</div>
+
+</div>

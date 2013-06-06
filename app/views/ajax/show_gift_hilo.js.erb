@@ -1,0 +1,2 @@
+$("#gift_hilo_popup").html("<%= escape_javascript render(:partial => '/home/gift_hilo')%>");
+click_gift_hilo.gift_hilo('<% if session[:job_seeker] or session[:employer] %>true<%else%>false<%end%>');

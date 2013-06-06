@@ -1,0 +1,5 @@
+emptyFormSection();
+showBlockShadow();
+$("#resume-ajax").html("<%= escape_javascript render(:partial=>"/account/profile_resume", :locals=>{:job_seeker=>@job_seeker}) %>");
+hideBlockShadow();
+

@@ -1,0 +1,82 @@
+<div class="page-heading-container">
+  <h2 class="page-heading"><%=t ("personality_questionnaire.contentL1") %><br /><%=t ("personality_questionnaire.contentL2") %> <strong><em><%=t ("personality_questionnaire.set2.contentL3") %></em></strong>.</h2><!--page-heading-->
+  <ul class="step-count">
+    <%=render :partial => "/questionnaire/panels/step_number",:locals=>{:step_no => 2}%>
+  </ul>
+  <div class="clear-float"></div>
+  <div>
+    <span class="sub-heading"><%=t ("personality_questionnaire.contentL4") %></span>
+    <span class="questions-track"><%=t ("personality_questionnaire.contentL5") %> <%= @birkman_questions.first.id %> - <%= @birkman_questions.last.id %><%=t ("personality_questionnaire.contentL5N") %></span>
+  </div>
+
+</div>
+<%= form_tag('/questionnaire/save_test_one_questions', :id => "test_form") do -%>
+  <input type="hidden" id="test_response" name="test_response" value=""/>
+  <input type="hidden" name="save_type" id="save_type" value="" />
+<% end -%>
+
+
+<div class="question-set-box">
+  <div class="question_set_box_top_bg">&nbsp;</div>
+  <div class="question_set_box_middle_bg">
+    <div class="gradient-content">
+      <!--question-block-other-->
+      <div class="question-block-other">
+        <div class="question-otherHeading">
+          <h3 class="mp24"><%=t ("personality_questionnaire.q_heading1") %></h3>
+          <label class="mp24 margin-R-111px" style="margin-right:130px;"><%=t ("personality_questionnaire.true") %></label>
+          <label class="mp24"><%=t ("personality_questionnaire.false") %></label>
+        </div>
+
+        <% @birkman_questions.each_with_index{|obj, i| -%>
+          <div class="options-trueNfalse">
+            <ul class="test_one_ul">
+              <li>
+                <span class="question-text"><%=obj.question%></span>
+                <div class="options">
+                  <a href="javascript:void(0);" title="True" class="true <% if @birkman_questions_resp["#{obj.id}"] == true%>active<%end%>" onclick="birkman_test.show_next_test_one(<%=@birkman_questions.length%>);" data-val="1"><%=t ("personality_questionnaire.true") %></a>
+                  <a href="javascript:void(0);" title="False" class="flase <% if @birkman_questions_resp["#{obj.id}"] == false%>active<%end%>" onclick="birkman_test.show_next_test_one(<%=@birkman_questions.length%>);" data-val="0" ><%=t ("personality_questionnaire.false") %></a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        <%} -%>
+      </div>
+      <!--/question-block-other-->
+    </div>
+  </div>
+  <div class="question_set_box_bottom_bg">&nbsp;</div>
+</div>
+
+<!--button-container-->
+<div class="button-container">
+  <input type="button" id="test_one" value="" class="next-button-active rfloat"/>
+  <div class="question-error-message"><%=t ("personality_questionnaire.error") %></div>
+  <input type="button" id="test_one_snr" value="" class="saveReturnLater-button-active lfloat"/>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    birkman_test.show_next_test_one(<%=@birkman_questions.length%>);
+    $("#test_one_snr").click(function(){
+      if($("#test_one_snr").hasClass("saveReturnLater-button-active")){
+        $("#save_type").val("return_later");
+        birkman_test.save_test_one();
+      }
+    });
+    
+    //Adding this code for popups realignment
+    $("#test_one").click(function(){
+      if($("#test_one").hasClass("complete")){
+<% if @job_seeker_birkman_detail.responded_birkman_set_number == BIRKMAN_STEP_WORKENV and @birkman_questions.last.id == 125 %>
+          birkman_test.showSetThreeIntroductaryPopup();
+<% else %>
+          birkman_test.save_test_one();
+<% end %>
+      } else {
+        $(".question-set-box").addClass('error');
+        $(".question-error-message").show();
+      }
+    });
+  });
+</script>

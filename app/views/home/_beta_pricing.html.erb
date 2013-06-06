@@ -1,0 +1,32 @@
+<div class="cs-introduction-container" id="step4-pricing">
+  <div class="popup-upper-block-cs" style="">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <img src="/assets/bridge_hilo_logo.png" class="lfloat" style="margin-bottom:5px;" />
+          <div class="csbridge-heading"><p class="bluecls">free for</p><p>a limited time</p></div>
+        </div>
+        <div class="csbridge-textvideo">
+          <div class="csbridge-text <%=I18n.locale%>"><span>no subscription fees. ever. never ever.</span>
+            <p>Site activation is&nbsp;<span><i>FREE FOR A LIMITED TIME</i>&nbsp;!</span> Kickstart the Hilo pairing engine and get your custom Career Forward Guide powered &nbsp;by &nbsp;Birkman (a $50 value).</p>
+            <p>You get <span><i>UNLIMITED POSITION PREVIEWS</i>&nbsp;</span> and a credit for three Position Details (normally $0.99 each). From there, you can apply for any job.</p>
+            <p>Get the full scoop in 1-minute by watching this video.</p>
+          </div>
+
+          <div class="csbridge-right-div video <%=I18n.locale%>" id="step4-pricing-video">
+            <iframe class="youtube-player" name="step4-pricing_accountVplayer" id="step4-pricing_accountVplayer" type="text/html" width="591" style="margin-left:6px;" height="360" src="https://www.youtube.com/embed/o5tAcq840qk?wmode=transparent&rel=0" frameborder="0"></iframe>
+          </div>
+          <div class="getstarted-div" onclick="window.location='/job_seeker/new'"><img src="/assets/get-started-btn_<%=I18n.locale%>.png" class="margin-T-5px" /></div>
+        </div>
+
+        <div class="csbridge-submenu-container">
+          <ul class="">
+            <%= render :partial => "home/bridge_menu", :locals => {:section => "pricing"} %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

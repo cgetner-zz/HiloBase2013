@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%=yield :page_title%><%=t ("page_titles.meaningful_employment")%></title>
+    <meta name="Author" content="Hilo" />
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo" />
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider." />
+    <%= render :partial => "/shared/google_analytics" %>
+    <%= csrf_meta_tag %>
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <%=stylesheet_link_tag("jquery-ui-1.8.custom","stylesheet","employer_landing")%>
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("stylesheet-IE8","employer_landing_IE8")%>
+    <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("stylesheet-IE9","employer_landing_IE9")%>
+    <![endif]-->
+    <%=javascript_include_tag "application","main","common","elementCheck","jquery.caret","jquery.numeric","customdropdown","slimScroll"%>
+    <%=yield :page_css%>
+    <%=yield :page_js%>
+  </head>
+  <body>
+    <%#= language_links %>
+    <%=yield -%>
+    <!-- POPUP's -->
+    <div id="fade_normal" class="black_overlay" onclick="clickOutside(this);"><span class="popup-loader"><%=image_tag("ajax-loader-login-grey.gif")%></span></div>
+    <div id="fade_normal_status" class="black_overlay_light"></div>
+    <div id="fade_normal_dark" class="black_overlay_dark" onclick="clickOutside(this);"><span class="popup-loader"><%=image_tag("ajax-loader-login-grey.gif")%></span></div>
+    <div id="fade_error" class="error_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_success" class="sucess_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+    <div id="candidate_profile_popup" class="white_content" style="top: 8%; position: fixed;"><div style="width: 840px;"><%= image_tag("/assets/employer_landing/profile_preview_sample.png") %></div></div>
+    <div id="position_showcase_popup" class="white_content" style="top: 8%; position: fixed;"><div style="width: 1000px;"><%= image_tag("/assets/employer_landing/position_overview_sample.png") %></div></div>
+    <div id="fade_white" class="white_overlay"></div>
+    <%= render :partial => "/home/forgot_password" %>
+    <%= render :partial => "/home/guest_search_hilo" %>
+    <%= render :partial => "/home/signin_failure_popup" %>
+    <%= render :partial => "/shared/privacy_policy" %>
+    <%= render :partial => "/shared/terms_of_use" %>
+    <%= render :partial => "/home/job_not_active" %>
+    <%= render :partial => "/employer/landing/hilo_employer_search_popup"  %>
+    <% if controller.controller_name == "hilo_search"%>
+      <div id="hilo_search_work_env" class="white_content"></div>
+      <div id="hilo_search_job_seekers_few_records" class="white_content"></div>
+    <% end %>
+    <!-- POPUP's -->
+    <%= render :partial => "/shared/webengage" %>
+  </body>
+</html>

@@ -1,0 +1,1784 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  page_titles:
+    meaningful_employment: "Hilo - Meaningful employment."
+    employer_landing_page: "Employer"
+    career_seeker: "Career Seeker"
+  common:
+    learn_more: "LEARN MORE"
+    sign_in: "SIGN IN"
+  sign-in-box:
+    email: "Email"
+    password: "Password"
+    forgot_password: "Forgot Password?"
+  forgot_password:
+    popup-heading: "FORGOT YOUR PASSWORD?"
+    free-text: "We'll send you an email with a link to reset your password."
+    email: "Email"
+  login_error:
+    popup-heading: "OOPS!"
+    free-text: "The email address or password you entered is invalid. Please try again."
+  forgot_password_success:
+    popup-heading: "SUCCESS!"
+    free-text: "A link to reset your password has been sent to your email."
+  forgot_password_error:
+    popup-heading: "OOPS!"
+    free-text: "The email address you entered is invalid. Please try again."
+  translation:
+    en: English
+    fr-CA: "French (Canadian)"
+  hello: "Hello world"
+  employer_landing_page:
+    headerPairingEngine: "Test drive the Hilo Pairing Engine!"
+    headerCandidateSite: "Looking for the candidate site?"
+    titleMessageLine1: "Making it easy for employers to"
+    titleMessageLine2: "finally put the right people in the right seats"
+    titleMessageLine1Sub1: "Integrating candidate personality data and credentials to create a"
+    titleMessageLine1Sub2: "rational marketplace"
+    titleMessageLine1Sub3: "for redeployment, outplacement and recruiting."
+    redeployment:
+      header: "Redeployment Solutions"
+      headerContentL1: "Whether you're trying to staff a new team or improve"
+      headerContentL2: "departmental efficiency, Hilo's analytics can help."
+      headerContentL3: "The right role and work environment can unleash your"
+      headerContentL4: "people's true potential and drive growth to new heights."
+      headerContentL5: "At Hilo, we're committed to helping you get the very most"
+      headerContentL6: "from your staff by putting the right people in the right seats."
+    global_links:
+      video: "Video"
+      white_paper: "White Paper"
+    outplacement:
+      header: "Outplacement Solutions"
+      headerContentL1: "Hilo is a candidate analytic system that incorporates"
+      headerContentL2: "Birkman personality data in addition to credentials."
+      headerContentL3: "We use insights from this data to better understand and"
+      headerContentL4: "market your outsourced employees to our network."
+      headerContentL5: "Hilo's outplacement solution will help get your folks"
+      headerContentL6: "back to work quickly and inexpensively."
+    recruiting:
+      header: "Recruiting Solutions"
+      headerContentL1: "How well a position matches a candidate's innate interests"
+      headerContentL2: "and ideal work environment are the most direct predictors"
+      headerContentL3: "of success. Hilo is the only company that accurately quantifies"
+      headerContentL4: "these metrics and integrates them to create a ranked list of"
+      headerContentL5: "candidates for any given job. After all, getting the right people"
+      headerContentL6: "in the right seats is far too important to be left to intuition alone."
+    candidate_profile:
+      header: "Candidate Profile"
+      headerContentL1: "Intelligence at your fingertips."
+      headerContentL2: "Each candidate has a free, multi"
+      headerContentL3: "media profile that distills all the"
+      headerContentL4: "information you really need to"
+      headerContentL5: "quickly make an informed decision."
+    position_showcase:
+      header: "Position Showcase"
+      headerContentL1: "Hilo gives you the ability to market"
+      headerContentL2: "positions in a concise, compelling way."
+      headerContentL3: "Built-in social media channel management"
+      headerContentL4: "vastly extends your reach while actually"
+      headerContentL5: "decreasing your work."
+    birkman_assessment:
+      header: "Birkman Assessment"
+      headerContentL1: "Each candidate receives a custom"
+      headerContentL2: "Career Forward Guide"
+      headerContentL3: "upon creating"
+      headerContentL4: "their profile. This report increases"
+      headerContentL5: "candidate self-awareness and"
+      headerContentL6: "powers the Hilo pairing engine."
+    feedback: "Companies are seeking to manage talent assets with the same amount of rigor and depth as
+          they manage other corporate assets. People are going to demand more insight into talent and
+          they're going to need tools to do it and that's going to lead to richer, more predictive data sets."
+  employer_landing_pageGlobalLink1: "Video"
+  employer_landing_pageGlobalLink2: "White Paper"
+  employer_terms_of_use:
+    header: "TERMS OF USE"
+    user_agreement:
+      title: "User Agreement"
+      revised: "Last Revised January"
+      welcome: "Welcome to"
+      title_contentL1: 'Hilo, Inc. ("Hilo"), through the Hilo website, applications and related online services is pleased to provide its service to you subject to the following terms and conditions. Please read this User Agreement (the "Agreement") carefully before accessing or using Hilo services (the "Service").'
+      title_contentL2: 'BY CLICKING ON THE "I ACCEPT" BUTTON BELOW YOU ACKNOWLEDGE THAT YOU HAVE READ THE ENTIRE TERMS AND CONDITIONS OF THIS AGREEMENT, INCLUDING THE PRIVACY POLICY, AND THAT YOU AGREE TO BE BOUND BY THEM.  IF YOU USE THE SERVICES ON BEHALF OF AN EMPLOYER OR OTHER ENTITY, BY CLICKING ON THE “I ACCEPT” BUTTON, YOU ADDITIONALLY WARRANT THAT YOU HAVE THE AUTHORITY TO AGREE TO THESE TERMS ON BEHALF OF SUCH ENTITY, AND AGREE TO SUCH TERMS ON BEHALF OF SUCH ENTITY.  REFERENCES TO “YOU” AND CORRELATIVE TERMS HEREIN SHALL MEAN THE INDIVIDUAL CLICKING ON THE “I ACCEPT” BUTTON AND, IF APPLICABLE, THE ENTITY REPRESENTED BY SUCH PERSON.'
+    general:
+      title: "GENERAL"
+      title_contentL1: 'Hilo may update this Agreement from time to time. Notice of modifications to the Agreement will be posted on this page. Additional terms that apply to specific parts of the Service may also be posted in the relevant parts of the Hilo website from time to time and will be clearly identified. Any and all such additional terms are hereby incorporated by reference into this Agreement. All modifications to this Agreement will become effective immediately upon posting. Your continued use of the Service constitutes your acceptance of any changes or revisions to this Agreement, so please check this page regularly.'
+      title_contentL2: 'Failure to comply with the terms of the Service, whether contained in this Agreement or in notices posted at various points in the Service, may result in termination of your access to the Service and your Hilo membership, in addition to any other remedies available to Hilo and/or its associated content or service providers. Determination of such failure of compliance shall be in the sole discretion of Hilo, and Hilo shall consider both the letter and spirit of this Agreement.'
+    proprietary_content:
+      title: "PROPRIETARY CONTENT"
+      title_contentL1: 'Hilo respects the intellectual property of others and asks that its users do the same. You acknowledge and agree that the Service contains valuable proprietary information that is protected by applicable intellectual property and other rights and laws. If you believe that your copyrighted work has been infringed on the Service, or on any site that the Service links to, please see our Procedure for Making Claims of Copyright Infringement.'
+      title_contentL2: 'Hilo is the owner, licensee, or authorized user of any trademark, service mark, registered trademark, or registered service mark appearing on the Hilo website. All rights are reserved. Other brands, products, or services are trademarks, service marks, registered trademarks, or registered service marks of their respective owners and should be treated as such.'
+      title_contentL3: 'Hilo is the copyright owner or licensee, or otherwise has the right to display all content and information on the Hilo website. Hilo owns a copyright in the selection, coordination, arrangement and enhancement of the content of the Service as a compilation or collective work, as well as content original to Hilo, including, but not limited to, any of the screens appearing on the Hilo website.'
+      title_contentL4: "You may download and print portions of material from the different areas of the Service with the following restrictions and limitations. You may make print copies of any portions of material downloaded from the Service solely for your own non-commercial use, or, for portions of the Service designed for commercial use by employers, for internal human resources purposes or such other purposes as are expressly permitted by Hilo. Beyond this, and except as otherwise expressly permitted under U.S. copyright law, no other copying, redistribution, retransmission, publication, performance, display, modification, creation of derivative works, or commercial exploitation of content of the Service, in whole or in part, will be permitted without the express prior written permission of Hilo and the copyright owner (if not Hilo). In the event of any permitted copying, redistribution or publication of copyrighted material, no changes in, or deletion of, author attribution, trademark legend, or copyright notice shall be made. You acknowledge that you do not acquire any ownership rights by downloading copyrighted material. Other than as expressly stated herein, Hilo does not grant any license or other authorization to you or to any user of our, or our content or service providers', trademarks, registered trademarks, service marks, registered service marks, other copyrightable material or other intellectual property, by placing them on the Hilo website."
+      title_contentL5: 'The materials and information that: (A) a career seeker submits in connection with creating an account, entering pairing profile data, completing a personality questionnaire, and entering payment information (all of these are referred to as "Personal Information"); and (B) an employer or similar user submits in connection with creating an account, entering pairing profile data, entering other employer or employment-related information (these are referred to as “Employer Information”, and together with Personal Information, “User Information”), are governed by our Privacy Policy, which is incorporated herein by reference. Separate and distinct from these areas that collect User Information, the Hilo Service may include certain areas that are public, and allow for discussion, posting and interaction among Hilo users. These public areas may include chat groups, bulletin boards, forums, newsgroups, and other similar areas. Information and postings you submit through these public areas of the Service are treated differently than User Information. You agree to grant to Hilo a non-exclusive, royalty-free, worldwide, perpetual license, with the right to sublicense, to reproduce, distribute, transmit, create derivative works of, publicly display and publicly perform any materials and other information (including, without limitation, any ideas contained therein) you submit, post to, or transmit through public areas of the Service (such as chat groups, bulletin boards, forums, and newsgroups) by all means and in any media now known or hereafter developed. You may choose whether to associate your name or a username with your public posts or communications. If you choose to associate your name or a username with your public posts or communications, you grant to Hilo the right to use such names and other information in such public areas of the Service, as well as in connection with all advertising, marketing and promotional material related thereto. You acknowledge that Hilo may freely assign or transfer the rights granted herein. Further, you agree that you shall have no recourse against Hilo for any alleged or actual infringement or misappropriation of any proprietary right in your communications to us (other than with respect to your Personal Information), or in any materials you submit, post to, or transmit through public areas of the Service.'
+      title_contentL6: "You warrant and represent to Hilo that (a) you have the authority to enter into this Agreement and sufficient rights to grant the licenses granted herein, and (b) any materials and other information that you submit, post to, or transmit through the Service will not infringe on any third party's copyright, patent, trademark, trade secret, or other proprietary rights. You acknowledge that the burden of determining that any submitted or posted material is not protected by copyright rests with you and you agree that you shall be solely liable for any damage resulting from any infringement of copyrights, other proprietary rights, or any other harm resulting from your submissions or postings. Further, you agree to abide by all other provisions of this Agreement relating to any materials or other information which you submit, post to, or transmit through the Service."
+    hilo_accounts:
+      title: "HILO ACCOUNTS"
+      title_contentL1: 'While you may access and use certain portions of the Service without creating a Hilo account and becoming a member, an account is required to take full advantage and receive certain benefits of the Service, including the ability to use certain evaluative tools, receive customized content, and take advantage of our pairing engine.'
+      title_contentL2: 'However, Hilo membership is intended for U.S. citizens and residents. If you are not a U.S. citizen or resident, but register as a Hilo member, you should be aware that personal data which you supply may be stored in a country other than that in which you reside. Therefore, please do not create a Hilo account doing so would make the collection or protection of any data you submit subject to the laws of any non-U.S. jurisdiction.'
+      title_contentL3: 'When you create a Hilo account, you will use your Hilo ID and password to gain access to the Service. Your privacy is important to us, so please remember that it is your responsibility to maintain the confidentiality of your Hilo ID and password. Please do not share your Hilo ID or password with anyone. As a Hilo member, you agree to notify Hilo immediately of any unauthorized use of your Hilo ID or password, or any other breach of security. Further, you agree to pay all charges incurred by users of your Hilo ID and your credit card or other payment mechanism at prices in effect when such charges are incurred, including applicable taxes. You understand that certain third parties may offer services through the Service. The prices for products and services offered through the Service may change at any time. You also understand that Hilo is not responsible or liable for any compromise of the security or integrity of your Hilo ID, password, account, or User Information, or any resulting loss or damage, which occurs in connection with or as a result of any computer and other equipment, software and software settings, network and network components, and Internet Service Provider which you use in communicating with the Service. Hilo has no control over these matters and you assume total risk and responsibility for your connection to and communications over the Internet. Hilo cannot and will not be liable for your failure to comply with any of these terms.'
+      title_contentL4: 'If you provide information to or through the Service, you represent and warrant that you are the owner of such information, or have obtained full and proper authority, and otherwise have the right, to provide such information.  If you post information about an opportunity or position, you represent and warrant that you have authority to make such posting on behalf of the relevant employer.'
+    user_conduct:
+      title: "USER CONDUCT"
+      title_contentL1: 'Hilo strives to provide you with the information most critical and appropriate to career seekers, in connection with helping the career seeker to evaluate job satisfaction, career choices, personality characteristics and working relationships. Hilo also works to provide information to employers in evaluating positions, work environments and roles, and in understanding candidate attributes.  In consideration of your use of the Service, you agree to provide true, accurate, current and complete information when completing your account information, pairing profiles, personality questionnaires and other pairing data, or when otherwise prompted for information on the Service, and to maintain and update this information to keep it true, accurate, current and complete. This expressly includes the provision of credit card or other payment mechanism information. If any information provided by you is untrue, inaccurate, incomplete, or out-of-date, Hilo reserves the right to terminate your access to and use of the Service without notice.'
+      title_contentL2: 'Hilo is providing the Service for the career seeker’s personal, non-commercial use and enjoyment, and for the internal HR purposes of employers and similar uses. You agree not to reproduce, duplicate, copy, sell, resell, or exploit for any commercial purposes, any portion of the Service, design elements or layout of the Service, use of the Service, or access to the Service.   In the event that a search or placement agent is authorized by an employer to post, manage, contribute, or modify information, including information related to an employer’s positions, work environment, or available roles, such search or placement agent may use the Service only if: (i) the agent is expressly authorized to act on behalf of the employer; and (ii) the employer remains responsible for the actions of the agent and the content of any such information.  By using the Service, any such agent represents and warrants that the foregoing conditions have been satisfied.'
+      title_contentL3:
+        title_contentL3Msg: 'Hilo supports free expression and the free exchange of ideas on the public areas of the Service. However, in recognition of Hilo and the Service as providing a strong and vibrant online community, receptive to and respectful of the views of users of diverse backgrounds, cultures, and age groups, and in protecting the value and utility of the data and information provided through the Service, you agree that while accessing or using the Service you will not'
+        title_contentL3of1: 'restrict or inhibit any other user from using or enjoying the Service; or'
+        title_contentL3of2: 'represent yourself as another or as a fictitious individual, unless you are participating in an area of the Service that facilitates or encourages anonymity; or'
+        title_contentL3of3: 'disrupt or interfere with the Service, or alter or tamper with any information or materials on or associated with the Service not submitted and maintained by you; or'
+        title_contentL3of4: 'post or transmit any unlawful, fraudulent, libelous, defamatory, obscene, pornographic, profane, threatening, abusive, hateful, offensive, harassing, or otherwise objectionable information of any kind, including, without limitation, any transmissions constituting or encouraging conduct that would constitute a criminal offense, give rise to civil liability, or otherwise violate any local, state, national, or foreign law; or'
+        title_contentL3of5: 'post or transmit any information which is invasive of privacy or publicity rights, or violates or infringes in any way upon the rights of others; or'
+        title_contentL3of6: 'post or transmit any advertisements, solicitations, chain letters, pyramid schemes, commission-only opportunities, multi-level marketing, investment opportunities or schemes, or other unsolicited commercial communication, or engage in spamming or flooding; or'
+        title_contentL3of7: 'post or transmit any information or software which contains a virus, trojan horse, worm, or other harmful component; or'
+        title_contentL3of8: 'post, publish, transmit, reproduce, distribute or in any way exploit any information, software, or other material obtained through the Service for commercial purposes (other than as expressly permitted by the provider of such information, software, or other material); or'
+        title_contentL3of9: 'upload, post, publish, transmit, reproduce, or distribute in any way (other than as expressly allowed under this Agreement), information, software, or other material obtained through the Service which is protected by copyright, or other proprietary right, or derivative works with respect thereto, without obtaining permission of the copyright owner or rightholder; or'
+        title_contentL3of10: 'upload, post, publish, reproduce, transmit or distribute in any way (other than as expressly allowed under this Agreement) any component of the Service itself, or derivative works with respect thereto, as the Service is copyrighted as a collective work under U.S. copyright laws.'
+      title_contentL4: 'Certain portions of the Service may require users to post profile photos or other identifying information. Employer users may be required to post specific position information.   In the event the Service requires such information, it will be considered a violation of the terms of use to post fictional (including fictional images such as avatars), non-responsive, obsolete, or otherwise non-conforming information.'
+      title_contentL5: 'Employer postings must be kept current, and must be removed if a position has been filled or is no longer offered.'
+      title_contentL6: 'In the event that Hilo believes the terms of use of the Service, including any of the restrictions above, have been violated, Hilo may terminate or suspend the account of any user associated with such violation.'
+      title_contentL7: 'Hilo is a distributor of content supplied by third parties and users. Hilo neither endorses nor is responsible for the accuracy or reliability of any opinion, advice, or statement made on the Hilo website by anyone other than authorized Hilo employee spokespersons while acting in their official capacities. While Hilo has no obligation to monitor the Service, you acknowledge and agree that Hilo has the right to monitor the content and use of the Service from time to time and to disclose any information as necessary or appropriate to satisfy any law, regulation or other governmental request, in order to operate the Service properly, or to protect itself or its users, as more fully set forth in our Privacy Policy. Hilo reserves the right to refuse to post, or to remove, any information or materials from the Hilo website, in whole or in part, that, in its sole discretion, are unacceptable, undesirable, inappropriate, or in violation of this Agreement.'
+    privacy_policy:
+      title: 'PRIVACY POLICY'
+      title_contentL1: 'Hilo recognizes your right to confidentiality and is committed to protecting your privacy. Our Privacy Policy describes what information is collected by the Service, how it may be used, with whom it may be shared, as well as your control over these matters. While Hilo is taking reasonable and appropriate measures to ensure that your personal information is disclosed only as set forth in the Privacy Policy, you understand and agree that the Internet is an open system and that Hilo cannot and does not guarantee that data entered by you into the Service will not be intercepted and decrypted by others. Please read in full our Privacy Policy, which may be amended from time to time. You understand that by accessing or using the Service, you agree to accept without modification the terms, conditions, and notices contained in the Hilo Privacy Policy and agree to be bound by them. If you do not agree with the rules contained in our Privacy Policy, please do not use the Service.'
+    third_party_sites:
+      title: 'LINKS TO THIRD PARTY SITES'
+      title_contentL1: "Hilo works to provide you with a Service of the highest quality and repute that will be of the most value to you. However, the Service may contain links or interfaces that will take you to Internet sites that are not under the control of Hilo. These links or interfaces are provided by Hilo solely for your convenience and the provision of a link or interface is not an endorsement by Hilo of that site or of any content, products, services, or links to other sites offered therein. Hilo does not control, endorse, or bear responsibility for any third party sites which choose to link to the Hilo website. You access and use all such linked sites solely at your own risk, and Hilo makes no representations or warranties whatsoever regarding their content, operation or availability. Furthermore, the Hilo Privacy Policy is only applicable to the Hilo website and whenever linked to another Web site, you should read that site's privacy policy before disclosing any personal information."
+    disclaimer:
+      title: "DISCLAIMER OF WARRANTIES"
+      title_contentL1: 'YOU ASSUME TOTAL RISK AND RESPONSIBILITY FOR YOUR USE OF THE SERVICE AND THE INTERNET. YOU EXPRESSLY UNDERSTAND AND AGREE THAT HILO IS PROVIDING THIS SERVICE ON AN "AS IS" BASIS, "WITH ALL FAULTS," AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND WITH RESPECT TO THE SERVICE, THE HILO WEBSITE, ITS CONTENTS, ITS AVAILABILITY, OR OPERATION. HILO AND ITS CONTENT AND SERVICE PROVIDERS DISCLAIM ALL SUCH REPRESENTATIONS AND WARRANTIES, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NONINFRINGEMENT WITH REGARD TO THE SERVICE, OR ANY MERCHANDISE, INFORMATION, OR SERVICE PROVIDED THROUGH THE HILO WEBSITE OR THE INTERNET GENERALLY. IN ADDITION, HILO DOES NOT REPRESENT OR WARRANT THAT THE INFORMATION ACCESSIBLE VIA THE HILO WEBSITE (INCLUDING BUT NOT LIMITED TO CAREER SEEKER PROFILES OR EMPLOYER POSITION INFORMATION) IS ACCURATE, COMPLETE, CURRENT, OR FREE FROM COMPUTER VIRUSES OR OTHER HARMFUL OR DELETERIOUS EFFECTS. THE SERVICE IS NOT A PSYCHOLOGICAL TOOL OR SERVICE, IS NOT DESIGNED TO MAKE A DIAGNOSIS OF PSYCHOLOGICAL OR PERSONALITY DISORDERS OR DISABILITIES, NOR IS IT DESIGNED FOR ANY TYPE OF CLINICAL APPLICATION.'
+    liability:
+      title: 'LIMITATION OF LIABILITY'
+      title_contentL1: 'IN NO EVENT SHALL HILO AND/OR ITS CONTENT OR SERVICE PROVIDERS BE LIABLE UNDER THIS AGREEMENT OR UNDER ANY CONTRACT, NEGLIGENCE, STRICT LIABILITY, TORT, OR OTHER LEGAL OR EQUITABLE THEORY FOR ANY DIRECT, INDIRECT, SPECIAL, EXEMPLARY, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE DAMAGES WHATSOEVER, INCLUDING, BUT NOT LIMITED TO, DAMAGES RESULTING FROM LOSS OF USE, DATA OR PROFITS, ARISING OUT OF OR IN CONNECTION WITH THE USE, AVAILABILITY, OPERATION, OR PERFORMANCE OF THE SERVICE, EVEN IF INFORMED OF THE POSSIBILITY OF SUCH DAMAGES. HILO SHALL NOT BE LIABLE FOR ANY CLAIM ATTRIBUTABLE TO DEFECTS, DELAYS, ERRORS, OMISSIONS OR OTHER INACCURACIES IN THE SERVICE AND/OR MATERIALS OR INFORMATION DOWNLOADED THROUGH, OR LINKED TO OR FROM THE SERVICE, OR ANY ACTIONS TAKEN IN RELIANCE THEREON. YOU SPECIFICALLY ACKNOWLEDGE THAT HILO IS NOT LIABLE FOR THE DEFAMATORY, OFFENSIVE OR ILLEGAL CONDUCT OF OTHER USERS OF THE SERVICE OR OF THIRD PARTIES, AND THAT THE RISK OF INJURY FROM THE FOREGOING RESTS ENTIRELY WITH YOU. BECAUSE SOME STATES DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, THE ABOVE LIMITATION MAY NOT APPLY TO YOU. IN SUCH STATES, THE LIABILITY OF HILO AND ITS RESPECTIVE FULFILLMENT PROVIDERS IS LIMITED TO THE GREATEST EXTENT PERMITTED BY LAW.'
+    indemnification:
+      title: 'INDEMNIFICATION'
+      title_contentL1: "You agree to indemnify, defend and hold harmless Hilo and its subsidiaries, affiliates, members, managers, directors, officers, agents, employees, licensors, suppliers, and any third party content and service providers from any and all claims, liability, expenses, damages and costs, including, but not limited to, reasonable attorneys' fees, made by any third party due to or arising out of your use of the Service, any content you submit, post to, or transmit through the Service, your connection to the Service, your violation of this Agreement, or your violation of any rights of another."
+    third_party_rights:
+      title: 'THIRD PARTY RIGHTS'
+      title_contentL1: 'The provisions of this Agreement, including, but not limited to, the Proprietary Content, User Conduct, Disclaimer of Warranties, Limitation of Liability, and Indemnification paragraphs above, are for the benefit of Hilo and its subsidiaries, members, managers, affiliates, directors, officers, agents, employees, licensors, suppliers, and any third party content or service providers to the Service. Each of these individuals or entities shall have the right to assert and enforce those provisions directly against you on its own behalf.'
+    miscellaneous:
+      title: 'MISCELLANEOUS'
+      title_contentL1: "The Service provided by Hilo can be accessed from all 50 states of the United States, as well as from other countries around the world. As each of these places has laws that may differ, by accessing and using the Service you agree that this Agreement shall be governed and construed in accordance with the laws of the State of New York without regard to the conflict of laws provisions thereof. You agree that any legal action or proceeding between Hilo and you for any purpose concerning this Agreement or the parties' obligations hereunder shall be brought exclusively in a federal or state court of competent jurisdiction in the Western District of New York, and you agree to submit to personal jurisdiction in said courts. Hilo makes no representation that any materials or other information accessible on or through the Service are appropriate or available for use in other locations, and accessing them from places where their contents are illegal is prohibited. Accessing the Service from locations outside of the 50 states of the United States is at your own risk and initiative and you are responsible for compliance with local laws. Any cause of action or claim you may have with respect to the Service must be commenced within one (1) year after the claim or cause of action arises or such claim or cause of action is forever barred, regardless of any statute or law to the contrary."
+      title_contentL2: 'Failure of Hilo to insist upon or enforce strict performance of any provision of this Agreement shall not be construed as a waiver of any provision or right. Neither the course of conduct between the parties nor trade practice shall act to modify any provision of this Agreement. Hilo may assign its rights and duties under this Agreement to any party at any time without notice.'
+      title_contentL3: 'The provisions of this Agreement are independent of and separable from each other, and no provision shall be affected or rendered invalid or unenforceable by virtue of the fact that for any reason any other or others of them may be invalid or unenforceable in whole or in part. If any portion of this Agreement is invalid or unenforceable, such portion(s) shall be limited or excluded from this Agreement to the minimum extent required, and the balance of this Agreement shall remain in full force and effect.'
+    termination:
+      title: 'TERMINATION'
+      title_contentL1: 'This Agreement may be terminated by either party at any time for any reason without notice, and you may no longer access or use the Service after this Agreement has been terminated. Immediately upon termination, your Hilo ID and password may be deactivated and any further access to your personal data barred. The provisions of certain paragraphs above, including those on Proprietary Content, User Conduct, Limitation of Liability, Indemnification, Third Party Rights, Miscellaneous, and any others in which it is reasonable in light of their terms, shall survive termination of this Agreement.'
+      title_contentL2: 'Hilo reserves the right to modify, suspend or discontinue the Service itself, the Service operation, maintenance or support policies and procedures, or the Service content, at any time, temporarily or permanently, without notice. You agree that Hilo shall not be liable to you or any third party for any such modification, suspension or discontinuance.'
+    acknowledgment:
+      title: 'ACKNOWLEDGEMENT'
+      title_contentL1: 'This Agreement (together with materials incorporated by reference herein) represents the entire understanding between you and Hilo regarding use of the Service and supersedes any prior agreements, statements, or representations. By accessing or using the Service, YOU AGREE TO BE BOUND BY THIS AGREEMENT AND THE HILO PRIVACY POLICY REFERENCED HEREIN.'
+  employer_privacy_policy:
+    title: 'PRIVACY POLICY'
+    sub_title: 'Privacy Policy'
+    overview:
+      title: 'Overview'
+      title_contentL1: 'Hilo, Inc. ("Hilo"), in providing the Hilo website and related online services, cares about protecting your privacy and understands that you care how information about you is used and shared. This notice (this "Privacy Policy") describes how we may collect and use personal information about you, with whom we may share it, what choices you have regarding it, and how we protect it. This Privacy Policy is incorporated into and made a part of the Career Seeker User Agreement governing the use of Hilo online services (the "Service"). We encourage you to become familiar with our privacy practices, as stated below. By accessing and using the Service, you agree that you have read and understand this Privacy Policy and you accept and consent to the privacy practices described below.'
+    information_collect:
+      title: 'What Information Do We Collect?'
+      title_contentL1:
+        title: 'Hilo may collect various types of information from or about you through or in connection with the Service. For example:'
+        title_contentL1of1: 'When you create an account with us, you supply us with basic contact information (such as your name, telephone numbers, zip code and e-mail address). If you create an account that is associated with a social networking service, such as Twitter or Facebook, we may also collect certain information used to identify your account with such services.'
+        title_contentL1of2: 'When you enter pairing profile data, you supply us with information about your requirements and qualifications for a position (such as compensation, commuting requirements, education, experience and skills), which may be useful in matching you with specific opportunities.'
+        title_contentL1of3: 'When you complete the personality questionnaire, you supply us and our third-party testing provider with contact information, information about your qualifications, and responses to a series of questions designed to elicit information about your personality and your interests.'
+        title_contentL1of4: 'When you complete the site activation process, we collect payment information (including contact information and credit card information). By supplying us with this information, we can complete your purchase of any products or services you choose to receive and pay for.'
+      title_contentL2: 'In addition, if you correspond or communicate with Hilo or its customer service representatives, Hilo may retain the content of and metadata regarding that correspondence and communication, regardless of the mode or medium by which it was made. This information helps Hilo to improve the Service and the materials, products, and services that we offer through the Service, and to more effectively and efficiently respond to both current and future inquiries.'
+      title_contentL3: 'As with many other Web sites, the Web servers used to operate the Service collect certain data pertaining to you and the equipment and communications method that you use to access the Internet and the Service. Without combining these data with other sources of information, they do not readily identify you. They do reveal such things as the Internet protocol ("IP") address assigned to a computer, the specific pages accessed on the Service, the universal resource locator ("URL") of the Web page viewed immediately prior to visiting the Service, and the approximate amount of time spent at the Service. This information is collected to, among other things; facilitate Service operation and system administration, to generate aggregate, non-identifiable statistical information regarding Service activity and use, and to improve content and content delivery with regard to the Service and the materials, products, and services that we make available on the Service.'
+      title_contentL4: 'Hilo also uses "cookies" (small text files stored on your computer) to help track and customize your access to and use of the Service. Cookies store and retain information that helps us recognize you when you return to the Service following a previous visit. Cookies may also store any logon or ID that may be created or assigned to you by Hilo and the associated password, although this information is stored on your computer in encrypted form. Most popular Internet browsers allow you to configure them so as not to accept cookies. However, setting your browser to reject cookies may prevent you from taking full advantage of the Service and the materials, products, and services that Hilo makes available on the Service.'
+    information_use:
+      title: 'How Do We Use The Information That We Collect?'
+      title_contentL1: 'In addition to the uses mentioned or described above, Hilo uses the information that it collects from or about you to improve the materials, products, and services that are made available on the Service, to notify you of changes made to the Service or of new products or services that are made available on or through the Service, to evaluate your needs and customize the Service content that is delivered to you, to facilitate the processing of any purchases you make through the Service and the delivery of our products and services to you, and for other legitimate and lawful business purposes of Hilo. Hilo may make information you have provided available, on a confidential basis, to its third-party services providers for the purposes of assisting Hilo in its own internal processing and use of such information. Among other service providers, Hilo makes this your questionnaire information available to its third party testing company for purposes of providing the Service.'
+      title_contentL2: 'Hilo does not otherwise share personally identifiable information collected about you with third parties, except that we may combine or aggregate personal information about you, in de-identified form (that is, in a form that does not personally or individually identify you), with other data regarding our products, services, or other customers and use the resulting aggregated information for various purposes, including sharing it with our customers and with third parties. For example, we may aggregate your information with other users so that we can provide certain statistics about our user community to advertisers, employers and others.'
+      title_contentL3: 'It is our policy not to sell lists containing personal information about Service users, registrants, or subscribers, and we do not share credit card or other financial information about you except as necessary to deliver, bill, and collect for the products or services that you purchase or subscribe to through the Service.'
+    choice_option:
+      title: 'What Choices Do You Have?'
+      title_contentL1: 'You may update at any time the registration information that you entered in subscribing to any of the products or services that we offer through the Service. By contacting or sending a request to us at the numbers or addresses given below, you may also ask us to remove your name from our list of Service users who wish to receive communications from Hilo. Once you opt-out through such a request, we will honor your choice until you inform us otherwise. Please remember, however, that if we have already shared information about you pursuant to your registration or participation in services offered by our third party service providers, such service providers may further use that information and you will need to contact them directly in that regard.'
+    information_privacy:
+      title: 'How Do We Protect Information Collected About You?'
+      title_contentL1: 'Hilo places a high value on protecting personal information transmitted through the Service. For this reason, we use advanced security solutions, including 128-bit secure sockets layer ("SSL") encryption technology, to process payments and to help provide secure communications. In addition, the Service is protected by a firewall that provides a high degree of security. However, while Hilo takes commercially reasonable measures to secure and protect customer-specific information transmitted through or stored on our Service, no security system is impenetrable and communications over the Internet may be intercepted. Therefore, we cannot guarantee that personal information supplied by users of the Service will be totally secure.'
+    changes_to_privacy_policy:
+      title: 'Changes to Privacy Policy'
+      title_contentL1: 'From time to time, Hilo may change its privacy practices because of changes in the relevant and applicable legal or regulatory requirements, in our business or business practices, or in our attempts to better serve your needs. In the event of such a change to our privacy practices, notice will be given in the manner described in the Terms of Use for the Service and a revised Privacy Policy will be posted on the Service.'
+    business_transfers:
+      title: 'Business Transfers'
+      title_contentL1: 'As Hilo continues to grow and develop its business, it is possible that its entity structure might change or that Hilo might merge or otherwise combine with, or that substantially all of its assets might be acquired by, another company. In any such transactions, customer information generally is, most probably will be, and should be expected to be, among the transferred business assets.'
+    linked_services:
+      title: 'Linked Services'
+      title_contentL1: 'For your convenience, some hyperlinks or other interfaces may be posted on the Service that link to other Web sites not under the control of Hilo. We are not responsible for, and this Privacy Policy does not apply to, the privacy practices of those sites. We encourage you to seek out and read the privacy policy of any Web site that you visit. In addition, when you initiate a transaction on another Web site, even if you reached that site through a link posted on our Service, the information that you submit to complete that transaction becomes subject to the privacy practices of that Web site. You should read the privacy policy of that site to understand how personal information that it collects is used, shared, and protected. Hilo is not responsible for the privacy or information practices of its suppliers or business associates or of any third-party Web sites.'
+    more_information:
+      title: 'Who Can You Contact For More Information?'
+      title_contentL1: 'Please direct any other questions regarding our privacy practices or this Privacy Policy to Hilo at info@hiloproject.com'
+    acknowledgement:
+      title: 'Acknowledgement'
+      title_contentL1: 'YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTAND AND CONSENT TO THE PRIVACY PRACTICES DESCRIBED IN THIS PRIVACY POLICY AND AGREE TO BE BOUND BY THE CAREER SEEKER USER AGREEMENT.'
+      last_updated: 'Last updated March 31, 2011'
+  employerTermsOfUseClaims: 'PROCEDURE FOR MAKING CLAIMS OF COPYRIGHT INFRINGEMENT'
+  employerTermsOfUseClaimsMsg: 'Hilo, Inc. has registered a designated agent with the United States Copyright Office pursuant to the Digital Millennium Copyright Act (17 U.S.C. 512(c)) and if you believe that your copyrighted material is being used in connection with the Services without required permission, please notify our designated agent at'
+  employerTermsOfUseClaimsAdd: 'PO Box'
+  career_seeker_bridge:
+    title: 'introduction'
+    title_content1: 'REALIZE YOUR POTENTIAL'
+    content:
+      contentL1: 'Hilo helps you find jobs that fit and separates you from the pack to land the interview and '
+      contentL1B: 'NAIL IT.'
+      contentL2: 'More in-demand employers are joining the Hilo revolution every day: You need to '
+      contentL2B: 'BE READY'
+      contentL3: 
+        contentN: 'when your'
+        contentN2: 'dream'
+        contentN3: 'job'
+        contentN4: 'hits the wire.'
+      contentL4: 'KNOW YOUR FIT FOR EACH POSITION'
+      contentL5: "in the Hilo database before you apply. You'll also see new matches in real time."
+      contentL6: "Watch the 1 minute video to find out why Hilo is the last career search tool you'll ever need."
+    title2: 'sample'
+    title3: 'career forward guide'
+    title_content2: 'know thyself.'
+    content2:
+      contentL1: 'Employers hire candidates with the '
+      contentL1B: 'MOST SELF-AWARNESS.'
+      contentL2: 'What role do you see yourself playing? What is your ideal work environment?'
+      contentL3: 'The Hilo Career Forward Guide powered by Birkman boosts your professional intelligence so you can '
+      contentL3B: 'SHINE IN YOUR INTERVIEW.'
+      contentL4: 'Backed by over 60 years of research and application at the executive level of Fortune 500 companies worldwide, Birkman means business.'
+    title4: 'position details'
+    title_content3: 'x-ray specs for your career search!'
+    content3:
+      contentL1: "No other system can match Hilo's level of visibility or transparency."
+      contentL2: "Position Details describe the role, disclose salary information and detail how well you'd fit with the position and work environment."
+      contentL3B: 'YOU DECIDE WHETHER TO APPLY'
+      contentL3: "for a position, raising your visibility in the employer's dashboard."
+      contentL4: "You'll be "
+      contentL4B: 'IMMEDIATELY NOTIFIED'
+      contentL5: ' when an employer views your profile.'
+    title5: 'Membership'
+    title6: 'avaliable jobs'
+    title7: 'active employers'
+    title_content4: 'no subscription fees. ever. never ever.'
+    content4:
+      contentL1: 'MATCHES ARE FREE TO PREVIEW'
+      contentL2: '$19.99 one-time site activation kickstarts the Hilo pairing engine and includes your custom Career Forward Guide powered by Birkman (a $50 value).'
+      contentL3: 'You also get unlimited free position previews and details. From there, you can apply to any job for just $0.99. To get you started, you’ll even receive a $5.00 site credit.'
+      contentL4: 'Get the full scoop in one minute by watching this video.'
+  cs_landing_page_search: 'Test drive the Hilo Pairing Engine!'
+  about_hilo:
+    title1: 'ABOUT'
+    title2: 'CORE VALUES'
+    title3: 'TEAM'
+    title4: 'LAB'
+    title5: 'PRESS'
+    title6: 'CONTACT'
+    about:
+      contentL1: 'Hilo, Inc. is a software development company that specializes in:'
+      contentL2: 'Dynamic pairing algorithm applications'
+      contentL3: 'Unstructured and relational database design'
+      contentL4: 'Psychometric data collection systems for third-party personality testing companies'
+      contentL5: 'Mobile and Web User Interface (UI) design'
+      contentL6: 'Interactive, infographic data presentation'
+      contentL7: 'Hilo, Inc. founded The Hilo Project in 2010, an interactive Career Seeker- employer pairing system. The Hilo paring engine evaluates data collected from both the Career Seeker and Employer to present career opportunities in order of relative  fit to both parties.'
+      contentL8: 'Career Seekers and Employers alike are given total access to the pairing database, as well as powerful tools for the evaluation and organization of opportunities. Hilo is currently the only system that offers this level of database access and transparency.'
+    core_values:
+      contentH1: 'TRANSPARENCY = TRUST'
+      contentL1: 'Bring information out into the open so that people can operate from real understanding rather than assumption.'
+      contentH2: 'DESIGN IS GOOD'
+      contentL2: 'Human-centered design is the best means which to structure and communicate our business, technology and function.'
+      contentH3: 'FEEDBACK'
+      contentL3: 'Nothing is more frustrating than not hearing anything at all.  Provide useful feedback and the means for improvement at critical steps.'
+      contentH4: 'ACCESSIBILITY'
+      contentL4: 'Offer unprecedented levels of access to and control over data at an affordable price.'
+      contentH5: 'EVOLVE'
+      contentL5: 'Systems must evolve with user needs and technology. Systems are imperfect and must provide paths for outliers to meet their needs.'
+      contentH6: 'MOBILITY'
+      contentL6: 'Create mobile solutions that empower people to make informed decisions wherever and whenever.'
+    team:
+      eric:
+        name: 'ERIC ANSLEY'
+        post: 'CEO / Co-Founder'
+        dept: 'Finance + Technology'
+        contentL1: 'Prior to founding Hilo, Inc, Eric served as a Managing Director of Huron Consulting Group. Eric was also the co-founding President of Aaxis Technologies, a development company specializing in digital evidence management. Aaxis was acquired by Huron in 2006.'
+        contentL2: 'Prior to founding Aaxis, Eric was a Vice President of the  Capital Management Group at JP Morgan.'
+      chris:
+        name: 'CHRISTOPHER GETNER'
+        post: 'CTO / Co-Founder'
+        dept: 'Engineering + Technology'
+        contentL1: 'Originally an aerospace engineer for NASA. Chris is currently focused on technology entrepreneurship. Prior to co-founding Hilo, Chris was a managing director of Huron Consulting.'
+        contentL2: 'Chris was also CEO and CTO at Aaxis Technologies, his 3rd startup, which he co-founded with Eric.'
+      lisa:
+        name: 'LISA HAGOOD'
+        post: 'VP BUSINESS DEVELOPMENT'
+        dept: 'Sales + Business Development'
+        contentL1: 'A professionally trained actor, Lisa was partner at DBurns Design in Los Angeles, responsible for global revenue. Lisa managed project budgets and staff for Fortune 100/500 clients. A history in Search Marketing, she was a panel speaker for InfoSearch Media (2005).'
+        contentL2: 'Lisa founded MindBodyAdventure (2003) managing finances and tours in Europe and South America.'
+      partick:
+        name: 'PATRICK MOYNIHAN'
+        post: 'BOARD MEMBER'
+        dept: 'Technology Investment'
+        contentL1: 'A professional investor and co-author  of four patents. Patrick was founding CEO of PayLock (2004), a tech-based collection service. Patrick sold a multi-million dollar stake in PayLock and currently manages two board seats.'
+        contentL2: 'Previously, Patrick managed a Raymond James office, overseeing $25 million in portfolio assets. His background includes start-up, venture and corporate investing.'
+      michael:
+        name: 'MICHAEL TURRI'
+        post: 'VP DESIGN + UX'
+        dept: 'Design + Brand Strategy'
+        contentL1: "Michael holds an MS in Human-Centered Design from Standford University (d.school), lead by IDEO co-founder David Kelley. Standford's program is a unique synthesis of Engineering, Fine Art, Behavioral Psychology and Anthropology."
+        contentL2: "Michael's background ranges from ecology and evolutionary biology to corporate finance and sustainable product development."
+    lab:
+      contentL1: 'Hilo Labs is the experimental technology research division. Hilo Labs is where the core pairing algorithm was born and remains in continual development through:'
+      contentL2: 'testing improvements;'
+      contentL3: 'adding new features; and'
+      contentL4: 'implementing new technologies.'
+      contentL5: 'In addition, Hilo Labs develops concepts for data visualization, information navigation and spin-off applications.'
+      contentL6:
+        contentP1: 'Hilo Labs borrows heavily from the cultural traditions of Kelly Johnson'
+        contentP2: 's original Skunkworks with a focus on'
+        contentP3: 'doing'
+        contentP4: ' rather than just thinking and DARPA'
+        contentP5: 's paradigm of reaching further than what is believed to be '
+        contentP6: 'possible'
+    press:
+      contentL1: 'For all press inquiries, logo requests, etc.please contact:'
+      contentL2: 'Michael Turri (VP Design and User Experience)'
+      contentL3: 'michael@thehiloproject.com'
+    contact:
+      contentL1: 'For all general inquiries, technical issues, etc. please contact:'
+      contentL2: 'info@thehiloproject.com'
+      contentL3: 'For all sales inquiries please contact:'
+      contentL4: 'Lisa Hagood (VP Business Development)'
+      contentL5: 'lisa@thehiloproject.com'
+      contentL6: '+1.908.781.5744'
+  cs_registration:
+    header:
+      account_set_up1: 'Account'
+      account_set_up2: 'Set-Up'
+      personality: 'Personality'
+      questionnaire: 'Questionnaire'
+      pairing: 'Pairing'
+      profile: 'Profile'
+      site: 'Site'
+      activation: 'Activation'
+  cs_account_set_up:
+    header: 'WELCOME'
+    sign_in: 'SIGN IN'
+    place_holder:
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      email: 'Email'
+      password: 'Create Password'
+      conf_password: 'Confirm Password'
+      city: 'City / Location'
+    i_agree: 'I agree to the Hilo'
+    terms_of_use: 'Terms of Use'
+    privacy_policy: 'Privacy Policy'
+    and: 'and'
+    error_pop_up:
+      header: 'OOPS!'
+      content: 'The email address you entered is invalid or already in use. Please try again.'
+  personality_questionnaire: 
+    header: 'PERSONALITY QUESTIONNAIRE'
+    birkman_pop_up: 
+      heading: 'HAVE YOU TAKEN THE BIRKMAN?'
+      yes_option:
+        label: 'Yes'
+        content: 'Your Birkman ID is located at the bottom righthand corner of your Birkman report. '
+        birkman_id: 'Birkman ID'
+        lost_link: 'Lost Birkman ID?'
+      forgot_pop_up:
+        heading: 'FORGOT YOUR BIRKMAN ID?'
+        content1: 'email'
+        content2: " or call Birkman customer service at 1-800-215-2760 to retrieve your ID. It is strongly recommended that if you have already taken the Birkman that you do not take it again, because your results will not be as valid as with your initial testing. If you we're mistaken and have not taken the Birkman previously, you can take it now."
+      wrong_id:
+        heading: 'UNABLE TO VERIFY?'
+        content: 'Please check your information and try again. Not all Birkman IDs are currently compatible with Hilo'
+      id_verified:
+        heading: 'BIRKMAN ID VERIFIED'
+        contentL1: 'Please set aside 5 minutes in a space'
+        contentL2: 'free of distractions to complete this'
+        contentL3: 'abbreviated Personality Section.'
+      no_option:
+        lable: 'No'
+        contentL1: 'You will now complete the Hilo Personality Section, powered by Birkman.'
+        contentL2: 'Takes about '
+        contentL3: '30 minutes'
+        contentL4: 'Used to generate your '
+        contentL5: 'Career Forward Guide'
+        contentL6: 'More accurate matches'
+        contentL7: 'by the Hilo pairing engine.'
+        contentR1: 'There are no right or wrong answers! Honest responses will help us determine the best opportunities for you.'
+        contentR2: 'Your first responses are typically the most accurate. You can, therefore, '
+        contentR3: 'only move forward.'
+    heading1: 'PERSONALITY SECTION'
+    contentL1: 'IN THIS SECTION, YOU WILL RESPOND'
+    contentL2: ' TO 125 STATEMENTS ABOUT '
+    contentL4: 'Select the circle that most closely describes your views.'
+    contentL5: 'Questions: '
+    contentL5N: ' of 125'
+    q_heading1: 'MOST PEOPLE....'
+    true: 'TRUE'
+    false: 'FALSE'
+    error: 'Please complete all fields highlighted in red to continue.'
+    set1:
+      contentL1: 'YOU AND YOUR FRIENDS HAVE DECIDED'
+      contentL2: ' TO THROW A SURPRISE BIRTHDAY PARTY.'
+      contentL3: ' YOU ONLY HAVE TWO WEEKS TO PULL IT OFF.'
+      contentL4: 'Select the emoticon along each continuum that best describes your approach.'
+      contentL5: 'Questions 1-5 of 10'
+      contentL6: 'Questions'
+      contentL6N: ' of 10'
+      pop_up:
+        heading1: '1 of 4'
+        heading2: 'IDEAL WORK ENVIRONMENT'
+        content: 'You will be asked a series of 10 questions about how would you act in a mock scenario(planning a surprise party). For each question select the emoticon along the continuum that best describes your approach.'
+    set2:
+      contentL3: 'OTHER PEOPLE'
+      pop_up:
+        heading1: '2 of 4'
+        heading2: 'OTHER PEOPLE'
+        contentL1: 'Next, you will respond to a series of 125 true or false statements about'
+        contentL2: 'HOW YOU SEE OTHER PEOPLE'
+        contentL3: '. For each statement, select the circle that most closely describes your views.'
+    set3:
+      contentL3: 'YOURSELF'
+      pop_up:
+        heading1: '3 of 4'
+        heading2: 'YOURSELF'
+        contentL1: 'Now you will respond to a similar series of 125 true or false statements, but this time about'
+        contentL2: 'HOW YOU SEE YOURSELF.'
+        contentL3: 'For each statement, select the circle that most closely describes your views'
+    set4:
+      contentL1: 'IN THIS SECTION, YOU WILL BE'
+      contentL2: ' SHOWN FOUR SAMPLE ROLES AT A TIME.'
+      contentL3: 'Select your first and second choices.'
+      contentL5N: ' of 48'
+      first: 'FIRST'
+      second: 'SECOND'
+      pop_up:
+        heading1: '4 of 4'
+        heading2: 'HYPOTHETICAL ROLES'
+        contentL1: 'In this final section, you will be shown four  '
+        contentL2: 'HYPOTHETICAL ROLES'
+        contentL3: ' per page. Choose the jobs that interest you most and rank your top two.'
+        contentL4: 'Assume equal pay and working hours for all jobs. Also assume that you already possess the skills and abilities to perform each role.'
+    complete_pop_up: 
+      heading: 'CONGRATULATIONS!'
+      contentL1: 'PERSONALITY QUESTIONNAIRE COMPLETED'
+      contentL2: "You're almost done!"
+      contentL3: "In the next step, you'll complete some core aspects of your pairing profile."
+  pairing_profile:
+    header: 'PAIRING PROFILE'
+    credentials:
+      add: '+ Add Another'
+      label: 'Begin typing to access database.'
+      error: 'Please complete all fields highlighted in red to continue'
+      role:
+        heading: 'DESIRED ROLES'
+        contentL1: 'Unranked.'
+        contentL2: 'Select up three roles you want to play '
+        contentL3: 'going forward'
+        contentL4: "These may or may not be roles you've played in the past."
+        place_holder: 'Type to access database'
+        r1_label: 'Role 1 (click to access)'
+        r2_label: 'Role 2 (optional, click to access)'
+        r3_label: 'Role 3 (optional, click to access)'
+        edu_label: 'Education Level'
+        exp_label: 'Experience Level'
+      role_exp:
+        heading: 'explore and select'
+        heading2: 'desired roles'
+        search: 'search'
+        error: 'You have all ready selected this role.'
+        browse: 'browse'
+        cluster: 'Career Cluster'
+        content: '(Click below to begin browsing)'
+        path: 'Career Paths'
+        content1: '(Click one to access roles)'
+        role: 'Desired Role'
+        content2: '(click on any role for more info)'
+        message: 'Your search returned '
+      degree:
+        heading: 'DEGREES'
+        contentL1: "Select the highest degree from a program you've"
+        contentL2: 'completed or in which you are currently enrolled.'
+        label1: 'Degree'
+        label2: 'Status'
+        drop_down1: 'Expected (enrolled)'
+        drop_down2: 'Completed'
+      coll_uni:
+        heading: 'COLLEGES AND UNIVERSITIES '
+        heading2: '(optional)'
+        contentL1: 'Select ALL the schools from which you earned a degree '
+        contentL2: 'including those in which you are currently enrolled.'
+      language:
+        heading: 'LANGUAGES'
+        content: 'Select at least one language and your degree of fluency in each.'
+        label1: 'Language'
+        label2: 'Level of Fluency'
+        conv: 'Conversational'
+        adv: 'Advanced'
+      license_cert:
+        heading: 'Licenses and Certifications '
+        heading2: '(optional)'
+        content: 'Must be active and current. Add as many as needed.'
+      advanced_pop_up:
+        heading: 'ARE YOU SURE?'
+        check_box: "Don't show this again"
+        contentL1: 'By selecting '
+        contentL2: 'advanced'
+        contentL3: ', you must be able to speak, read, write'
+        contentL4: 'and translate the selected language in a business environment.'
+      armed_force:
+        heading: 'U.S. ARMED FORCES'
+        contentL1: 'Are you a Veteran of the U.S Armed Forces or will you become one soon?'
+        yes: 'Yes'
+        no: 'No'
+    basics:
+      heading: 'BASICS'
+      no1: '1'
+      no2: '2'
+      interested_in:
+        heading: "I'M INTERESTED IN..."
+        contentL1: 'Check all that apply.'
+        contentL2: 'Please select at least one type.'
+      location:
+        heading: 'DESIRED LOCATION'
+        label: 'City / Location'
+        any: 'Any'
+        error: 'Select a desired location.'
+        error2: 'Select a location from the list.'
+      salary:
+        heading: 'DESIRED ANNUAL COMPENSATION ($000)'
+        contentL1: 'NOT Including commissions and bonuses.'
+        contentL2: ' per year'
+        contentL3: 'Annual Compensation'
+        contentL4: 'Hourly Pay Equivalent'
+        contentL5: 'Assumes 7 hours per day, 5 days per week, 48 weeks per year'
+    congratulations:
+      heading: 'CONGRATULATIONS!'
+      heading2: 'PAIRING PROFILE COMPLETED'
+      content: 'Upon activating your account in the next section, you will gain immediate access to your career forward guide and the jobs database. '
+  site_activation:
+    header: 'SITE ACTIVATION'
+    headerP1: 'SITE'
+    headerP2: 'ACTIVATION'
+    select_payment:
+      heading: 'Select your payment method'
+      contentL1: 'Enter your promo or gift code before'
+      contentL2: 'selecting a payment method to make'
+      contentL3: 'sure your discount is applied properly.'
+    site_act_fee: 'Site Activation Fee'
+    discount: 'Discount or Gift'
+    subtotal: 'Subtotal'
+    tax: 'Tax (if applicable)'
+    total: 'TOTAL'
+    symbol: '$'
+    credit: 'Credit (after activation)'
+    paypal: 'SIGN IN TO PAYPAL'
+    promo_label: 'Enter promo or gift code'
+    payment_done:
+      heading: 'Congratulations!'
+      contentL1: 'The Hilo Pairing System is now active and your custom Career forward Guide is available for download.'
+      contentL2: 'A credit for for three (3) Position Details has been added to your account!'
+    promo_confirm:
+      heading: 'CODE CONFIRMED'
+      contentL1: 'Your discount has been '
+      contentL2: 'successfully applied.'
+    wrong_promo:
+      heading: 'CODE NOT RECOGNIZED'
+      contentL1: 'The code you entered is'
+      contentL2: 'either invalid or has expired.'
+  payment_pop_up:
+    heading: 'CREDIT CARD BILLING INFORMATION'
+    error: 'Please check your payment information and try again.'
+    error2: 'Please enter your credit card details and billing address.'
+    contentL1: 'Please select your one-click payment method.'
+    contentL2: 'Please enter your payment details and billing address.'
+    card_no: 'Credit Card Number'
+    mm: 'mm'
+    year: 'yyyy'
+    cvv: 'Security Code'
+    first_name: 'First Name'
+    last_name: 'Last Name'
+    bill_add: 'Billing Address'
+    add1: 'Apt., suite, bldg.'
+    city: 'City'
+    state: 'State'
+    zip: 'Zip Code'
+    area_code: '(Area Code)'
+    tele: 'Telephone'
+    paypal_contentL1: 'You will be redirected to the PayPal'
+    paypal_contentL2: 'website to complete this transaction.'
+    paypal_contentL3: 'Do you wish to proceed?'
+    promo_amt: 'Promo Code Amount'
+    amt_to_pay: 'Amount to be paid'
+    credit_to_use: 'CREDIT TO BE USED: '
+    amt_to_pay: 'AMOUNT TO BE PAID: '
+    master_card: 'Master Card'
+    visa: 'Visa'
+    american_express: 'American Express'
+    discover: 'Discover'
+    paypal: 'PayPal'
+  employer_acc_setup:
+    welcome: 'WELCOME, EMPLOYER'
+    sign_in: 'SIGN IN'
+    heading: 'Site Activation'
+    headingP1: 'Site '
+    headingP2: 'Activation'
+    heading2P1: 'Account '
+    heading2P2: 'Set-Up'
+    single: 'Single User'
+    corporate: 'Corporate'
+    first_name: 'First Name'
+    last_name: 'Last Name'
+    email: 'Email'
+    pwd: 'Create Password'
+    conf_pwd: 'Confirm Password'
+    company: 'Company'
+    contact: 'Contact No.'
+    i_agree: 'I agree to the Hilo'
+    terms: 'Terms of Use'
+    email_error:
+      heading: 'OOPS!'
+      content: 'The email address you entered is invalid or already in use. Please try again.'
+    corp_pop_up:
+      heading: 'WELCOME!'
+      content: 'Thank you for your interest in Hilo! We will get in touch with you shortly to assist in creating your Corporate Account.'
+  emp_site_activation:
+    heading1: 'COMPANY INFORMATION'
+    comp_name: 'Company Name'
+    add1: 'Apt., suite, bldg.'
+    city: 'City / Location'
+    state: 'State'
+    country: 'Country'
+    zip: 'Zip Code'
+    area_code: '(Area Code)'
+    telephone: 'Telephone'
+    website: 'Website'
+    site_active_details:
+      heading: 'SITE ACTIVATION DETAILS'
+      contentL1: 'WHAT DOES IT COST?'
+      contentL2: 'Hilo is currently free for'
+      contentL3: 'employers. There are '
+      contentB1: 'no sign-up'
+      contentB2: 'costs'
+      contentL4: ' or ongoing subscription'
+      contentL5: 'fees. It is even '
+      contentB3: 'free to post a'
+      contentB4: 'position'
+      contentL6: " and utilize Hilo's robust"
+      contentL7: 'set of candidate filtering and'
+      contentL8: 'management tools.'
+      contentL9: 'You also get unlimited access to'
+      contentL10: 'the complete profiles of those'
+      contentL11: 'candidates that interest you'
+      contentL12: 'most.'
+      contentL13: 'WHAT COMES NEXT?'
+      contentL14: 'After creating your account,'
+      contentL15: 'you will be taken to the'
+      contentL16: 'Employer Dashboard.'
+      contentL17: 'To create and post your first'
+      contentL18: 'Position, simply click on the'
+      contentL19: '"+Position" button and follow'
+      contentL20: 'the prompts. Next, review the'
+      contentL21: 'matches in your Dashboard.'
+      contentL22: 'From there you can view any'
+      contentL23: 'candidate’s full profile in'
+      contentL24: 'conjunction with all of your'
+      contentL25: 'positions.'
+  welcome_popup_cs:
+    heading: 'WELCOME TO HILO'
+    contentP1L1: 'EXPLORE'
+    contentP1L2: 'Go directly to '
+    contentP1L3: 'the Hilo Dashboard.'
+    contentP2L1: 'Profile'
+    contentP2L2: 'You must complete '
+    contentP2L3: 'your profile before you '
+    contentP2L4: 'can Indicate Interest.'
+    contentP3L1: 'Download'
+    contentP3L2: 'Download your '
+    contentP3L3: 'Career Forward '
+    contentP3L4: 'Guide right away.'
+  welcome_popup_emp:
+    heading: 'WELCOME TO HILO'
+    contentP1L1: 'EXPLORE'
+    contentP1L2: 'Go directly to '
+    contentP1L3: 'the Hilo Dashboard.'
+    contentP2L1: 'Get Started'
+    contentP2L2: 'Create your very'
+    contentP2L3: 'first Position Profile'
+    contentP2L4: 'and post it online.'
+    contentP3L1: 'About'
+    contentP3L2: 'Read more about'
+    contentP3L3: 'Hilo, Inc. and its'
+    contentP3L4: 'founders.'
+  emp_dashboard_graphs:
+    heading: 'STATISTICS -'
+    pos_view: 'POSITION VIEWS'
+    pos_applied: 'POSITION APPLIED'
+    profile_view: 'PROFILE VIEWS'
+    posting_sharing: 'POSTING SHARING'
+    no_data_pos_view: 'No Position Views data available'
+    no_data_applied: 'No Position Applied data available'
+    no_data_pro_view: 'No Profile Views data available'
+    no_data_sharing: 'No Position Sharing data available'
+    graph_label:
+      previews: 'Previews'
+      detail_view: 'Detail Views'
+      applied: 'Applied'
+      wild_card: 'Wild Card'
+      viewed_profile: 'Viewed Profiles'
+      twitter: 'Twitter'
+      facebook: 'Facebook'
+      linkedin: 'Linkedin'
+      email: 'Email'
+  viewed_profile:
+    heading: 'Viewed Profiles'
+    search_label: 'Enter keywords to search'
+    select_save_search: 'Select saved search'
+    all_sources: 'All Sources'
+    my_sources: 'My Sources'
+    internal_candidate: 'Internal Candidate'
+    search_error: 'No results to filter'
+    columns:
+      position: 'Position'
+      fit: 'Fit'
+      status: 'Status'
+      candidate: 'Candidate'
+      source: 'Source'
+      vet: 'VET'
+      view_profile: 'VIEW PROFILE'
+  on_hover_popup:
+    career_seeker_id:
+      heading: 'CAREER SEEKER ID'
+      contentL1: 'Entering a specific Career Seeker ID allows you to see how well this person fits across all of the positions in your system, regardless of whether or not the  positions are active.'
+      contentL2: 'You must create at least one Category and Position to enable this feature.'
+    cross_reference:
+      heading: 'Cross Reference'
+      contentL1: "Hilo's X-Ref feature allows you to screen any candidate across your "
+      contentL2: 'entire'
+      contentL3: ' inventory of positions, including both active and inactive positions.'
+    vet_popup:
+      heading: 'US ARMED FORCES VETERANS'
+      contentL1: '          Veterans of the United States Armed Forces have a unique understanding of what it means to work well in teams under high pressure. We think that is a skill set worth highlighting.'
+      contentL2: '          You can toggle this column on and off in the Position Overview section of the Position Profile.'
+  emp_popup:
+    position_profile_complete:
+      heading: 'POSITION PROFILE COMPLETE!'
+      contentL1: 'Your Position Profile is INACTIVE until you'
+      contentL2: 'activate it through the Hilo Channel Manager.'
+    folder_delete:
+      content: 'If you delete this folder, you will also delete all the positions contained within it.'
+    cs_id_invalid:
+      heading: 'OOPS!'
+      content: "The Career Seeker ID you've entered is invalid."
+    adv_language:
+      heading: 'ARE YOU SURE?'
+      check_box: "Don't show this again"
+      contentL1: 'By selecting '
+      contentL1B: 'advanced'
+      contentL2: ', you must be able to speak, read, write '
+      contentL3: 'and translate the selected language in a business environment.'
+    save_changes:
+      heading: 'CONTINUE WITHOUT SAVING?'
+      content: 'You have unsaved changes. Click save or continue without saving. Press escape or click on the red x to cancel and return to the previous screen.'
+    add_pos_to:
+      heading: 'ASSIGN THIS POSITION TO A FOLDER'
+      label: 'Add a new Folder'
+  emp_left_menu:
+    active_popup: 'ACTIVE POSITIONS'
+    inactive_popup: 'INACTIVE POSITIONS'
+    internal_popup: 'INTERNAL POSITIONS'
+    active: 'Active'
+    internal: 'Internal'
+    inactive: 'Inactive'
+    folder: '+ Folder'
+    position: '+ Position'
+    all_position: 'ALL POSITIONS'
+    my_position: 'MY POSITIONS'
+    reassign: 'REASSIGN'
+  position_overview:
+    title: 'POSITION OVERVIEW'
+    label: 'Position Overview'
+    completed: 'Completed'
+    incomplete: 'Incomplete'
+    hiring_compnay:
+      heading: 'Hiring Company'
+      content: 'Are you hiring on behalf of...'
+      own: 'your own company?'
+      thrid_party: 'a third-party or subsidiary?'
+      label: 'Enter Hiring Company Name'
+      pop_up:
+        heading: 'HIRING COMPANY'
+        contentL1: 'If you are hiring on the behalf of your own company, simply check the appropriate circle.'
+        contentL2: 'If you are acting on behalf of third party or subsidiary, per our Terms of Use, you '
+        contentL2B: 'Must'
+        contentL3: ' select the appropriate circle and enter the name of the hiring company.'
+    websites:
+      heading: 'Company Websites'
+      optional: '(Optional)'
+      label1: 'www.website.com'
+      label2: 'Website Title'
+    position_info:
+      heading: 'Position Information'
+      pos_title: 'Position Title'
+      type: 'Position Type'
+      in_office: 'In Office'
+      virtual: 'Virtual'
+      street_add: 'Position Street Address'
+      city: 'City / Location'
+      state: 'State'
+      zip: 'Zip/Postal Code (optional)'
+      country: 'Country'
+      pop_up:
+        heading: 'POSITION INFORMATION'
+        contentL1: 'First, enter the position title and select the appropriate position type from the pull down menu.'
+        contentL2: 'Next, choose '
+        contentL2B: 'IN OFFICE'
+        contentL3: " if the candidate needs to live locally or with in commuting distance. Then, enter the position's complete physical address, which will appear as an interactive map on your Position Details."
+        contentL4: 'Otherwise, choose '
+        contentL4B: 'VIRTUAL'
+        contentL5: ' if the position is entirely location independent and the candidate can literally live anywhere.'
+    responsibilities:
+      heading: 'Daily Responsibilities'
+      char_remaining: 'characters remaining: 60'
+      label1: 'Responsibility'
+      label2: '(optional)'
+    us_armed_force:
+      heading: 'U. S. ARMED FORCES VETERANS'
+      content: 'When reviewing candidates for this position, would you like to highlight  Veterans of U. S. Armed Forces?'
+      yes: 'Yes'
+      no: 'No'
+    compensation:
+      heading: 'Top First-Year Compensation ($000s)'
+      content: 'Including estimated commissions and bonuses'
+      content2: ' per year'
+      annual_comp: 'Annual Compensation'
+      hourly: 'Hourly Pay Equivalent'
+      content3: 'Assume 7 hours per day, 5 days per week, 48 weeks per year'
+    pos_preview:
+      heading: 'Position Description'
+      char_remaining: 'characters remaining: '
+      label: 'Use this space to give an introduction to the position, department, company, etc.'
+    # pos_detail:
+    #   heading: 'Position Detail Description'
+    #   char_remaining: 'characters remaining: '
+    #   label: 'This additional text will be view-able as part of the paid Position Details. Use this space to expand on the information presented in the Position Preview Description.'
+    attachment:
+      heading: 'Attachments '
+      optional: '(Optional)'
+      type: 'DOC, DOCX, PDF'
+      size: '5MB MAX'
+  my_hilo:
+    heading: 'My Hilo'
+    emp_view: 'Employer Views'
+    liked: 'Liked'
+    following: 'Following'
+    history: 'History'
+  downloads:
+    career_forward_guide: 'Career Forward Guide'
+    strength_behaviour_report: 'Strength Behavior Report'
+    team_building_guide: 'Team Building Guide'
+  search_js:
+    text_title: 'Enter keywords to search'
+    no_results_text: 'No results to filter'
+  credit_label: 'CREDIT:'
+  footer_js:
+    gift_hilo: 'Gift Hilo'
+    facebook: 'Facebook'
+    twitter: 'Twitter'
+    linkedin: 'Linked In'
+    mail: 'Mail'
+    company: 'Company'
+    term_of_use: 'Terms of Use'
+    privacy_policy: 'Privacy Policy'
+    birkman_permission_msg: 'Adapted and used with permission of Birkman International, Inc.'
+  loading_text: 'Loading ...'
+  opportunities:
+    table_header:
+      fit: 'Fit'
+      company: 'Company'
+      position: 'Position'
+      location: 'Location'
+      remaining: 'Remaining'
+      status: 'Status'
+    table_content:
+      today: 'Today'
+      days: 'Days'
+      no_setup_text1: "We're setting up your account, this may take a few minutes."
+      no_setup_text2: 'Please check back after some time.'
+    preview_popup:
+      on_behalf: 'ON BEHALF OF:'
+      virtual_job_text1: 'This role is virtual and can be'
+      virtual_job_text2: 'performed from anywhere.'
+      best: 'BEST'
+      better: 'BETTER'
+      good: 'GOOD'
+      wild_card: 'WILD CARD'
+      payment:
+        one_click_header: 'BEGIN ONE-CLICK PAYMENT SESSION?'
+        email: 'Email'
+        password: 'Password'
+        modify_payment_method: 'Modify payment method'
+        credit_text: 'CREDIT'
+        remaining_text: 'REMAINING'
+    detailed_popup:
+      on_behalf: 'ON BEHALF OF:'
+      virtual_job_text1: 'This role is virtual and can be'
+      virtual_job_text2: 'performed from anywhere.'
+      daily_responsibilties_text: 'Daily Responsibilities'
+      overview_text: 'OVERVIEW'
+      additional_text: 'ADDITIONAL'
+      role_text: 'ROLES'
+      degree_text: 'DEGREE'
+      desired_text: 'desired'
+      required_text: 'required'
+      license_certificate_text: 'LICENSES + CERTIFICATIONS'
+      language_text: 'Languages'
+      best: 'BEST'
+      better: 'BETTER'
+      good: 'GOOD'
+      wild_card: 'WILD CARD'
+      you_label: 'You'
+      position_label: 'Position'
+      work_env_header: 'Work Environment'
+      company_header: 'Company'
+      payment:
+        one_click_header: 'BEGIN ONE-CLICK PAYMENT SESSION?'
+        email: 'Email'
+        password: 'Password'
+        modify_payment_method: 'Modify payment method'
+        credit_text: 'CREDIT'
+        remaining_text: 'REMAINING'
+        error_popup:
+          heading: 'OOPS!'
+          free_text: 'The email address or password you entered is invalid. Please try again.'
+  career_code_popup:
+    heading: 'CAREER CODE'
+    free_text: 'Enter a Career Code to access its free Position Preview.'
+    career_code: 'Career Code'
+    error_popup:
+      heading: 'OOPS!'
+      free_text: 'The Career Code you entered is invalid. Please try again.'
+  search_popup:
+    heading: 'SAVE SEARCH'
+    search_name: 'Search Name'
+  gift_hilo:
+    popup_first:
+      heading: 'GIFT HILO'
+      msg_text1: 'To give a $20 Hilo gift certificate, simply fill out the information to the right.'
+      msg_text2: 'You will be able to review your order and make any necessary changes before completing your purchase.'
+      msg_text3: "You will receive a confirmation email receipt of purchase and your gift(s) will be emailed directly to the recipent's email address(es)."
+      sender_name_text: "Sender's Name"
+      sender_email_text: "Sender's Emai"
+      recipient_name_text: "Recipient's Name"
+      recipient_email_text: "Recipient's Email"
+      verify_recipient_email_text: "Verify Recipient's Email"
+      personal_msg_text: 'Personal Message'
+    popup_second:
+      heading: 'REVIEW YOUR PURCHASE'
+      msg_text1: 'Please review your gift for accuracy.'
+      msg_text2: 'Click "Back" to make any necessary changes. Click "Checkout" when you are satisfied that all the information is correct.'
+      msg_text3: 'You will then be asked to enter your payment information in order to complete your gift purchase.'
+      gift_text: 'Gift'
+      qty_text: 'Qty'
+      unit_price_text: 'Unit Price'
+      subtotal_text: 'Subtotal'
+      site_activation_text: 'Site Activation'
+      subtotal_text: 'Subtotal:'
+      tax_text: 'Tax:'
+      order_total_text: 'Order Total:'
+      payment:
+        one_click_header: 'AUTHORIZE GIFT PURCHASE?'
+        email: 'Email'
+        password: 'Password'
+        modify_payment_method: 'Modify payment method'
+        credit_text: 'CREDIT'
+        remaining_text: 'REMAINING'
+        error_popup:
+          heading: 'OOPS!'
+          free_text: 'The email address or password you entered is invalid. Please try again.'
+        success_popup:
+          heading: 'THANK YOU!'
+          free_text: 'You have completed your gift purchase. You and the gift recipient will receive confirmation email shortly.'
+    complete_purchase_one_click_gift_popup:
+      heading: 'COMPLETE THIS PURCHASE?'
+      free_text1: 'You did not have enough credit to cover this purchase.'
+      free_text2: 'In order to complete this transaction, your existing'
+      free_text3: 'one-click payment method to be charged'
+      modify_payment: 'MODIFY PAYMENT'
+    complete_purchase_no_one_click_gift:
+      heading: 'COMPLETE THIS PURCHASE?'
+      free_text1: 'You did not have enough credit to cover this purchase.'
+      free_text2: 'In order to complete this transaction, you must create'
+      free_text3: 'a one-click payment method to be charged'
+    gift_hilo_one_click_signin_failure:
+      heading: 'OOPS!'
+      free_text: 'The email address or password you entered is invalid. Please try again.'
+    gift_hilo_signin_failure:
+      heading: 'OOPS!'
+      free_text: 'The email address or password you entered is invalid. Please try again.'
+    gift_hilo_failure:
+      heading: 'OOPS!'
+      free_text: 'The payment details you entered are invalid. Please check your information and try again.'
+    checkout_billing_popup:
+      heading: 'CHECKOUT - BILLING INFORMATION'
+      left_msg1: 'Please enter your payment details.'
+      left_msg2: 'Click "Back" to make any necessary changes to your order. Click "Buy Gift" when you are satisfied that all your information is correct.'
+      select_payment_text: 'Select your payment method or'
+      sign_in_text: 'SIGN IN'
+      card_no: 'Credit Card Number'
+      mm: 'mm'
+      year: 'yyyy'
+      cvv: 'Security Code'
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      bill_add: 'Billing Address'
+      add1: 'Apt., suite, bldg.'
+      city: 'City'
+      state: 'State'
+      zip: 'Zip Code'
+      area_code: '(Area Code)'
+      tele: 'Telephone'
+      paypal_contentL1: 'You will be redirected to the PayPal'
+      paypal_contentL2: 'website to complete this transaction.'
+      paypal_contentL3: 'Do you wish to proceed?'
+      email: 'Email'
+      hilo_password: 'Hilo Password'
+      non_reg_oneClick:
+        heading: 'AUTHORIZE GIFT PURCHASE?'
+        email: 'Email'
+        password: 'Password'
+      gift_hilo_error:
+        heading: 'OOPS!'
+        free_text: 'The payment details you entered are invalid. Please check your information and try again.'
+  following_confirmation:
+    heading: 'ARE YOU SURE?'
+    free_text1: 'This position is being posted on behalf of'
+    free_text2: 'by'
+    free_text3: 'By clicking "Continue" you will be notified of all the opportunities being offered by the'
+    confirmation_msg: "Don't show this again"
+  beta_access:
+    heading: 'DESIRED ROLE'
+    free_text: 'Pick up to three Desired Roles to help narrow in on type of work you want to do going forward.
+              Instead of choosing from arbitrary job titles that change from one employer to another, Hilo
+              relies upon objective categorizations provided by the US Bureau of Labor Statistics. This
+              helps us improve the accuracy of your matches by creating a standard used by both you and employers.'
+  beta_access3:
+    heading: 'DESIRED LOCATION'
+    free_text: 'Hilo never excludes you from pairing results based on how far away you live from a job.
+              However, the closer you live to a position or more flexible you are about location,
+              the better your fit.'
+  status_details:
+    heading: 'STATUS LIGHTS'
+    free_text1: 'You have already purchased'
+    free_text2: 'Position Details'
+    free_text3: 'for this opportunity.'
+    free_text4: 'You have already'
+    free_text5: 'Applied'
+    free_text6: 'to this opportunity.'
+  auth_popup:
+    heading: 'CONFIRM ID TO ACCESS ACCOUNT'
+    hilo_email: 'Hilo Email'
+    hilo_password: 'Hilo Password'
+  auth_error:
+    heading: 'OOPS!'
+    free_text: 'The email address or password you entered is invalid. Please try again.'
+  job_not_active:
+    heading: 'OOPS!'
+    free_text: 'This job is currently inactive or does not exist.'
+  company_not_active:
+    heading: 'OOPS!'
+    free_text: 'This company does not exist. Please check the URL.'
+  email_not_exist:
+    heading: 'OOPS!'
+    free_text: 'This career seeker does not exist. Please check the URL.'
+  user_suspended:
+    heading: 'OOPS!'
+    free_text: 'You account has temporarily been suspended. Please contact your manager.'
+  user_deleted:
+    heading: 'OOPS!'
+    free_text: 'You account has permanently been deleted. Please contact your manager.'
+  xref_candidate:
+    heading: 'LOG IN'
+    free_text: 'Please log in to view details.'
+  complete_purchase_no_one_click:
+    heading: 'COMPLETE THIS PURCHASE?'
+    free_text1: 'You did not have enough credit to cover this purchase.'
+    free_text2: 'In order to complete this transaction, you must create'
+    free_text3: 'a one-click payment method to be charged'
+  complete_purchase_one_click:
+    heading: 'COMPLETE THIS PURCHASE?'
+    free_text1: 'You did not have enough credit to cover this purchase.'
+    free_text2: 'In order to complete this transaction, your existing'
+    free_text3: 'one-click payment method to be charged'
+    modify_payment: 'MODIFY PAYMENT'
+  legacy_data_popup:
+    heading: 'Welcome back!'
+    free_text: "We've made some important upgrades to our system. Please take a moment to revisit your credentials section to update your information. You can do this later at any time, however until you do your position matches are not likely to give you accurate results."
+  not_authorized:
+    heading: 'THIS JOB IS CURRENTLY INACTIVE!'
+  notification_js:
+    heading: 'NOTIFICATIONS'
+    view_all: 'VIEW ALL'
+  old_pass_mismatch:
+    heading: 'OOPS!'
+    free_text: 'Please verify your old password.'
+  update_emailexist_error_popup:
+    heading: 'OOPS!'
+    free_text: 'That email address is already in use. Please try again.'
+  file_upload_ie:
+    heading: 'CHOOSE FILE TO UPLOAD'
+  pdf_error:
+    heading: 'SORRY!'
+    free_text: 'Birkman report is still under processing.'
+  shared:
+    success_sharing_msg:
+      heading: 'SUCCESS'
+    job_not_active_sharing_msg:
+      heading: 'OOPS!'
+    success_sharing_hilo_msg:
+      heading: 'SUCCESS'
+  cant_find_promo:
+    heading: "CAN'T FIND YOUR PROMO CODE?"
+    free_text: "We'll send you an email with your promotional access code."
+    email: 'Email'
+  beta_error:
+    heading: 'OOPS!'
+    free_text1: 'That email address is invalid'
+    free_text2: 'or already in use. Please try again.'
+  beta_success:
+    heading: 'ACCESS GRANTED!'
+    free_text1: 'A FREE site activation code has been sent to your email.'
+    free_text2: 'You need to enter this code in the final step of this wizard.'
+  are_you_sure_popup:
+    heading: 'CONTINUE WITHOUT SAVING?'
+    free_text1: 'You have unsaved changes. Click save or continue without saving. Press escape or click on the red x to cancel and return to the previous screen.'
+  skills_ajax:
+    cert_tooltip:
+      license: 'License'
+      certification: 'Certification'
+  ajax_error:
+    heading: 'OOPS!'
+    free_text: 'An error occured opening the popup. Please try again!'
+  pdf_ajax_error:
+    heading: 'OOPS!'
+    free_text: 'An error occured in downloading your file. Please try again!'
+  ajax_payment_error:
+    heading: 'OOPS!'
+    free_text: 'An error occured in making your payment. Please try again!'
+  congratulation_popup:
+    heading: 'CONGRATULATIONS!'
+    free_text: 'You have applied to this opportunity. The system will notify you once the employer takes action or the posting expires. Good luck!'
+    free_text2: 'For this position, the employer has requested a direct application. You can apply directly by clicking on Apply Here. Good luck!'
+    cover_letter: 'Cover Letter'
+    char_remaining: 'characters remaining:'
+    cover_letter_text: 'Add a personalized introduction that will accompany your application (optional)'
+  job_expiry_error:
+    free_text1: 'This posting will expire soon.'
+    free_text2: 'Do you want to continue?'
+  account:
+    header_welcome: 'WELCOME'
+    header_career_code: 'CAREER CODE'
+    header_signout: 'SIGNOUT'
+    tab_dashboard: 'Dashboard'
+    tab_opportunities: 'Opportunities'
+    tab_profile: 'Profile'
+    tab_account: 'Account'
+    pairing_profile:
+      intro_text: 'Intro'
+      personality_text: 'Personality'
+      credentials_text: 'Credentials'
+      basics_text: 'Basics'
+      intro:
+        profile_picture:
+          picture_text: 'Picture'
+          jpg_text: 'JPG'
+          max_text: '1MB Max'
+          delete_text: 'Delete'
+          change_text: 'Change'
+        contact_info:
+          heading: 'Contact Information'
+          preferred_text: 'Preferred'
+          area_code: '(Area Code)'
+          telephone: 'Telephone'
+          contact_email: 'Contact Email'
+        profile_resume:
+          heading: '/Curriculum Vitae'
+          format: 'DOCX | DOC | PDF | TXT'
+          size: '1 MB Max'
+          resume_text: 'Resume'
+          basic_text1: 'You have not yet'
+          basic_text2: 'uploaded your resume.'
+          add_text: '+Add'
+          resume_file_name_text: 'resume_file_name'
+          remove_text: 'remove'
+          change_text: 'Change'
+        online_presence:
+          heading: 'Online Presence (optional)'
+          website_text: 'www.website.com'
+          website_title: 'Website Title'
+          content: 'Having a strong, cohesive online presence can be a strong differentiator for career seekers. We suggest that you include links to personal websites, blogs, portfolios, professional profiles, etc.'
+        summary:
+          heading: 'Summary'
+          char_remaining: 'characters remaining:'
+          block_text: 'Use this space for a short professional introduction.'
+          add_text: '+Add'
+          veteran_text: 'US Armed Forces Veteran'
+          yes_text: 'Yes'
+          no_text: 'No'
+        video:
+          heading1: 'Video Introduction'
+          heading2: '(optional)'
+          add_text: '+Add'
+          change_text: 'Change'
+        employer_view:
+          heading1: 'JOB TITLE - POSITION TYPE'
+          heading2: 'TIME REMAINING'
+          job_code_text: 'JOB CODE'
+          desired_role_text: 'DESIRED ROLES'
+          highest_degree_text: 'HIGHEST DEGREE'
+          lic_cert_text: 'LICENSES + CERTIFICATIONS'
+          lic_text: 'License -'
+          cert_text: 'Certification -'
+          see_all_text: 'see all...'
+          lang_text: 'LANGUAGES'
+          cv_text: '/CV'
+          resume_text: 'Resume'
+          download_text: 'Download'
+          best: 'BEST'
+          better: 'BETTER'
+          good: 'GOOD'
+          wild_card: 'WILD CARD'
+          you_text: 'YOU'
+          position_text: 'POSITION'
+          communicator_text: 'COMMUNICATOR'
+          work_env_text: 'WORK ENVIRONMENT'
+          basic_text: 'BASICS'
+    account_info:
+      personal_info:
+        heading: 'PERSONAL INFORMATION'
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        email: 'Email'
+      gift_card:
+        heading: 'GIFT CARDS + PROMO CODES'
+        credit_remain: 'CREDIT REMAINING:'
+        view_gift_link: 'view gift/promo history'
+        gift_code_enter: 'Enter gift or promotional code'
+      one_click_payment:
+        heading: 'ONE-CLICK PAYMENT SETTINGS'
+        trans_history: 'view transaction history'
+        no_set_text1: 'You will be asked to configure your one-click payment method'
+        no_set_text2: 'the first time you attempt to make a purchase.'
+        set_text1: 'You have configured'
+        set_text2: 'as your one-click payment method.'
+        set_text3: 'You can modify your one-click payment method the next time you'
+        set_text4: 'attempt to make a purchase.'
+      change_password:
+        heading: 'CHANGE PASSWORD'
+        old_password: 'Old Password'
+        new_password: 'New Password'
+        confirm_new_password: 'Confirm New Password'
+      alerts_notification:
+        heading: 'ALERTS + NOTIFICATIONS'
+        alert_threshold: 'Alert Threshold'
+        good_fit: 'Good Fits'
+        better_fit: 'Better Fits'
+        best_fit: 'Best Fits'
+        alerts_notification_sub: 'Alert Notification'
+        on_event: 'On Event'
+        daily: 'Daily'
+        weekly: 'Weekly'
+        off: 'Off'
+      delete_account: 'Delete my account'
+  employer_header:
+    account: 'ACCOUNT'
+    user_admin: 'USER ADMIN'
+    signout: 'SIGNOUT'
+    dashboard: 'Dashboard'
+    company_channels: 'Company Channels'
+    candidate_pool: 'Candidates'
+    position_profile: 'Position Profile'
+    channel_manager: 'Channel Manager'
+  company_channels:
+    clicks_per_channel: 'Clicks per Channel'
+    posting_options:
+      header: 'Posting Options'
+      hilo: ''
+      url:
+        header: 'URL'
+        content: "Post this unique URL to bring candidates through Hilo. Use on your company's career page, intranet, job boards, emails, etc."
+      feed:
+        header: 'FEED'
+        content: "Embedded this code on any web site for a feed of your company's active jobs."
+      facebook:
+        contentL11: 'Re-post to your'
+        contentL12: 'Share on your'
+        contentL2: "company's Facebook page."
+      linkedin:
+        content: ''
+        invitation_message: 'has teamed up with Hilo to bring you invitation-only membership to an exclusive new talent marketplace. Start your journey today!'
+        free_membership_message: 'has teamed up with Hilo to bring you FREE membership to an exclusive new talent marketplace. Start your journey today!'
+        discounted_membership_message: 'has teamed up with Hilo to bring you discounted membership to an exclusive new talent marketplace. Start your journey today!'
+      twitter:
+        content: ''
+        invitation_message: 'has teamed up with Hilo to bring you invitation-only membership.'
+        free_membership_message: 'has teamed up with Hilo to bring you FREE membership.'
+        discounted_membership_message: 'has teamed up with Hilo to bring you discounted membership.'
+    internal_candidates:
+      title: 'Internal Candidates'
+      url:
+        header: 'URL'
+        content: "Post this unique URL to bring candidates through Hilo. Use on your company's career page, intranet, job boards, emails, etc."
+      hilo_subscription:
+        header: 'HILO SUBSCRIPTION'
+        content: "Setup your company's domains. Candidates that register with an email address of the below domain will be considered as your internal candidates."
+      invite:
+        header: 'INVITE'
+        or: 'OR'
+        content: 'Send invitations using a CSV file of your candidates'
+        upload: 'Upload'
+  position_profile:
+    work_environment_and_role:
+      title: 'WORK ENVIRONMENT AND ROLE'
+      label: 'Work Environment and role'
+      complete: 'Completed'
+      incomplete: 'Incomplete'
+      incomplete_message: 'SAVED Incomplete fields are shown in red.'
+      ideal_work_environment:
+        title: 'Ideal Work Environment'
+        contentL1: 'How much would you like your work environment'
+        contentL2: 'to stress...'
+        none: 'None'
+        slightly: 'Slightly'
+        moderately: 'Moderately'
+        greatly: 'Greatly'
+        almost_always: 'Almost Always'
+        work_env_complete:
+          work_environments: 'work environments...'
+          offer: 'Offer:'
+          minimize: 'Minimize:'
+      role:
+        title: 'Role'
+        contentL1: 'To what extent does this'
+        contentL2: 'involve...'
+        none: 'None'
+        slightly: 'Slightly'
+        moderately: 'Moderately'
+        greatly: 'Greatly'
+        almost_always: 'Almost Always'
+        role_complete:
+          roles: 'roles...'
+          offer: 'Offer:'
+          minimize: 'Minimize:'
+    credentials:
+      title: 'CREDENTIALS'
+      label: 'Credentials'
+      complete: 'Completed'
+      incomplete: 'Incomplete'
+      roles:
+        title: 'Roles'
+        unranked: 'Unranked'
+        content: 'Select up to three roles that best describe this position.'
+      desired_education:
+        title: 'Desired Education'
+        optional: 'optional'
+        contentL1: 'Select the minimum degree for this position.'
+        contentL2: 'Indicate whether the degree is desired or required.'
+        label: 'Begin typing to access the database.'
+        desired: 'Desired'
+        required: 'Required'
+      colleges_and_universities:
+        title: 'Preferred Colleges and Universities'
+        optional: 'optional'
+        contentL1: 'Add those schools from which you prefer to hire.'
+        contentL2: 'Candidate from these institution will be ranked higher than otherwise identical people.'
+        label: 'Begin typing to access the database.'
+        add_another: 'Add Another'
+      licenses:
+        title: 'Licenses and Certifications'
+        optional: 'optional'
+        contentL1: 'Add as many as needed for this particular position.'
+        contentL2: 'Indicate whether each is desired or required.'
+        label: 'Begin typing to access the database.'
+        desired: 'Desired'
+        required: 'Required'
+        add_another: 'Add Another'
+      languages:
+        title: 'Languages'
+        contentL1: 'Select at least one language and level of fluency for each.'
+        contentL2: 'Indicate whether each language is desired or required.'
+        add: 'Add'
+        language_label: 'Language'
+        fluency_label: 'Level of Fluency'
+        conversational: 'Conversational'
+        advanced: 'Advanced'
+        desired: 'Desired'
+        required: 'Required'
+        add_another: 'Add Another'
+    posting_preview:
+      title: 'POSTING PREVIEW'
+      label: 'Posting Preview'
+      complete: 'Completed'
+      incomplete: 'Incomplete'
+      position_preview:
+        title: 'Position Preview'
+        contentL1: 'See what your free Position Preview will look like to a'
+        contentL2: 'Career Seeker and make the desired changes before activating.'
+      position_details:
+        title: 'Position Details'
+        contentL1: 'See what your paid Position Details will look like to a'
+        contentL2: 'Career Seeker and make the desired changes before activating.'
+      preview_popup:
+        hiring_company: 'ON BEHALF OF:'
+        time_remaining: 'TIME REMAINING'
+        virtual_locationL1: 'This role is virtual and can be'
+        virtual_locationL2: 'performed from anywhere.'
+        best: 'BEST'
+        better: 'BETTER'
+        good: 'GOOD'
+        wild_card: 'WILD CARD'
+        facebook_title: 'Facebook'
+        linkedin_title: 'Linked In'
+        twitter_title: 'Twitter'
+        mail_title: 'Mail'
+        close: 'Close'
+      detailed_popup:
+        hiring_company: 'ON BEHALF OF:'
+        time_remaining: 'TIME REMAINING'
+        virtual_locationL1: 'This role is virtual and can be'
+        virtual_locationL2: 'performed from anywhere.'
+        daily_responsibilities: 'Daily Responsibilities'
+        overview: 'OVERVIEW'
+        additional: 'ADDITIONAL'
+        roles: 'ROLES'
+        degree:
+          title: 'DEGREE'
+          desired: 'desired'
+          required: 'required'
+        licenses:
+          title: 'LICENSES + CERTIFICATIONS'
+          desired: 'desired'
+          required: 'required'
+        languages: 'Languages'
+        best: 'BEST'
+        better: 'BETTER'
+        good: 'GOOD'
+        wild_card: 'WILD CARD'
+        role: 'Role'
+        seeker: 'Seeker'
+        communicator: 'COMMUNICATOR'
+        position: 'Position'
+        work_environment: 'Work Environment'
+        company: 'Company'
+        facebook_title: 'Facebook'
+        linkedin_title: 'Linked In'
+        twitter_title: 'Twitter'
+        mail_title: 'Mail'
+        close: 'Close'
+  employer_account:
+    account_information:
+      title: 'ACCOUNT INFORMATION'
+      first_name: 'First Name'
+      last_name: 'Last Name'
+      email: 'Email'
+      old_password: 'Old Password'
+      new_password: 'New Password'
+      confirm_password: 'Confirm New Password'
+    company:
+      title: 'COMPANY'
+      name: 'Company Name'
+      appartment: 'Apt., suite, bldg.'
+      location: 'City / Location'
+      state: 'State'
+      country: 'Country'
+      zip_code: 'Zip Code (optional)'
+      area_code: '(Area Code)'
+      telephone: 'Telephone'
+      website: 'Website'
+    payment_details:
+      title: 'PAYMENT DETAILS'
+      transcation_history: 'VIEW TRANSACTION HISTORY'
+      contentL1: 'You will be asked to configure your one-click payment method'
+      contentL2: 'the first time you attempt to make a purchase.'
+      payment_configuration: 'You have configured'
+      payment_configurationL1: 'as your one-click payment method.'
+      payment_configurationL2: 'You can modify your one-click payment method the next time you'
+      payment_configurationL3: 'attempt to make a purchase.'
+      subordinate_message: 'Sub-User accounts are not authorized to view one-click payment configuration details.'
+      transcation_history_popup:
+        title: 'TRANSACTION HISTORY'
+        have_question: 'HAVE A QUESTION?'
+        date: 'Date'
+        user: 'User'
+        job_code: 'Job Code'
+        cs_id: 'CS ID'
+        amount: 'Amount'
+        close: 'DOWNLOAD'
+        download: 'Close'
+    eeo_compliance:
+      title: 'EEO COMPLIANCE'
+      photos_videos: 'Photos + Videos'
+      on: 'On'
+      off: 'Off'
+      popup:
+        title: 'EEO COMPLIANCE'
+        content: "US Federal Equal Employment Opportunity (EEO) Laws prohibit discrimination while hiring candidates. You might want to turn ON/OFF graphical content on the Career Seeker profile for your company's users in accordance with your company's policy."
+        close: 'Close'
+    alerts_and_notifications:
+      title: 'ALERTS + NOTIFICATIONS'
+      threshold: 'Alert Threshold'
+      good_fit: 'Good Fits'
+      better_fit: 'Better Fits'
+      best_fit: 'Best Fits'
+      alert_notifications:
+        title: 'Alert Notification'
+        on_event: 'On Event'
+        daily: 'Daily'
+        weekly: 'Weekly'
+        off: 'Off'
+    delete_my_account: 'Delete my account'
+  user_admin:
+    accounts:
+      title: 'User Admin - Accounts'
+      content: 'Create new users and set their spending limits.'
+      exapnd_all: 'Expand All'
+      collapse_all: ''
+      add_user: 'ADD USER'
+      spending_limit_exceeded: 'Your team has exceeded their spending limit. You will not be able to make any payments until your spending limit is increased.'
+      user_admin_boxes:
+        spending_limit: 'Spending Limit'
+        no: 'No'
+        yes: 'Yes'
+        monthly_auto_renew: 'Monthly Auto Renew'
+      sample_tab:
+        sample_user_1: 'Sample User 1'
+        sample_user_2: 'Sample User 2'
+        sample_user_3: 'Sample User 3'
+        sample_user_4: 'Sample User 4'
+        spending_limit: 'Spending Limit'
+        yes: 'Yes'
+        no: 'No'
+        monthly_auto_renew: 'Monthly Auto Renew'
+      user_calculation:
+        add_user: 'ADD USER'
+        spending_limit_exceededL1: 'You have exceeded your spending limit!'
+        spending_limit_exceededL2: 'Please reallocate funds.'
+        spending_limit: 'Spending Limit:'
+        allocated: '- Allocated:'
+        payments: '- Payments:'
+        remaining: 'Remaining:'
+      add_new_user:
+        title: 'New User'
+        first_name: 'First Name'
+        last_name: 'Last Name'
+        email: 'Email'
+    position_reassign:
+      title: 'User Admin - Position Reassign'
+      content: 'Drag and drop positions or folders from one user to another. If you want to move them to new folders, create those folders first, and then drag the positions you want into those folders.'
+      expand_all: 'Expand All'
+      sample_data_messageL1: 'This feature is available for Corporate Accounts (Multi-User).'
+      sample_data_messageL2: 'To upgrade to a Corporate Accounts please'
+      user_admin_dropdown:
+        title: 'Select a user'
+        me: 'ME'
+      sample_tab:
+        sample_user_1: 'Sample User 1'
+        sample_user_2: 'Sample User 2'
+        sample_user_3: 'Sample User 3'
+        folder: 'Folder'
+        folder_name: 'Folder Name'
+        position_id: 'Position (Position ID)'
+    team_map:
+      title: 'User Admin - Team Map'
+      content: 'Drag and drop users to reconfigure your team.'
+      expand_all: 'Expand All'
+      full_screen: 'Full Screen'
+      sample_team_map:
+        me: 'ME'
+        sub_user_1: 'Sub-User 1'
+        sub_user_a: 'Sub-User A'
+        sub_user_b: 'Sub-User B'
+        sub_user_2: 'Sub-User 2'
+        sub_user_3: 'Sub-User 3'
+  employer_one_click_payment:
+    title: 'BEGIN ONE-CLICK PAYMENT SESSION?'
+    modify_payment: 'Modify payment method'
+    email: 'Email'
+    hilo_password: 'Hilo Password'
+    close: 'Close'
+  login_failure_popup:
+    title: 'OOPS!'
+    content: 'The email address or password you entered is invalid. Please try again.'
+    close: 'Close'
+  cross_reference_field:
+    career_seeker_id: 'Career Seeker ID'
+  career_seeker_deleted_popup:
+    title: 'CAREER SEEKER DOES NOT EXIST'
+    close: 'Close'
+  position_inactive_popup:
+    title: 'INACTIVE POSITION!'
+    contentL1: 'Your Position is INACTIVE until you'
+    contentL2: 'activate it through the Hilo Channel Manager.'
+    close: 'Close'
+  xref_job_inactive:
+    title: 'OOPS!'
+    content: 'The Position is currently inaccessible for this candidate.'
+    close: 'Close'
+  unauthorized_purchase:
+    title: 'OOPS!'
+    content: 'You are not authorized to view this candidate against this position.'
+    close: 'Close'
+  save_search_popup:
+    title: 'SAVE SEARCH'
+    save_search_label: 'Save new search name'
+    close: 'Close'
+  faye_refresh_employer: 'New updates! Click here to refresh.'
+  faye_refresh_job_seeker: 'New updates! Click here to refresh.'
+  suspend_user_popup:
+    title: 'ARE YOU SURE?'
+    content: 'Clicking "Suspend" disables the ability of this user and his/her subordinates to access the system. You can reinstate them at any time.'
+    close: 'Close'
+  delete_subordinate_warning_popup:
+    title: 'ARE YOU SURE?'
+    contentL1: "Clicking 'Delete' will place all positions and subordinates associated with this user's account under your control."
+    contentL2: 'You can reassign them as you would normally.'
+    close: 'Close'
+  spending_limit_exceeded_popup:
+    title: 'OOPS!'
+    contentL1: 'That user has already exceeded the limit specified by'
+    contentL2: 'Please increase their limit. Alternatively, they will not be able to perform any transactions.'
+    close: 'Close'
+  one_click_not_set_popup:
+    title: 'OOPS!'
+    content: 'Your payment method has not configured yet. Please contact your root user'
+    close: 'Close'
+  spending_limit_reached_popup:
+    title: 'OOPS!'
+    content: 'You have reached your present spending limit. Please contact your supervisor to have your spending limit increased or removed.'
+    close: 'Close'
+  company_link_popup:
+    title: 'YOUR COMPANY LINK'
+    content: 'Use this link anywhere you would normally share a web site link with others. You can email it, embed it in other web pages (such as your company web site) or share it in posts on other sites. This link is not tied to any specific position, but when a user signs up with Hilo by following this link we will be able to track that person. You will be able to filter your candidate results list by checking the "My Sources" box, and then you will only see candidates that have come through this or a similar link.'
+    close: 'Close'
+  internal_candidate_link_popup:
+    title: 'INTERNAL CANDIDATE LINK'
+    content: 'Use this link to distribute access to you internal company candidates. Candidates that sign up for Hilo via this link will be considered as your internal candidates. They will not be able to see job postings of other companies, and will only see positions that you make active here. As the sponsoring employer account, you will be able to view both your internal candidates as well as all other candidates in the Hilo system. You will be able to filter your candidate results list by checking the "My Sources" box, and then you will only see candidates that have come through this or a similar link.'
+    close: 'Close'
+  position_link_popup:
+    title: 'POSITION LINK'
+    content: 'Use this link anywhere you would normally share a web site link with others. You can email it, embed it in other web pages (such as your company web site) or share it in posts on other sites. This link is tied to this specific position and will show a brief preview of the position to any unregistered user. Registered users will be take right to the position preview after they log in. Additionally, when a user signs up with Hilo by following this link we will be able to track that person. You will be able to filter your candidate results list by checking the "My Sources" box, and then you will only see candidates that have come through this or a similar link.'
+    close: 'Close'
+  position_authorize_popup:
+    title: 'ACCESS DENIED!'
+    content: 'You are not authorized to view or edit this position.'
+    close: 'Close'
+  position_doesnot_exist_popup:
+    title: 'OOPS!'
+    content: 'The position you were trying to access/edit does not exist in the system.'
+    close: 'Close'
+  team_map_sync_popup:
+    title: 'OOPS!'
+    content: 'Your action could not be completed as the Team Map was out of sync. Please try again.'
+    close: 'Close'
+  folder_doesnot_exist_popup:
+    title: 'OOPS!'
+    content: 'The folder you were trying to access does not exist.'
+    close: 'Close'
+  emp_search_non_loggedin:
+    header:
+      videos: '{Videos}'
+      blog: '{Blog}'
+      about: '{About}'
+    footer:
+      facebook: 'Find us on Facebook'
+      twitter: 'Follow us on Twitter'
+      contract: 'Contact'
+      terms_of_use: 'Terms of Use'
+      privacy_policy: 'Privacy Policy'
+      hilo: 'Hilo, Inc. &copy; 2012'
+    pop_up:
+      heading: 'TEST DRIVE THE HILO PAIRING ENGINE'
+      content: "The following ten multiple-choice questions help us understand your company's work environment in conjunction with a particular role. Based upon that information and your location, we'll show you a preview of the candidates Hilo has in store for you!"
+    pairing_engine:
+      heading: 'Questionnaire'
+      content: 'How much would you like your work environment to stress...'
+      none: 'None'
+      slightly: 'Slightly'
+      moderately: 'Moderately'
+      greatly: 'Greatly'
+      almost: 'Almost Always'
+      error: 'Please answer all questions to continue.'
+    work_env_popup:
+      heading: "THIS ROLE'S WORK ENVIRONMENT IS: "
+      content: 'Work environments of this kind offer:'
+    graphs:
+      heading: 'Results Overview'
+      content: 'What city would you like to search?'
+      location: 'Select a Location'
+      content2: "This role's work environment is:"
+      fullscreen: 'Click for more information'
+      candidates: 'CANDIDATES'
+      candi: 'Candidates'
+      no_data_popup:
+        heading: 'OOPS!'
+        contentL1: 'There is not enough data matching your profile at this moment. Please try again after some time.'
+        contentL2: 'There is not enough data for the location you specified. Please try again or select one of the options below.'
+      proximity:
+        proximity: 'PROXIMITY'
+        prox: 'Proximity'
+        local: 'Local'
+        near_by: 'Near By'
+        virtual: 'Willing to Move'
+        heading: 'Proximity'
+        content1: "The bar graph below shows the number of candidates who fit this role's work environment and are local to or nearby the location you selected. It also includes those candidates willing to move!"
+      career_cluster:
+        career_cluster: 'CAREER CLUSTER'
+        heading: 'TOP 10 CAREER CLUSTERS'
+        content1: "The bar graph below shows the number of candidates by Career Cluster who fit this role's work environment and are local to or nearby the location you selected. It also includes those candidates willing to move!"
+      role:
+        analyzer: 'Analyzer'
+        thinker: 'Thinker'
+        doer: 'Doer'
+        comm: 'Communicator'
+        heading: 'BIRKMAN ROLE'
+        content1: "The pie chart below show the percentage of candidates by Birkman Role who fit this role's work environment and are local to or nearby the location you selected. It also includes those candidates willing to move!"
+      wordle:
+        heading: 'CANDIDATE WORD CLOUD'
+        content1: "          The word cloud below is a data visualization of the most common words associated with the profiles of candidates who fit this role's work environment and are local to or nearby the location you selected. It also includes those candidates willing to move!"
+  c_search_non_loggedin:
+    pop_up:
+      heading: 'SEE WHAT HILO HAS FOR YOU RIGHT NOW'
+      contentL1: "The following ten multiple-choice questions help us understand your ideal work environment. Based upon that information and your desired location, we'll show you what Hilo has in store for you!"
+      contentL2: "Just enter your email address to get started. We'll also send you a promotional code to create a Hilo account for free! Don't worry, we won't sell or otherwise distribute your information."
+      label: 'Email'
+      heading2: 'IDEAL WORK ENVIRONMENT'
+      content2: 'You will be asked a series of 10 questions about how you would act in a mock scenario (planning a surprise party). For each question, select the emoticon along the continuum that best describes your approach.'
+    work_env:
+      heading: 'YOUR IDEAL WORK ENVIRONMENT IS:'
+      content: 'The work environments that best support your needs:'
+      analyzerL1: 'Stress stability, process and quality'
+      analyzerL2: 'Have denied performance measurements'
+      analyzerL3: 'Provide consistent and defined procedures'
+      analyzerL4: 'Promote democratic leadership'
+      thinkerL1: 'Are driven by new ideas'
+      thinkerL2: 'Thrive on creativity and imagination'
+      thinkerL3: 'Provide a clear vision and sense of possibility'
+      thinkerL4: 'Promote an intutive leadership style'
+      doerL1: 'Stress practical solutions'
+      doerL2: 'Provide clear goals and decisions'
+      doerL3: 'Value fast action and team collaboration'
+      doerL4: 'Promote assertive leadership'
+      commL1: 'Stress energy and enthusiasm'
+      commL2: 'Offer flexible rules and policies'
+      commL3: 'Encourage competitiveness and individualized rewards'
+      commL4: 'Promotes influential leadership'
+    graph:
+      heading1: 'What city would you like to search?'
+      heading2: 'Your ideal work environment:'
+      label: 'Select a Location'
+      jobs: 'Jobs'
+      word_cloud: 'WORD CLOUD'
+      virtual: 'Virtual'
+      no_jobs: 'NUMBER OF JOBS'
+      content1: " Hilo never excludes you from pairing results based on how far away you live from a job. However, the closer you live to a position or more flexible you are about location, the better your fit. The bar graph below shows the number of jobs 'local to' or 'nearby' the location you selected that fit your ideal work environment. It also includes all telecommute or 'virtual' jobs as well."
+      content_cluster: "          Rather than confuse you with arbitrary job titles, Hilo relies on objective definitions provided by the US Bureau of Labor Statistics, which categorizes jobs into 'Career Clusters.' The pie chart below shows the number of open positions by Career Cluster in the location you selected that fit your ideal work environment."
+      content_role: "Backed by over 60 years of research and implementation at the executive level of Fortune 100 companies around the world, Hilo's partner Birkman International is the benchmark professional assessment firm. In addition to an Ideal Work Environment, you also have a preferred Role. This pie chart below shows the relative distribution of available Roles in the location you selected that fit your ideal work environment."
+      content_wordle: " We scan every open position in the location you selected that fits your ideal work environment and create a data visualization that reflects the most common words associated with those positions."

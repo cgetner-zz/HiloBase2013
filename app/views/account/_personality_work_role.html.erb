@@ -1,0 +1,43 @@
+<%
+	work_txt_val, work_color_val = WorkenvQuestion.text_and_color_by_score(@job_seeker_birkman_detail.grid_work_environment_x,@job_seeker_birkman_detail.grid_work_environment_y)
+	
+	role_txt_val, role_color_val = RoleQuestion.text_and_color_by_score(@job_seeker_birkman_detail.grid_work_role_x,@job_seeker_birkman_detail.grid_work_role_y)
+%>
+
+
+<div>
+	
+	<div class="height10">&nbsp;</div>
+
+	<div  id="birk_work_section">
+		<%if work_txt_val.blank? -%>
+			<div style="height:200px;">
+				&nbsp;
+			</div>
+		<%else%>
+			
+			<%=render :partial=>"/shared/pairing_work_msg",:locals=>{:work_txt_val => work_txt_val, :work_color_val => work_color_val,:user_type =>"seeker",:show_return => false} -%>
+
+		<%end%>
+	</div>
+
+	
+
+	<div id="birk_role_section" style="display:none;">
+		<%if role_txt_val.blank? -%>
+			<div style="height:200px;">
+			&nbsp;
+			</div>
+		<%else%>
+			<%=render :partial=>"/shared/pairing_role_msg",:locals=>{:role_txt_val => role_txt_val, :role_color_val => role_color_val,:user_type =>"seeker",:show_return => false} -%>
+		<%end%>
+	</div>	
+	
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		pairing_work_tab.load();
+	});
+</script>

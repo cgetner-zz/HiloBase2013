@@ -1,0 +1,57 @@
+<div id="hilo_search_work_env_job" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading" ><%=t("c_search_non_loggedin.work_env.heading")%></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" style="width:400px;">
+            <label class="free-text" >
+              <div style="text-transform: uppercase; font-weight: 700; font-size: 18px; margin: 10px 0px 15px;">
+                <%= session[:js_workenv_text] %>
+              </div>
+              <div style="margin-bottom: 10px;">
+                <%=t("c_search_non_loggedin.work_env.content")%>
+                <ul style="list-style: disc outside none; padding-left: 35px; padding-bottom: 5px;">
+                  <% case session[:js_workenv_text].to_s %>
+                  <% when 'analyzer' %>
+                    <li><%=t("c_search_non_loggedin.work_env.analyzerL1")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.analyzerL2")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.analyzerL3")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.analyzerL4")%></li>
+                  <% when 'thinker' %>
+                    <li><%=t("c_search_non_loggedin.work_env.thinkerL1")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.thinkerL2")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.thinkerL3")%></li>
+                    <li>e<%=t("c_search_non_loggedin.work_env.thinkerL4")%></li>
+                  <% when 'doer' %>
+                    <li><%=t("c_search_non_loggedin.work_env.doerL1")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.doerL2")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.doerL3")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.doerL4")%></li>
+                  <% when 'communicator' %>
+                    <li><%=t("c_search_non_loggedin.work_env.commL1")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.commL2")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.commL3")%></li>
+                    <li><%=t("c_search_non_loggedin.work_env.commL4")%></li>
+                  <% end %>
+                </ul>
+              </div>
+            </label>
+          </div>
+          <div class="rfloat margin-T-5px" style="margin-top: 115px;">
+            <input type="button" id="hilo_search_job_msg_button" class="continue-button-active" onclick="hideSearchJobMsg();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideSearchJobMsg();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

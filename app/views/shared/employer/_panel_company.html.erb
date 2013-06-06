@@ -1,0 +1,161 @@
+<style>
+  .pac-container {
+    color: #000066;
+    width:209px !important;
+    font-weight:400 !important;
+    font-size:13px !important;
+    border: 2px solid #000066 !important;
+    border-top: 1px solid #CCCCCC !important;
+    background:#fff url("../../assets/autocomplete-bg-409.png") left top repeat-y !important;
+    margin-top:-2px;
+    margin-left:-5px;
+    z-index: 1003 !important;
+  }
+  @media screen and (-webkit-min-device-pixel-ratio:0) { .pac-container{margin-left:-5px;} }
+</style>
+<!--[if IE 9]>
+<style>
+    .pac-container{margin-left:-5px;}
+</style>
+<![endif]-->
+<!--[if IE 8]>
+<style>
+    .pac-container{margin-left:-5px;}
+</style>
+<![endif]-->
+
+<div class="heading-container">
+  <label class="heading"><%=t ("employer_account.company.title") %></label>
+</div>
+<div class="panel-content with-system-msg acc-info">
+  <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 3 %>
+    <%= form_tag("/employer/update_company", :id => "company-profile", :remote => true) do %>
+      <%= render :partial => "/shared/employer/panel_company_form" %>
+    <% end %>
+  <% else %>
+    <div class="disabled-screen" title="Sub-User accounts are not authorized to edit Company Details."></div>
+    <%= render :partial => "/shared/employer/panel_company_form" %>
+  <% end %>
+</div>
+
+<input type="hidden" name="state_flag" id="state_flag" value="0" />
+<input type="hidden" name="city_flag" id="city_flag" value="0" />
+<input type="hidden" name="pincode_flag" id="pincode_flag" value="0" />
+<input type="hidden" name="country_flag" id="country_flag" value="0" />
+<input type="hidden" name="dropdown_check_flag_account" id="dropdown_check_flag_account" value="<%if !@company_info.nil? && !@company_info.city.to_s.empty?%>1<%else%>0<%end%>" />
+<input type="hidden" name="city_validation_flag" id="city_validation_flag" value="0" />
+
+<script type="text/javascript">
+  // Address Autocomplete
+  validateCompanyDetails();
+  $(".customized-input input").click(function(){
+    $("#account_success_msg").empty();
+  });
+  $("#city").blur(function(){
+    showBlockShadow();
+    setTimeout(function(){
+      if(!validateNotEmpty(document.getElementById('city'))) {
+        $("#city").removeAttr('placeholder');
+        $("#city").val($("#city_placeholder").val());
+      }
+      else {
+        validateCompInfoAcc();
+        validateCompanyDetails();
+      }
+      hideBlockShadow();
+    },1000);
+  });
+
+  var city = document.getElementById('city');
+
+  var options_type = {
+    types: ['(cities)']
+  };
+  var autocomplete = new google.maps.places.Autocomplete(city, options_type);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var city = document.getElementById('city').value;
+    city = encodeURIComponent(city);
+    showBlockShadow();
+    $.ajax({
+      url: '/ajax/geocode_fetch_for_employer_payment',
+      data: "city="+city+"",
+      cache: false,
+      beforeSend: function() {
+        showBlockShadow();
+        $("#city_validation_flag").val(1);
+      },
+      success: function(){
+        hideBlockShadow();
+        if($("#state_flag").val()==1) {
+          $("#state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#state").parent().addClass("active-input");
+          $("#state").attr('readonly', true);
+        }
+        else {
+          $("#state").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#state").parent().addClass("input-text");
+          $("#state").removeAttr('readonly');
+          $("#state").val($("#state_placeholder").val());
+        }
+        if($("#city_flag").val()==1) {
+          $("#city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#city").parent().addClass("active-input");
+        }
+        else {
+          $("#city").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#city").parent().addClass("input-text");
+          $("#city").removeAttr('readonly');
+          $("#city").val($("#city_placeholder").val());
+        }
+        if($("#pincode_flag").val()==1) {
+          $("#zip_code").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#zip_code").parent().addClass("active-input");
+          $("#zip_code").attr('readonly', true);
+        }
+        else {
+          $("#zip_code").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#zip_code").parent().addClass("input-text");
+          $("#zip_code").removeAttr('readonly');
+          $("#zip_code").val($("#zip_code_placeholder").val());
+        }
+        if($("#country_flag").val()==1) {
+          $("#country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#country").parent().addClass("active-input");
+          $("#country").attr('readonly', true);
+        }
+        else {
+          $("#country").parent().removeClass("active-input input-text-active input-text-error input-text input-text-error-empty");
+          $("#country").parent().addClass("input-text");
+          $("#country").removeAttr('readonly');
+          $("#country").val($("#country_placeholder").val());
+        }
+        validateCompanyDetails();
+      }
+    });
+  });
+</script>
+<script type="text/javascript">
+  function checkTab(e){
+    if (e.keyCode != 9)
+      $('#dropdown_check_flag_account').val(0);
+  }
+</script>
+<script type="text/javascript">
+  jQuery(function($) {
+    var loading_account_info = function(){
+      showBlockShadow();
+      $("span#company_loader").show();
+      $("#updateCompany").hide();
+    }
+    var loaded_account_info = function(){
+      hideBlockShadow();
+      $("span#company_loader").hide();
+      $("#updateCompany").show();
+      $("#updateCompany").blur();
+    }
+    $("#company-profile")
+    .bind("ajax:beforeSend", loading_account_info)
+    .bind("ajax:complete", loaded_account_info)
+  });
+</script>

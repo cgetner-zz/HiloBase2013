@@ -1,0 +1,19 @@
+<div class="notification-block">
+<div class="top">&nbsp;</div>
+<div class="content">
+	<div class="gradient-content">                               
+	<h1><%= t('notification_js.heading') %></h1>
+	<div class="notifications">
+		<ul id="notification_rows">
+		<%= render :partial => 'notification_block_rows',:locals=>{:notifications=>notifications} %>
+	    </ul>
+	<div id="rows_loader_notifications" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+	</div>
+	<span class="viewAll_container">
+	 <% if notifications.size > 7 %><a href="javascript:void(0);" title="<%= t('notification_js.view_all') %>" class="viewAll"><%= t('notification_js.view_all') %></a><% end %>
+        </span>
+	</div>
+</div>
+<div class="bottom">&nbsp;</div>
+</div>
+    		

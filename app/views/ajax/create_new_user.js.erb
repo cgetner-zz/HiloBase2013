@@ -1,0 +1,6 @@
+$(".user-box.new").empty();
+$(".user-box.new").parent().append("<%= escape_javascript render(:partial=>'shared/employer/user_admin_boxes', :locals => {:child => @employer})%>");
+$(".user-box.new").remove();
+bindUserBoxes();
+all_atag_bindings();
+hideBlockShadow();

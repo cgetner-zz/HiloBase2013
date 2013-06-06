@@ -1,0 +1,4 @@
+<input type="hidden" value="<%=@tree_ids%>" id="current_team_tree_ids" />
+<ul class="org-map" id="org<% if !type.nil?%>_fullscreen<%end%>" style="display:none">
+    <%= parse_tree(@tree).html_safe %>
+</ul>

@@ -1,0 +1,29 @@
+<div class="dc-birk-box-center">
+	<div class="dc-birk-box-content">
+		<div>
+			You thrive in <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+				<span class="dc-birk-box-content-remark"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></span>	Work Environment.
+			<%end%>
+		</div>
+
+		<div class="left-shift">
+			...and this position is ideally suited for <span class="dc-birk-box-content-remark"><%=job_workenv_txt_by_score(job)%></span>	
+			
+		</div>
+		
+		<div>
+			You excel in the Role of <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+				<span class="dc-birk-box-content-remark"><%=seeker_role_txt_by_score(job_seeker_birkman_detail)%></span>	
+			<%end%>
+		</div>
+
+		<div class="left-shift">
+			...and this position is tailored for <span class="dc-birk-box-content-remark"><%=job_role_txt_by_score(job)%></span>
+		</div>
+
+
+	</div>
+	<div class="dc-birk-box-log">
+		<a href="javascript:void(0);" onclick="birkman_msg.init();"><img src="/assets/small_powered_by_birkman.jpg" /></a>
+	</div>
+</div>

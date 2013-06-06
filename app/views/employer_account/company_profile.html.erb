@@ -1,0 +1,250 @@
+<%content_for :page_css do -%>
+  <%=stylesheet_link_tag("employer_account") -%>
+  <%=render :partial=>"/shared/slider_css" -%>
+<%end-%>
+<%content_for :page_js do -%>
+<%end-%>
+<%=render :partial=>"employer_tab",:locals=>{:tab=>"company"} -%>
+
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="emp-box">
+  <div class="emp-content">
+    <% form_for @company, :url => { :action => "save_company_profile" } do |j| %>
+      <div class="comp-profile-box">
+
+        <div class="comp-profile-left">
+          <div class="acc-fields">
+            <div class="acc-label">
+              Company Name:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :name,:class=>"field-text input-field-style"%>
+              <%=j.hidden_field :owner_ship_type_id,:class=>"field-text"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              <b>Primary Location:</b>
+            </div>
+            <div class="acc-text">
+
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields" style="height:65px;">
+            <div class="acc-label">
+              Street Address:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :street_one,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+            <div class="height5">&nbsp;</div>
+            <div class="acc-label">
+              &nbsp;
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :street_one,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              City:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :city,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Zip Code:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :zip,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Phone:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :phone,:class=>"field-text input-field-style date-auto-format"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Fax:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :fax,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Founded In:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :founded_in,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Current Number of Employees:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :employee_strength,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Website:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :website,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Facebook:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :facebook_link,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Twitter:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :twitter_link,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Link 1:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :other_link_one,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+
+          <div class="acc-fields">
+            <div class="acc-label">
+              Link 2:
+            </div>
+            <div class="acc-text">
+              <%=j.text_field :other_link_two,:class=>"field-text input-field-style"%>
+            </div>
+            <br class="clear"/>
+          </div>
+        </div>
+
+        <div class="comp-profile-right">
+          <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "comp-prof-cover-line"} -%>
+          <div class="comp-prof-right-content">
+
+            <div class="ownership-slider-box">
+              <%=render :partial=>"/panels/grey_curve_top",:locals=>{:class_name=>"comp-prof-ownership-cover"} -%>
+              <div class="ownership-slider-content">
+                <div class="ownership-label">Ownership</div>
+                <div class="owner-slider-cotainer"><div id="slider"></div></div><div class="owner-slider-dummy-pad">&nbsp;</div>
+                <br class="clear"/>
+                <div class="owner-slider-labels">
+                  <div class="owner-slider-label" style="left: 0%;">Private</div>
+                  <div class="owner-slider-label" style="left: 40%;">Venture Capital</div>
+                  <div class="owner-slider-label" style="left: 93.5%;">Public</div>
+                  <br class="clear"/>
+                </div>
+              </div>
+              <%=render :partial=>"/panels/grey_curve_bottom",:locals=>{:class_name=>"comp-prof-ownership-cover"} -%>
+            </div>
+
+            <br/>
+            <div class="ownership-slider-box">
+              <%=render :partial=>"/panels/grey_curve_top",:locals=>{:class_name=>"comp-prof-ownership-cover"} -%>
+              <div class="ownership-slider-content">
+                <div class="ownership-label">Stock Symbol</div>
+                <div>
+                  <%=j.text_field :ticker_value,:class=>"field-text input-field-style"%>
+                </div>
+              </div>
+              <%=render :partial=>"/panels/grey_curve_bottom",:locals=>{:class_name=>"comp-prof-ownership-cover"} -%>
+            </div>
+          </div>
+          <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "comp-prof-cover-line"}%>
+        </div>
+
+        <br class="clear"/>
+        <div style="float:right;">
+          <%=submit_tag("Save",:onclick=>"before_company_save();",:class=>"button-style-shared buttton_65X23")%>
+        </div>
+        <br class="clear"/>
+      </div>
+    <%end%>
+  </div>
+  <br class="clear"/>
+</div>
+
+<script type="text/javascript">
+  var ownership_arr  = eval("[<%=@ownership_arr.join(',')%>]");
+
+  $(document).ready(function(){
+    ownership_slider.call();
+    ownership_slider.init_slider_value();
+
+<%if not @error_json.blank?%>
+      msg_box.show_error("<%=@error_json%>");
+<%end%>
+  });
+
+
+  var before_company_save = function(){
+    $("#company_owner_ship_type_id").val(ownership_arr[$("#slider").slider("value") - 1]); 
+  }
+
+  var ownership_slider = {
+    call: function(){
+      $("#slider").slider({
+        step: 1,
+        min: 1,
+        max: 3,
+        stop: function(event,ui){
+					
+        }
+      });
+      $("#slider > a").removeClass("ui-state-default ui-corner-all");
+
+      var slider_handle_arr = $(".ui-slider-handle");
+      $(slider_handle_arr[0]).html("<img src='/assets/slider_handle_33.png'/>");
+    },
+    init_slider_value: function(){
+      $("#slider").slider("value",$("#company_owner_ship_type_id").val());
+			
+    }
+  }
+</script>
+

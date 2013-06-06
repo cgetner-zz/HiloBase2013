@@ -1,0 +1,81 @@
+<div >
+  <%= form_tag :url => ("/my_introduction/edit_contact_info"), :before=>"", :remote => true do -%>
+    <div class="myint-contact-row">
+      <div class="myint-contact-label">
+        &nbsp;
+      </div>
+
+      <div class="myint-contact-value" style="width: 240px;">
+        &nbsp;
+      </div>
+
+      <div class="intro-contact-preferred">
+                                  Preferred
+      </div>
+      <br class="clear-height"/>
+    </div>
+
+
+    <div class="myint-contact-row">
+      <div class="myint-contact-label">
+                                  Phone 1:
+      </div>
+
+      <div class="myint-contact-value">
+        <input type="text" name="phone_one" value="<%=@job_seeker.phone_one%>" class="input-field-style myint-field-box date-auto-format">
+      </div>
+
+      <div class="intro-contact-preferred">
+        <input type="radio" name="preferred_contact[]" value="phone_one" <%=preferred_checked("phone_one",@job_seeker.preferred_contact)%>/>
+      </div>
+      <br class="clear-height"/>
+    </div>
+
+    <div class="myint-contact-row">
+      <div class="myint-contact-label">
+                                  Phone 2:
+      </div>
+
+      <div class="myint-contact-value">
+        <input type="text" name="phone_two" value="<%=@job_seeker.phone_two%>" class="input-field-style myint-field-box date-auto-format" />
+      </div>
+
+      <div class="intro-contact-preferred">
+        <input type="radio" name="preferred_contact[]" value="phone_two" <%=preferred_checked("phone_two",@job_seeker.preferred_contact)%>/>
+      </div>
+
+      <br class="clear-height"/>
+    </div>
+
+    <div class="myint-contact-row">
+      <div class="myint-contact-label">
+                                  Email:
+      </div>
+
+      <div class="myint-contact-value">
+        <input type="text" name="contact_email" value="<%=@job_seeker.contact_email%>" class="input-field-style myint-field-box" />
+      </div>
+
+      <div class="intro-contact-preferred">
+        <input type="radio" name="preferred_contact[]" value="contact_email" <%=preferred_checked("contact_email",@job_seeker.preferred_contact)%>/>
+      </div>
+      <br class="clear-height"/>
+    </div>
+    <div class="myint-contact-row">
+      <div class="myint-contact-label">
+        &nbsp
+      </div>
+
+      <div class="myint-contact-value">
+        <%=submit_tag("Save",:class=>"button-style-shared buttton_65X23")%>
+      </div>
+
+      <div class="intro-contact-preferred">
+
+      </div>
+      <br class="clear-height"/>
+    </div>
+
+
+  <%end%>
+</div>

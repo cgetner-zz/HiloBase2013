@@ -1,0 +1,25 @@
+<div class="one_click_payment_position_white_content" id="limit_crossed_warning" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("spending_limit_exceeded_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 65%;">
+              <label class="free-text"><%=t ("spending_limit_exceeded_popup.contentL1") %> <span style="font-weight: 700;" class="limit_amount"></span>. <%=t ("spending_limit_exceeded_popup.contentL2") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px; margin-top: 9px;">
+              <input type="button" class="increase-button" id="limit_crossed_button"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="limit_crossed_cross" href="javascript:void(0)" class="position_close_oneclick"><%=t ("spending_limit_exceeded_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

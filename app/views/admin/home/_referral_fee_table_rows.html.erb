@@ -1,0 +1,53 @@
+<% flag = true %>
+<% if not referral_fee_data.nil? %>
+  <% for row in referral_fee_data %>
+    <% row.credit_amount = 0 if row.credit_amount.nil? %>
+    <% row.discount_amount = 0 if row.discount_amount.nil? %>
+    <% if flag == true %>
+      <% flag = false %>
+      <tr>
+        <th width="150"><label class="first"><%= row.created_at.to_date.to_formatted_s(:long_ordinal) %></label></th>
+        <th width="80"><label>CS<%= row.job_seeker_id %></label></th>
+        <th width="100"><label><% if row.job_id.nil? %>NA<% else %>HL<%= row.job_id %><% end %></label></th>
+        <th width="135"><label><%= row.share_name %></label></th>
+        <th width="105"><label class="static_dollar"><span style="margin-left: 35px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(row.credit_amount, :unit=>"") %></span></label></th>
+        <th width="150"><label class="static_dollar"><span style="margin-left: 80px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(row.discount_amount, :unit=>"") %></span></label></th>
+        <th width="135">
+          <label class="paid" id="paid_row_<%=row.id %>">
+            <% if row.referral_fee_flag == true %>
+              <%= image_tag("admin/paid_tick.png") %>
+            <% else %>
+              <a id="paid_<%=row.id %>" href="javascript:void(0);" title="Click to mark as paid">To Be Paid</a>
+            <% end %>
+          </label>
+        </th>
+      </tr>
+    <% else %>
+      <tr>
+        <td><label class="first"><%= row.created_at.to_date.to_formatted_s(:long_ordinal) %></label></td>
+        <td><label>CS<%= row.job_seeker_id %></label></td>
+        <td><label><% if row.job_id.nil? %>NA<% else %>HL<%= row.job_id %><% end %></label></td>
+        <td><label><%= row.share_name %></label></td>
+        <td><label class="static_dollar"><span style="margin-left: 35px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(row.credit_amount, :unit=>"") %></span></label></td>
+        <td><label class="static_dollar"><span style="margin-left: 80px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(row.discount_amount, :unit=>"") %></span></label></td>
+        <td>
+          <label class="paid" id="paid_row_<%=row.id %>">
+            <% if row.referral_fee_flag == true %>
+              <%= image_tag("admin/paid_tick.png") %>
+            <% else %>
+              <a id="paid_<%=row.id %>" href="javascript:void(0);" title="Click to mark as paid">To Be Paid</a>
+            <% end %>
+          </label>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".paid a").unbind().click(function(){
+      markAsPaid(this);
+    });
+  });
+</script>

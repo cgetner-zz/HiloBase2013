@@ -1,0 +1,168 @@
+<div class="chart_table_header">MATCHES</div>
+<div class="table-container">
+  <input type="hidden" id="cs_id" value="<%=params[:cs_id]%>" />
+  <input type="hidden" id="job_id" value="<%=params[:id]%>" />
+  <input type="hidden" id="activity" value="<%=params[:activity]%>" />
+
+  <div class="table-container-top">&nbsp;</div><!--table-container-top-->
+  <%=  render :partial => "/shared/employer/dashboard_tooltip_popup" %>
+  <!--table-container-content-->
+  <div class="table-container-content">
+    <%if @all_jobs_job_seeker.length != 0 %>
+      <ul class="table-headings">
+        <li style="cursor:default;width: 45px;">
+          &nbsp;
+        </li>
+
+        <li style="cursor:default;width:47px;" <%if @sort == 'jobs.active'%>class="active"<%end%> onclick="return <%if @sort == 'jobs.active' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<%elsif @sort == 'jobs.active' && @order == 'asc'%>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<%else%>sortXrefTables('jobs.active','desc',<%= @pos %>);<%end%>">
+          &nbsp;
+        </li>
+
+        <li <%if @sort == "jobs.name" %>class="active"<%end%> onclick="return <%if @sort == 'jobs.name' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<% elsif @sort == 'jobs.name' && @order == 'asc'%>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<%else %>sortXrefTables('jobs.name','desc',<%= @pos %>);<%end%>" >
+          <a class="labelPosition <%if @sort == 'jobs.name' && @order == 'desc'%>decActive<%elsif @sort == 'jobs.name' && @order == 'asc'%>ascActive<%end%>" title="Position" href="javascript:void(0)" style="padding: 0pt 3px; width: 153px;">Position</a>
+        </li>
+
+        <li style="cursor:default;" <%if @sort == "pairing" %>class="active"<%end%> onclick="return <%if @sort == 'pairing' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<% elsif @sort == 'pairing' && @order == 'asc' %>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<% else %>sortXrefTables('pairing','desc',<%= @pos %>)<%end%>">
+          <a class="labelFit <%if @sort == 'pairing' && @order == 'desc' %>decActive<% elsif @sort == 'pairing' && @order == 'asc'%>ascActive<%end %>" title="Fit" href="javascript:void(0)"  style="padding: 0pt 3px; width: 66px;">Fit</a>
+        </li>
+        <li <%if @sort == "status" %>class="active"<%end%> onclick="return <%if @sort == 'status' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<%elsif @sort == 'status' && @order == 'asc'%>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<%else%>sortXrefTables('status','desc',<%= @pos %>);<%end%>" >
+          <a class="labelStatus <%if @sort == 'status' && @order == 'desc'%>decActive<%elsif @sort == 'status' && @order == 'asc'%>ascActive<%end %>" title="Status" href="javascript:void(0)" style="padding: 0pt 3px; width: 77px;">Status</a>
+        </li>
+
+        <li <%if @sort == "share_name" %>class="active"<%end%> onclick="return <%if @sort == 'share_name' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<%elsif @sort == 'share_name' && @order == 'asc'%>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<%else%>sortXrefTables('share_name','desc',<%= @pos %>);<%end%>" >
+          <a class="labelLocation <%if @sort == 'share_name' && @order == 'desc'%>decActive<%elsif @sort == 'share_name' && @order == 'asc'%>ascActive<%end%>" title="Source" href="javascript:void(0)" style="padding: 0pt 3px; width: 86px;">Source</a>
+        </li>
+
+        <li <%if @sort == "vet" %>class="active"<%end%> onclick="return <%if @sort == 'vet' && @order == 'desc'%>sortXrefTables('<%=@sort%>','asc',<%= @pos %>);<%elsif @sort == 'vet' && @order == 'asc'%>sortXrefTables('<%=@sort%>','desc',<%= @pos %>);<%else%>sortXrefTables('vet','desc',<%= @pos %>);<%end%>">
+          <a class="labelRemaining_vet labelRemaining <%if @sort == 'vet' && @order == 'desc'%>decActive<%elsif @sort == 'vet' && @order == 'asc'%>ascActive<%end%>" id="vet_popup_tooltip" title="VET" href="javascript:void(0)" style="width:50px;">VET</a>
+        </li>
+
+        <li style="cursor:default;" class="lastChild">
+          <a class="labelStatus" title="VIEW PROFILE" href="javascript:void(0)" style="width:100px">View Profile</a>
+        </li>
+      </ul>
+    <%else%>
+      <ul class="table-headings">
+        <li style="cursor:default;width: 45px;">
+          &nbsp;
+        </li>
+
+        <li style="cursor:default;width: 47px;" <%if @sort == 'jobs.active'%>class="active"<%end%> >
+          &nbsp;
+        </li>
+
+        <li <%if @sort == "jobs.name" %>class="active"<%end%>  >
+          <a class="labelPosition <%if @sort == 'jobs.name' && @order == 'desc'%>decActive<%elsif @sort == 'jobs.name' && @order == 'asc'%>ascActive<%end%>" title="Position" href="javascript:void(0)" style="width:153px;">Position</a>
+        </li>
+
+        <li style="cursor:default;" <%if @sort == "pairing" %>class="active"<%end%> >
+          <a class="labelFit <%if @sort == 'pairing' && @order == 'desc' %>decActive<% elsif @sort == 'pairing' && @order == 'asc'%>ascActive<%end %>" title="Fit" href="javascript:void(0)"  style="width:66px;">Fit</a>
+        </li>
+
+        <li style="cursor:default;">
+          <a class="labelStatus" title="Status" href="javascript:void(0);" style="cursor:default;width: 77px;">STATUS</a>
+        </li>
+
+        <li <%if @sort == "share_name" %>class="active"<%end%> >
+          <a class="labelLocation <%if @sort == 'share_name' && @order == 'desc'%>decActive<%elsif @sort == 'share_name' && @order == 'asc'%>ascActive<%end%>" title="Source" href="javascript:void(0)" style="width:86px;">Source</a>
+        </li>
+
+        <li>
+          <a class="labelRemaining_vet labelRemaining" id="vet_popup_tooltip" title="VET" href="javascript:void(0)" style="width:53px;">VET</a>
+        </li>
+
+        <li style="cursor:default;" class="lastChild">
+          <a class="labelStatus" title="VIEW PROFILE" href="javascript:void(0)" style="width:113px">View Profile</a>
+        </li>
+      </ul>
+    <%end%>
+    <div id="table_block" class="table-content">
+      <% flag = true
+      index= 1%>
+      <div class="loader hidden"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></div>
+      <table width="672" border="0" cellspacing="0" cellpadding="0" id="list">
+        <tbody>
+          <%counter=1%>
+          <%if @all_jobs_job_seeker.blank?%>
+            <%while counter<11%>
+              <%color = counter%2 == 0 ? "#ededed" : "white"
+              if flag == false %>
+                <tr id="job_row_">
+                  <td><label><%=counter%></label></td>
+                  <!-- DOT -->
+                  <td><label></label></td>
+
+                  <!-- POS -->
+                  <td><label></label></td>
+
+                  <!-- FIT -->
+                  <td><label></label></td>
+
+                  <!-- STATUS -->
+                  <td><label></label></td>
+
+                  <!-- SOURCE -->
+                  <td></td>
+
+                  <!-- VET-->
+                  <td><label></label></td>
+
+                  <!-- VIEW PROFILE -->
+                  <td><label></label></td>
+                </tr>
+
+
+              <% else %>
+                <tr id="job_row_">
+                  <th width="46"><label><%=counter%></label></th>
+                  <!--DOT -->
+                  <th width="48"><label></label></th>
+
+                  <!--POS -->
+                  <td width="160"><label></label></td>
+
+                  <!--FIT -->
+                  <th width="72"><label></label></th>
+
+                  <!-- STATUS -->
+                  <th width="83"><label></label></th>
+
+                  <!-- SOURCE -->
+                  <th width="92"><label></label></th>
+
+                  <!-- VET-->
+                  <th width="59"><label></label></th>
+
+                  <!-- VIEW PROFILE -->
+                  <th width="112"><label></label></th>
+                </tr>
+                <% flag = false %>
+              <% end %>
+
+              <%counter=counter+1%>
+            <%end%>
+          <%end%>
+          <%= render :partial => "xref_row_rows" %>
+        </tbody>
+      </table>
+      <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+    </div>
+
+  </div>
+  <!--table-container-content-->
+  <div class="table-container-bottom">&nbsp;</div><!--table-container-bottom--->
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    job_row_view.init();
+  });
+  var config1 = {
+    over: open_vet_popup,
+    timeout: 500,
+    out: close_vet_popup,
+    sensitivity: 1
+  };
+  $("#vet_popup_tooltip").hoverIntent(config1);
+  $("#vet_popup_tooltip").mouseout(function(){close_vet_popup();});
+</script>

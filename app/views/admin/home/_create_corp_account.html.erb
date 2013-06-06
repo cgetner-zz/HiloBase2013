@@ -1,0 +1,94 @@
+<div class="page-heading-container">
+  <label class="heading">CREATE ACCOUNT</label>
+</div>
+<!-- Error Message Container -->
+<label class="intro-error" id="intro_error" style="margin-left: 11px; color:#D71F0C; margin-top: -5px;font-size: 13px;font-weight: 700; height: 20px; display: block;"></label>
+<!-- Success Message Container -->
+<div class="pass-success-message-container" id="success-message" style="margin-left: 11px; color:green; float:left;margin-top: -19px; font-size: 13px;font-weight: 700;"></div>
+<%= form_tag("/admin/home/create_new_employer_account", :id => "new_employer_form", :remote => true) do -%>
+  <ul class="corp_acc">
+    <li>
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="employer_first_name_placeholder" value="First Name" />
+        <input type="text" maxlength="100" value="First Name" onfocus="focus_element(this);validateAddRootUserOnBlur(this);" onblur="validateAddRootUserOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="employer[first_name]" id="employer_first_name" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+    <li>
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="employer_last_name_placeholder" value="Last Name" />
+        <input type="text" maxlength="100" value="Last Name" onfocus="focus_element(this);validateAddRootUserOnBlur(this);" onblur="validateAddRootUserOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="employer[last_name]" id="employer_last_name" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+    <li>
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="employer_email_placeholder" value="Email" />
+        <input type="text" maxlength="100" value="Email" onfocus="focus_element(this);validateAddRootUserOnBlur(this);" onblur="validateAddRootUserOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="employer[email]" id="employer_email" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+    <li>
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="company_name_placeholder" value="Company" />
+        <input type="text" maxlength="100" value="Company" onfocus="focus_element(this);validateAddRootUserOnBlur(this);" onblur="validateAddRootUserOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="company[name]" id="company_name" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+  </ul>
+<% end %>
+
+<div class="input-right">
+  <input type="hidden" id="lock" value="" />
+  <input class="create-button-active rfloat" type="button" value="" id="validateEmployerRegForm" style="margin-right: 2px;" onclick="validateCompanyName();" />
+  <span id="loader_password" style="display:none; left:368px; position:absolute;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+</div>
+
+<script type="text/javascript">
+  function validateCompanyName() {
+  	$("label#intro_error").html("");
+  	$("div#success-message").html("");
+    var company = $("#company_name").val();
+    var email = $("#employer_email").val();
+    if(!validateAddRootUserForm()) {
+      return false;
+    }
+    $.ajax({
+      url: '/admin/home/validate_email',
+      type: "GET",
+      data: "email_check=" + email,
+      cache: false,
+      success: function(resp) {
+        if(resp == "Email is already taken") {
+          var email_element = document.getElementById('employer_email');
+          $(email_element).parent()
+          .removeClass('input-text input-text-unactive input-text-active active-input input-text-error input-text-error-empty')
+          .addClass('input-text-error');
+          $("label#intro_error").html("Email Address is not available.");
+        } else {
+          $.ajax({
+            url: '/admin/home/search_company',
+            type: "GET",
+            data: "company_name=" + company,
+            cache: false,
+            success: function(html_data) {
+              if(html_data == "exists") {
+                var company_name_element = document.getElementById('company_name');
+                $(company_name_element).parent()
+                .removeClass('input-text input-text-unactive input-text-active active-input input-text-error input-text-error-empty')
+                .addClass('input-text-error');
+                $("label#intro_error").html("Company already exists.");
+              } else if(html_data == "not_exists") {
+                $("#new_employer_form").submit();
+              }
+            }
+          });
+        }
+      }
+    });
+  }
+</script>

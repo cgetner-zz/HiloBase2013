@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<%
+if @credit == 0
+  @credit = nil
+end
+if @discount == 0
+  @discount = nil
+end
+%>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="height:10px;"></div>
+    <div>
+      Hi <%= @first_name %>,<br />
+    </div>
+    <div>
+      Welcome and thank you for signing up with thehiloproject.com!
+      <br /><br />
+      After you complete the site activation process, Hilo will immediately begin matching you to opportunities in the system. We suggest you begin your search by downloading and
+      <br />
+      reviewing the powerful information contained in your Career Forward Guide. You'll also want to complete the media-rich portion of your profile to help employers see how compelling a
+      <br />
+      candidate you really are!
+      <br /><br />
+      <% if not @credit.nil? and not @discount.nil? %>
+      <% if @ics_type != 3 %>
+      Because you registered through <%= @company_name %>, you will receive a site activation discount of $<%= number_to_currency(@discount, :unit=>"") %> and your account has been credited with $<%= number_to_currency((@credit + 2.97), :unit=>"") %>. You can use this credit to
+      <br />
+      purchase Position Details of jobs that interest you.
+      <%else%>
+      Because you registered through <%= @company_name %>, you will enjoy free access to our website features.
+      <br />
+      Please click on the following link and then login to complete your registration:
+      <br />
+      <a href="https://<%=@host_name%>/authenticate/<%=Base64.encode64(@email)%>">thehiloproject.com</a>
+      <%end%>
+      <% elsif @credit.nil? and not @discount.nil? %>
+      <% if @ics_type != 3 %>
+      Because you registered through <%= @company_name %>, you've received a site activation discount of $<%= number_to_currency(@discount, :unit=>"") %> and your account will receive a credit that you can use to view three Position
+      <br />
+      Details!
+      <%else%>
+      Because you registered through <%= @company_name %>, you will enjoy free access to our website features.
+      <br />
+      Please click on the following link and then login to complete your registration:
+      <br />
+      <a href="https://<%=@host_name%>/authenticate/<%=Base64.encode64(@email)%>">thehiloproject.com</a>
+      <%end%>
+      <% elsif not @credit.nil? and @discount.nil?  %>
+      <% if @ics_type != 3 %>
+      Because you registered through <%= @company_name %>, your account has been credited with $<%= number_to_currency((@credit + 2.97), :unit=>"") %>. You can use this credit to purchase Position Details of jobs that interest you.
+      <%else%>
+      Because you registered through <%= @company_name %>, you will enjoy free access to our website features.
+      <br />
+      Please click on the following link and then login to complete your registration:
+      <br />
+      <a href="https://<%=@host_name%>/authenticate/<%=Base64.encode64(@email)%>">thehiloproject.com</a>
+      <%end%>
+      <% else %>
+      <% if @ics_type != 3 %>
+      Your account will receive a credit that you can use to view three Position Details for free.
+      <%else%>
+      Because you registered through <%= @company_name %>, you will enjoy free access to our website features.
+      <br />
+      Please click on the following link and then login to complete your registration:
+      <br />
+      <a href="https://<%=@host_name%>/authenticate/<%=Base64.encode64(@email)%>">thehiloproject.com</a>
+      <%end%>
+      <% end %>
+      <br /><br />
+      Your feedback is the driving force behind our continual updates. So please remember to share your comments and questions with us.
+      <br /><br />
+      Good luck!
+      <br /><br />
+      - Team Hilo
+      <br /><br />
+      <img alt="logo" src="https://<%=@host_name%>/assets/logo-hilo_new.png" width="120" height="103" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,142 @@
+<%  if ( @jobs_new_facebook.length>0 or  @jobs_new_twitter.length>0 or @jobs_new_linkedin.length >0 or @jobs_new_email.length > 0)%>
+		
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		 var twitter_arr = new Array(); 
+		 var facebook_arr = new Array(); 
+		 var linkedin_arr = new Array();
+		 var email_arr = new Array();
+                 var max_share_length;
+
+                 <%max_share_facebook = 1%>
+                 <% for item in  @jobs_new_facebook%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  facebook_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                  <%if max_share_facebook < item.cnt.to_i%>
+                    <%max_share_facebook = item.cnt.to_i%>
+                  <%end%>
+                <% end %>
+
+                <%max_share_twitter = 1%>
+                <% for item in  @jobs_new_twitter%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  twitter_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                  <%if max_share_twitter < item.cnt.to_i%>
+                    <%max_share_twitter = item.cnt.to_i%>
+                  <%end%>
+                <% end %>
+
+                <%max_share_linkedin = 1%>
+                <% for item in  @jobs_new_linkedin%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  linkedin_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                  <%if max_share_linkedin < item.cnt.to_i%>
+                    <%max_share_linkedin = item.cnt.to_i%>
+                  <%end%>
+                <% end %>
+
+                <%max_share_email = 1%>
+                <% for item in  @jobs_new_email%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  email_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                  <%if max_share_email < item.cnt.to_i%>
+                    <%max_share_email = item.cnt.to_i%>
+                  <%end%>
+                <% end %>
+                <%max_share_length_temp = max_share_facebook%>
+                <%if max_share_length_temp <  max_share_twitter%>
+                  <%max_share_length_temp = max_share_twitter%>
+                <% end %>
+                <%if max_share_length_temp <  max_share_linkedin%>
+                  <%max_share_length_temp = max_share_linkedin%>
+                <% end %>
+                <%if max_share_length_temp <  max_share_email%>
+                  <%max_share_length_temp = max_share_email%>
+                <% end %>
+
+                max_share_length = <%=max_share_length_temp%>
+                
+		 
+		
+		 
+
+
+		
+                if(document.getElementById('sharing_chart')){
+		 $.plot($("#sharing_chart"), [
+		 
+								{
+									label: "<%=t ("emp_dashboard_graphs.graph_label.twitter") %>",
+								        data: twitter_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "circle" },
+									shadowSize: 0
+
+								},
+								{
+									label: "<%=t ("emp_dashboard_graphs.graph_label.facebook") %>",
+								        data: facebook_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "triangle" },
+									shadowSize: 0
+
+								},
+								{
+									label: "<%=t ("emp_dashboard_graphs.graph_label.linkedin") %>",
+								        data: linkedin_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "square" },
+									shadowSize: 0
+
+								},
+								
+								{
+									label: "<%=t ("emp_dashboard_graphs.graph_label.email") %>",
+								        data: email_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "diamond" },
+									shadowSize: 0
+
+								}
+								],
+								{
+									xaxis: {
+									mode: "time",
+									minTickSize: [ 1,"month"],
+                                                                        autoscaleMargin:2
+
+								},
+
+								grid: {
+									show: true,
+									aboveData: false,
+									backgroundColor: { colors: ["#fff", "#fff "] },
+									tickColor: "#fff",
+									labelMargin: 5,
+									markings: [],
+									borderWidth: 0,
+                                                                        hoverable: false,
+									autoHighlight: true,
+									mouseActiveRadius: 1
+								},
+									yaxis: {
+										min: 0,
+										max: max_share_length
+								
+										},
+									legend: {
+										container: $("#sharing_chart_legend")
+									}		
+								}
+				);
+
+                                $("#sharing_chart_legend table").css("width","242px");
+                                $("#sharing_chart_legend table tr").each(function(){
+                                      $(this).css("float","left");
+                                });
+                }
+	});
+</script>
+
+<% end %>

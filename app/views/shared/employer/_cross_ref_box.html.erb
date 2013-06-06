@@ -1,0 +1,13 @@
+<div class="career-seeker-text-box-id" id="cross_ref_box" style="display: none; z-index: 1189; position: absolute; width:230px;">
+  <!-- form will place here -->
+  <div class="input-text">
+      <div class="customized-inner-input input-text" >
+        <div class="input-left"></div>
+        <input type="hidden" id="career_seeker_name_placeholder" value="<%=t ('cross_reference_field.career_seeker_id') %>"/>
+        <input type="text" name="seeker_name" id="career_seeker_name" class="input-field-style" value="<%=t ('cross_reference_field.career_seeker_id') %>" onblur="blur_element(this);" onfocus="focus_element(this);" onkeydown="type_element(this);" maxlength="25" onkeyup="enableXrefButton(this); xref_box.keyAction(event);"></input>
+        <div class="input-right"></div>
+      </div>
+      <input type="button" style="display:none;" id="add-x-ref-button" class="add-x-ref-button" value="" onclick="enterXrefBox()"></input>
+  </div>
+  <!-- Form end -->
+</div>

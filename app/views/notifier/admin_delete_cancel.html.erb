@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="height:10px;"></div>
+    <br />
+    <div>
+      Hello <%= @obj.first_name %>,
+      <br />
+      Your account deletion request can not be processed at this moment.
+      Your account has been reactivated, thereby you can log back into your account.
+      <br /><br />
+      Please write back to us should you have any other questions or need any further assistance.
+    </div>
+    <br /><br />
+    <div>
+      - Team Hilo
+      <img alt="logo" src="https://<%=@host_name%>/assets/logo-hilo_new.png" width="120" height="103" />
+    </div>
+  </body>
+</html>

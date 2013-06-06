@@ -1,0 +1,241 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0; padding:0; outline:none; font-family: 'Lato', sans-serif;}
+ul {list-style:none; list-style:none;}
+a {text-decoration:none; color: #000033;  }
+a:hover {text-decoration:none; color: #000033;  }
+a img {border:none;}
+textarea {resize:none;}
+
+
+/* COMMON CLASSES */
+.main-container { margin: 0 auto; width: 940px; background: url("../assets/employer_landing/background-tile.jpg") repeat scroll 0 0 transparent; padding: 0 40px 50px; color: #000033; }
+.main-container.header-container { padding: 0px; background: url("../assets/employer_landing/background-tile.jpg") repeat scroll 0 0 transparent; width: 1020px; height: 140px;}
+.double-seperator { border-bottom: 1px solid #CCCCCC; border-top: 1px solid #CCCCCC; height: 4px; }
+.single-seperator { border-top: 1px solid #CCCCCC; height: 1px; }
+.overflow-auto { overflow: auto; }
+.signup-button { background: url("../assets/employer_landing/button-set-1_en.png") no-repeat scroll -116px top transparent; border: medium none; cursor: pointer; height: 45px; width: 160px; display: block; }
+.signin-button { background: url("../assets/employer_landing/button-set-1_en.png") no-repeat scroll 0px top transparent; border: medium none; cursor: pointer; height: 45px; width: 105px; display: block; }
+.signup-button.fr-CA { background: url("../assets/employer_landing/button-set-1_fr-CA.png") no-repeat scroll -150px top transparent; border: medium none; cursor: pointer; height: 45px; width: 272px; display: block; }
+.signin-button.fr-CA { background: url("../assets/employer_landing/button-set-1_fr-CA.png") no-repeat scroll 0px top transparent; border: medium none; cursor: pointer; height: 45px; width: 145px; display: block; }
+.home-button { background: url("../assets/employer_landing/home_button.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 115px; display: block; }
+.get-started-button { background: url("../assets/employer_landing/get-started.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 207px; display: block; }
+.get-started-button.fr-CA { background: url("../assets/employer_landing/get-started_fr-CA.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 207px; display: block; }
+.for-candidate-button { background: url("../assets/employer_landing/candidates-click-here.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 262px; display: block; }
+.for-candidate-button.fr-CA  { background: url("../assets/employer_landing/candidates-click-here_fr-CA.png") no-repeat scroll left top transparent;}
+.submit-button { background: url("../assets/employer_landing/submit_button.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 115px; display: block; }
+.enter-button {background:url("../assets/buttons-sprite.png") no-repeat scroll -150px 0 transparent; border: medium none; height: 33px;width: 86px; cursor:pointer;}
+.enter-button.fr-CA { background:url("../assets/buttons-sprite_fr-CA.png") no-repeat scroll -150px 0 transparent; }
+.enter-button-active {background:url("../assets/buttons-sprite.png") no-repeat scroll -150px 0 transparent; border: medium none; height: 33px;width: 86px;cursor:pointer;}
+.enter-button-active.fr-CA { background:url("../assets/buttons-sprite_fr-CA.png") no-repeat scroll -150px 0 transparent; }
+.free-sign-up { background: url("../assets/employer_landing/free-sign-up.png") no-repeat scroll left top transparent; border: medium none; cursor: pointer; height: 45px; width: 207px; display: block; }
+
+
+.black_overlay { display:none; position:fixed; top:0%; left:0%; width:100%; height:100%; background-color:black; z-index:1001; -moz-opacity: 0.85; opacity:.85; filter:alpha(opacity=85); }
+.black_overlay .popup-loader, .black_overlay_dark .popup-loader { display:none; float:left; margin-left: 50%; margin-top: 25%; }
+.black_overlay_light{display:none; position:fixed; top:0%; left:0%; width:100%; height:100%; background-color:black; z-index:1002; -moz-opacity: 0.50; opacity:.50; filter:alpha(opacity=50);}
+.white_content { display:none; position:absolute; top:8%; left:32%; height:auto; z-index:1010; overflow:auto;}
+
+ul.menu { overflow: auto; }
+ul.menu li { float: left; padding: 5px 14px; }
+ul.menu li:first-child { padding-left: 0px; }
+ul.menu li:last-child { padding-right: 0px; }
+ul.menu li a { font-size: 22px; font-weight: 300; text-transform: uppercase; }
+ul.menu li a:hover { text-decoration: none; }
+ul.menu li.seperator { border-left: 1px solid #CCCCCC; height: 27px; padding: 5px 0; width: 1px;}
+
+.gradient-content{ background:url(../assets/employer_landing/Background_box.jpg); padding:10px 18px; height:auto; overflow:hidden; color:#000066; }
+.white_content .popup-upper-block-fogetPwd .popup-top { background: url("../assets/employer_landing/popup-top.png") no-repeat scroll left top transparent; height: 9px; }
+.white_content .popup-upper-block-fogetPwd .popup-content { background: url("../assets/employer_landing/popup-middle.png") repeat-y scroll left top transparent; padding: 0 8px; width: 589px;}
+.white_content .popup-upper-block-fogetPwd .popup-bottom { background: url("../assets/employer_landing/popup-bottom.png") no-repeat scroll left top transparent; height: 9px; }
+.popup-siteActivation .popup-content .gradient-content { background: url(../assets/employer_landing/Background_box.jpg) repeat scroll 0 0 transparent; }
+.popup-siteActivation .popup-top { background: url("../assets/employer_landing/popup-top-small.png") no-repeat scroll left top transparent; display: block; height: 9px; width: 513px; }
+.popup-siteActivation .popup-content { background: url("../assets/employer_landing/popup-content-small.png") repeat-y scroll left top transparent; height: auto; padding: 0 5px; position: relative; width: 503px; }
+.popup-siteActivation .popup-bottom { background: url("../assets/employer_landing/popup-bottom-small.png") no-repeat scroll left top transparent; display: block; height: 9px; width: 513px; }
+.white_content .popup-content a.close { background: url("../assets/employer_landing/close.png") no-repeat scroll left top transparent; }
+
+.lfloat { float: left !important; }
+.rfloat { float: right !important; }
+.margin-T--25px { margin-top: -25px !important; }
+.txtLalign { text-align: left; }
+.txtRalign { text-align: right; }
+.padding-bottom-0px { padding-bottom: 0 !important; }
+
+/* PAGE HEADER */
+.floating-header { margin: 0 auto; width: 940px; padding: 30px 40px 0; color: #000033; position: fixed; z-index: 1000;  background: url("../assets/employer_landing/background-tile-85.png") repeat scroll 0 0 transparent;}
+.floating-header .header { padding: 0 0 10px; overflow: visible; height: 100px; position: relative; }
+.floating-header .header .logo { float: left; }
+.floating-header .double-seperator { margin-bottom: 14px; }
+.floating-header .header .menu-container { float: left; margin-left: 197px; margin-top: 3px; width: 630px; }
+.floating-header .header .menu-container ul.menu { float: left; }
+.floating-header .header .nav-container { float: right; width: 280px; margin-top: 12px; }
+.floating-header .header .nav-container.fr-CA { width: 430px; }
+.floating-header .header .nav-container ul.button-container { float: right; }
+.floating-header .header .nav-container ul.button-container li { float: left; margin-left: 10px }
+.floating-header .header .nav-container ul.button-container li:first-child { margin-left: 0px}
+.floating-header .header .nav-container ul.menu { float: left; padding-top: 15px; }
+.floating-header .header .menu-container .candidate-link { float: right; margin-top: 8px; }
+.floating-header .header .menu-container .candidate-link a { font-weight: 300; font-size: 14px; }
+.floating-header .header .menu-container .candidate-link a:hover { text-decoration: underline; }
+.floating-header .header .hilo_search_link { position: absolute; top: -20px; right: 0px; font-size: 16px;}
+.floating-header .header .hilo_search_link a { color: #000066; font-size: 16px; font-weight: 300; letter-spacing: -0.4px; word-spacing: 0; text-transform: uppercase; }
+.floating-header .header .hilo_search_link a:hover { text-decoration: underline; }
+
+.main-container .page-header { padding-bottom: 30px; padding-top: 18px; text-align: center; }
+.main-container .page-header h1 { font-size: 48px; font-weight: 300; padding-bottom: 10px; }
+.main-container .page-header p { font-size: 20px; font-weight: 300; }
+.main-container .page-header p strong { font-size: 22px; font-style: italic; font-weight: 400; }
+
+/*PAGE CONTENT*/
+.main-container .get-started { height: 50px; overflow: hidden; position: relative; padding: 30px 0; }
+.main-container .get-started .get-started-button { left: 365px; position: absolute; top: 34px; }
+.main-container .get-started .for-candidate-button { left: 338px; position: absolute; top: 34px; }
+.main-container .get-started .submit-button { left: 406px; position: absolute; top: 34px; }
+.main-container .get-started .single-seperator { margin-top: 25px; }
+.main-container .quotes-container { margin: 0; background: white; border: 1px solid #CCCCCC; overflow: hidden; position: relative; height: 205px;}
+.main-container .quotes-container .message { font-size: 20px; font-weight: 400; font-style: italic; text-align: justify; width: 888px; }
+.main-container .quotes-container .signature { font-size: 20px; font-weight: 400; float: right; margin-top: 12px; margin-right: 167px; }
+.main-container .quotes-container .signature .sub-signature { padding-left: 12px; }
+.main-container .quotes-container .quote-content { left: 0; overflow: auto; position: absolute; top: 0;}
+.main-container .quotes-container .quote-content li { float: left; padding: 25px; position: relative;}
+.main-container .solutions-content { overflow: auto; padding: 30px 60px; }
+.main-container .solutions-content .image-holder { float: left; margin-top: 8px; }
+.main-container .solutions-content .content-holder { float: right;  max-width: 470px; }
+.main-container .solutions-content .content-holder h2 { font-size: 40px; font-weight: 300; }
+.main-container .solutions-content .content-holder p { font-size: 18px; font-weight: 300; padding: 15px 0; line-height: 20px; }
+.main-container .solutions-content .content-holder ul.menu-options { }
+.main-container .solutions-content .content-holder ul.menu-options li { float: left; }
+.main-container .solutions-content .content-holder ul.menu-options li a { font-weight: 400; font-size: 24px; color: #03C2D3; text-transform: uppercase; padding-right: 20px; }
+.main-container .solutions-content .content-holder ul.menu-options li a:hover { text-decoration: none; }
+.main-container .solutions-content .content-holder.lfloat { max-width: 420px; }
+.main-container .monitor { padding: 40px 60px 30px; }
+.main-container .monitor .top { background: url("../assets/employer_landing/monitor-top.png") no-repeat scroll left top transparent; height: 37px; width: 820px; }
+.main-container .monitor .middle { background: url("../assets/employer_landing/monitor-middle.png") no-repeat scroll left top transparent; height: 451px; width: 820px; position: relative; }
+.main-container .monitor .middle .slide { overflow: hidden; height: 451px; position: relative; width: 598px; margin-left: 108px; }
+.main-container .monitor .middle .slide .slide-content { left: 0; overflow: auto; position: absolute; top: 0; }
+.main-container .monitor .middle .slide .slide-content li { float: left; position: relative; padding-top: 26px; width: 582px; cursor: pointer; padding-left: 16px; }
+.main-container .monitor .bottom-one { background: url("../assets/employer_landing/monitor-bottom-one.png") no-repeat scroll left top transparent; height: 60px; width: 820px; }
+.main-container .monitor .bottom-one .navigation { padding: 15px 0 0 108px; }
+.main-container .monitor .bottom-one .navigation ul { overflow: auto;}
+.main-container .monitor .bottom-one .navigation ul li { float: left; margin-right: 3px; }
+.main-container .monitor .bottom-one .navigation ul li a { background: url("../assets/employer_landing/monitor-dots.png") no-repeat scroll -22px top transparent; height: 18px; width: 18px; display: inline-block; }
+.main-container .monitor .bottom-one .navigation ul li a.active { background: url("../assets/employer_landing/monitor-dots.png") no-repeat scroll left top transparent; height: 18px; width: 18px; display: inline-block; }
+.main-container .monitor .bottom-two { background: url("../assets/employer_landing/monitor-bottom-two.png") no-repeat scroll left top transparent; height: 146px; width: 820px; }
+.main-container .features-content { padding: 30px 0 0; }
+.main-container .features-content ul.features { overflow: auto; }
+.main-container .features-content ul.features li { float: left; cursor: pointer; }
+.main-container .features-content ul.features li.seperator { border-left: 1px solid #CCCCCC; height: 145px; width: 1px; margin: 25px 28px 0; cursor: default; }
+.main-container .features-content .features-text { padding-top: 20px; }
+.main-container .features-content .features-text div.heading { font-size: 24px; font-weight: 400; text-transform: uppercase; text-align: left; }
+.main-container .features-content .features-text p { font-weight: 300; font-size: 18px; text-align: left; }
+.main-container .features-content .features-text p strong { font-weight: 400; font-size: 18px; font-style: italic; }
+.main-container .features-content .features-text th { vertical-align: top; }
+.main-container .features-content .features-text .first { padding-right: 15px; width: 285px; }
+.main-container .features-content .features-text .second { padding-right: 35px; width: 320px; }
+
+/* PAGE FOOTER */
+.main-container .footer { overflow: auto; }
+.main-container .footer ul.menu { margin: 35px auto auto; overflow: auto; width: 355px; }
+.main-container .footer ul.social-media { margin: 30px auto auto; overflow: auto; width: 188px;}
+.main-container .footer ul.social-media li { float: left; }
+.main-container .footer ul.social-media li a { height: 78px; width: 78px; display: block; }
+.main-container .footer ul.social-media li a:hover { text-decoration: none; }
+.main-container .footer ul.social-media li a.facebook-icon { background: url("../assets/employer_landing/social-media-icons.png") no-repeat scroll left top transparent; margin-right: 10px; }
+.main-container .footer ul.social-media li a.twitter-icon { background: url("../assets/employer_landing/social-media-icons.png") no-repeat scroll -99px top transparent; margin-left: 10px; }
+.main-container .footer ul.footer-links { margin: 30px auto auto; overflow: auto; width: 495px; }
+.main-container .footer ul.footer-links li { font-size: 18px; font-weight: 400; float: left; margin-right: 20px;}
+.main-container .footer ul.footer-links li:last-child { margin-right: 0px; }
+.main-container .footer ul.footer-links li.white label { color: white; position: absolute; z-index: 1005; }
+.main-container .footer ul.footer-links.fr-CA { width: 655px; }
+
+/* SIGN IN BOX*/
+.sign-in-box { position: fixed; right: auto; top: auto; z-index: 1003; display: none; margin-left: 754px; margin-top: 88px; }
+.sign-in-box .top {background:url("/assets/employer_landing/login_box_top.png") right top no-repeat; height: 20px;width: 229px;}
+.sign-in-box .middle {background:url("/assets/employer_landing/login_box_middle.png") repeat-y scroll left top transparent; height: 158px;width: 229px;}
+.sign-in-box .middle .content{padding: 5px 12px 5px 15px;}
+.sign-in-box .bottom {background:url("/assets/employer_landing/login_box_bottom.png") right top no-repeat; height: 7px;width: 229px;}
+.sign-in-box .middle .content ul li { height:auto; overflow:hidden; padding:5px 0;margin: 0 !important; }
+.sign-in-box .middle .content ul li input[type=text],
+.sign-in-box .middle .content ul li input[type=password] { width:182px; }
+.sign-in-box .middle .content ul li a.forget-password{ color:#000066; text-decoration:none; font-size:11px; text-align:right; clear:both; float:right; font-weight: 400; }
+.sign-in-box .middle .content ul li a.forget-password:hover{ text-decoration: underline; }
+
+
+/* TERMS OF USE POPUP */
+#terms_of_use.white_content { position: fixed; }
+
+/* PRIVACY POLICY POPUP */
+#privacy_policy.white_content { position: fixed; }
+
+/* QUESTIONAIRE */
+.question-set .workenv-options { background: url("../assets/employer_landing/question_box.png") no-repeat scroll left top transparent; height: 28px; padding: 1px 36px 0; width: 396px; }
+.question-set .workenv-options li a.almostAlways, .question-set .workenv-options li a.notAtall, .question-set .workenv-options li a.slightly,
+.question-set .workenv-options li a.default, .question-set .workenv-options li a.greatly, .question-set .workenv-options li a.moderately
+{ background: url("../assets/employer_landing/question_circle.png") no-repeat scroll left top transparent; display: block; height: 26px; text-indent: -999999px; width: 26px; }
+.question-set .workenv-options li a.notAtall.active, .question-set .workenv-options li a.almostAlways.active, .question-set .workenv-options li a.slightly.active,
+.question-set .workenv-options li a.greatly.active, .question-set .workenv-options li a.moderately.active
+{ background: url("../assets/employer_landing/question_circle_selected.png") no-repeat scroll left top transparent; height: 26px; width: 26px; }
+.question-set .workenv-options li { float: left; margin-right: 66px; }
+.question-set .workenv-options li.last-child { margin: 0; }
+.question-error-message { float: none; width: auto; text-align: center; margin-top: 28px; }
+.question-set-box.graph_boxes .question_set_box_top_bg { background: url("../assets/employer_landing/results_box_top.png") no-repeat scroll left top transparent !important; width: 453px !important; height: 7px; }
+.question-set-box.graph_boxes .question_set_box_bottom_bg { background: url("../assets/employer_landing/results_box_bottom.png") no-repeat scroll left top transparent !important; width: 453px !important; }
+.question-set-box.graph_boxes .gradient-content { background: none repeat scroll 0 0 transparent; }
+.question-set-box.graph_boxes .question_set_box_middle_bg { background: url("../assets/employer_landing/results_box_middle.png") repeat-y scroll left top transparent !important; width: 453px !important; }
+.question-headers .first { margin-right: 48px; }
+.question-headers .second {  margin-right: 26px; }
+.question-headers .third { margin-right: 25px; }
+.question-headers .fourth { margin-right: 14px; }
+.main-container #results_header.page-header h1 { font-size: 42px; }
+.main-container #results_header.page-header p { padding-bottom: 30px; }
+.main-container #results_header.page-header { overflow: auto; }
+.fs_open_link { color: #000033; }
+.search_city_listing { margin-top: 10px; }
+.search_city_listing table { width: 100%; }
+.search_city_listing table td { max-width: 145px; overflow: hidden; }
+.search_city_listing table a { text-transform: uppercase; font-weight: 300; font-size: 18px; text-decoration: underline; color: #000033; }
+
+.language-selector.employer {
+    background: url("../assets/employer_landing/lang-arrow.png") no-repeat scroll 53px 6px transparent;
+    font-size: 12px;
+    font-weight: 300;
+    padding-right: 15px;
+    position: absolute;
+    right: 300px;
+    top: -18px;
+    cursor: pointer;
+}
+.langauge-dropdown.employer {
+    font-size: 12px;
+    font-weight: 300;
+    position: absolute;
+    right: 285px;
+    top: 0;
+    display: none;
+}
+.langauge-dropdown.employer .top {
+    background: url("../assets/employer_landing/lang-top.png") no-repeat scroll left top transparent;
+    height: 15px;
+    width: 161px;
+}
+.langauge-dropdown.employer .middle {
+    background: url("../assets/employer_landing/lang-middle.png") repeat-y scroll left top transparent;
+    width: 161px;
+}
+.langauge-dropdown.employer .middle ul {
+    padding: 0 15px;
+}
+.langauge-dropdown.employer .middle ul li {
+    padding: 5px 0;
+}
+.langauge-dropdown.employer .middle ul li.seperator {
+    border-bottom: 1px solid lightgrey;
+    height: 1px;
+    padding: 0;
+}
+.langauge-dropdown.employer .bottom {
+    background: url("../assets/employer_landing/lang-bottom.png") no-repeat scroll left top transparent;
+    height: 15px;
+    width: 161px;
+}

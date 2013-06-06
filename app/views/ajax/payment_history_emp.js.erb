@@ -1,0 +1,4 @@
+$("#fade_normal_acc").show();
+$("#ajax-content").html('<%= escape_javascript render(:partial=>"/employer_account/payment_history", :locals=>{:history=>@payment_list}) %>');
+centralizePopup();
+hideBlockShadow();

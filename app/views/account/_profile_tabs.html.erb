@@ -1,0 +1,23 @@
+<ul class="profile-breadcrumb">
+  <li class="first-child <%if session[:open_credential].nil?%>active<%end%>"><a href="javascript:void(0)" title="<%= t('account.pairing_profile.intro_text') %>" onclick="checkInfoDummyImage();"><%= t('account.pairing_profile.intro_text') %></a></li>
+  <li><a href="javascript:void(0)" title="<%= t('account.pairing_profile.personality_text') %>"><%= t('account.pairing_profile.personality_text') %></a></li>
+  <li id="legacy_credential"><a href="javascript:void(0)" title="<%= t('account.pairing_profile.credentials_text') %>"><%= t('account.pairing_profile.credentials_text') %></a></li>
+  <li><a href="javascript:void(0)" title="<%= t('account.pairing_profile.basics_text') %>"><%= t('account.pairing_profile.basics_text') %></a></li>
+</ul>
+
+<a href="javascript:void(0)" class="profile-info-icon" title="Help" id="info-dummy" onclick="$('#sample-intro').show();showNormalShadow();centralizePopup();"><%= image_tag("question-icon.png", :alt=>"Help") %></a>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    profile.display();
+    <% if not session[:open_credential].nil? and session[:open_credential]==true %>
+      showBlockShadow();
+      $("#legacy_credential").click();
+    <% end %>
+  });
+  function checkInfoDummyImage() {
+    if($('#info-dummy').is(':visible') == false) {
+      $('#info-dummy').show();
+    }
+  }
+</script>

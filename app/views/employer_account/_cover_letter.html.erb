@@ -1,0 +1,25 @@
+<% if session[:cover_note_job_id] %>
+<div style="display: none; position: fixed; top: 8%" id="cover_letter_box" class="one_click_payment_position_white_content">
+  <div style="width: 605px;">
+    <div class="dashboard_position_popup-siteActivation" style="height: auto;">
+      <span class="position_popup-top">&nbsp;</span>
+      <div class="position_popup-content_oneclick">
+        <div class="position_gradient-content_oneclick">
+          <div class="position_popup-header-container">
+            <label class="popup-heading"><%= @job_cover_note.name %></label>
+          </div>
+          <div>
+            <div class="message"><%= @job_seeker.first_name+" "+@job_seeker.last_name %> has applied for your <%= @job_cover_note.name %> position.</div>
+            <div class="title">Cover Letter</div>
+            <div class="cover-note"><%= @job_status_cover_note.cover_note.gsub("\n","<br/>").html_safe %></div>
+            
+          </div>
+        </div>
+        <a class="position_close_oneclick" href="javascript:void(0);" onclick="$('#cover_letter_box').hide();return closeCoverLetter();" id="oneclick-close">Close</a>
+      </div>
+      <span class="position_popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+</div>
+<% session[:cover_note_job_id] = nil %>
+<% end %>

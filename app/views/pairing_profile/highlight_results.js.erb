@@ -1,0 +1,25 @@
+var careerParent = $("ul#career_clusters");
+careerParent.children().each(function() {
+    $(this).removeClass('background_career_cluster highlightCls');
+});
+
+var pathParent = $("ul#careerPath");
+pathParent.children().each(function() {
+    $(this).removeClass('background_career_cluster highlightCls_path');
+});
+
+careerParent.children().each(function() {
+  <% @roles.each do |role| %>
+    if($(this).find("input").val() == "<%= role.career_cluster %>" ) {
+          $(this).addClass('background_career_cluster highlightCls');
+    }
+  <% end %>
+});
+
+pathParent.children().each(function() {
+  <% @roles.each do |role| %>
+    if($(this).find("input").val() == "<%= role.career_cluster %>" ) {
+        $(this).addClass('background_career_cluster highlightCls_path');
+    }
+  <% end %>
+});

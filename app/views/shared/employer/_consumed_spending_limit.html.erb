@@ -1,0 +1,25 @@
+<div class="one_click_payment_position_white_content" id="consumed_warning" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("spending_limit_reached_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 54%;">
+              <label class="free-text"><%=t ("spending_limit_reached_popup.content") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px;">
+              <input type="button" id="consumed_warning_button" class="ok-button-active" onclick="$('#consumed_warning').hide();$('#fade_error').hide();footerOnClosingPopup();" style="margin-top: 8px;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="position_close_oneclick" onclick="$('#consumed_warning').hide();$('#fade_error').hide();footerOnClosingPopup();"><%=t ("spending_limit_reached_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

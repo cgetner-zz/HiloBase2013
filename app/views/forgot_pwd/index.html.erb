@@ -1,0 +1,65 @@
+<%content_for :page_css do -%>
+	<%#=stylesheet_link_tag("")%>
+<%end-%>
+<%content_for :page_js do -%>
+
+<%end-%>
+
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="forgot-pwd-box">
+	<div class="forgot-pwd-content">
+		<div class="account-box">
+			<%=render :partial=>"/account/panels/account_top_cover" -%>
+			<div class="fpwd-box-inner">
+				<%=  form_tag("/forgot_pwd/index",:method =>"post") do -%>
+					<div class="forgot-pwd-label">
+						Forgot Password
+						<br/><br/>
+						<span style="font-weight:normal;">Enter your email address below and hit 'submit' and a link will be sent to your email account allowing you to reset your account password.</span>
+
+					</div>
+					<div class="height10"></div>
+					<div class="separator"></div>
+					<div class="height10"></div>
+					<div class="height10"></div>
+					<div class="height10"></div>
+
+					<div class="fpwd-label">
+						Your Email:	
+					</div>
+
+					<div class="fpwd-field">
+					  <input type="text" name="forgot_email" class="input-field-style fpwd-input-field" value="<%=params[:forgot_email] %>"/>
+					</div>
+					<br class="clear"/>
+
+					<div class="height10"></div>
+					
+					<div class="fpwd-label">
+						&nbsp;
+					</div>
+
+					<div class="fpwd-field">
+					  <input type="submit" value="Submit" class="button-style-shared buttton_65X23" />
+					</div>
+					<br class="clear"/>
+
+					
+				<%end -%>
+			</div>
+			<%=render :partial=>"/account/panels/account_bottom_cover" -%>
+		</div>
+
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		<%if not @msg_json.blank?%>
+			msg_box.show_error("<%=@msg_json%>","Message");
+		<%end%>
+	});
+</script>
+

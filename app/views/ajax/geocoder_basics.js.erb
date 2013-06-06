@@ -1,0 +1,11 @@
+<% if !@result.nil? %>
+  <%  if !@result.first.nil? %>
+    $("#latitude").val('<%= @result.first.latitude%>');
+    $("#longitude").val('<%= @result.first.longitude%>');
+    $("#cs_city").val('<%= @result.first.address%>');
+  <% else %>
+    $("#latitude").val('');
+    $("#longitude").val('');
+    $("#cs_city").val('');
+  <% end %>
+<% end  %>

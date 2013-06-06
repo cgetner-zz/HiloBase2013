@@ -1,0 +1,31 @@
+$("#search_value").val($('#search').val());
+$('tr').each(function(){
+if ($(this).attr('id') != undefined){
+if($(this).hasClass('filter')){
+$(this).removeClass('filter');
+}
+}
+});
+$("#search_result_arr").val('<%= @result_arr.join(",") %>');
+var arr = new Array();
+<% @result_arr.each do |result|%>
+  arr.push(<%= result %>);
+  
+<% end %>
+if ($('#list').children().children().length == 0){
+  $('#error_msg_empty_table').show();
+}
+$('tr').each(function(){
+if ($(this).attr('id') != undefined){
+var id = $(this).attr('id').split('_')[2];
+$('#error_msg_empty_table').hide();
+if (!arr.has(id)){
+$(this).addClass('filter');
+}
+}
+});
+if ($('#save_show_emp').val() == "1"){
+$('#show_search').show();
+}
+
+$('.reset-container').css('visibility','visible');

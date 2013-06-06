@@ -1,0 +1,176 @@
+<% if session[:employer].account_type_id != 3 %>
+  <%= render :partial=>"employer_account/user_list" %>
+<% end %>
+<input type="hidden" id="new_category" val="0" />
+<input type="hidden" id="current_item" val="0" />
+<input type="hidden" id="next_item" val="0" />
+<input type="hidden" id="destination_box_jobs" val="" />
+<input type="hidden" id="clicked-job-for-are-you-sure" value="" />
+
+<!-- category list starts -->
+
+<%= form_tag("/ajax/save_category", :id=>"role_form", :remote=>true) do %>
+
+  <input type="hidden" id="parent_id" value="<%if session[:employer].account_type_id != 3%>-1<% else %>0<% end %>" name="parent_id"/>
+  <div style="margin-right: 5px;">
+    <div id="company-group-list-section">
+      <%= render :partial => "employer_account/company_group_list", :locals=>{:jobs => jobs}%>
+    </div>
+  </div>
+<%end -%>
+
+<!--category list ends -->
+
+<div class="activity-container" style="overflow: auto; margin-top: 10px;">
+  <div class="left-container">
+    <div  class="group-row-add" style="cursor:pointer;">
+      <div class="group-row-add-txt">
+        <label class="group-row-add-txt-label" id="cat_add_label" onclick="addNewFolder();"><%=t ("emp_left_menu.folder") %></label>
+        <label id="edit_category_id" style="display: none; float: right; font-size: 14px; font-weight: 400; margin-top: 1px; width: 25px;">
+          <%= render :partial=>'/employer_account/edit_category' %>
+        </label>
+      </div>
+      <div class="clear-height"></div>
+    </div>
+    <div class="group-row-add" id="add_positon_section" style="cursor:pointer;">
+      <%= render :partial => "/employer_account/add_position" %>
+    </div>
+  </div>
+  <div class="right-container">
+    <div class="group-container" id="group_container">
+      <%= render :partial => "employer_account/group_container"%>
+    </div>
+  </div>
+</div>
+
+<div class="activity-separator">&nbsp;</div>
+<script type="text/javascript">
+  $('#company-group-list-section').slimscroll({
+    railVisible: true,
+    allowPageScroll: false,
+    color : '#98AFC7'
+  });
+</script>
+<script type="text/javascript">
+  var currently_viewed_job_id = "<%=(!@job.nil? and  !@job.id.nil?) ? @job.id : 0%>";
+
+  function enable_category_edit(id)
+  {
+    $(".landing-value").each(function(){
+      var label_value = $(this).attr('data-folder-name');
+      $(this).next().find("input").val(label_value);
+    });
+    $("#group_row_"+id+" .group-row-name span").toggle();
+    $(".category-group-name").toggle();
+    $("#group_row_"+id+" .edit-group-name").parent().toggle();
+    
+    if($("#group_row_"+id+" .edit-group-name").parent().css("display")!="none"){
+      $("body").unbind('click').click(function(){
+        $("body").unbind('click');
+        showBlockShadow();
+        $("#role_form").submit();
+      });
+    }
+    else{
+      $("body").unbind('click');
+    }
+  }
+  function disable_category_edit(){
+    $(".edit-group-name").parent().hide();
+    $(".category-group-name").show();
+    $(".group-row-name span").show();
+  }
+  function category_nil(){
+    showDashboardWarning(0, 2);
+    footerOnOpeningPopup();
+  }
+<%if !params[:id].nil?%>
+    openTabOnLoad(<%=params[:id]%>);
+<%end%>
+
+  $(document).ready(function(){
+    $('.user-list .users').slimscroll({
+      railVisible: true,
+      allowPageScroll: false
+    });
+    emp_left_menu_event.apply();
+<%  if session[:employer].account_type_id == 3 %>
+      emp_left_menu_event.group_drag();
+      emp_left_menu_event.job_section_drag();
+<% end %>
+    leftmenuBodyClick();
+
+<%if !params[:cat_id].nil?%>
+      $("#company-group-list-section #sort_group_<%=params[:cat_id]%> #group_row_<%=params[:cat_id]%> .group-row .group-row-name span.show-content").click();
+<%end%>
+  });
+    
+  function loadCategories(){
+    $("ul#category-list").empty();
+    var label_value = new Array();
+    var label_id = new Array();
+    var temp = new Array();
+    i=0;
+    placeholderReplace();
+
+    showBlockShadow();
+    $.ajax({
+      url: '/ajax/fetch_my_categories',
+      cache: false,
+      success: function(data){
+        hideBlockShadow();
+        temp = data.split("_joined_");
+        label_id = temp[0].split("_");
+        label_value = temp[1].split("_");
+        label_id.clean("");
+        label_value.clean("");
+        if(label_id.length > 0){
+          $("#add_category_button_from_popup").show();
+          $("#loader_img123").hide();
+          $("#add_category_button_from_popup").removeAttr("disabled");
+          $("#add_category_button_from_popup").removeClass("enter-button");
+          $("#add_category_button_from_popup").addClass("enter-button-active");
+
+        }
+        var len = label_value.length;
+        if (len ==0) {
+          showDashboardWarning(0, 2);
+          footerOnOpeningPopup();
+        }
+        else{
+          var i;
+          for(i=0;i<len;i++){
+            if(i==0){
+              $("#temp-name").text(label_value[i]);
+              $("#selected-cat-id").val(label_id[i]);
+            }
+            $("ul#category-list").append("<li selected='' val='"+label_id[i]+"' onclick='return addNewCategory(this, event);' style='border-bottom: 1px #000066 solid;line-height:25px' class='addcatdropdown'><label id='"+(i+1)+"'>"+label_value[i]+"</label><li>");
+          }
+          $("ul#category-list").append("<li selected='' val='0' onclick='return addNewCategory(this, event);' style='border:0;line-height:25px' class='addcatdropdown'><label id='"+(i+1)+"'>Add a new Folder</label></li>");
+          showAddNewCategoryPopup();
+        }
+      }
+    });
+  }
+  var check_folder_double_submit = false;
+  
+  jQuery(function($) {
+    var loading_role_form = function(){
+      $("body").unbind('click');
+      if(check_folder_double_submit) {
+        return false;
+      }
+      check_folder_double_submit = true;
+      if(!addFolderFlag){
+        return false;
+      }
+    }
+    var loaded_add_group = function(){
+      hideBlockShadow();
+      $("body").unbind('click');
+    }
+    $("#role_form")
+    .bind("ajax:beforeSend", loading_role_form)
+    .bind("ajax:complete", loaded_add_group)
+  });
+</script>

@@ -1,0 +1,61 @@
+
+<%if !session[:employer] and !session[:job_seeker]%>
+  <div class="home-login-box">
+
+    <div class="home-login-box-text safari-lh" >
+      <a href="javascript:void(0);" onclick="show_login('code',event);" class="stop-propogate">Career Code</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%=signin_link%>
+    </div>
+
+    <%= form_tag :url => ("/login/login"),:before=>"login_status.before_call()" , :remote => true do -%>
+      <div class="login-div body-click-hide" style="display:none;" id="login-div">
+        <div><img src="/assets/home_loginbox_up.png" id="loginbox-topimg" alt="img"/></div>
+        <div class="home-login-div-container">
+          <div class="login-div-content">
+            <div class="jobcode-section">
+              <div>
+                                                                    Career Code:	<br/>
+                <input type="text" name="job_code" class="login-input input-field-style"/>
+              </div>
+
+              <%if not session[:job_seeker]%>
+                <div class="sign-in-msg">
+                                                                              Please Sign in to access the job details
+                </div>
+              <%end%>
+            </div>
+
+            <div class="signin-section">
+              <%if not session[:job_seeker]%>
+                <div>
+                                                                              Your Email:		<br/>
+                  <input type="text" name="login_name" class="login-input input-field-style"/>
+                </div>
+
+                <div>
+                                                                              Password:	<br/>
+                  <input type="password" name="login_pass" class="login-input input-field-style"/>
+                </div>
+              <%end%>
+              <div >
+                <div style="float:left;">
+                  <input type="submit" value="Submit" class="button-style-shared buttton_65X23"/>
+                </div>
+
+                <div class="clear-height"></div>
+              </div>
+
+              <div >
+                <a href="/forgot_pwd">Forgot Password</a>
+              </div>
+
+              <div id="loader-img" style="display:none;margin-left:130px;"><%=image_tag("login-loader.gif")%></div>
+            </div>
+
+          </div>
+        </div>
+        <div><img src="/assets/home_loginbox_bottom.png" alt="img"/></div>
+      </div>
+    <%end%>
+
+  </div>
+<%end%>

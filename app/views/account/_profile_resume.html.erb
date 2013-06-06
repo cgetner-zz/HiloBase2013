@@ -1,0 +1,88 @@
+
+<div class="upper-bar">&nbsp;</div>
+<div class="block-content">
+  <div class="gradient-content">
+    <label class="block-heading">
+      <span class="lfloat">R&eacute;sum&eacute;<%= t('account.pairing_profile.intro.profile_resume.heading') %></span>
+      <span class="pdfInfo"><%= t('account.pairing_profile.intro.profile_resume.format') %> <br /><%= t('account.pairing_profile.intro.profile_resume.size') %></span>
+    </label>
+    <%if job_seeker.resume_file_name.blank?%>
+      <a href="javascript:void(0)" title="<%= t('account.pairing_profile.intro.profile_resume.resume_text') %>" class="resumeImage"><%= image_tag("resume-image.png", :size=>"39x49", :alt=>"Resume", :border=>"0", :class=>"lfloat") %></a>
+      <label class="basic-text"><%= t('account.pairing_profile.intro.profile_resume.basic_text1') %><br /> <%= t('account.pairing_profile.intro.profile_resume.basic_text2') %></label>
+
+      <span id="addresume">
+        <a href="javascript:void(0)" title="" class="addResume" id="add-resume"><%= t('account.pairing_profile.intro.profile_resume.add_text') %></a>
+      </span>
+
+    <%else%>
+      <a href="/download_file/resume/<%=job_seeker.id%>" title="<%= t('account.pairing_profile.intro.profile_resume.resume_text') %>" class="resumeImage"><%= image_tag("resume-image_active.png", :size=>"39x49", :alt=>"Resume", :border=>"0", :class=>"lfloat") %></a>
+
+      <ul class="addition-list" style="display: block; float: left; margin-left: 55px; margin-top: -42px;">
+        <li>
+          <a href="javascript:void(0)" title="<%= t('account.pairing_profile.intro.profile_resume.resume_file_name_text') %>" class="label" style="display: block; font-size: 13px; font-weight: 400; overflow: hidden; width: 267px;"><%= truncate(job_seeker.resume_file_name.html_safe.force_encoding('utf-8'),:length => 35) %></a>
+          <a href="javascript:void(0)" title="<%= t('account.pairing_profile.intro.profile_resume.remove_text') %>" class="remove" onclick="delete_resume();"><%= image_tag("remove-skill.png", :size=>"20x20", :alt=>"Remove", :border=>"0") %></a>
+        </li>
+      </ul>
+
+      <a href="javascript:void(0)" title="" class="change-resume" id="change-resume"><%= t('account.pairing_profile.intro.profile_resume.change_text') %></a>
+
+
+    <%end%>
+  </div>
+</div>
+<div class="bottom-bar"></div>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+        
+    $("#add-resume").click(function(e){
+      //show popup IE
+            
+      BrowserDetect.init();
+      if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+                
+        showNormalShadow();
+        $.ajax({
+          url: '/account/show_ie_popup',
+          cache: false,
+          success: function(){
+            $("#file_upload_ie").show();
+            centralizePopup();
+            $("#job_seeker_resume").css('visibility', 'visible');
+          }
+        });
+               
+      }
+      else{
+        $("#job_seeker_resume").click();
+        //e.preventDefault();
+      }
+    })
+        
+       
+    $("#change-resume").click(function(e){
+      //show popup IE
+            
+      BrowserDetect.init();
+      if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+                
+        showNormalShadow();
+        $.ajax({
+          url: '/account/show_ie_popup',
+          cache: false,
+          success: function(){
+            $("#file_upload_ie").show();
+            centralizePopup();
+            $("#job_seeker_resume").css('visibility', 'visible');
+          }
+        });
+                
+      }
+      else{
+        $("#job_seeker_resume").click();
+        //e.preventDefault();
+      }
+    })
+  })
+</script>    

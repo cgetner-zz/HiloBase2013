@@ -1,0 +1,54 @@
+<div class="emp-tabs-box">
+	<div class="emp-tabs">
+		<ul>
+			<li>
+				<a href="/employer_account" class="<%=controller.controller_name == "employer_account" ? 'emp-tabs-selected' : ''%>">Home</a>
+			</li>
+
+			<li>
+				<% if !@job.nil? && !params[:id].nil? %>
+					<a href="/position_profile/candidate_pool/<%=(@job.nil? ? '' : @job.id)%>" class="<%=(controller.controller_name == "position_profile" and ["candidate_pool", "xref"].include?(controller.action_name) ) ? 'emp-tabs-selected' : ''%>">Candidate Pool</a>
+				<% else %>
+					<a href="/#" style="text-decoration: none;" onclick="return false;" class="emp-tabs-disabled">Candidate Pool</a>
+				<% end %>
+
+			</li>
+
+			<li>
+				<% if !@job.nil?%>
+					<a href="/position_profile/profile/<%=(@job.nil? ? '' : @job.id)%>" class="<%=(controller.controller_name == "position_profile" and ["profile","new_employer_profile","edit_employer_profile"].include?(controller.action_name) ) ? 'emp-tabs-selected' : ''%>">Profile</a>
+					<!--<a href="javascript:void(0)" class="<%=(controller.controller_name == "position_profile" and ["profile","new_employer_profile","edit_employer_profile"].include?(controller.action_name) ) ? 'emp-tabs-selected' : ''%>">Profile</a>-->
+				<% else %>
+					<a href="/#" style="text-decoration: none;" onclick="return false;" class="emp-tabs-disabled"> Profile</a>
+				<% end %>
+			</li>
+
+			<li>
+
+				<% if !@job.nil? && !params[:id].nil?  && @job.profile_complete==true%>
+					 <a href="/postings/index/<%=@job.id%>" class="<%=(controller.controller_name == "postings" and ["index", "new", "hilo_share_task", "facebook_share_task", "twitter_share_task", "linkedin_share_task"].include?(controller.action_name) ) ? 'emp-tabs-selected' : '' %>">Posting</a>
+				<% else %>
+					<a href="/#" style="text-decoration: none;" onclick="return false;" class="emp-tabs-disabled">Posting</a>
+				<% end %>
+					
+
+        
+
+			</li>
+			<li>
+				<% if !@job.nil? && !params[:id].nil? %>
+					<a href="javascript:void(0)" style="text-decoration: none;" onclick="return false;" class="emp-tabs-disabled">Analytics</a>
+				<% else %>
+					<a href="/#" style="text-decoration: none;" onclick="return false;" class="emp-tabs-disabled">Analytics</a>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+</div><br class="clear-height"/>
+
+<script type="text/javascript">
+
+
+
+	
+</script>

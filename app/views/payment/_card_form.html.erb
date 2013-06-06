@@ -1,0 +1,166 @@
+<% form_for @payment, :url => { :action => "make_payment" } do |p| %>
+	<div>
+		<input type="hidden" value="" name="payment_type" id="payment_type"/>
+
+		<div id="promocode_form" class="pay-fields-left" style="<%=params[:promotional_code].blank? ? "display:none;" : ""%>">	
+			<div class="reg-field-height">
+					<div class="reg-field-promo-code-label"><b>Promotional/Gift Code</b> :</div>
+					<div class="reg-field-text-box">
+						 <input type="text" name="promotional_code" id="promotional_code" class="reg-field-text input-field-style" value="<%=params[:promotional_code]%>"/>
+					</div>
+					<br class="clear"/>
+			</div>
+		</div>
+		<br class="clear"/>
+
+		<div id="carddetails_form" style="display:none;">
+			
+
+			<div class="height5">&nbsp;</div>
+			<div class="height5">&nbsp;</div>
+			<div class="pay-fields-left">
+				<div><b>Card Details:</b></div>
+				<div class="height5">&nbsp;</div>
+				
+				<div class="reg-field-height">
+					<div class="reg-field-label">Card Type*:</div>
+					<div class="reg-field-text-box">
+						<%=select_tag("card_type", options_for_select([ ["Visa","visa"], ["Mastercard","master"],["Discover","discover"],["American Express","american_express"] ]),:class=>"reg-field-text reg-field-select") %>
+					</div>
+					<br class="clear"/>
+				</div>
+
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">Name*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :holder_name,"",:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">Card Number*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :card_num,"",:class=>"reg-field-text input-field-style",:autocomplete=>"off"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">CVV Number*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :cvv,"",:class=>"reg-field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">Expiry Date*:</div>
+					<div class="reg-field-text-box">
+						<div>
+							<%=text_field_tag :expiry_date,"",:class=>"reg-field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+						</div>
+						<div>
+							MM/YYYY
+						</div>
+					</div>
+					<br class="clear"/>
+				</div>
+				<div class="height5"></div>
+				<div style="width:150px;"><b>Billing Address:</b></div>
+				<div class="height5"></div>
+				
+				<div class="reg-field-height">
+					<div class="reg-field-label">Address 1*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :billing_address_one,@payment.billing_address_one,:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">Address 2:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :billing_address_two,@payment.billing_address_two,:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">City*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :billing_city,@payment.billing_city,:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">State*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :billing_state,@payment.billing_state,:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				<div class="reg-field-height">
+					<div class="reg-field-label">Zip*:</div>
+					<div class="reg-field-text-box">
+						<%=text_field_tag :billing_zip,@payment.billing_zip,:class=>"reg-field-text input-field-style"%>
+					</div>
+					<br class="clear"/>
+				</div>
+				
+				<div class="reg-field-height">
+					<div class="reg-field-label">Country*:</div>
+					<div class="reg-field-text-box">
+						<%=select_tag("billing_country", options_for_select(Country.find(:all).map {|c| [c.name,c.alpha2]}.unshift(["---Select Country---",""]),@payment.billing_country),:class=>"reg-field-text reg-field-select") %>
+					</div>
+					<br class="clear"/>
+				</div>
+
+			</div>
+			<br class="clear"/>
+		</div>
+		
+		<div id="express_form" class="pay-fields-left" style="display:none;">	
+			<div class="reg-field-height">
+					<div class="reg-field-label">&nbsp;</div>
+					<div class="reg-field-text-box">
+						 <b>Click Activate to go to Paypal</b>
+					</div>
+					<div class="clear-height"></div>
+			</div>
+		</div>
+		<div class="clear-height"></div>
+
+		
+	</div>
+
+	
+	<div id="pay_form_submit" style="display:none;">
+		<div class="text">
+			<div id="pre-payment-div" class="pay-fields-left">
+				<div class="reg-field-height">
+					<div class="reg-field-label">&nbsp;</div>
+					<div class="reg-field-text-box">
+						<a href="javascript:void(0);" onclick="check_payment_options.init();"  id="activate_account_btn" class="button-pay-a button_pay_220X34">Activate Your Account $<%=REGISTRATION_COST%></a>
+					<img src="/assets/login-loader.gif" id="payment_loader" style="display:none;" alt="Loading ..."/>
+					</div>
+					<br class="clear"/>
+				</div>
+
+				
+			</div>
+
+			<div id="post-payment-div" style="display:none;">
+				Your registration payment of $<%=REGISTRATION_COST%> has been processed.
+				<div>
+					<a href="/account" class="button-pay-a button_pay_190X34">Enter Hilo &#62;&#62;</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="clear">&nbsp;</div>
+<%end-%>

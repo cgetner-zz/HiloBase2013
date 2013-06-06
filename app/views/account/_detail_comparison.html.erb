@@ -1,0 +1,219 @@
+<div class="job-outer-box">
+
+	<div class="preview-left-corner"></div>
+	<div class="preview-center-line">
+		<div class="preview-header">
+			<div class="preview-header-text">
+				<div class="left">
+					Position Details
+				</div>
+				<div class="right">
+					<a href="javascript:void(0);" onclick="job_detail_view.close();"><img src="/assets/cross.png"/></a>
+				</div>
+				<div class="clear-height">&nbsp;</div>
+			</div>	
+		</div>
+	</div>
+	<div class="preview-right-corner"></div>
+	<div class="clear-height"></div>
+	<div class="job-inner-box">
+		<div class="job-content">
+			<div class="job-detail">
+				<%=render :partial=>"/account/job_header_info",:locals =>{:job => job, :desired_emp => desired_emp}%>
+
+				<div class="height10">&nbsp;</div>
+
+				<%=render :partial =>"/account/panels/birkman_pairing_result",:locals=>{:job => job,:job_seeker_birkman_detail => (defined?(job_seeker_birkman_detail).nil? ? nil : job_seeker_birkman_detail )} -%>
+
+				
+
+				<!-- start -overview -->	
+				<div class="height10"></div>
+				<div class="height10"></div>
+				<div>
+					
+					<div class="dc-section-header pos-relative">
+						<div class="dc-section-header-text dc-section-header-absolute">
+							<div class="dc-sec-head-left"></div>
+							<div class="dc-sec-head-center" style="width:100px;">Overview</div>
+							<div class="dc-sec-head-right"></div>
+							<div class="clear-height"></div>
+						</div>
+					</div>
+					<div  class="dc-content-bg">
+						<%=job.summary.html_safe.force_encoding("UTF-8")%>
+					</div>
+				</div>
+				<!-- end -overview -->	
+
+				
+				<!-- start - responsibility -->	
+				<div class="height10"></div>
+				<div class="height10"></div>
+				<div class="dc-responsibility-box">
+					
+						<div class="dc-section-header pos-relative">
+							<div class="dc-section-header-text dc-section-header-absolute">
+								<div class="dc-sec-head-left"></div>
+								<div class="dc-sec-head-center" style="width:260px;">Top 5 Day-to-Day Responsibilities</div>
+								<div class="dc-sec-head-right"></div>
+								<div class="clear-height"></div>
+							</div>
+						</div>
+
+						<div class="dc-content-bg">
+						<%
+							cnt = 0
+							for item in job.profile_responsibilities
+						-%>
+							<div>
+								<div class="dc-resp-list">
+									<%=(cnt + 1)%>. <%= h(item.name) -%>
+								</div>
+								<div class="clear-height">&nbsp;</div>
+							</div>
+							<div class="dc-responsibility-separator"></div>
+							
+						<%
+							cnt = cnt + 1
+							end
+						-%>
+						</div>
+
+
+
+
+						<!-- start - company detail -->	
+						<div class="height10"></div>
+						<div class="height10"></div>
+						<div>
+							<div class="dc-section-header pos-relative">
+								<div class="dc-section-header-text dc-section-header-absolute">
+									<div class="dc-sec-head-left"></div>
+									<div class="dc-sec-head-center" style="width:140px;">Company Detail</div>
+									<div class="dc-sec-head-right"></div>
+									<div class="clear-height"></div>
+								</div>
+							</div>
+
+							<div class="dc-content-bg">
+								 <%=h(job.company.name) -%> is a <%=company.owner_ship_type.name if !company.owner_ship_type.blank?%> firm founded in <%=h(company.founded_in) -%> and currently has approximately <%=h(company.employee_strength) -%> employees. You can learn more at <a href="<%=h(company.website) -%>" target="_blank"><%=h(company.website) -%></a>
+								<div class="height5">&nbsp;</div>
+							</div>
+							
+						</div>
+						<!-- end - company detail -->
+					
+				</div>
+
+				<div class="dc-location-box">
+					<div class="dc-location-top">
+						<div class="dc-section-header-location">
+							<div class="dc-section-header-text">
+								Position Location
+							</div>
+						</div>
+						<div class="dc-content-bg">
+							<div>
+								<%=h(address_str) -%>
+							</div>
+							<div>
+								<div id="map_canvas">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dc-location-bottom">
+						
+					</div>
+				</div>
+				<div class="clear-height"></div>
+				<!-- end responsibility -->	
+				
+				<div class="height10"></div>
+				<div class="height10"></div>
+				<%=render :partial=>"/account/detail_pairing_criteria", :locals=>{:job => job, :address_str =>address_str, :company => company, :language_skills => language_skills,:job_seeker_birkman_detail => (defined?(job_seeker_birkman_detail).nil? ? nil : job_seeker_birkman_detail ),:job_certifications=>job_certifications }%>
+
+
+			</div>
+		</div>
+		
+	</div>
+	<div class="preview-bottom-center"></div>
+
+
+	<div class="height5">&nbsp;</div>
+
+	<div class="dc-share-box">
+		<%=render :partial =>"/account/share_job",:locals =>{:job => job} -%>
+	</div>
+
+
+	<%if (session[:job_seeker] && !job_status.archived) -%>
+		<div class="dc-pay-buttons">
+			
+			
+			<div class="job-pay-button" id="det-comp-interest">
+				<%if job_status.interested.blank? or job_status.interested == false -%>
+					<a href="javascript:void(0);" onclick="show_interest.call(<%=job.id%>,true);" class="button-pay-a grey_button_pay_175X34 hover-none">Indicate Interest </a>
+				<%else%>
+					Purchased Interest
+				<%end -%>	
+			</div>
+			
+			<%if true == false%>
+			<%if job_status.wild_card.blank? or job_status.wild_card == false -%>		
+			<div class="wildcard-pay-button" id="det-comp-wildcard">
+				<a href="javascript:void(0);" onclick="wild_card.call(<%=job.id%>,true);" class="button-pay-a grey_button_pay_145X34 hover-none">Wild Card $<%=JOB_WILD_CARD_COST%></a>
+			</div>
+			<%end -%>
+			<%end %>
+
+			<div class="job-follow-button">
+				<a href="javascript:void(0);" onclick="follow_company.call(<%=job.id%>,'follow');" class="button-a grey_buttton_106X23 hover-none">Follow Company</a>
+			</div>
+
+			<div class="job-archive-button">
+				<a href="javascript:void(0);" onclick="archive_job.init(<%=job.id%>);" class="button-a grey_buttton_65X23 hover-none">Archive</a>
+			</div>
+
+			
+
+			<div class="clear-height"></div>
+		</div>
+
+		<br class="clear"/>
+
+	<%elsif session[:employer]%>
+		<div class="dc-pay-buttons">
+			<div class="wildcard-pay-button" id="det-comp-wildcard">
+				<a href="javascript:void(0);"  class="button-pay-a grey_button_pay_145X34 hover-none">Wild Card $<%=JOB_WILD_CARD_COST%></a>
+			</div>
+			
+			<div class="job-follow-button">
+				<a href="javascript:void(0);" class="button-a grey_buttton_106X23 hover-none">Follow Company</a>
+			</div>
+
+			<div class="job-archive-button">
+				<a href="javascript:void(0);" class="button-a grey_buttton_65X23 hover-none">Archive</a>
+			</div>
+
+			<div class="clear-height"></div>	
+		</div>
+
+		<br class="clear"/>
+	<%end -%>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+		
+		<%if !address_str.blank?%>
+			load_map_script();
+			address_string = "<%=CGI::escape(address_str)%>";
+			setTimeout("render_map()",2000);
+
+		<%end%>
+	});	
+</script>
+

@@ -1,0 +1,60 @@
+<!-- Search Hilo Email Popup -->
+<div id="hilo_email_popup" class="white_content" style="position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content" style="padding-left: 25px; padding-right: 25px; padding-bottom: 15px;">
+        <div class="popup-header-container">
+          <label class="popup-heading small_<%=I18n.locale%>"><%=t("c_search_non_loggedin.pop_up.heading")%></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat normal-text" style="text-align: justify; margin-bottom: 10px; width: 500px; margin-top: 5px;">
+            <label class="free-text">
+              <%=t("c_search_non_loggedin.pop_up.contentL1")%>
+              <br /><br />
+              <%=t("c_search_non_loggedin.pop_up.contentL2")%>
+            </label>
+          </div>
+          <div class="lfloat margin-T-5px" style="#width:356px; zoom:1;">
+            <%= form_for :guest_job_seeker, :remote => true, :url => { :controller => :hilo_search, :action => :create_guest_job_seeker}, :html => {:id =>"create_guest_job_seeker", :method => :post} do |f| %>
+              <div class="fp-input-cnt">
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="guest_job_seeker_email_placeholder" value="<%=t('c_search_non_loggedin.pop_up.label')%>" />
+                  <%= f.text_field :email, :name=>"guest_job_seeker[email]", :onfocus => "focus_element(this)", :onblur =>"blur_element(this);validateForgotPassEmail(this);", :onkeyup => "validateForgotPassEmail(this)", :value => "t('c_search_non_loggedin.pop_up.label')", :onkeydown=>"type_element(this)", :onkeypress => "checkForGuestSearchEnter(event);",:autocomplete => "off"%>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </div>
+              <input type="button" id="submit_button_hilo_search" class="enter-button-active <%=I18n.locale%>" />
+              <span id="loader_img2_hilo_search" style="display:none; position:absolute; right:55px;"><%=image_tag("ajax-loader-login.gif")%></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="home-popup-contnet">
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="closeHiloEmailPopup();" >Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- Search Hilo Email Popup -->
+
+<script type="text/javascript">
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_create_guest_job_seeker = function(){
+      if(!create_guest_job_seeker_flag)
+        return false;
+      create_guest_job_seeker_flag = 0;
+    }
+
+    var loaded_create_guest_job_seeker = function(){
+      create_guest_job_seeker_flag = 1;
+    }
+
+    $("#create_guest_job_seeker")
+    .bind("ajax:beforeSend", loading_create_guest_job_seeker)
+    .bind("ajax:complete", loaded_create_guest_job_seeker)
+});
+</script>

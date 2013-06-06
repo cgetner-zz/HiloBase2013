@@ -1,0 +1,32 @@
+<div>
+	<%=render :partial=>"/panels/layer_top_750"-%>
+	<%=render :partial=>"/panels/midsize_header_close"%>
+	
+	
+	<div class="view-testimonial-box">
+		<div class="main-testimonial-header">
+			Testimonials
+		</div>	
+		<div style="padding:15px;" >
+			
+			<div class="view-testimonial-section" style="margin-right:20px;">
+				<div class="view-testimonial-header">
+					<img src="/assets/overview_arrow.png"/>&nbsp;&nbsp;Job Seekers
+				</div>
+
+				<%=render :partial=>"/ajax/testimonial_row",:locals=>{:testimonials => @seeker_testimonials}%>
+			</div>
+			
+			<div class="view-testimonial-section">
+				<div class="view-testimonial-header">
+					<img src="/assets/overview_arrow.png"/>&nbsp;&nbsp;Employers
+				</div>
+				<%=render :partial=>"/ajax/testimonial_row",:locals=>{:testimonials => @employer_testimonials}%>
+			</div>
+			<br class="clear"/>
+
+		</div>
+	</div>
+
+	<%=render :partial=>"/panels/layer_bottom_750"-%>
+</div>

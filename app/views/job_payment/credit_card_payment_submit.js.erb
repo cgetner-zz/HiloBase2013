@@ -1,0 +1,20 @@
+<% if @temp == false %>
+check_payment_options.show_error_message();
+showNormalShadow();
+hideErrorShadow();
+$("#fade_error_warning").show();
+$("#fade_normal_warning").hide();
+
+<% elsif @temp == true %>
+  <% session[:one_click_card] = nil %>
+  <% if session[:pay_for] == "interest" or session[:pay_for] == "wild" %>
+  show_congratulation_popup('<%=session[:pay_job].id%>', '<%=session[:pay_for]%>');
+  <% else %>
+  $("#fade_normal_warning").hide();
+  job_detail_view.show('<%=session[:pay_job].id%>', '<%=session[:pay_for]%>');
+  <% end %>
+  <% if not session[:job_seeker].credit.nil? %>
+    $("#credit-amt-dash").text('<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>');
+  <% end %>
+<% end %>
+hideBlockShadow();

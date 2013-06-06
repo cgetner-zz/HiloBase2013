@@ -1,0 +1,14 @@
+<%if job_seeker.resume_file_name.blank?%>
+	Resume not uploaded
+<%else%>
+	
+	<div class="resume-download">
+		<a href="/download_file/resume/<%=job_seeker.id%>"><%=image_tag("donwload_icon.png")%></a>
+	</div>
+
+	<div class="resume-name">
+		File name: <%=job_seeker.resume_file_name%>
+	</div>
+	<br class="clear-height"/>
+
+<%end%>

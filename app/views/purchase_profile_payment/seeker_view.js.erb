@@ -1,0 +1,28 @@
+<% if @old_payment_obj.nil? %>
+  <% if session[:employer].is_root? %>
+    $("#cc_billing_popup").html("<%= escape_javascript render(:partial => '/purchase_profile_payment/credit_card_popup') %>");
+    employer_click_payment.credit_card_payment_emp();
+  <% else %>
+    $('#fade_error').show();
+    $('#one_click_not_set').show();
+    addFocusButton('one_click_not_set_button');
+  <% end %>
+<% elsif not session[:one_click_card].nil? %>
+  <% if Time.now - session[:one_click_card][:time] <= PAYMENT_SESSION_TIMER %>
+    <% if controller.send("authenticate_one_click_session_exist") == true %>
+      employer_click_payment.one_click_payment_success('<%=session[:seeker_id_one_click]%>', '<%=session[:job_id_one_click]%>', '<%=session[:employer].id%>');
+    <% elsif controller.send("authenticate_one_click_session_exist") == "spend_crossed" %>
+      $('#one_click_payment_position_popup').hide();
+      $('#fade_normal').hide();
+      $('#fade_error').show();
+      $('#consumed_warning').show();
+      centralizePopup();
+      addFocusButton('consumed_warning_button');
+    <% end %>
+  <% else %>
+    <% session[:one_click_card] = nil %>
+    employer_click_payment.one_click_popup('<%=@old_payment_obj.card_type%>');
+  <% end %>
+<% else %>
+  employer_click_payment.one_click_popup('<%=@old_payment_obj.card_type%>');
+<% end %>

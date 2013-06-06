@@ -1,0 +1,35 @@
+<% if !@result.nil? %>
+  <% if !@result.first.nil? %>
+    $("#dropdown_check_flag").val(1);
+    $("#dropdown_check_flag_account").val(1);
+    <% if  @result.first.city.nil? %>
+      $("#city_flag").val(0);
+    <% else %>
+      $("#city_flag").val(1);
+      $("#city").blur();
+      $("#city").val('<%= @result.first.city.force_encoding('utf-8') %>');
+    <% end %>
+
+    <% if  @result.first.state.nil? %>
+      $("#state_flag").val(0);
+    <% else %>
+      $("#state").val('<%= @result.first.state.force_encoding('utf-8') %>');
+      $("#state_flag").val(1);
+    <% end %>
+
+    <% if @result.first.postal_code.nil? %>
+      $("#pincode_flag").val(0);
+    <%  else %>
+      $("#zip_code").val('<%= @result.first.postal_code.force_encoding('utf-8') %>');
+      $("#pincode_flag").val(1);
+    <% end %>
+
+    <% if @result.first.country.nil? %>
+      $("#country_flag").val(0);
+    <% else %>
+      $("#country").val('<%= @result.first.country.force_encoding('utf-8')%>');
+      $("#country_flag").val(1);
+    <% end %>
+  <% end %>
+<% end %>
+

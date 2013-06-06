@@ -1,0 +1,5 @@
+changeName('<%=@employer.first_name%>', '<%= @employer.last_name %>');
+$("#success_msg").text('Account information has been updated.');
+$("#success_msg").show();
+  document.getElementById('error_msg').innerHTML="";
+  $("div#changePassword").html("<%= escape_javascript render(:partial=>"/shared/employer/emp_password") %>");

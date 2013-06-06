@@ -1,0 +1,67 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("employer_account","pairing")%>
+	<%=render :partial=>"/shared/slider_css"%>
+<%end-%>
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js' %>
+	<%=javascript_include_tag "pairing"%>
+<%end-%>
+<%=render :partial=>"/employer_account/employer_tab",:locals=>{:tab=>"home"} -%>
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="emp-box">
+	<div class="emp-home-content ie-height-fix">
+		<div class="emp-left">
+			<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs} -%>
+		</div>
+
+		<div class="emp-right right-menu-adjust">
+			<%=render :partial=>"/employer_account/activity_summary_panel" -%>
+			<%=render :partial=>"/employer_account/home_chart" -%>
+
+			<%=render :partial=>"/position_profile/position_profile_tab",:locals=>{:current_tab => "edit_pos_profile"} -%>
+
+			<%=render :partial=>"/position_profile/create_position_tab",:locals=>{:current_tab => "basics"} -%>
+			<div>
+				<div class="emp-pairing-contanainer">
+					<div style="padding:10px;">
+						<div class="pos-prof-create-header">
+							The Basics
+						</div>
+						<div class="pairing-msg">
+							The Pairing System works to indentify as many qualified Career Seekers as possible. By assigning ranges to the following values you will expand your candidate pool.
+						</div>
+
+						<div class="pos-right small-font" style="margin-right:3px;">
+							* Required 
+						</div>
+						<br class="clear"/>
+						<div style="width:675px;">
+						<%=render :partial=>"blocks_basic"%>
+						</div>
+						<br class="clear"/>
+						<div class="height10"></div>
+						<div style="float:right;">
+							<%=  form_tag("/position_profile/save_basics",:method =>"post",:name=>"pairing_basic") do -%>
+								<%=submit_tag("Save",:onclick=>"return save_employer_basics.call(); return false;",:class=>"button-style-shared buttton_65X23")%>
+								<%=hidden_field_tag :compensation_value -%>
+								<%=hidden_field_tag :desired_employment_ids -%>
+								<%=hidden_field_tag :desired_location_ids -%>
+								<%=hidden_field_tag :id,params[:id] -%>
+							<%end -%>
+						</div>
+						<br class="clear"/>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="clear-zero-height"></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		adjust_left_panel_height();
+	});
+</script>

@@ -1,0 +1,72 @@
+<div>
+  <div class="light-header-left">	</div>
+  <div class="light-header-center">
+    <div class="pur-profile-row-header">
+      <div class="pos-left">
+
+      </div>
+      <div class="detail-comparison-close">
+        <a href="javascript:void(0);" onclick="purchase_profile.close();" title="close"><img alt="" src="/assets/close.gif"/></a>
+      </div>
+      <br class="clear"/>
+    </div>
+  </div>
+  <div class="light-header-right">	</div>
+  <br class="clear-height"/>
+</div>
+
+<div>
+  <%= form_tag :url => "/purchase_profile_payment/make_payment",:html =>{:id=>"purchase_profile_pay_form"} , :remote => true do%>
+    <div class="job-pay-box">
+        <div style="padding:15px;" id="job-pay-container">
+
+        <div class="pay_for_msg">
+                                                  Purchase Profile of <%=@job_seeker.first_name%> <%=@job_seeker.last_name%>
+          <input type="hidden" value="<%=params[:seeker_id]%>" name="seeker_id" class="pay_form_job_id"/>
+        </div>
+
+        <div style="padding-top:10px;">
+          <div>
+            <%if !@old_payment_obj.blank?%>
+              <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "pur-profile-pay-coverline"} -%>
+              <div class="transaction-type-box">
+                <input type="radio" name="transaction_type[]" value="old" onclick="toggle_payment_option('old');" checked='checked' id="paypal" />
+                <label for="paypal">Make payment with: <%=old_transaction_detail(@old_payment_obj,@promo_code_obj)%></label>
+              </div>
+              <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "pur-profile-pay-coverline"} -%>
+              <div class="height10"></div>
+            <%end%>
+
+            <input type="hidden" name="past_promo_code" id="past_promo_code" value="<%=@promo_code_obj.blank? ? "" : @promo_code_obj.code%>"/>
+
+            <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "pur-profile-pay-coverline"} -%>
+            <div  class="transaction-type-box">
+              <div>
+                <input type="radio" name="transaction_type[]" value="new" onclick="toggle_payment_option('new');" <%=@old_payment_obj.blank? ? "checked='checked'" : ""%> id="paymentMethod" />
+                <label for="paymentMethod">Select new payment method.</label>
+              </div>
+              <div>
+                <%=render :partial=>"card_form"%>
+              </div>
+            </div>
+            <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "pur-profile-pay-coverline"} -%>
+            <div class="height10"></div>
+
+            <div id="purchase_profile_pay_button">
+              <a href="javascript:void(0);" onclick="purchase_profile_pay.details('<%=params[:seeker_id]%>','<%=params[:pay_for]%>');" class="button-a buttton_106X23">Make Payment</a>
+              <img alt="" src="/assets/login-loader.gif" id="pay_loader_img" style="display:none;"/>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		disable_payment_field_options();
+	});
+	
+</script>

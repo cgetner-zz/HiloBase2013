@@ -1,0 +1,21 @@
+$("#newAdminForm").show();
+$("#newAdminForm").blur();
+$("#loader_admin").hide();
+$("#new_admin_form input[type=text]").each(function(){
+  $(this).val('');
+  $(this).blur();
+});
+$("#new_admin_success").html("New admin account has been successfully created.");
+$("#new_admin_success").show();
+var access_level_1 = document.getElementById('access-level-1').checked;
+var access_level_2 = document.getElementById('access-level-2').checked;
+var access_level_3 = document.getElementById('access-level-3').checked;
+if(access_level_1) {
+  Custom.check($("#access-level-1").prev());
+}
+if(access_level_2) {
+  Custom.check($("#access-level-2").prev());
+}
+if(access_level_3) {
+  Custom.check($("#access-level-3").prev());
+}

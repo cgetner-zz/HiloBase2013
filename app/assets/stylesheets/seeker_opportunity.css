@@ -1,0 +1,47 @@
+div.job-inner-box{
+    width:698px;
+    background-image: url("/assets/preview_bg_698.png");
+    background-repeat: repeat-y;
+    text-align:left;
+
+}
+
+
+
+.preview-center-line{
+    float:left;
+    background-image: url("/assets/preview_center_line.png");
+    background-repeat: repeat-x;	
+    width:680px;
+    height: 36px;
+}
+.position-pairing-td-width{
+    width: 334px;
+}
+
+.preview-bottom-center{
+    background-image: url("/assets/preview_bottom.png");
+    background-repeat: repeat-x;	
+    height: 18px;
+    width: 698px;
+
+}
+
+
+.job-preview-row-header{
+    width: 688px;
+    padding-top: 4px;
+}
+.job-pos-details-header{
+    width: 684px;
+    padding-top: 4px;
+}
+
+.jobview-pay-coverline{
+    width: 654px;
+}
+
+.det-comp-basics-right{
+    float: left;
+    width: 145px;
+}

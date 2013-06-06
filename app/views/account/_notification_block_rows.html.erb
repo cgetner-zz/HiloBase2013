@@ -1,0 +1,41 @@
+<% flag = true %>
+<% for notification in notifications %>
+		<li id="<%=notification.id %>_notification" class="table" <% if flag == true %>style="border-top:1px solid #CCC"<% end %>>
+		    <% flag = false %>
+		    <%= image_tag("lolo_small.gif", :alt=>"logo", :size=>"27x26") %>
+		    <p>
+			<label><%=get_time_formate(notification.created_at)%></label><br />
+			<span class="work-detail" style="width: 590px; display: block;">
+			    <label><%=notification.notification_type.name %>:</label>
+                            <span>
+                              <%= job_seeker_alert_msg(notification) %>
+			    </span>
+			</span>
+			<a href="javascript:void(0)" class="remove" title="Remove" id="<%=notification.id %>_delete">x</a>
+		    </p>
+		</li>
+<% end %>
+<script type="text/javascript">
+	$(document).ready(function(){
+		<% for notification in notifications %>
+		$("#<%=notification.id %>_notification").click(function(){
+				<% if notification.notification_type.id == 3 and (notification.notification_message.id == 5 or notification.notification_message.id == 6 or notification.notification_message.id == 7 or notification.notification_message.id == 8 or notification.notification_message.id == 10 or notification.notification_message.id == 11 or notification.notification_message.id == 12 or notification.notification_message.id == 14 or notification.notification_message.id == 15 or notification.notification_message.id == 16 or notification.notification_message.id == 17) %>
+						showJobForNotification('<%=fetch_job(notification).id %>');
+				<% elsif notification.notification_message.id == 1 or notification.notification_message.id == 3 or notification.notification_message.id == 4 %>
+
+                                <% elsif notification.notification_message.id == 2 %>
+                                    birkman_report.request_pdf();
+                                <% elsif notification.notification_message.id == 9 %>
+                                    openCredentialsForUpdate();
+				<% end %>
+		});
+		
+		$("#<%=notification.id %>_delete").click(function(e){
+				deleteNotification(<%=notification.id %>);
+				e.stopPropagation();
+		});
+                <% end %>
+		
+        })	
+</script>
+

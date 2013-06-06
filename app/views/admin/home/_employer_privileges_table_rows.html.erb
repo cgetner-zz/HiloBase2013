@@ -1,0 +1,142 @@
+<% flag = true %>
+<% if not @companies.nil? %>
+<% for company in @companies %>
+  <% @company_id = company.company_id %>
+  <% @status = nil %>
+  <% @credit = nil %>
+  <% @discount = nil %>
+  <% @status = company.company.employer_privileges.last.status if not company.company.employer_privileges.last.nil? %>
+  <% @eda_status = company.company.hilo_subscription %>
+  <% @credit = company.company.employer_privileges.last.credit_value if not company.company.employer_privileges.last.nil? %>
+  <% @discount = company.company.employer_privileges.last.discount_value if not company.company.employer_privileges.last.nil? %>
+    <% if flag == true %>
+    <% flag = false %>
+    <tr>
+      <th width="180"><label class="first" style="width: 170px; word-wrap: break-word;"><a id="history_<%= company.company_id %>" class="company_name_holder" href="javascript:void(0);" title="Click here to view history." ><%= company.company.name %></a></label></th>
+      <th width="210"><label style="width: 200px; word-wrap: break-word;"><a id="email_<%= company.company_id %>" class="company_name_holder" href="javascript:void(0);" title="Click here to view history." ><%= company.email.downcase %></a></label></th>
+      <th width="95">
+        <label id="status_<%= company.company_id %>">
+          <% if !@status.nil? and @status == true %>
+            <%= image_tag "admin/green_dot.png", :alt=>"Granted" %>
+          <% else %>
+            <%= image_tag "admin/red_dot.png", :alt=>"Not Granted" %>
+          <% end %>
+        </label>
+      </th>
+      <th width="105">
+        <label id="column_credit_value_<%= company.company_id %>" <% if !@status.nil? and @status == true %>class="static_dollar_fee"<%end%>>
+          <% if !@status.nil? and @status == true %>
+            <span style="margin-left: 30px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@credit, :unit=>"") %></span>
+          <% else %>
+            <%=render(:partial=>"credit_textbox", :locals=>{:company_id=>@company_id}) %>
+          <% end %>
+        </label>
+      </th>
+      <th width="140">
+        <label id="column_discount_fee_<%= company.company_id %>" <% if !@status.nil? and @status == true %>class="static_dollar_fee"<%end%>>
+          <% if !@status.nil? and @status == true %>
+            <span style="margin-left: 60px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@discount, :unit=>"") %></span>
+          <% else %>
+            <%=render(:partial=>"fee_textbox", :locals=>{:company_id=>@company_id}) %>
+          <% end %>
+        </label>
+      </th>
+      <th width="65">
+        <label>
+          <a class="action" href="javascript:void(0);" id="action_<%= company.company_id %>">
+            <% if !@status.nil? and @status == true %>
+              <span class="revoke_action" id="row_<%= company.company_id %>">Revoke</span>
+            <% else %>
+              <span class="grant_action" id="row_<%= company.company_id %>">Grant</span>
+            <% end %>
+          </a>
+        </label>
+      </th>
+      <th width="60">
+        <label>
+          <a class="action" href="javascript:void(0);" id="eda_action_<%= company.company_id %>">
+            <% if @eda_status == true %>
+            <span class="eda_revoke_action" id="row_<%= company.company_id %>" title="Click to turn off Email Domain Authentication">On</span>
+            <% else %>
+              <span class="eda_grant_action" id="row_<%= company.company_id %>" title="Click to turn on Email Domain Authentication">Off</span>
+            <% end %>
+          </a>
+        </label>
+      </th>
+    </tr>
+  <% else %>
+    <tr>
+      <td><label class="first" style="width: 170px; word-wrap: break-word;"><a id="history_<%= company.company_id %>" class="company_name_holder" href="javascript:void(0);" title="Click here to view history."><%= company.company.name %></a></label></td>
+      <td><label style="width: 200px; word-wrap: break-word;"><a id="email_<%= company.company_id %>" class="company_name_holder" href="javascript:void(0);" title="Click here to view history." ><%= company.email.downcase %></a></label></td>
+      <td>
+        <label id="status_<%= company.company_id %>">
+          <% if !@status.nil? and @status == true %>
+            <%= image_tag "admin/green_dot.png", :alt=>"Granted" %>
+          <% else %>
+            <%= image_tag "admin/red_dot.png", :alt=>"Not Granted" %>
+          <% end %>
+        </label>
+      </td>
+      <td>
+        <label id="column_credit_value_<%= company.company_id %>" <% if !@status.nil? and @status == true %>class="static_dollar_fee"<%end%>>
+          <% if !@status.nil? and @status == true %>
+          <span style="margin-left: 30px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@credit, :unit=>"") %></span>
+          <% else %>
+            <%=render(:partial=>"credit_textbox", :locals=>{:company_id=>@company_id}) %>
+          <% end %>
+        </label>
+      </td>
+      <td>
+        <label id="column_discount_fee_<%= company.company_id %>" <% if !@status.nil? and @status == true %>class="static_dollar_fee"<%end%>>
+          <% if !@status.nil? and @status == true %>
+            <span style="margin-left: 60px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@discount, :unit=>"") %></span>
+          <% else %>
+            <%=render(:partial=>"fee_textbox", :locals=>{:company_id=>@company_id}) %>
+          <% end %>
+        </label>
+      </td>
+      <td>
+        <label>
+          <a class="action" href="javascript:void(0);" id="action_<%= company.company_id %>">
+            <% if !@status.nil? and @status == true %>
+              <span class="revoke_action" id="row_<%= company.company_id %>">Revoke</span>
+            <% else %>
+              <span class="grant_action" id="row_<%= company.company_id %>">Grant</span>
+            <% end %>
+          </a>
+        </label>
+      </td>
+      <td>
+        <label>
+          <a class="action" href="javascript:void(0);" id="eda_action_<%= company.company_id %>">
+            <% if @eda_status == true %>
+              <span class="eda_revoke_action" id="row_<%= company.company_id %>" title="Click to turn off Email Domain Authentication">On</span>
+            <% else %>
+              <span class="eda_grant_action" id="row_<%= company.company_id %>" title="Click to turn on Email Domain Authentication">Off</span>
+            <% end %>
+          </a>
+        </label>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".action span.grant_action").unbind().click(function(){
+      grantPrivilegedStatus(this,<%= REGISTRATION_COST %>);
+    });
+    $(".action span.eda_revoke_action").unbind().click(function(){
+      revokEDAStatus(this);
+    });
+    $(".action span.eda_grant_action").unbind().click(function(){
+      grantEDAStatus(this);
+    });
+    $(".action span.revoke_action").unbind().click(function(){
+      revokPrivilegedStatus(this);
+    });
+    $("a.company_name_holder").unbind().click(function(){
+      showPrivilegedHistory(this);
+    });
+  });
+</script>

@@ -1,0 +1,30 @@
+<%content_for :page_container_id do -%>page-container-account<%end-%>
+<%=render :partial=>"account_tab",:locals=>{:step=>"account"}%>
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <div id="siteActivation-account">
+        <div class="top-bar">&nbsp;</div>
+        <div class="block-inner-content">
+          <div class="gradient-content">
+            <div class="siteActivation-account-billing-left" id="change_password" style="width: 400px;">
+              <%=render :partial=>"change_password"%>
+              <div class="clear-float"> </div>
+              <% if session[:administrator].access_levels.any?{|ac| ac.name == "All"} %>
+              <%= render :partial => "generate_promo_code" %>
+              <% end %>
+            </div>
+            <div id="siteActivation-account-billing-center-border"></div>
+            <div class="siteActivation-account-billing-right">
+              <% if session[:administrator].access_levels.any?{|ac| ac.name == "All"} %>
+                <%=render :partial=>"admin_accounts"%>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-bar">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>

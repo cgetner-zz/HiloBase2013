@@ -1,0 +1,51 @@
+<!--topSkills-content-->
+<div class="topSkills-content">
+  <!--skills-gradient-->
+  <div class="skills-gradient overflow-visible" id="role-block">
+    <div class="block-heading-block">
+      <h3><%=t ("pairing_profile.credentials.role.heading") %></h3>
+      <label><%=t ("pairing_profile.credentials.role.contentL1") %></label>
+      <label><%=t ("pairing_profile.credentials.role.contentL2") %> <i><%=t ("pairing_profile.credentials.role.contentL3") %></i>.</label>
+      <label><%=t ("pairing_profile.credentials.role.contentL4") %></label>
+      <%= hidden_field_tag 'populate_role_field' %>
+    </div>
+    <a href="javascript:void(0)" title="help" class="help-icon" id="skill-help" onclick="skill_help();"><img src="/assets/info.png" width="24" height="24" alt="help" /></a>
+    <div class="clear-float">&nbsp;</div>
+    <ul>
+      <li>
+        <div style="" id="add-edit-skill" class="add-edit-skill">
+          <%= render :partial => "/pairing_profile/role1_edu_exp_detail" %>
+        </div>
+      </li>
+
+      <li>
+        <div style="" id="add-edit-skill" class="add-edit-skill">
+          <%= render :partial => "/pairing_profile/role2_edu_exp_detail" %>
+        </div>
+      </li>
+
+      <li>
+        <div style="" id="add-edit-skill" class="add-edit-skill">
+          <%= render :partial => "/pairing_profile/role3_edu_exp_detail" %>
+        </div>
+      </li>
+    </ul>
+
+    <div class="add-edit-skill" id="add-edit-skill" style="display:none;">
+      <!--<form name="skill-add">-->
+      <div class="margin-R-15px lfloat skill-input">
+        <div class="customized-inner-input input-text">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="add_prof_text_placeholder" value="<%=t ("pairing_profile.credentials.role.place_holder") %>" />
+          <input maxlength="40" tabindex="1" type="text" value="<%=t ("pairing_profile.credentials.role.place_holder") %>" name="add_prof_text" id="add_prof_text" class="accessDatabase" onkeyup="$('#skills-add-button').attr('disabled','disabled');document.getElementById('skills-add-button').className='add-button'; skills_click_autocomplete();" onFocus="focus_element(this);" onBlur="blur_element(this);" onkeydown="type_element(this);"/>
+          <div class="input-right">&nbsp;</div>
+          <div id="proficiencyOccurence"></div>
+        </div>
+      </div>
+      <!--/skillLevel-->
+    </div>
+    <div class="clear-float">&nbsp;</div>
+  </div>
+  <!--/skills-gradient-->
+</div>
+<!--/topSkills-content-->

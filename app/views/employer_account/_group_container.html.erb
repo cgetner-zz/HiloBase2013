@@ -1,0 +1,41 @@
+<div class="group-row-cnt green" onclick="showActivePositions();">
+  <span style="font-weight:700; font-size:16px;"><%=t ("emp_left_menu.active") %></span>
+  <%if @acount >= 0%>
+    <div class="green_count">
+      <div class="left"></div>
+      <div class="middle">
+        <label class="" id="count_green"><%= @acount %></label>
+      </div>
+      <div class="right"></div>
+    </div>
+  <!--<label class="yellow_count" id="count_yellow"><%#= @internalcount%></label>-->
+  <%end%>
+</div>
+
+<div class="group-row-cnt yellow" onclick="showInternalPositions();">
+  <span style="font-weight:700; font-size:16px;"><%=t ("emp_left_menu.internal") %></span>
+  <%if @incount >= 0%>
+  <div class="yellow_count">
+      <div class="left"></div>
+      <div class="middle">
+        <label class="" id="count_yellow"><%= @internalcount %></label>
+      </div>
+      <div class="right"></div>
+    </div>
+    <!--<label class="yellow_count" id="count_yellow"><%#= @internalcount%></label>-->
+  <%end%>
+</div>
+
+<div class="group-row-cnt red" onclick="showInactivePositions();">
+  <span style="font-weight:700; font-size:16px;"><%=t ("emp_left_menu.inactive") %></span>
+  <%if @incount >= 0%>
+  <div class="red_count">
+      <div class="left"></div>
+      <div class="middle">
+        <label class="" id="count_red"><%= @incount %></label>
+      </div>
+      <div class="right"></div>
+    </div>
+    <!--<label class="red_count" id="count_red"><%#= @incount%></label>-->
+  <%end%>
+</div>

@@ -1,0 +1,7 @@
+$("#active_inactive").html("<%= escape_javascript render(:partial => '/employer_account/shared/position_listing_popup', :locals=>{:jobs => @jobs}) %>");
+$("#dashboard-header").html("<%= escape_javascript render(:partial=> '/shared/employer/header', :locals=>{:all_jobs_size=>@all_jobs_size}) %>");
+<%  if @selected_category_size == 0 %>
+  $("#edit_category_id").html("");
+<% end %>
+$("#add_positon_section").html("<%= escape_javascript render(:partial => '/employer_account/add_position')%>");
+//$("#edit_category_id").html("<%= escape_javascript render(:partial=>'/employer_account/edit_category')%>");

@@ -1,0 +1,65 @@
+<% if(@jobs_new_preview.length > 0) %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      var preview_arr = new Array();
+      var details_arr = new Array();
+
+      <% for item in  @jobs_new_preview%>
+        <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+            preview_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+      <% end %>
+
+      <% for item in  @jobs_new_consider%>
+        <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+            details_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+      <% end %>
+
+      if(document.getElementById('preview_chart')){
+        $.plot($("#preview_chart"), [{
+            label: "<%=t ("emp_dashboard_graphs.graph_label.previews") %>",
+            data: preview_arr,
+            lines: { show: true, lineWidth: 1},
+            points: { show: true, symbol: "triangle" },
+            shadowSize: 0
+          },
+          {
+            label: "<%=t ("emp_dashboard_graphs.graph_label.detail_view") %>",
+            data: details_arr,
+            lines: { show: true, lineWidth: 1},
+            points: { show: true, symbol: "square" },
+            shadowSize: 0
+          }
+        ],
+        {
+          xaxis: {
+            mode: "time",
+            minTickSize: [ 1,"month"],
+            autoscaleMargin:2
+          },
+          grid: {
+            show: true,
+            aboveData: false,
+            backgroundColor: { colors: ["#fff", "#fff "] },
+            tickColor: "#fff",
+            labelMargin: 5,
+            markings: [],
+            borderWidth: 0,
+            hoverable: false,
+            autoHighlight: true,
+            mouseActiveRadius: 1
+          },
+
+          yaxis: {
+            min: 0,
+            max: <%=@jobs_preview_arr.length %>
+          },
+
+          legend: {
+            container: $("#preview_chart_legend")
+          }
+        }
+      );
+      }
+    });
+  </script>
+<% end %>

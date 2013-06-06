@@ -1,0 +1,7 @@
+$("#status_<%= @company_id%>").html('<%= image_tag "admin/red_dot.png", :alt=>"Not Granted", :style => "margin-left: 49px;" %>');
+$("#action_<%= @company_id %>").html('<span class="right_grant_action" id="row_<%= @company_id %>">Link</span>');
+$(".action span.right_grant_action").unbind().click(function(){
+  grantRightStatus(this);
+});
+hideBlockShadow();
+

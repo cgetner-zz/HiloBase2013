@@ -1,0 +1,33 @@
+<div id="error_message" class="admin-error-messages"></div>
+<div class="table-container admin">
+  <div class="table-container-top">&nbsp;</div>
+  <div class="table-container-content">
+    <div class="gradient-content overflow-visible">
+      <ul class="table-headings">
+        <li class="active" style="width: 170px;"><a class="single first decActive" href="javascript:void(0);" title="">Company Name</a></li>
+        <li style="width: 200px;"><a class="single" href="javascript:void(0);" title="">Employer Email ID</a></li>
+        <li style="width: 85px;"><a class="center" href="javascript:void(0);" title="">Privileged<br />Status</a></li>
+        <li style="width: 95px;"><a class="center" href="javascript:void(0);" title="">Credit <br />Value</a></li>
+        <li style="width: 130px;"><a class="" href="javascript:void(0);" title="">Discount on<br />registration fee</a></li>
+        <li style="width: 55px;"><a class="single" href="javascript:void(0);" title="">Action</a></li>
+        <li style="width: 50px;" class="lastchild"><a class="center" href="javascript:void(0);" title="">Email <br/>Auth.</a></li>
+      </ul>
+      <div class="table-content" id="table_block">
+        <div class="loader"><%= image_tag("ajax-loader-login.gif") %></div>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" id="list">
+          <%=render :partial=>"employer_privileges_table_rows"%>
+        </table>
+        <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+      </div>
+    </div>
+  </div>
+  <div class="table-container-bottom">&nbsp;</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#table_block').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+</script>

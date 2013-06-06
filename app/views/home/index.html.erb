@@ -1,0 +1,295 @@
+<body id="landing-Page">
+  <% if controller.controller_name == "job" %>
+    <input type="hidden" id="bridge_user_response" value="bridge" />
+    <% if session[:job_not_active]!=1 %>
+      <%= render :partial => "home/bridge_position_overview" %>
+    <% end %>
+    <%= render :partial => "home/bridge_nothanks" %>
+    <%= render :partial => "home/bridge_learnmore" %>
+    <%= render :partial => "home/bridge_cfg" %>
+    <%= render :partial => "home/bridge_sample_postion" %>
+  <%#= render :partial => "home/beta_pricing" %>
+    <%= render :partial => "home/post_beta_pricing" %>
+  <% end %>
+  <% if (controller.controller_name == "company_postings" or controller.controller_name == "company_internal_candidates") %>
+    <input type="hidden" id="bridge_user_response" value="bridge" />
+    <%= render :partial => "home/bridge_company" %>
+    <%= render :partial => "home/bridge_cfg" %>
+    <%= render :partial => "home/bridge_sample_postion" %>
+  <%#= render :partial => "home/beta_pricing" %>
+    <%= render :partial => "home/post_beta_pricing" %>
+  <% end %>
+  <% if (controller.controller_name == "home" and controller.action_name == "career_seeker_bridge") %>
+    <% content_for :page_title do -%><%=t("page_titles.career_seeker")%> | <% end %>
+    <input type="hidden" id="bridge_user_response" value="bridge" />
+    <%= render :partial => "home/bridge_company" %>
+    <%= render :partial => "home/bridge_cfg" %>
+    <%= render :partial => "home/bridge_sample_postion" %>
+  <%#= render :partial => "home/beta_pricing" %>
+    <%= render :partial => "home/post_beta_pricing" %>
+  <% end %>
+  <% if (controller.controller_name == "home" and controller.action_name == "index") %>
+    <% content_for :page_title do -%><%=t("page_titles.career_seeker")%> | <% end %>
+    <input type="hidden" id="bridge_user_response" value="" />
+    <%= render :partial => "home/bridge_company" %>
+    <%= render :partial => "home/bridge_cfg" %>
+    <%= render :partial => "home/bridge_sample_postion" %>
+  <%#= render :partial => "home/beta_pricing" %>
+    <%= render :partial => "home/post_beta_pricing" %>
+  <% end %>
+  <% if controller.controller_name == "login" and controller.action_name == "email_verify" and session[:email_doesnot_exist]!=1 %>
+    <%= render :partial => "/home/welcome_verification" %>
+  <% end %>
+  <!--main-container-->
+  <div id="main-container" class="home-page">
+    <h1 class="logo">
+      <%= link_to(image_tag("logo-hilo-home.png",:alt=>"logo",:size=>"165x153",:border=>0),:controller=>:home) %>
+    </h1>
+    <% if !session[:job_seeker] %>
+      <a href="javascript:void(0);" class="signIn-button <%=I18n.locale%>" tabindex="1">
+        <%= image_tag("signIn_#{I18n.locale}.png",:alt=>"SignIn",:border=>"0") %>
+      </a>
+    <% end %>
+    <%= render :partial => "/shared/locale_list", :locals => {:for_class=>"career_seeker"} %>
+    <div class="hilo_search_link <%=I18n.locale%>">
+      <a href="javascript:showHiloEmailPopup();"><%=t ("cs_landing_page_search") %></a>
+    </div>
+    <!--signIn-block-->
+    <div class="signIn-block">
+      <%= image_tag("login-arrow.png",:alt=>"login-arrow",:class=>"login-arrow") %>
+      <!--login-container-->
+      <div class="login-container">
+        <span class="login-container-top">&nbsp;</span>
+        <!--login-container-content-->
+        <%= form_tag('/login/login', :remote => true, :id=>"login_form") do %>
+          <%= render :partial => "home/login_container" %>
+        <% end %>
+        <!--/login-container-content-->
+        <span class="login-container-bottom">&nbsp;</span>
+      </div>
+      <!--/login-container-->
+    </div>
+    <!--/signIn-block-->
+    <% if !session[:job_seeker] %>
+      <a href="javascript:void(0);" class="learn-more-link-cs <%=I18n.locale%>" title="<%=t("page_titles.career_seeker")%>" onclick="$('.career-seeker-home').click();"><%=t("common.learn_more")%></a>
+      <a href="javascript:void(0);" class="career-seeker-home <%=I18n.locale%>" title="<%=t("page_titles.career_seeker")%>" onclick="openCSLearnMorePopup();" ><%=t("page_titles.career_seeker")%></a>
+      <a href="javascript:void(0);" class="sign-in-link-cs <%=I18n.locale%>" title="<%=t("common.sign_in")%>" onclick="$('.signIn-button').click();"><%=t("common.sign_in")%></a>
+
+      <a href="javascript:void(0);" class="learn-more-link-emp <%=I18n.locale%>" title="<%=t("page_titles.employer_landing_page")%>" onclick="$('.emplyer-home').click();"><%=t("common.learn_more")%></a>
+      <a href="javascript:void(0);" class="emplyer-home <%=I18n.locale%>" title="<%=t("page_titles.employer_landing_page")%>" onclick="window.location.href='/'" ><%=t("page_titles.employer_landing_page")%></a>
+      <a href="javascript:void(0);" class="sign-in-link-emp <%=I18n.locale%>" title="<%=t("common.sign_in")%>" onclick="$('.signIn-button').click();"><%=t("common.sign_in")%></a>
+    <% end %>
+    <div class="home-footer">
+      <!--<a href="javascript:void(0);" class="gift-hilo" title="Gift Hilo" onClick="click_gift_hilo.gift_hilo_show()" >Gift Hilo</a>-->
+      <label class="year">Hilo, Inc. &copy; 2012</label>
+    </div>
+  </div>
+  <!--/main-container-->
+  <%= render :partial => "/home/forgot_password" %>
+  <%= render :partial => "/home/guest_search_hilo" %>
+  <%= render :partial => "/home/sharing_external_login" %>
+  <%= render :partial => "/home/sharing_external_error" %>
+  <%= render :partial => "/home/job_not_active" %>
+  <%= render :partial => "/home/corp_user_conf" %>
+  <%= render :partial => "/home/ics_type_three" %>
+  <%= render :partial => "/home/gift_hilo_failure" %>
+  <%= render :partial => "/home/gift_hilo_signin_failure" %>
+  <%= render :partial => "/home/gift_hilo_one_click_signin_failure" %>
+  <div id="gift_cc_billing_popup" class="white_content"></div>
+  <div id="search_job_msg" class="white_content" style="position:fixed;"></div>
+
+
+  <!-- Login Error Popup -->
+  <%= render :partial => "home/login_failure_popup" %>
+  <!-- /Login Error Popup -->
+  <% if params[:forgot_pass] %>
+    <%= render :partial => "reset_password" %>
+  <% end %>
+  <div id="fade_normal" class="black_overlay" onclick="clickOutside(this);"></div>
+  <div id="fade_success" class="sucess_overlay" onclick="clickOutside(this);"></div>
+  <div id="fade_success_bridge" class="sucess_overlay" style="z-index: 1010" onclick="clickOutside(this);"></div>
+  <div id="fade_error" class="error_overlay" onclick="clickOutside(this);"></div>
+  <div id="fade_normal_second" class="black_seeker_analyzer" onclick="clickOutside(this);"></div>
+  <div id="fade_error_warning" class="error_overlay" style="z-index: 1010" onclick="clickOutside(this);"></div>
+  <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+  <%= render :partial => "shared/success_sharing_msg" %>
+  <div id="fade_success_sharing" class="sucess_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+  <input type="hidden" id="page_url_job" value="<%=CGI::escape(request.url)%>" />
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("body").click(function(){
+        $('.langauge-dropdown').hide();
+      })
+      $(".language-selector").click(function(e){
+        $('.langauge-dropdown').toggle();
+        e.stopPropagation();
+      })
+      $("#login_form_submit").unbind().click(function() {
+        inactiveSignInButton();
+      });
+
+<% if session[:user_suspended] == true %>
+  <% session[:user_suspended] = nil %>
+      showErrorShadow();
+      $("#user_suspended").show();
+      centralizePopup();
+      addFocusButton('user_suspended_button');
+<% end %>
+<% if session[:user_deleted] == true %>
+  <% session[:user_deleted] = nil %>
+      showErrorShadow();
+      $("#user_deleted").show();
+      centralizePopup();
+      addFocusButton('user_deleted_button');
+<% end %>
+<% if params[:forgot_pass] %>
+      showNormalShadow();
+      $('div#forgot-password-reset').show();
+      $('#loader_img2').hide();
+      centralizePopup();
+<% end %>
+<% if controller.controller_name == "job"%>
+  <% if session[:track_shared_job_id] and not session[:job_not_active]%>
+        showNormalShadow();
+        //$('#sharing_external_login').show();
+        $(".cs-introduction-container#position-overview").show();
+        $(".cs-introduction-container #track_shared_job_id").val("<%= session[:track_shared_job_id] %>");
+        $(".cs-introduction-container #track_shared_platform_id").val("<%= session[:track_shared_platform_id] %>");
+        $(".home-footer label").removeClass("year");
+        $(".home-footer label").addClass("bridge");
+        $(".signIn-button").addClass("bridge");
+        $(".signIn-block").addClass("bridge");
+        $(".white_content").css("z-index", "1011");
+        centralizePopup();
+        $(".hilo_search_link").css('z-index','1003');
+        $(".language-selector.career_seeker").css('z-index','1003');
+        $(".language-selector.career_seeker").addClass("white");
+    <%session[:track_shared_job_id] = nil%>
+    <%session[:track_shared_platform_id] = nil%>
+  <% end %>
+<% end %>
+<% if controller.controller_name == "company_postings" or controller.controller_name == "company_internal_candidates" %>
+  <% if session[:company_not_exist]!=1%>
+        showNormalShadow();
+        //$('#sharing_external_login').show();
+        $(".cs-introduction-container#step1-learn-more").show();
+        $(".cs-introduction-container #track_shared_company_id").val("<%= session[:track_shared_company_id] %>");
+        $(".cs-introduction-container #track_shared_platform_id").val("<%= session[:track_shared_platform_id] %>");
+        $("#bridge_response").val("<%=session[:bridge_response]%>");
+        $('#random_token').val("<%=session[:random_token]%>");
+        $('#internal_candidate').val("<%=session[:internal_candidate]%>");
+        $(".home-footer label").removeClass("year");
+        $(".home-footer label").addClass("bridge");
+        $(".signIn-button").addClass("bridge");
+        $(".signIn-block").addClass("bridge");
+        $(".white_content").css("z-index", "1011");
+        centralizePopup();
+        $(".hilo_search_link").css('z-index','1003');
+        $(".language-selector.career_seeker").css('z-index','1003');
+        $(".language-selector.career_seeker").addClass("white");
+    <%session[:bridge_response] = nil%>
+    <%session[:track_shared_company_id] = nil%>
+    <%session[:track_shared_platform_id] = nil%>
+    <%session[:random_token] = nil%>
+    <%session[:internal_candidate] = nil%>
+  <% end %>
+<% end %>
+<% if controller.controller_name == "home" and controller.action_name == "career_seeker_bridge" %>
+      $(".language-selector.career_seeker").addClass("white");
+      showNormalShadow();
+      //$('#sharing_external_login').show();
+      $(".cs-introduction-container#step1-learn-more").show();
+      $(".home-footer label").removeClass("year");
+      $(".home-footer label").addClass("bridge");
+      $(".signIn-button").addClass("bridge");
+      $(".signIn-block").addClass("bridge");
+      $(".white_content").css("z-index", "1011");
+      centralizePopup();
+      $("#fade_normal").click(function(){ closeCSLearnMorePopup(); });
+      $(".hilo_search_link").css('z-index','1003');
+      $(".language-selector.career_seeker").css('z-index','1003');
+      $(".language-selector.career_seeker").addClass("white");
+<% end %>
+<% if controller.controller_name == "login" and controller.action_name == "email_verify" %>
+  <% if session[:email_doesnot_exist]!=1 %>
+        showNormalShadow();
+        $("#welcome_verification").show();
+        centralizePopup();
+        $("#welcome_verification_button").focus();
+  <%else%>
+        showErrorShadow();
+        $("#email_not_exist").show();
+        centralizePopup();
+        addFocusButton('email_not_exist_button');
+  <% end %>
+  <%session[:email_doesnot_exist]=nil%>
+<% end %>
+<% if controller.controller_name == "job"%>
+  <% if session[:job_not_active] %>
+        showErrorShadow();
+        $("#job_not_active").show();
+        addFocusButton('job_not_active_button');
+        $(".home-footer label").removeClass("year");
+        $(".home-footer label").addClass("bridge");
+    <%= session[:job_not_active] = nil %>
+    <%= session[:track_shared_job_id] = nil %>
+  <% end %>
+<% end %>
+<% if controller.controller_name == "company_postings" or controller.controller_name == "company_internal_candidates" %>
+  <% if session[:company_not_exist] %>
+        showErrorShadow();
+        $("#company_not_active").show();
+        addFocusButton('company_not_active_button');
+    <%= session[:company_not_exist] = nil %>
+    <%= session[:track_shared_company_id] = nil %>
+  <% end %>
+<% end %>
+<% if session[:success_share_gift] %>
+      hideBlockShadow();
+      click_gift_hilo.gift_hilo_show();
+  <% if not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <% session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_gift] = nil %>
+<% end %>
+<% if session[:gift_express] %>
+      hideBlockShadow();
+      hideNormalShadow();
+      $('#gift_verify-loader-img').hide();
+      $('#gifts_payment_verify_button').show();
+      $("#checkout_billing_popup").hide();
+      $("#gift_cc_billing_popup").empty();
+      showSuccessShadow();
+      showSuccessGiftMsg();
+      centralizePopup();
+  <% session[:gift_express] = nil %>
+  <% session[:gift_url] = nil%>
+<% end %>
+<% if session[:corporate_account] == true %>
+      $("#corp_user_conf").show();
+      showNormalShadow();
+      centralizePopup();
+      $("#corp_user_conf_button").focus();
+  <% session[:corporate_account] = nil %>
+<% end %>
+<% if session[:ics_type_three] == "yes" %>
+      //alert("");
+      $("#ics_type_three").show();
+      showNormalShadow();
+      centralizePopup();
+      $("#ok_ics_three").focus();
+  <% session[:ics_type_three] = nil %>
+
+<% end %>
+    if($('#new_password')){
+      $('#new_password').focus();
+      $('#new_password').parent().removeClass('input-text-active').addClass('input-text-unactive');
+    }
+  });
+  </script>
+  <%= render :partial => "/shared/webengage" %>
+</body>

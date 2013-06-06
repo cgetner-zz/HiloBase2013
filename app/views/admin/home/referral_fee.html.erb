@@ -1,0 +1,19 @@
+<%content_for :page_container_id do -%>page-container-profile<%end-%>
+<%=render :partial=>"account_tab",:locals=>{:step=>"referral_fee"}%>
+<div id="content-container" class="referral_fee">
+  <div class="content-container-top">&nbsp;</div>
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <%=render :partial=>"employer_sub_menu",:locals=>{:step=>"referral_fee"}%>
+      <%=render :partial=>"referral_fee_header" %>
+      <div class="referral_fee_status_block">
+        <span id="emp_status_cnt" style="display:none; font-weight: 700;">
+          Current Employer Status:
+          <span id="emp_status"></span>
+        </span>
+        <span id="records_period_span" style="float:right; display:none;"></span>
+      </div>
+      <%=render :partial=>"referral_fee_table" %>
+    </div>
+  </div>
+</div>

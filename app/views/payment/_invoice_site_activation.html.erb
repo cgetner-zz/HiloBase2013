@@ -1,0 +1,158 @@
+<%
+if session[:promotional_code_amount] == REGISTRATION_COST
+  payment_class = "paid-discount";
+elsif ((!session[:paypal_amount].nil? and session[:paypal_amount].to_i == 0) or session[:job_seeker].activated == true)
+  payment_class = "paid-discount";
+else
+  payment_class = "";
+end
+%>
+<% if !session[:discount_amount].nil? and (((REGISTRATION_COST - session[:discount_amount])*100).round.to_f / 100) == 0.0
+  payment_class = "paid-discount";
+end %>
+<div class="activation-block promo-code">
+  <div class="top-bar">&nbsp;</div>
+  <div class="block-inner-content">
+    <div class="gradient-content" style="padding: 7px 11px 10px;">
+      <ul class="payment <%=payment_class %>" id="invoice_details">
+        <li>
+          <div class="lfloat"><%=t ("site_activation.site_act_fee") %></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><%=t ("site_activation.symbol") %></span>
+              <span class="rfloat"><%= number_to_currency(REGISTRATION_COST, :unit=>"") %></span>
+          </div>
+        </li>
+        <li class="apply">
+          <div class="lfloat"><%=t ("site_activation.discount") %></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><%=t ("site_activation.symbol") %></span>
+              <span class="rfloat">
+                <label id="gift_code_amount">
+                  <strong class="gift_code_str">
+                    <% if session[:promotional_code_amount].nil?
+                      discount_total = 0.00
+                    else
+                      discount_total = session[:promotional_code_amount]
+                    end
+                  %>
+                    <% if session[:discount_amount].nil? %>
+                      <%= number_to_currency(((discount_total)*100).round.to_f / 100, :unit=>"") %>
+                    <% else %>
+                      <%= number_to_currency(((session[:discount_amount] + discount_total)*100).round.to_f / 100, :unit=>"") %>
+                    <% end %>
+                  </strong>
+                </label>
+              </span>
+          </div>
+        </li>
+        <li>
+          <div class="lfloat"><%=t ("site_activation.subtotal") %></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><%=t ("site_activation.symbol") %></span>
+              <span class="rfloat">
+                <% if session[:job_seeker].activated == true %>
+                  <% if session[:job_seeker].payments.where(:payment_purpose => "seeker_registration").nil? %>
+                    0.00
+                  <% else %>
+                    <%= number_to_currency(session[:job_seeker].payments.where(:payment_purpose => "seeker_registration").first.paypal_amount, :unit=>"") %>
+                  <% end %>
+                <% else%>
+                  <% if session[:discount_amount].nil? and session[:paypal_amount].nil? %>
+                    <%= number_to_currency(REGISTRATION_COST, :unit=>"") %>
+                  <% elsif session[:discount_amount].nil? and !session[:paypal_amount].nil? %>
+                    <% if session[:paypal_amount].to_i == 0 %>
+                      0.00
+                    <% else %>
+                      <%= number_to_currency((session[:paypal_amount]*100).round.to_f / 100, :unit=>"") %>
+                    <% end %>
+                  <% elsif !session[:discount_amount].nil? and session[:paypal_amount].nil?%>
+                    <%= number_to_currency(((REGISTRATION_COST - session[:discount_amount])*100).round.to_f / 100, :unit=>"") %>
+                  <% else %>
+                    <% if session[:paypal_amount].to_i == 0 %>
+                      0.00
+                    <% else %>
+                      <%= number_to_currency((session[:paypal_amount]*100).round.to_f / 100, :unit=>"") %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </span>
+          </div>
+        </li>
+        <li>
+          <div class="lfloat" title="Tax (if applicable)"><%=t ("site_activation.tax") %></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><%=t ("site_activation.symbol") %></span>
+              <span class="rfloat">0.00</span>
+          </div>
+        </li>
+        <li>
+          <div class="lfloat"><strong><%=t ("site_activation.total") %></strong></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><strong><%=t ("site_activation.symbol") %></strong></span>
+              <span class="rfloat">
+                <strong>
+                  <% if session[:job_seeker].activated == true %>
+                    <% if session[:job_seeker].payments.where(:payment_purpose => "seeker_registration").nil? %>
+                    0.00
+                  <% else %>
+                    <%= number_to_currency(session[:job_seeker].payments.where(:payment_purpose => "seeker_registration").first.paypal_amount, :unit=>"") %>
+                  <% end %>
+                  <% else%>
+                    <% if session[:discount_amount].nil? and session[:paypal_amount].nil? %>
+                      <%= number_to_currency(REGISTRATION_COST, :unit=>"") %>
+                    <% elsif session[:discount_amount].nil? and !session[:paypal_amount].nil? %>
+                      <% if session[:paypal_amount].to_i == 0 %>
+                        0.00
+                      <% else %>
+                        <%= number_to_currency((session[:paypal_amount]*100).round.to_f / 100, :unit=>"") %>
+                      <% end %>
+                    <% elsif !session[:discount_amount].nil? and session[:paypal_amount].nil?%>
+                      <%= number_to_currency(((REGISTRATION_COST - session[:discount_amount])*100).round.to_f / 100, :unit=>"") %>
+                    <% else %>
+                      <% if session[:paypal_amount].to_i == 0 %>
+                        0.00
+                      <% else %>
+                        <%= number_to_currency((session[:paypal_amount]*100).round.to_f / 100, :unit=>"") %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </strong>
+              </span>
+          </div>         
+        </li>
+        <li>
+          <div class="lfloat" title="Credit (after activation)"><%=t ("site_activation.credit") %></div>
+          <div class="rfloat width-56px">
+              <span class="lfloat"><%=t ("site_activation.symbol") %></span>
+              <span class="rfloat">
+                 <% if session[:job_seeker].ics_type_id == 3
+                      credit_amount = 0.00
+                    else
+                      credit_amount = CREDIT_AMOUNT
+                    end
+                 %>
+                  <% if session[:credit_amount] == nil
+                    credit_amount = credit_amount + 0.00
+                  else
+                    credit_amount = credit_amount + session[:credit_amount]
+                  end
+                %>
+                  <% if session[:promo_remaining_amt].nil? %>
+                    <% session[:credit_total] = nil
+                    session[:credit_total] = ((credit_amount)*100).round.to_f / 100
+                  %>
+                    <%= number_to_currency(((credit_amount)*100).round.to_f / 100, :unit=>"") %>
+                  <% else %>
+                    <% session[:credit_total] = nil
+                    session[:credit_total] = ((session[:promo_remaining_amt] + credit_amount)*100).round.to_f / 100
+                  %>
+                    <%= number_to_currency(((session[:promo_remaining_amt] + credit_amount)*100).round.to_f / 100, :unit=>"") %>
+                  <% end %>
+              </span>
+          </div>
+         </li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom-bar">&nbsp;</div>
+</div>

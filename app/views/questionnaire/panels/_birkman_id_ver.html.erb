@@ -1,0 +1,98 @@
+<div id="birkamn_id_verify_form" style="display:none" >
+
+  <div style="width: 375px; float:left;">
+    <%= form_tag :url => {:controller => "questionnaire", :action => 'verify_birkman_id'}, :html=>{:id => "verify_birkman_id"}, :remote => true do %>
+      <div class="pass_through_label">
+        First Name
+      </div>
+
+      <div class="pass_through_field">
+        <input type="text" name="first_name" class="input-field-style"/>
+      </div>
+      <div class="clear-height"></div>
+      <div class="height5">&nbsp;</div>
+
+      <div class="pass_through_label">
+        Last Name
+      </div>
+
+      <div class="pass_through_field">
+        <input type="text" name="last_name" class="input-field-style"/>
+      </div>
+      <div class="clear-height"></div>
+      <div class="height5">&nbsp;</div>
+
+      <div class="pass_through_label">
+        Birkman ID
+      </div>
+
+      <div class="pass_through_field">
+        <input type="text" name="birkman_id" class="input-field-style"/>
+      </div>
+      <div class="clear-height"></div>
+      <div class="height5">&nbsp;</div>
+
+      <div class="pass_through_label">
+        Email
+      </div>
+
+      <div class="pass_through_field">
+        <input type="text" name="email" class="input-field-style"/>
+      </div>
+      <div class="clear-height"></div>
+      <div class="height5">&nbsp;</div>
+
+
+      <div class="pass_through_label">
+        &nbsp;
+      </div>
+
+      <div class="pass_through_field">
+        <input type="submit" class="button-a buttton_65X23" value="Verify" onclick="ver_birkman_id();"/>
+        <img src="/assets/login-loader.gif" style="display:none;" id="verify_loader" alt="Loading ..." />
+      </div>
+      <div class="clear-height"></div>
+      <div class="height5">&nbsp;</div>
+
+    <%end%>
+  </div>
+
+  <div class="instruction_text" id="instruction_text">
+    If we are able to verify your Birkman ID*, you will be able to skip the
+    questionnaire step of Hilo set-up wizard.
+    <br />
+    Your Birkman ID is located at the bottom righthand corner of your Birkman
+    report. If you cannot find your Birkman ID please contact Birkman Customer
+    service at (800) 215-2760 / TURgroup@birkman.com. Or Click the "Take
+    Questionnaire" button to move forward and retake the questionnaire.
+    <br />
+    *Not all past versions of the Birkman Questionnaire are compatible with the Hilo
+    system.
+    <div class="take_questionnaire">
+      <img src="/assets/TakeQuestionnaire_textbutton.png" onclick="birkman_test.submit_citizenship_form();" id="take_questionnaire"/>
+
+    </div>
+  </div>
+
+
+  <div style="width: 500px; float:right; display:none;" id="verify_birkamn_failure_msg">  
+    We were unable to verify your questionnaire. Not all past versions of the
+    Birkman Questionnaire are compatible with the Hilo system.
+    <br></br>
+    Please click "Take Questionnaire" to move forward.
+    <br></br>
+    <div class="take_questionnaire">
+      <img src="/assets/TakeQuestionnaire_textbutton.png" onclick="birkman_test.submit_citizenship_form();" id="take_questionnaire"/>
+    </div>
+  </div>
+
+  <div class="clear"></div>
+</div>
+
+<script type="text/javascript">
+  function ver_birkman_id()
+  {
+    $('#verify_loader').show();
+    $("#verify_birkamn_failure_msg").hide();
+  }
+</script>

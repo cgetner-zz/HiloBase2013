@@ -1,0 +1,4 @@
+showNormalShadow();
+$("#ajax-content").html('<%= escape_javascript render(:partial=>"/account/credit_history", :locals=>{:history=>@credit_list}) %>');
+centralizePopup();
+hideBlockShadow();

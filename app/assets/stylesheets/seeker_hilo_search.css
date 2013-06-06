@@ -1,0 +1,78 @@
+div.job-inner-box{
+    width:920px;
+    background-image: url("/assets/preview_bg_920.png");
+    background-repeat: repeat-y;
+    text-align:left;
+
+
+}
+
+
+.preview-center-line{
+    float:left;
+    background-image: url("/assets/preview_center_line.png");
+    background-repeat: repeat-x;	
+    width:902px;
+    height: 36px;
+}
+
+.position-pairing-td-width{
+    width: 445px;
+}
+
+.preview-bottom-center{
+    float: left;
+    /*background-image: url("/assets/preview_bottom.png");*/
+    background-image: url("/assets/preview_bottom_new.png");
+    background-repeat: repeat-x;	
+    height: 18px;
+    width: 919px;
+}
+.pairing-crietria-bottom{
+    width: 890px !important;
+}
+
+.job-preview-row-header{
+    width: 910px;
+    padding-top: 4px;
+}
+
+.job-pos-details-header{
+    width: 906px;
+    padding-top: 4px;
+}
+
+.jobview-pay-coverline{
+    width: 876px;
+}
+
+.det-comp-basics-right{
+    float: left;
+    width: 265px;
+}
+
+/*** start - override from common.css ***/
+.pairing-crietria-border{
+    width: 890px !important;
+    background:url("/assets/preview_bg_890.png") repeat-y scroll 0 0 transparent;
+}
+.pos-detail-personality-table{
+    width: 320px !important;
+}
+
+.dc-job-info{
+    width: 445px !important;
+}
+
+.dc-job-share{
+    width: 350px !important;
+}
+
+.dc-responsibility-box{
+    width: 430px !important;
+}
+
+.dc-location-box{
+    width: 430px !important;
+}
+/*** end - override from common.css ***/

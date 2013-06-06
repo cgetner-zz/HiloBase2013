@@ -1,0 +1,27 @@
+<div id="group_row_<%=item.group_id%>" class="group-row-bg">
+  <div class="group-row">
+    <div class="group-row-name">
+      <span class="show-content hide" data-group-id="<%=item.group_id%>">&nbsp;</span>
+      <span data-folder-name="<%=item.group_name.force_encoding('utf-8')%>" class="landing-value" style="margin-top:5px;"><%=truncate item.group_name.force_encoding('utf-8'), :length=>20 -%></span>
+      <div class="customized-inner-input input-text-active" style="display:none;margin-top: 2px;">
+        <div class="input-left" style="background:url(/assets/employer_v2/inner-input-active-left_28.png) left top no-repeat; width:5px; height:28px;">&nbsp;</div>
+        <input type="text" maxlength="30" name="group_name_<%=item.group_id%>" id="group_name_<%=item.group_id%>" value="" class="edit-group-name " style="background:url(/assets/employer_v2/inner-input-active-cont_28.png) left top repeat-x;height:28px; width:187px;font-size: 15px;font-weight: 400; padding: 0 3px;"></input>
+        <div class="input-right" style="background:url(/assets/employer_v2/inner-input-active-right_28.png) left top no-repeat; width:3px; height:28px;">&nbsp;</div>
+      </div>
+      <%#=text_field_tag :group_name, item.group_name, :class=>"edit-group-name ", :style=>"display:none;width:189px;border:2px solid darkblue;"%>
+      <!--<div class="jobs_group">
+            [<%=get_jobs_within_group(item)%>]
+      </div>-->
+    </div>
+    <% if  get_jobs_within_group(item) > 0 %>
+    <% end %>
+
+    <div class="group-row-drag">
+      <%  params[:id] ||= 0 %>
+      <%  params[:cat_id] ||= 0 %>
+      <a href="javascript:void(0);" onclick="emp_left_menu_event.delete_action
+                  (<%=item.group_id%>,<%= params[:id] %>,<%= params[:cat_id] %>);">X</a>
+    </div>
+    <div class="clear-height"></div>
+  </div>
+</div>

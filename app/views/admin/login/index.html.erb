@@ -1,0 +1,47 @@
+<body id="landing-Page">
+  <!--main-container-->
+  <div id="main-container" class="home-page">
+    <h1 class="logo">
+      <%= link_to(image_tag("logo-hilo-home.png",:alt=>"logo",:size=>"165x153",:border=>0),:controller=>:home) %>
+    </h1>
+    <% if !session[:job_seeker] %>
+      <a href="javascript:void(0);" class="signIn-button" tabindex="1">
+        <%= image_tag("signIn.png",:alt=>"SignIn",:size=>"79x29",:border=>"0") %>
+      </a>
+    <% end %>
+    <!--signIn-block-->
+    <div class="signIn-block">
+      <%= image_tag("login-arrow.png",:alt=>"login-arrow",:class=>"login-arrow") %>
+      <!--login-container-->
+      <div class="login-container">
+        <span class="login-container-top">&nbsp;</span>
+        <!--login-container-content-->
+        <%= form_tag('/admin/login/authenticate_administrator', :remote => true, :id=>"login_form") do %>
+          <%= render :partial => "home/login_container" %>
+        <% end %>
+        <!--/login-container-content-->
+        <span class="login-container-bottom">&nbsp;</span>
+      </div>
+      <!--/login-container-->
+    </div>
+    <!--/signIn-block-->
+    <div class="home-footer">
+      <!--<a href="javascript:void(0);" class="gift-hilo" title="Gift Hilo" onClick="click_gift_hilo.gift_hilo_show()" >Gift Hilo</a>-->
+      <label class="year">Hilo, Inc. &copy; 2012</label>
+    </div>
+  </div>
+  <!--/main-container-->
+  <%= render :partial => "home/login_failure_popup" %>
+  <div id="fade_normal" class="black_overlay"></div>
+  <div id="fade_success" class="sucess_overlay"></div>
+  <div id="fade_error" class="error_overlay"></div>
+  <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $("#login_form_submit").unbind().click(function() {
+        inactiveSignInButton();
+      });
+  });
+  </script>
+</body>

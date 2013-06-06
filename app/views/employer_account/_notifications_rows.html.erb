@@ -1,0 +1,105 @@
+<%@notifications.each do |notify|%>          
+  <li id="noft_<%=notify.id%>" style="margin-top:-2px;">
+    <div style="margin-left:15px;margin-right:15px;border-bottom: 1px solid #D6D6D6 !important;padding-bottom: 5px; padding-top: 6px;">
+      <img width="27" height="26" src="/assets/lolo_small.gif" alt="logo" style="margin-left: 5px;"/>
+      <p>
+        <label><%=get_time_formate(notify.created_at)%></label><br/>
+        <a href="javascript:void(0)" title="Remove" id="remove-notification-<%=notify.id%>" class="remove"></a>
+        <span class="work-detail">
+          <%=employer_alert_msg(notify).html_safe%>
+        </span>
+
+      </p>
+    </div>
+  </li>
+  <script type="text/javascript">
+    $(function(){
+      $("#remove-notification-<%=notify.id%>").click(function(e){
+        deleteDashboardNotification(<%=notify.id%>);
+        e.stopPropagation();
+      });
+    });
+  </script>
+
+  <%if notify.purpose == "legacy"%>
+    <script type="text/javascript">
+      $(function(){
+        $("#noft_<%=notify.id%>").click(function(){
+    <%if not @legacy_jobs.nil? and @legacy_jobs.profile_complete==false and @legacy_jobs.deleted==false%>
+        window.location.href='/position_profile/new_employer_profile/<%=@legacy_jobs.id%>';
+    <%end%>
+    });
+    });
+    </script>
+  <% elsif notify.purpose == "expiry" %>
+    <script type="text/javascript">
+      $(function(){
+        $("#noft_<%=notify.id%>").click(function(){
+          window.location.href='/postings/index/<%=notify.job_id%>';
+        });
+      });
+    </script>
+  <% elsif notify.purpose == "job-active" || notify.purpose == "job-inactive" || notify.purpose == "job-edit" %>
+    <script type="text/javascript">
+      $(function(){
+        $("#noft_<%=notify.id%>").click(function(){
+          window.location.href='/postings/index/<%=notify.job_id%>';
+        });
+      });
+    </script>
+  <% elsif notify.purpose == "job-delete" || notify.purpose == "job-re-assign" || notify.purpose == "folder-reassign" || notify.purpose == "folder-create" || notify.purpose == "sub-deleted" || notify.purpose == "cs-purchased-deleted" || notify.purpose == "ics-deleted" %>
+    <script type="text/javascript">
+      $(function(){
+        $("#noft_<%=notify.id%>").addClass('cursor_default');
+      });
+    </script>
+  <% else %>
+    <script type="text/javascript">
+      $(function(){
+        $("#noft_<%=notify.id%>").click(function(){
+    <% if session[:employer].account_type_id != 3 %>
+      <% if is_notification_job_active?(notify.job_id) %>
+        <% if JobSeeker.is_deleted?(notify.job_seeker_id) %>
+          show_normal_screen_notification();
+          showErrorShadow();
+          $("#job_seeker_deleted_popup").show();
+          centralizePopup();
+          footerOnOpeningPopup();
+          addFocusButton('job_seeker_deleted_popup_button');
+        <% else %>
+          window.location.href='/position_profile/xref/CS<%=notify.job_seeker_id%>?selected='+$('#parent_id').val()+'<%= cover_note?(notify,true) %>';
+        <% end %>
+      <% else %>
+          show_normal_screen_notification();
+          $("#job_deleted").show();
+          showErrorShadow();
+          footerOnOpeningPopup();
+          centralizePopup();
+          addFocusButton('job_deleted_button');
+      <% end %>
+    <% else %>
+      <% if is_notification_job_active?(notify.job_id) %>
+        <% if JobSeeker.is_deleted?(notify.job_seeker_id) %>
+          show_normal_screen_notification();
+          showErrorShadow();
+          $("#job_seeker_deleted_popup").show();
+          centralizePopup();
+          footerOnOpeningPopup();
+          addFocusButton('job_seeker_deleted_popup_button');
+        <% else %>
+          window.location.href='/position_profile/xref/CS<%=notify.job_seeker_id%><%= cover_note?(notify,false) %>';
+        <% end %>
+      <% else %>
+          show_normal_screen_notification();
+          $("#job_deleted").show();
+          showErrorShadow();
+          footerOnOpeningPopup();
+          centralizePopup();
+          addFocusButton('job_deleted_button');
+      <% end %>
+    <% end %>
+    });
+    });
+    </script>
+  <% end %>
+<% end %>

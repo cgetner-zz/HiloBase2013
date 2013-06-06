@@ -1,0 +1,35 @@
+<!--header-->
+<div id="header" style="overflow: visible;">
+  <h1 class="logo-container"><%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),root_path) %></h1>
+  <!--header-right-container-->
+  <div class="header-right-container">
+    <!--hil-info-link-section-->
+    <div class="hil-info-link-section">
+      <%if params[:controller] == 'employer' && (params[:action] == 'new' || params[:action] == 'create')%>
+          <label class="welcome"><%=t ("employer_acc_setup.welcome") %></label>
+          <% if !session[:employer] %>
+          <div class="info-links signin">
+            <a title="SIGN IN" href="javascript:openLoginBox();"><%=t ("employer_acc_setup.sign_in") %></a>
+          </div>
+          <%= render :partial=>"shared/new_login_box" %>
+          <% end %>
+      <%else%>
+          <label class="welcome"><%=t ("employer_acc_setup.heading") %></label>
+      <%end%>
+      
+    </div>
+    <!--/hil-info-link-section-->
+    <!--page-navigation-->
+    <div id="page-navigation">
+      <ul>
+        <li class="firstChild <%if params[:controller] == 'employer' && (params[:action] == 'new' || params[:action] == 'create')%>active<%end%> disable"><a href="javascript:void(0);" title="Account Set-Up"><%=t ("employer_acc_setup.heading2P1") %><br/><%=t ("employer_acc_setup.heading2P2") %></a></li>
+        <li class="lastChild <%if params[:controller] == 'employer_payment' && (params[:action] == 'index' || params[:action] == 'company_info')%>active_site_activation<%end%> disable"><a href="javascript:void(0);" title="Site Activation"><%=t ("employer_acc_setup.headingP1") %><br/><%=t ("employer_acc_setup.headingP2") %></a></li>
+        <li class="empty"></li>
+        <li class="empty"></li>
+      </ul>
+    </div>
+    <!--/page-navigation-->
+  </div>
+  <!-- Header right container end-->
+</div>
+<!--/header End-->

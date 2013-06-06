@@ -1,0 +1,72 @@
+<div class="dc-section-header pos-relative">
+	<div class="dc-section-header-text dc-section-header-absolute">
+		<div class="dc-sec-head-left"></div>
+		<div class="dc-sec-head-center" style="width:140px;">Position Detail</div>
+		<div class="dc-sec-head-right"></div>
+		<div class="clear-height"></div>
+	</div>
+</div>
+
+<div  class="dc-content-bg">
+ 
+	<%=h(job.company.name) -%> is looking for someone with atleast <span class="dc-blue-highlight"><%=h(job.work_exp_value) -%> years</span> experience and an education level of at least a <span class="dc-blue-highlight"><%=h(job.degrees[0].name) if !job.degrees.blank? and !job.degrees[0].blank?%></span>. 
+
+	<div class="height5"></div>
+	
+	<b>Language skills needed are:</b>
+	<div class="height5"></div>
+
+	<%for item in language_skills%>
+		<div class="dc-pos-detail-shift">
+			<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp;<%=h(item.name) -%>
+			<%if item.required_flag == "1"%>
+				<span >(required)</span>
+			<%else%>
+				<span >(desired)</span>
+			<%end%>
+			<div class="height5"></div>
+		</div>
+	<%end%>
+	
+	<%if job_certifications.length > 0%>
+	<div class="height5"></div>
+	<b>In addition the following Certifications and Licenses are desired:</b>
+	<div class="height5"></div>
+	<%for item in job_certifications%>
+		<div class="dc-pos-detail-shift">
+			<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp;<%=h(item.name) -%>
+			<%if item.required_flag == "1"%>
+				<span >(required)</span>
+			<%else%>
+				<span >(desired)</span>
+			<%end%>
+		</div>
+		<div class="height5"></div>
+	<%end -%>	
+	<%end%>
+
+
+
+	<div class="height5"></div>
+	<b>Qualified candidates should also be proficient in:</b>
+	<div class="height5"></div>
+	<%for item in job.proficiencies%>
+		<div class="dc-pos-detail-shift">
+			<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp; <%=h(item.name) -%>
+		</div>
+		<div class="height5"></div>
+	<%end-%>
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,94 @@
+<!--header-->
+<%if controller.action_name == "opportunities"%><!--<div id="refresh_link" ></div>--><%end%>
+<div id="header" class="overflow-visible">
+  <h1 class="logo-container"><a href="javascript:void(0);">
+      <% if step == "profile" %>
+        <span onclick="var areYouSureResp = areYouSure('dashboard'); if(areYouSureResp == false) { return false; } window.location='/account'"><%= image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0) %></span>
+      <% else %>
+        <%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),:controller=>:home) %>
+      <% end %>
+    </a></h1>
+  <!--header-right-container-->
+  <div class="header-right-container">
+    <!--hil-info-link-section-->
+    <div class="hil-info-link-section">
+      <label class="welcome"><%= t('account.header_welcome') %>, <%= session[:job_seeker].first_name.force_encoding('utf-8') %></label>
+      <!--info-links-->
+      <div class="info-links">
+        <% if step == "profile" %>
+          <a title="<%= t('account.header_career_code') %>" href="javascript:void(0);" onclick="var areYouSureResp = areYouSure('career_code'); if(areYouSureResp == false) { return false; } $('#career_code_popup').show();centralizePopup();$('#career_code').val('');$('#career_code').blur();addFocusTextField('career_code');showNormalShadow();$('#loader_img3').hide();$('#code_button').show();document.getElementById('code_button').className='enter-button';"><%= t('account.header_career_code') %></a>
+        <% else %>
+          <a title="<%= t('account.header_career_code') %>" href="javascript:void(0);" onclick="$('#career_code_popup').show();centralizePopup();$('#career_code').val('');$('#career_code').blur();addFocusTextField('career_code');showNormalShadow();$('#loader_img3').hide();$('#code_button').show();document.getElementById('code_button').className='enter-button';"><%= t('account.header_career_code') %></a>
+        <% end %>
+        &nbsp;|&nbsp;
+        <% if step == "profile" %>
+          <a title="<%= t('account.header_signout') %>" href="javascript:void(0)"onclick="var areYouSureResp = areYouSure('signout'); if(areYouSureResp == false) { return false; } window.location='/login/logout'"><%= t('account.header_signout') %></a>
+        <% else %>
+          <a title="<%= t('account.header_signout') %>" href="/login/logout"><%= t('account.header_signout') %></a>
+        <% end %>
+      </div>
+      <!--/info-links-->
+    </div>
+    <!--/hil-info-link-section-->
+    <%if step == "dashboard" -%>
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild active" >
+            <a onclick="window.location='/account'" href="javascript:void(0);" title="<%= t('account.tab_dashboard') %>"><%= t('account.tab_dashboard') %></a>
+            <a class="notification-count" href="javascript:void(0);" ><%=notification_count %></a>
+
+          </li>
+          <li><a onclick="window.location='/account/opportunities'" href="javascript:void(0);" title="<%= t('account.tab_opportunities') %>"><%= t('account.tab_opportunities') %>Opportunities</a></li>
+          <li><a onclick="window.location='/account/pairing_profile'" href="javascript:void(0);" title="<%= t('account.tab_profile') %>"><%= t('account.tab_profile') %>Profile</a></li>
+          <li class="lastChild"><a onclick="showAuthenticationPopup();" href="javascript:void(0);" title="<%= t('account.tab_account') %>"><%= t('account.tab_account') %>Account</a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    <% elsif step == "opportunities" -%>
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild active">
+            <a onclick="window.location='/account/opportunities'" href="javascript:void(0);" title="<%= t('account.tab_opportunities') %>"><%= t('account.tab_opportunities') %></a>
+            <a class="notification-count" href="javascript:void(0);" ><%=@notification_count %></a>
+          </li>
+          <li><a onclick="window.location='/account/pairing_profile'" href="javascript:void(0);" title="<%= t('account.tab_profile') %>"><%= t('account.tab_profile') %></a></li>
+          <li><a onclick="showAuthenticationPopup();" href="javascript:void(0);" title="<%= t('account.tab_account') %>"><%= t('account.tab_account') %></a></li>
+          <li class="emptyLastChild"><a href="javascript:void(0);" title=""></a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    <% elsif step == "profile" -%>
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild">
+            <a onclick="var areYouSureResp = areYouSure('opportunities'); if(areYouSureResp == false) { return false; } window.location='/account/opportunities';" href="javascript:void(0);" title="<%= t('account.tab_opportunities') %>"><%= t('account.tab_opportunities') %></a>
+            <a class="notification-count" href="javascript:void(0);" ><%=@notification_count %></a>
+          </li>
+          <li class="active"><a onclick="var areYouSureResp = areYouSure('profile'); if(areYouSureResp == false) { return false; } window.location='/account/pairing_profile';" href="javascript:void(0);" title="<%= t('account.tab_profile') %>"><%= t('account.tab_profile') %></a></li>
+          <li><a onclick="var areYouSureResp = areYouSure('account'); if(areYouSureResp == false) { return false; } showAuthenticationPopup();" href="javascript:void(0);" title="<%= t('account.tab_account') %>"><%= t('account.tab_account') %></a></li>
+          <li class="emptyLastChild"><a href="javascript:void(0);" title=""> </a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    <% elsif step == "account" -%>
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild">
+            <a onclick="window.location='/account/opportunities'" href="javascript:void(0);" title="<%= t('account.tab_opportunities') %>"><%= t('account.tab_opportunities') %></a>
+            <a class="notification-count" href="javascript:void(0);" ><%=@notification_count %></a>
+          </li>
+          <li><a onclick="window.location='/account/pairing_profile'" href="javascript:void(0);" title="<%= t('account.tab_profile') %>"><%= t('account.tab_profile') %></a></li>
+          <li class="active"><a onclick="showAuthenticationPopup();" href="javascript:void(0);" title="<%= t('account.tab_account') %>"><%= t('account.tab_account') %></a></li>
+          <li class="emptyLastChild"><a href="javascript:void(0);" title=""></a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    <% end %>
+  </div>
+  <!--/header-right-container-->
+</div>
+<!--/header-->

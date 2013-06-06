@@ -1,0 +1,2 @@
+$("#position_overview").html("<%= escape_javascript render(:partial =>'/account/preview_popup',:locals=>{:job=>@job, :job_location=>@job_location, :job_status=>@job_status, :company=>@company, :following_company_flag=>@following_company_flag, :view_type=>"seeker", :desired_emp=>@desired_emp, :watchlist_flag=>@watchlist_flag})%>");
+

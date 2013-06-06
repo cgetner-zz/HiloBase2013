@@ -1,0 +1,18 @@
+<div class="user-box folder-list open">
+  <div class="top">
+    <span class="user-name">USER 1</span>
+    <input type="hidden" value=""/>
+  </div>
+  <div class="slide" style="display: block;">
+    <div class="middle">
+      <span class="plus">Folder</span>
+    </div>
+    <div class="bottom"></div>
+  </div>
+</div>
+<%= render :partial=>'shared/employer/folders_list_on_open'  %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    bindFolderBoxes();
+  });
+</script>

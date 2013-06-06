@@ -1,0 +1,36 @@
+<div style="display: none; position:fixed;" id="saved_search_popup" class="one_click_payment_position_white_content">
+
+  <div style="width: 605px;">
+    <div class="dashboard_position_popup-siteActivation">
+      <span class="position_popup-top">&nbsp;</span>
+      <div class="position_popup-content_oneclick">
+        <div class="position_gradient-content_oneclick">
+          <div class="position_popup-header-container">
+            <label class="position_popup-heading" style="font-size: 24px;"><%=t ("save_search_popup.title") %></label>
+          </div>
+          <div class="position_popup_select_box padding-T-10px" style="text-transform: uppercase;">
+            <ul class="oneClick-details dashboard-payment">
+              <li style="width: 300px; margin-right: 170px;">
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="search_name_placeholder" value="<%=t ('save_search_popup.save_search_label') %>" />
+                  <input type="text" name="search_name" id="search_name" value="<%=t ('save_search_popup.save_search_label') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this)" onkeyup="handleEnterSaveSearch(event);" style="width: 245px;" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+              <li class="lastChild" style="margin-top: 5px;">
+                <div class="position_popup_enter_button">
+                  <span id="search_save_loader" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                  <input type="button" id="save_button_popup" class="btn-save active rfloat" onclick="saveSearchKeyword()"/>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <a id="oneclick-close" onclick="$('#saved_search_popup').hide();hideNormalShadow();footerOnClosingPopup();" href="javascript:void(0)" class="position_close_oneclick"><%=t ("save_search_popup.close") %></a>
+      </div>
+      <span class="position_popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+</div>

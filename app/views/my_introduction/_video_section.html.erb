@@ -1,0 +1,25 @@
+	<div class="myint-section-head">
+		Video
+	</div>	
+	<div class="myint-video-bg">
+		<div>
+			<div id="intro-video-box" >
+				<%if job_seeker.video_url.blank?%>
+					<img src="/assets/no-video.jpg" width="315px" height="200px"/>
+				<%else%>
+					<%=render :partial=>"video_player",:locals=>{:player_height=>200 ,:video_url=> youtube_video_id(job_seeker.video_url)}%>
+				<%end%>
+			</div>
+		</div>
+		
+		
+		<div class="myint-video-edit myint-edit-link">
+				<a href="javascript: void(0);" onclick="open_video_edit.toggle();">Edit</a>
+		</div>
+		
+
+		<div id="myint-video-form" style="display:none;">
+				<%=render :partial =>"edit_video",:locals =>{ :job_seeker => @job_seeker}%>
+		</div>
+
+	</div>

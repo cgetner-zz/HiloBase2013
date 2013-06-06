@@ -1,0 +1,5 @@
+$("#eda_action_<%= @company_id %>").html('<span class="eda_revoke_action" id="row_<%= @company_id %>">On</span>');
+$(".action span.eda_revoke_action").unbind().click(function(){
+  revokEDAStatus(this);
+});
+hideBlockShadow();

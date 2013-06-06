@@ -1,0 +1,45 @@
+<script type="text/javascript">
+	// This function is called when an error is thrown by the player
+	var video_url = new Array();
+	var j = 0;
+	function onPlayerError(errorCode) {
+			   //alert("An error occured of type:" + errorCode);
+	}          
+	// This function is automatically called by the player once it loads
+	   function onYouTubePlayerReady(playerId) {
+		      for(i=1;i<=j;i++) {
+				 if(document.getElementById("ytPlayer"+i)) {
+					    try {
+						       ytplayer = document.getElementById("ytPlayer"+i);
+						       //Load an initial video into the player
+						       ytplayer.cueVideoById(video_url[i]);
+					    }
+					    catch(err) {
+
+					    }
+				 }
+		      }
+	   }
+
+	function loadPlayer(div_id,width,height,url) {
+			j++;
+			video_url[j] = url;
+			var params = { allowScriptAccess: "always",wmode: "opaque" };
+			// The element id of the Flash embed
+			var atts = { id: "ytPlayer"+j };
+			swfobject.embedSWF("https://www.youtube.com/apiplayer?" + "&enablejsapi=1&playerapiid=player1",div_id,width,height, "8", null, null, params, atts);
+	}
+
+	function loadSamplePlayer(player_id) {
+			var params = { allowScriptAccess: "always",wmode: "opaque" };
+			// The element id of the Flash embed
+			var youtube_player_id = "ytPlayer" + player_id;
+		
+			var player_div = "sample_video_player_" + player_id;
+			var atts = { id: youtube_player_id };
+			swfobject.embedSWF("https://www.youtube.com/apiplayer?" + "&enablejsapi=1&playerapiid=player1",player_div, "130", "130", "8", null, null, params, atts);
+	}
+
+	
+	google.load("swfobject", "2.1");
+</script>

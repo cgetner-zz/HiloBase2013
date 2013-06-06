@@ -1,0 +1,90 @@
+<div class="expand-all"><span class="expand" <% if session[:employer].account_type_id == 3 %>style="visibility: hidden;"<% end %>><%=t ("user_admin.accounts.exapnd_all") %></span></div>
+<div class="account-top"></div>
+<div class="account-middle">
+  <div class="account-middle-content">
+    <div class="header">
+      <div class="inline-div">
+        <div class="heading"><%=t ("user_admin.accounts.title") %></div>
+        <div class="sub-heading"><%=t ("user_admin.accounts.content") %></div>
+      </div>
+      <div class="nav-container">
+        <a class="active" href="javascript:void(0)"></a>
+        <a onclick="openPositionAssignTab();" href="javascript:void(0)"></a>
+        <a onclick="openTeamMapTab();" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <% if session[:employer].account_type_id == 3 %><%= render :partial=> "/shared/employer/user_admin_sample_data_message" %><% end %>
+    <div class="content <% if not session[:employer].is_root? and session[:employer].spending_flag == true and session[:employer].spending_limit_crossed_flag == false %>with-calculation<% end %> "><!-- Add with [with-calculation] if you want the calculation block -->
+      <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+        <div class="user-rows">
+          <% @emp_children.each_with_index {|child, index| %>
+            <% if index%3 == 0 %>
+              <%= render :partial=>'shared/employer/user_admin_boxes', :locals => {:child => child} %>
+            <% end %>
+          <% }%>
+        </div>
+
+        <div class="user-rows">
+          <% @emp_children.each_with_index {|child, index| %>
+            <% if index%3 == 1 %>
+              <%= render :partial=>'shared/employer/user_admin_boxes', :locals => {:child => child} %>
+            <% end %>
+          <% }%>
+        </div>
+
+        <div class="user-rows">
+          <% @emp_children.each_with_index {|child, index| %>
+            <% if index%3 == 2 %>
+              <%= render :partial=>'shared/employer/user_admin_boxes', :locals => {:child => child} %>
+            <% end %>
+          <% }%>
+        </div>
+      <% else %>
+        <%= render :partial => "/shared/employer/sample_tab_1" %>
+      <% end %>
+    </div>
+    <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+      <!-- User this block if you want on the ADD USER button and caluculations also -->
+      <% if not session[:employer].is_root? and session[:employer].spending_flag == true %>
+        <% if not session[:employer].spending_limit_crossed_flag %>
+          <div class="calculation-block" id="calculation_block">
+            <%= render :partial => "/shared/employer/user_calculation" %>
+          </div>
+        <% else %>
+          <div class="calculation-block" id="calculation_block">
+            <div class="add-user" style="margin-top: 10px;">
+              <span class="cross"></span>
+              <span><%=t ("user_admin.accounts.add_user") %></span>
+            </div>
+            <div class="calculation-content">
+              <div class="error-message" id="user_calc_error" style="text-align: justify; width: 400px; margin-top: 4px;">
+                <%=t ("user_admin.accounts.spending_limit_exceeded") %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- User this block if you want on the ADD USER button and no caluculations -->
+        <div class="add-user" style="display: block;">
+          <span class="cross"></span>
+          <span><%=t ("user_admin.accounts.add_user") %></span>
+        </div>
+        <!-- /User this block if you want on the ADD USER button and no caluculations -->
+      <% end %>
+      <!-- /User this block if you want on the ADD USER button and caluculations also -->
+    <% end %>
+  </div>
+</div>
+<div class="account-bottom"></div>
+<% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      bindUserBoxes();
+      $('.account-middle-content .content').slimscroll({ railVisible: true, allowPageScroll: true });
+      $(".add-user").click(function(){ addNewUserBlock(); });
+      $(".expand-all span").unbind().click(function(){ expandAllTab1(this); });
+      all_atag_bindings();
+      
+    })
+  </script>
+<% end %>

@@ -1,0 +1,29 @@
+<%content_for :video_frame do%>
+<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+           google.load("swfobject", "2.1");
+</script>   
+<script type="text/javascript">
+	// This function is called when an error is thrown by the player
+	function onPlayerError(errorCode) {
+			   //alert("An error occured of type:" + errorCode);
+	}          
+	// This function is automatically called by the player once it loads
+	function onYouTubePlayerReady(playerId) {
+				ytplayer = document.getElementById("ytPlayer");
+				//Load an initial video into the player
+				ytplayer.cueVideoById("<%=video_url%>");
+	}
+
+	function loadPlayer() {
+				var params = { allowScriptAccess: "always",wmode: "opaque" };
+				// The element id of the Flash embed
+				var atts = { id: "ytPlayer" };
+				swfobject.embedSWF("https://www.youtube.com/apiplayer?" + "&enablejsapi=1&playerapiid=player1","videoDiv", "400", "280", "8", null, null, params, atts);
+	}
+	function set_video() {
+				loadPlayer();
+	}
+	google.setOnLoadCallback(set_video);
+</script>
+<%end%>

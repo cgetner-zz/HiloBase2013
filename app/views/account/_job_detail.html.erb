@@ -1,0 +1,114 @@
+<div class="job-outer-box">
+  <div class="preview-left-corner"></div>
+  <div class="preview-center-line">
+    <div class="preview-header">
+      <div class="preview-header-text">
+        <div class="left">
+          Position Preview
+        </div>
+        <div class="right">
+          <a href="javascript:void(0);" onclick="job_detail_view.close();"><img src="/assets/cross.png"/></a>
+        </div>
+        <div class="clear-height"></div>
+      </div>
+    </div>
+  </div>
+  <div class="preview-right-corner"></div>
+  <div class="clear-height"></div>
+
+  <div class="job-inner-box">
+    <div class="job-content">
+      <div class="job-detail">
+        <%if not job.blank?%>
+
+          <%=render :partial=>"/account/job_header_info",:locals =>{:job => job,:desired_emp => desired_emp}%>
+
+          <div class="height10"></div>
+          <div >
+            <%if not job.photoone_file_name.blank?%>
+              <%= image_tag job.photoone.url(:big) ,:class=>"job-prev-imgRightClear"%>
+            <%end%>
+            <%if not job.phototwo_file_name.blank?%>
+              <%= image_tag job.phototwo.url(:big),:class=>"job-prev-imgRightClear" %>
+            <%end%>
+            <%= job.summary.html_safe.force_encoding('utf-8')%>
+          </div>
+
+          <br class="clear"/>
+          <%if view_type == "seeker" and job.expire_at > Time.now  %>
+            <div class="job-prev-links-box">
+              <div class="job-prev-links">
+                <div >
+                  <div class="job-pay-button">
+                    <a href="javascript:void(0);" onclick="consider_job.call(<%=job.id%>);" class="button-pay-a button_pay_190X28">Buy Position Details $<%=JOB_DETAIL_VIEW_COST%></a> 
+                  </div>
+
+                  <div class="job-archive-button">
+                    <a href="javascript:void(0);" class="button-a grey_buttton_65X23 hover-none">Archive</a> 
+                  </div>		
+
+                  <div class="job-follow-button">
+                    <a href="javascript:void(0);" onclick="follow_company.call(<%=company.id%>,'follow');" class="button-a grey_buttton_106X23 hover-none">Follow Company</a> 
+                  </div>
+                  <div class="clear-height"></div>
+                </div>
+              </div>
+              <div class="clear-height">&nbsp;</div>
+            </div>
+          <%end%>
+
+          <%if view_type == "employer"%>
+            <div class="job-prev-links-box">
+              <div class="job-prev-links">
+                <div class="job-prev-links">
+                  <div >
+                    <div class="job-pay-button">
+                      <a href="javascript:void(0);" class="button-pay-a button_pay_190X28">Buy Position Details $<%=JOB_DETAIL_VIEW_COST%></a> 
+                    </div>
+
+                    <div class="job-archive-button">
+                      <a href="javascript:void(0);" class="button-a buttton_65X23">Archive</a> 
+                    </div>		
+
+                    <div class="job-follow-button">
+                      <a href="javascript:void(0);" class="button-a buttton_106X23">Follow Company</a> 
+                    </div>
+                    <div class="clear-height"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="clear-height"></div>
+            </div>
+          <%end%>
+
+        <%else%>
+          <div> Invalid Career Code </div>	
+        <%end%>
+
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+  <div class="preview-bottom-center"></div>
+
+
+
+  <div class="dc-share-box">
+    <%=render :partial =>"/account/share_job",:locals =>{:job => job} -%>
+  </div>
+  <div class="clear-height">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+<%if view_type == "seeker" && @job_status.considering == true%>
+      mark_job_considered_on_list("<%=job.id%>");
+      job_row_view.init();
+<%end%>
+  });
+</script>
+

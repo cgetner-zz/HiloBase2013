@@ -1,0 +1,50 @@
+<%=render :partial=>"/job_seeker/account_tab",:locals=>{:step=>"payment"}%>
+
+<div class="wizard-content">
+	<div class="payment-msg-container">
+		<div class="payment-msg-box">
+			<div class="payment-text-box">
+				<%if @express_error%>
+					<%=@message%>
+					<br/><br/>
+					
+				<%else%>
+					<div>
+						You have successfully completed your registration payment.<br/>
+						You are charged with amount $<%=@amount_value%>.<br/><br/>
+						Payment details:<br/>
+						
+						<%if @paypal_amount > 0%>
+							<br/>
+							Paypal transaction: $<%=sprintf("%.2f",@paypal_amount)%>
+
+							
+						<%end%>
+
+						<%if @promotional_code_amount > 0%>
+							<br/>
+							<div>
+								Promotional code deduction: $<%=sprintf("%.2f",@promotional_code_amount)%>
+
+								
+							</div>
+							<div>
+								Amount remaining in promotional code: $<%=sprintf("%.2f",@promo_remaining_amt)%>
+							</div>
+						<%end%>
+					
+					</div>
+				<%end%>
+			</div>
+		</div>
+		
+		<div style="padding-top:20px;">
+			<%if @express_error%>
+				<a href="/payment/index"><img src="/assets/cancel.jpg"/></a>
+			<%else%>
+				<a href="/account">Continue to My Account</a>
+			<%end%>	
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,136 @@
+<div class="account-left">
+
+	<div class="account-field-section">
+		<div class="reg-field-height">
+			<div class="reg-field-label">First Name:</div>
+			<div class="reg-field-text-box">
+				<%=j.text_field :first_name,:class=>"reg-field-text input-field-style default-msg",:default_msg =>"(no aliases please)"%>
+			</div>
+			<br class="clear"/>
+		</div>
+			
+		<div class="reg-field-height">
+
+			<div class="reg-field-label">Last Name:</div>
+			<div class="reg-field-text-box">
+				<%=j.text_field :last_name,:class=>"reg-field-text input-field-style default-msg",:default_msg =>"(no aliases please)"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+			<div class="reg-field-label">Your Email:</div>
+
+			<div class="reg-field-text-box">
+				<%=j.text_field :email,:class=>"reg-field-text input-field-style default-msg",:default_msg =>"(valid email address)"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+			<div class="reg-field-label">Password:</div>
+			<div class="reg-field-text-box">
+				<%=j.password_field :password,:class=>"reg-field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+			<div class="reg-field-label">Confirm Password:</div>
+			<div class="reg-field-text-box">
+				<%=j.password_field :password_confirmation,:class=>"reg-field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+			<div class="reg-field-label">Zip or Postal Code:</div>
+			<div class="reg-field-text-box">
+				<%=j.text_field :zip_code,:class=>"reg-field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+	</div>
+	<div class="height5"></div>
+	
+	<div class="account-field-section" style="display:none;">
+		<div>
+			How would you like to be contacted by a potential employer?
+		</div>
+		<br/>
+		<div class="reg-field-height">
+			<div class="reg-field-label">Phone 1:</div>
+			<div class="reg-field-text-box">
+				<%=j.text_field :phone_one,:class=>"reg-field-text input-field-style date-auto-format"%>
+			</div>
+			<div class="preferred-field">
+				<%=j.radio_button :preferred_contact,"phone_one"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+
+			<div class="reg-field-label">Phone 2:</div>
+			<div class="reg-field-text-box">
+				<%=j.text_field :phone_two,:class=>"reg-field-text input-field-style date-auto-format"%>
+			</div>
+			<div class="preferred-field">
+				<%=j.radio_button :preferred_contact,"phone_two"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="reg-field-height">
+			<div class="reg-field-label">Email:</div>
+
+			<div class="reg-field-text-box">
+				<%=j.text_field :contact_email,:class=>"reg-field-text input-field-style"%>
+			</div>
+			<div class="preferred-field">
+				<%=j.radio_button :preferred_contact,"contact_email"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="preferred-method"><input type="radio" name="dummy_preferred" disabled="disabled" checked="checked"/>Preferred method of contact</div>
+    </div>		
+    <div class="agree">
+			<%if session[:job_seeker]%>
+				<%=j.check_box "terms_of_service",{:checked=>"checked"}%> 
+			<%else%>
+				<%=j.check_box "terms_of_service"%> 
+			<%end%>
+ 			 &nbsp;I agree to the Hilo <a href="javascript:void(0);" onclick="tc.open();">Terms of Use</a> and <a onclick="privacy.open();" href="javascript:void(0);">Privacy Policy</a> 
+			
+		</div>
+	
+</div>
+<br class="clear" />
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".default-msg").each(function(){
+			if($(this).val() == "" || $(this).val() == $(this).attr("default_msg")){
+				$(this).val($(this).attr("default_msg")).addClass("default-grey-msg");
+			}
+
+			$(this).focus(function(){
+				if($(this).val() == $(this).attr("default_msg")){
+					$(this).removeClass("default-grey-msg").val('');
+				}	
+			}).blur(function(){
+				if($(this).val() == ""){
+					$(this).val($(this).attr("default_msg")).addClass("default-grey-msg");
+				}	
+			});
+
+
+		});
+
+		
+	});
+</script>

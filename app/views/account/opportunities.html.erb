@@ -1,0 +1,148 @@
+<%=render :partial=>"account_tab",:locals=>{:step=>"opportunities"}%>
+
+<input type="hidden" id="current_job_seeker_id" value="<%=session[:job_seeker].id%>"/>
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <div class="container-shadow-box">
+    <div class="dark-paper-container" style="padding-bottom: 0; min-height: 320px;">
+      <div class="dashboard-content overflow-visible">
+        <div class="dashboard-left-pannel">
+          <%= render :partial => 'my_hilo_block',:locals=>{:tab=>"",:count_hash => @count_hash} %>
+          <%= render :partial => 'download_block' %>
+        </div>
+        <input type="hidden" name="search_result_arr" id ="search_result_arr" value="-1" />
+        <div class="dashboard-right-pannel">
+          <%= render :partial=>"/account/search_dropdown"  %>
+          <div id="ajax">
+            <div id="init_loader" style="display:block; padding-top:110px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login-dark-texture.gif", :alt => "#{t('loading')}") %></center></div>
+          </div>
+          <div class="search-error-message lfloat" id="error_msg_empty_table"><%= t('search.no_results_text') %></div>
+          <div class="reset-container">
+            <input type="button" class="reset-button" id="" value="" onclick="resetSearchChanges();"/>
+          </div>
+        </div>
+        <div class="clear-float">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var considering_cost = <%=JOB_DETAIL_VIEW_COST%>;
+  var interested_cost = <%=JOB_EXPRESS_INTEREST_COST%>;
+  var wild_card_cost = <%=JOB_WILD_CARD_COST%>;
+
+<%@count_hash.each{|k,v|%>
+    eval('<%="var #{k} = #{v}"%>;')
+<%}%>
+	
+  $(document).ready(function()
+  {
+    removeButton();
+    alter_activity_link_to_ajax();
+    fetch_jobs.call("<%=params[:id]%>","<%=params[:sort]%>","<%=params[:order]%>");
+    resizeTable();
+    sliderInit();
+    setInterval(function() {
+      updateSideMenuCount()
+    }, 300000);
+		
+    setInterval(function() {
+      updateNotificationCount()
+    }, 300000);
+		
+    $(".notification-count").click(function(e){
+      showNotification();
+      e.stopPropagation();
+    })
+		
+    $(".viewAll").click(function(){
+      $(".viewAll").hide();
+      $(".notifications").css({'height':'300px','overflow-y':'auto'});
+    })
+<% if !session[:account_popup].nil? and session[:track_shared_job_id].nil? and session[:legacy_data_cs].nil?%>
+      showNormalShadow();
+      $("#account_popup").show();
+      centralizePopup();
+  <% session[:account_popup] = nil %>
+<% elsif session[:track_shared_job_id] and not session[:job_not_active] and session[:legacy_data_cs].nil? %>
+      career_code.show_preview_success_msg(<%=session[:track_shared_job_id]%>, '<%=@this_was_not_read%>');
+      show_job.call(<%=session[:track_shared_job_id]%>);
+  <%  session[:track_shared_job_id] = nil %>
+  <%  session[:track_shared_platform_id] = nil %>
+  <% session[:account_popup] = nil %>
+<% elsif session[:job_not_active] and session[:legacy_data_cs].nil?%>
+      showErrorShadow();
+      $("#job_not_active").show();
+      addFocusButton('job_not_active_button');
+  <%  session[:job_not_active] = nil %>
+  <% session[:track_shared_job_id] = nil %>
+  <%  session[:track_shared_platform_id] = nil %>
+      centralizePopup();
+<% elsif not session[:legacy_data_cs].nil? and session[:legacy_data_cs]==true %>
+      showNormalShadow();
+      $(".popup-loader").hide();
+      $("#legacy_data_popup").show();
+      $(".popup-loader").hide();
+      centralizePopup();
+  <% session[:legacy_data_cs]=nil %>
+  <% session[:job_not_active] = nil if not session[:job_not_active].nil? %>
+  <% session[:track_shared_job_id] = nil if not session[:track_shared_job_id].nil? %>
+  <% session[:track_shared_platform_id] = nil if not session[:track_shared_platform_id].nil? %>
+  <% session[:account_popup] = nil if not session[:account_popup].nil? %>
+<%  end %>
+
+<% if session[:paypal_job_view] == 1 and (session[:pay_for] == "interest" or session[:pay_for] == "wild")%>
+      show_congratulation_popup();
+  <%  session[:paypal_job_view] = nil %>
+<% elsif session[:paypal_job_view] == 1 and session[:pay_for] == "consider"%>
+      job_detail_view.show(<%=session[:pay_job].id%>, "");
+  <%  session[:paypal_job_view] = nil %>
+<% end %>
+  });
+  
+  $('body').click(function(e) {
+    hideNotification();
+    hideStatusBlock();
+    $(".small-blocks").each(function() {
+      $(this).removeClass("active");
+    });
+    e.stopPropagation();
+  });
+  enter_jobcode_event();
+  $(".small-blocks").click(function(e) {
+    $(".small-blocks").each(function() {
+      $(this).removeClass("active");
+    });
+    $(this).addClass("active");
+    e.stopPropagation();
+  });
+  $("body").on("focus", "#field_name_1", function(){ alert(''); });
+</script>
+
+<%= javascript_include_tag("https://"+$FAYE_URL+".js") %>
+
+<script type="text/javascript">
+
+  $(function() {
+    var faye = new Faye.Client('<%="https://"+$FAYE_URL%>');
+    <%if session[:job_seeker].ics_type_id == 4%>
+      faye.subscribe("/opportunities_normal", function(data) {
+        eval(data);
+      });
+
+
+    <%else%>
+      faye.subscribe("/opportunities_internal<%=session[:job_seeker].company_id%>", function(data) {
+        eval(data);
+      });
+
+    <%end%>
+
+      faye.subscribe("/job_seeker<%=session[:job_seeker].id%>", function(data) {
+        eval(data);
+      });
+
+  });
+
+</script>

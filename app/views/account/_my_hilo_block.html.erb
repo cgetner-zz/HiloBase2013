@@ -1,0 +1,35 @@
+<div class="small-blocks">
+  <div class="block-top">&nbsp;</div>
+  <div class="block-content">
+    <div class="gradient-content">
+      <h3 title="<%=t ("my_hilo.heading") %>" class="heading" id="my_hilo_heading"><%=t ("my_hilo.heading") %></h3>
+      <ul class="activity-list">
+        <li onclick="window.location='/account/opportunities/employer_view'" href="/account/opportunities/employer_view">
+          <a href="javascript:void(0);" title="<%=t ("my_hilo.emp_view") %>">
+            <span><%=t ("my_hilo.emp_view") %></span>
+            <span class="count employer_view"><%=count_hash[:emp_view_count]%></span>
+          </a>
+        </li>
+        <li onclick="window.location='/account/opportunities/watchlist'" href="/account/opportunities/watchlist">
+          <a href="javascript:void(0)" title="<%=t ("my_hilo.liked") %>">
+            <span><%=t ("my_hilo.liked") %></span>
+            <span class="count watchlist"><%=count_hash[:watchlist_count]%></span>
+          </a>
+        </li>
+        <li onclick="window.location='/account/opportunities/following'" href="/account/opportunities/following">
+          <a href="javascript:void(0);" title="<%=t ("my_hilo.following") %>">
+            <span><%=t ("my_hilo.following") %></span>
+            <span class="count following"><%=count_hash[:following_count]%></span>
+          </a>
+        </li>
+        <li onclick="window.location='/account/opportunities/history'" href="/account/opportunities/history">
+          <a href="javascript:void(0);" title="<%=t ("my_hilo.history") %>">
+            <span><%=t ("my_hilo.history") %></span>
+            <span class="count history"><%=count_hash[:history_count]%></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="block-bottom">&nbsp;</div>
+</div>

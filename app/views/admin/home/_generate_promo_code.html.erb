@@ -1,0 +1,22 @@
+<div class="page-heading-container">
+  <label class="heading">PROMOTIONAL CODE</label>
+</div>
+
+<%= form_tag(generate_promo_codes_admin_home_index_path, :method => :get, :id => "promo_code_generation") do -%>
+  <div class="customized-input input-text">
+    <div class="input-left">&nbsp;</div>
+    <input type="hidden" id="promo_code_placeholder" value="Number of Codes" />
+    <input class="text-long" type="text" maxlength="3" value="Number of Codes" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" name="promo_code" id="promo_code" style="width: 280px !important;"/>
+    <div class="input-right">&nbsp;</div>
+  </div>
+<% end %>
+
+<div class="input-right">
+  <input class="create-button-active rfloat" type="button" id="newPromoCodeForm" style="margin-right: 0px; margin-top: 5px;"/>
+</div>
+
+<script type="text/javascript">
+  $("input#newPromoCodeForm").click(function() {
+    $("#promo_code_generation").submit();
+  });
+</script>

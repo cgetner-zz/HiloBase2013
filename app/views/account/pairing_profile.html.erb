@@ -1,0 +1,39 @@
+<script type="text/javascript">
+  $(function(){
+<% if not session[:open_credential].nil? and session[:open_credential]==true %>
+      showBlockShadow();
+<% end %>
+  });
+</script>
+<script type="text/javascript" src="/assets/scroll_effect.js"></script>
+<script type="text/javascript" src="/assets/FancyZoom.js"></script>
+<script src="https://www.google.com/jsapi" type="text/javascript"></script>
+<%= render :partial=>"my_introduction/video_player" %>
+<!--header-->
+<%=render :partial=>"account_tab",:locals=>{:step=>"profile"}%>
+<!--/header-->
+
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+      <%= render :partial=>"profile_tabs" %>
+      <div class="loader"><%=image_tag("ajax-loader-login-dark-texture.gif", :alt => "Loading ...")%></div>
+      <input type="hidden" value="false" id="checkLoad" />
+      <div id="ajax">
+        <% if session[:open_credential].nil? %>
+          <%= render :partial=>"profile_intro", :locals=>{:job_seeker=>@job_seeker} %>
+        <% else %>
+          <% session[:open_credential]=nil %>
+        <% end %>
+      </div>
+
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>

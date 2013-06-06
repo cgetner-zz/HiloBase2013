@@ -1,0 +1,4 @@
+access_code.err_on_sending_email(<%=@error_json%>);
+<% if params[:cant_find_promo]  %>
+  access_code.set_retry();
+<% end %>

@@ -1,0 +1,152 @@
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <script type="text/javascript">
+    $("#fade_white").show();
+    function drawLocationChartFs() {
+      var data = google.visualization.arrayToDataTable([
+  <% if @src == 'employer' %>
+        ['Proximity', 'Candidates'],
+        ['Local',  <%= @local_count %>],
+        ['Near By',  <%= @near_by_count %>],
+        ['Willing to Move',  <%= @move_count %>]
+  <% else %>
+        ['Proximity', 'Jobs'],
+        ['Local',  <%= @local_count %>],
+        ['Near By',  <%= @near_by_count %>],
+        ['Virtual',  <%= @move_count %>]
+  <% end %>
+    ]);
+  <% @max_value = [@local_count, @local_count, @move_count].max %>
+  <% if @max_value%4 != 0 %>
+    <% @div = (@max_value/4).to_i %>
+    <% @max_value = (4*(@div+1)).to_i %>
+  <% end %>
+
+    var options = {
+      height: $('#fade_white').height()-250,
+      width: $('#fade_white').width()-300,
+      fontName: "'Lato',sans-serif",
+      chartArea:{top: 20},
+  <% if @src == 'employer' %>
+        vAxis: {title: 'CANDIDATES', titleTextStyle: {color: '#000066', fontSize: '22'},minValue:0,maxValue:<%=@max_value%>},
+        hAxis: {title: 'PROXIMITY', titleTextStyle: {color: '#000066', fontSize: '22'}},
+  <% else %>
+        vAxis: {title: 'NUMBER OF JOBS', titleTextStyle: {color: '#000066', fontSize: '22'},minValue:0,maxValue:<%=@max_value%>},
+        hAxis: {title: 'PROXIMITY', titleTextStyle: {color: '#000066', fontSize: '22'}},
+  <% end %>
+      backgroundColor: {fill: 'transparent'},
+      legend: {position: 'none'},
+      tooltip: {textStyle: {fontSize: '18'}}
+    };
+
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('barChart_div_fs'));
+      
+    chart.draw(data, options);
+  }
+  $(document).ready(function() {
+    drawLocationChartFs();
+  });
+  </script>
+<% else %>
+  <script type="text/javascript">
+    // Set a callback to run when the Google Visualization API is loaded.
+    //google.setOnLoadCallback(drawLocationChart);
+    function drawLocationChart() {
+      var data = google.visualization.arrayToDataTable([
+  <% if @src == 'employer' %>
+        ['Proximity', 'Candidates'],
+        ['Local',  <%= @local_count %>],
+        ['Near By',  <%= @near_by_count %>],
+        ['Willing to Move',  <%= @move_count %>]
+  <% else %>
+        ['Location', 'Jobs'],
+        ['Local',  <%= @local_count %>],
+        ['Near By',  <%= @near_by_count %>],
+        ['Virtual',  <%= @move_count %>]
+  <% end %>
+    ]);
+  <% @max_value = [@local_count, @local_count, @move_count].max %>
+  <% if @max_value%4 != 0 %>
+    <% @div = (@max_value/4).to_i %>
+    <% @max_value = (4*(@div+1)).to_i %>
+  <% end %>
+
+    var options = {
+      chartArea:{width:"70%",height:"80%"},
+      fontName: "'Lato',sans-serif",
+  <% if @src == 'employer' %>
+        vAxis: {title: 'CANDIDATES', titleTextStyle: {color: '#000066', fontSize: '14'},minValue:0,maxValue:<%=@max_value%>},
+        hAxis: {title: 'PROXIMITY', titleTextStyle: {color: '#000066', fontSize: '14'}},
+  <% else %>
+        vAxis: {title: 'NUMBER OF JOBS', titleTextStyle: {color: '#000066', fontSize: '14'},minValue:0,maxValue:<%=@max_value%>},
+        hAxis: {title: 'PROXIMITY', titleTextStyle: {color: '#000066', fontSize: '14'}},
+  <% end %>
+      backgroundColor: {fill: 'transparent'},
+      legend: {position: 'none'}
+    };
+
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('barChart_div'));
+
+    chart.draw(data, options);
+  }
+  $(document).ready(function() {
+    drawLocationChart();
+  });
+  </script>
+<% end %>
+<% if params[:fullscreen].present? and params[:fullscreen]=="true" %>
+  <div class="header">
+    <div class="inline-div">
+      <div class="heading">Proximity</div>
+      <div class="sub-heading">
+        <% if @src == 'employer' %>
+          The bar graph below shows the number of candidates who fit this role's work environment and
+          are local to or nearby the location you selected. It also includes those candidates willing to move!
+        <% else %>
+          Hilo never excludes you from pairing results based on how far away you live from a job. However, the closer you live to
+          a position or more flexible you are about location, the better your fit. The bar graph below shows the number of jobs
+          'local to' or 'nearby' the location you selected that fit your ideal work environment. It also includes all telecommute or 'virtual' jobs as well.
+        <% end %>
+      </div>
+    </div>
+    <div class="close">
+      <img src="/assets/employer_v2/close_fullscreen.png" onclick="closeGraphFullScreen();" title="Exit full screen" height="35"/>
+    </div>
+  </div>
+  <div class="content" style="margin-top: 120px;">
+    <div id="barChart_div_fs" style="padding-left: 13px;"></div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#fade_white .header').width($('#fade_white').width()-50);
+      $('body').css('overflow','hidden');
+    })
+  </script>
+<% else %>
+  <div id="graph_1">
+    <% if @src == 'employer' %>
+      <div style="font-size: 16px; font-weight: 400; margin-left: 10px; margin-top: 10px; text-transform: uppercase;">Proximity</div>
+    <% else %>
+      <div style="font-size: 14px; font-weight: 700; margin-left: 10px; margin-top: 10px; text-transform: uppercase;">Proximity</div>
+    <% end %>
+    <div class="fs_open_link">
+      <a href="javascript:void(0);" style="font-weight: 400; margin-left: 10px; margin-top: 0px; font-style: italic; font-size: 14px;">
+        Click for more information
+      </a>
+    </div>
+    <% if @src == 'employer' %>
+      <div id="barChart_div" style="width: 398px; height: 380px; padding-left: 13px; cursor: pointer;"></div>
+    <% else %>
+      <div id="barChart_div" style="width: 415px; height: 380px; padding-left: 13px; cursor: pointer;"></div>
+    <% end %>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#graph_1 .fs_open_link a,#barChart_div').click(function(){
+        location_graph($('#search_latitude').val(),$('#search_longitude').val(), '<%=@src%>', true);
+      });
+    });
+  </script>
+<% end %>
+

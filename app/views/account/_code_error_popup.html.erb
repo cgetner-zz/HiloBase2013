@@ -1,0 +1,24 @@
+<div id="code_error_popup" class="white_content">
+  <div class="popup-siteActivation">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading">CODE NOT RECOGNIZED</label>
+        </div>
+        <div class="payment-options">
+          <div class="access-block">
+            <div class="lfloat error-text">
+              <label class="free-text">The code you entered is<br />either invalid or has expired.</label>
+            </div>
+            <div class="rfloat margin-T-5px">
+              <input id="code_error_popup_button" type="button" class="retry-button-active rfloat" onclick="$('#code_error_popup').hide();$('#fade_error').hide();_applyPromoCode();$('#verify_button').show();$('#beta-loader-img').hide();centralizePopup();$('#coderequest_promotional_code').val(''); blur_element(document.getElementById('coderequest_promotional_code'));" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onclick="_applyPromoCode();$('#code_error_popup').hide();$('#fade_error').hide();$('#jw_player').show();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

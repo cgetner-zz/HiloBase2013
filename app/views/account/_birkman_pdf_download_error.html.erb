@@ -1,0 +1,28 @@
+<!--PDF Download Error Popup -->
+<div id="pdf_error" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('pdf_error.heading') %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat beta-error-text">
+            <label class="free-text"><%= t('pdf_error.free_text') %></label>
+          </div>
+          <div class="rfloat margin-T-5px">
+            <input id="pdf_error_button" type="button" class="enter-button-active" onclick="hidePDFDowloadError();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hidePDFDowloadError();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /PDF Download Error Popup -->

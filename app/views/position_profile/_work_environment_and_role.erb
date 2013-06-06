@@ -1,0 +1,117 @@
+<!--blocks-->
+<div class="blocks">
+    <h4><%=t ("position_profile.work_environment_and_role.ideal_work_environment.title") %></h4>
+    <!--discription-->
+    <div class="discription">
+        <div class="top"></div>
+        <!--content-->
+        <div class="content">
+            <span class="env-heading">
+                <span class="type"><%= pairing_text_with_color(@emp_workenv_text, @emp_workenv_color).html_safe.force_encoding('utf-8') %></span> <%=t ("position_profile.work_environment_and_role.ideal_work_environment.work_env_complete.work_environments") %>
+            </span>
+            <span class="innerHeading rfloat">
+                <img src="/assets/logo-birkman.gif" alt="Birkman" height="18" width="99" />
+            </span>
+            <div class="env-result">
+                <div class="offer-cont">
+                    <%if  @emp_workenv_color == "red"
+                        left_arr = $work_red[:left]
+                        right_arr = $work_red[:right]
+                    elsif  @emp_workenv_color == "blue"
+                        left_arr = $work_blue[:left]
+                        right_arr = $work_blue[:right]
+                    elsif  @emp_workenv_color == "green"
+                        left_arr = $work_green[:left]
+                        right_arr = $work_green[:right]
+                    elsif  @emp_workenv_color == "yellow"
+                        left_arr = $work_yellow[:left]
+                        right_arr = $work_yellow[:right]
+                    end%>
+                    <h5><%=t ("position_profile.work_environment_and_role.ideal_work_environment.work_env_complete.offer") %></h5>
+                    <ul>
+                        <%if !(left_arr.nil?)
+                        left_arr.each_with_index{|val, i|%>
+                            <li> <%=left_arr[i]%></li>
+                        <%}
+                        end%>
+                    </ul>
+                </div>
+                <div class="mini-cont">
+                    <h5><%=t ("position_profile.work_environment_and_role.ideal_work_environment.work_env_complete.minimize") %></h5>
+                    <ul>
+                        <%if !(right_arr.nil?)
+                        right_arr.each_with_index{|val, i|%>
+                            <li> <%=right_arr[i]%></li>
+                        <%}
+                        end%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--content-->
+        <div class="bottom"></div>
+    </div>
+  <!--/discription-->
+</div>
+<!--/blocks-->
+<!--blocks-->
+<div class="blocks">
+    <h4><%=t ("position_profile.work_environment_and_role.role.title") %></h4>
+    <!--discription-->
+    <div class="discription">
+        <div class="top"></div>
+            <!--content-->
+            <div class="content">
+                <span class="env-heading">
+                    <span class="type"><%=pairing_text_with_color(@emp_role_color_text, @emp_role_color_val).html_safe.force_encoding('utf-8') %></span> <%=t ("position_profile.work_environment_and_role.role.role_complete.roles") %>
+                </span>
+                <span class="innerHeading rfloat">
+                    <img src="/assets/logo-birkman.gif" alt="Birkman" height="18" width="99" />
+                </span>
+                <div class="env-result">
+                    <div class="offer-cont">
+                        <h5><%=t ("position_profile.work_environment_and_role.role.role_complete.offer") %></h5>
+                        <%if  @emp_role_color_val == "red"
+                            left_arr = $role_red[:left]
+                            right_arr = $role_red[:right]
+                        elsif  @emp_role_color_val == "blue"
+                            left_arr = $role_blue[:left]
+                            right_arr = $role_blue[:right]
+                        elsif  @emp_role_color_val == "green"
+                            left_arr = $role_green[:left]
+                            right_arr = $role_green[:right]
+                        elsif  @emp_role_color_val == "yellow"
+                            left_arr = $role_yellow[:left]
+                            right_arr = $role_yellow[:right]
+                        end%>
+                        <ul>
+                            <%if !(left_arr.nil?)
+                            left_arr.each_with_index{|val, i|%>
+                                <li><%=left_arr[i]%></li>
+                                            <%}
+                            end%>
+                        </ul>
+                    </div>
+                    <div class="mini-cont">
+                        <h5><%=t ("position_profile.work_environment_and_role.role.role_complete.minimize") %></h5>
+                        <ul>
+                            <%if !(right_arr.nil?)
+                            right_arr.each_with_index{|val, i|%>
+                                <li><%=right_arr[i]%></li>
+                            <%}
+                            end%>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--content-->
+    <div class="bottom"></div>
+    </div>
+    <!--/discription-->
+</div>
+<div class="button-container">
+    <a href="javascript:void(0);" onclick="employer_profile.work_env_role_modify(<%=@job.id%>);" class="btn_modify">
+      <img src="/assets/btn-modify.gif" class="rfloat" alt="Modify"/>
+    </a>
+</div>    
+<!--/blocks-->

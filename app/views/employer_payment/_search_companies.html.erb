@@ -1,0 +1,8 @@
+<ul class="search-result">
+  <%for comp in @comp%>
+      <li onclick="return setCompanyValues(<%=comp.id%>);"><%=comp.name%><br/><label><%=comp.website%></label></li>
+  <%end%>
+  <%if @comp.length != 0%>
+      <a href="javascript:void(0)" style="float: right; color: black;" onclick="$('#search-result').hide();$('#search-result').html('');">Clear</a>
+  <%end%>
+</ul>

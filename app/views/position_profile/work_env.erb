@@ -1,0 +1,83 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("employer_account","questions")%>
+	<%=render :partial=>"/shared/slider_css"%>
+<%end-%>
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js' %>
+	<%=javascript_include_tag "pairing","birkman"%>
+<%end-%>
+<%=render :partial=>"/employer_account/employer_tab",:locals=>{:tab=>"home"} -%>
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="emp-box">
+	
+	<div class="birkman_help_msg_ie">
+	<%=render :partial=>"/shared/pairing_all_color_msg" -%>
+	</div>
+	
+	<div class="emp-home-content ie-height-fix pairing-all-color-hide">
+		<div class="emp-left">
+			<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs} -%>
+		</div>
+
+		<div class="emp-right right-menu-adjust">
+			<%=render :partial=>"/employer_account/activity_summary_panel" -%>
+			<%=render :partial=>"/employer_account/home_chart" -%>
+
+			<%=render :partial=>"/position_profile/position_profile_tab",:locals=>{:current_tab => "edit_pos_profile"} -%>
+
+			<%=render :partial=>"/position_profile/create_position_tab",:locals=>{:current_tab => "environment"} -%>
+			
+			<div class="emp-pairing-contanainer">
+				<div style="padding:10px;">
+					<div class="pos-prof-create-header">
+						Define this position's Work Environment
+					</div>
+					<div class="emp-person-row">
+						
+
+						<div class="emp-person-txt">
+						
+							<div class="pos-right">
+								<a href="javascript:void(0);" onclick="workenv.call(<%=params[:id]%>);" class="button-a buttton_106X23">		
+						
+									<%=( @emp_workenv_color == "" ? "Determine" : "Modify")%>
+								</a>
+							</div>
+							<br class="clear"/>
+						</div>	
+						
+					</div>
+					<br class="clear"/>
+					
+					<div class="height5"></div>
+						<div class="emp-workenv-default-msg">
+								<%if @emp_workenv_color == ""%>
+									
+									<div >
+										Click on Determine button to know more about the Work Environment Details 
+									</div>
+											<%else%>
+									<div class="emp-person-content-birkman-pts">	
+										
+										<%=render :partial=>"/panels/small_work_color_description",:locals=>{:color_val => @emp_workenv_color, :text_val =>@emp_workenv_text}%>
+									</div>
+								<%end%>
+						</div>		
+							
+							
+
+					
+				
+				</div>
+				
+			</div>
+		</div>
+		<div class="clear-zero-height"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//adjust_left_panel_height();
+	});
+</script>

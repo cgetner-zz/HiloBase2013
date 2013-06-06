@@ -1,0 +1,143 @@
+<%content_for :page_js do -%>
+  <%=javascript_include_tag "jquery.ui.datepicker"%>
+<%end-%>
+
+<%content_for :page_css do -%>
+  <%=stylesheet_link_tag("date_picker.css")%>
+<%end-%>
+
+<div id="error_message" class="admin-error-messages"></div>
+<div class="table-container admin header">
+  <div class="table-container-top">&nbsp;</div>
+  <div class="table-container-content">
+    <div class="gradient-content overflow-visible" style="min-height: 40px;">
+      <%= form_tag('/admin/home/referral_fee_data', :remote => true, :id=>"referral_fee") do %>
+        <ul class="referral-header">
+          <li class="referral-header-li">
+            <div class="language-slector" id ="">
+              <span class="label-default" id="temp">Company/Employer</span>
+              <div class="language-options" id="lo" style="display:none;">
+                <div class="language-options-top">&nbsp;</div>
+                <div class="language-options-content">
+                  <label class="label-default">Company/Employer</label>
+                  <ul class="option">
+                    <% for emp_with_company in @emp_with_company -%>
+                      <li selected=""><label id="<%=emp_with_company.company_id%>">#<%= emp_with_company.company_id %> <%=emp_with_company.company.name %> (<%= emp_with_company.first_name%> <%= emp_with_company.last_name%>)</label></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <div class="language-options-bottom">&nbsp;</div>
+              </div>
+            </div>
+            <input type="hidden" id="employer_company_select" name="employer_company_select" value="" />
+          </li>
+          <li class="referral-header-li">
+            <div class="customized-inner-input input-text">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="from_placeholder" value="Start Date" />
+              <input type="text" readonly="readonly" maxlength="5" name="from" class="boxes" id="from" value="Start Date" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);" autocomplete="off"/>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="referral-header-li" style="margin-right: 9px;">
+            <div class="customized-inner-input input-text">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="to_placeholder" value="End Date" />
+              <input type="text" readonly="readonly" maxlength="5" name="to" class="boxes" id="to" value="End Date" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeydown="type_element(this);" autocomplete="off"/>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li class="referral-header-li">
+            <input id="referral_fee_button" type="button" class="enter-button-active rfloat" />
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-container-bottom">&nbsp;</div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("#referral_fee_button").unbind('click').bind('click', function(){
+      var start_date = document.getElementById('from');
+      var end_date = document.getElementById('to');
+      var company_id = document.getElementById('employer_company_select').value;
+      if(validateNotEmpty(start_date) && validateNotEmpty(end_date) && company_id!="") {
+        $('#error_message').text('');
+        showBlockShadow();
+        $("#referral_fee").submit();
+      } else {
+        if(!validateNotEmpty(start_date))
+          hightlightOnEmptyError(start_date);
+        if(!validateNotEmpty(end_date))
+          hightlightOnEmptyError(end_date);
+        if(company_id=="")
+          $(".language-slector").addClass('error');
+        $('#error_message').text('Please complete the areas highlighted in red.');
+      }
+    })
+  });
+
+  $(function() {
+    var dates = $( "#from, #to" ).datepicker({
+      defaultDate: "-1m",
+      maxDate: "+0d",
+      dateFormat: "yy-mm-dd",
+      changeMonth: false,
+      onChangeMonthYear: function(year, month, inst) {
+        document.getElementById(inst.id).focus();
+      },
+      numberOfMonths: 2,
+      onSelect: function( selectedDate ) {
+        var start_date = document.getElementById('from');
+        var end_date = document.getElementById('to');
+
+        $(this).parent().removeClass("input-text input-text-unactive input-text-active active-input input-text-error input-text-error-empty");
+        $(this).parent().addClass("active-input");
+
+        var option = this.id == "from" ? "minDate" : "maxDate",
+        instance = $( this ).data( "datepicker" ),
+        date = $.datepicker.parseDate(instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
+        dates.not( this ).datepicker( "option", option, date );
+        
+        if(!validateNotEmpty(end_date)) {
+          $(end_date).val('');
+          $(end_date).blur();
+        }
+        if(!validateNotEmpty(start_date)) {
+          $(start_date).val('');
+          $(start_date).blur();
+        }
+      }
+    });
+  });
+
+  $('.language-slector').click(function(e){
+    $('.default-level',this).css('display','none');
+    if($('.language-options', this).is(":visible") == true){
+      $('.language-options', this).hide();
+    }
+    else{
+      $('.language-options', this).show();
+      $(".language-slector").removeClass('error');
+      $('.option').children().each(function(){
+        if($(this).attr('selected')=='selected'){
+          $(this).removeClass('selected').removeAttr('selected');
+        }
+      });
+      $('.language-options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+      $('.option').scrollTop(0);
+    }
+    e.stopPropagation();
+  });
+  $('body').click(function(){
+    $('.language-options', this).hide();
+  });
+
+  $(".language-slector .option li label").click(function(){
+    $(".label-default").text($(this).text());
+    $(".label-default").addClass("selected");
+    $("#employer_company_select").val($(this).attr('id'));
+  });
+</script>

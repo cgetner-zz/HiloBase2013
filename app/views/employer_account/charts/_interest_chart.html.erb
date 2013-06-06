@@ -1,0 +1,90 @@
+<%#=debug(@jobs_considered_arr_new .to_a.inspect)%>
+<%#for a in @jobs_interested_arr_new .to_a%>
+<%#=a[0].inspect%><%#=a[1].inspect%>
+<%#end%>
+<%#=@jobs_preview_arr_new.each {|u| puts "#{u.inspect}" }%>
+
+
+<% if (@jobs_new_interest.length > 0) or (@jobs_new_wild.length) > 0 %>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		 var interested_arr = new Array();
+                 var wildcard_arr = new Array();
+
+                <% for item in  @jobs_new_interest%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  interested_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                <% end %>
+
+                <% for item in  @jobs_new_wild%>
+                  <%date_val =Date.new(item.created_at_year.to_i, item.created_at_month.to_i, 1).to_time.to_i%>
+                  wildcard_arr.push([<%= date_val * 1000%>, <%=item.cnt%>])
+                <% end %>
+		 
+
+
+
+		if(document.getElementById('interest_chart')){
+
+		 $.plot($("#interest_chart"), [
+		 
+								{
+									label: "<%=t ("emp_dashboard_graphs.graph_label.applied") %>",
+									data: interested_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "triangle" },
+									shadowSize: 0
+
+								}<% if EXCLUDE_PAYMENT != 1 %>,
+                                                                {
+									label: "<%=t ("emp_dashboard_graphs.graph_label.wild_card") %>",
+									data: wildcard_arr,
+									lines: { show: true, lineWidth: 1},
+									points: { show: true, symbol: "square" },
+									shadowSize: 0
+
+								}
+                                                                <% end %>
+                                              ],
+								
+						{
+						
+								xaxis: {
+									mode: "time",
+									minTickSize: [ 1,"month"],
+                                                                        autoscaleMargin:2
+
+								},
+
+								grid: {
+									show: true,
+									aboveData: false,
+									backgroundColor: { colors: ["#fff", "#fff "] },
+									tickColor: "#fff",
+									labelMargin: 5,
+									markings: [],
+									borderWidth: 0,
+                                                                        hoverable: false,
+									autoHighlight: true,
+									mouseActiveRadius: 1
+								},
+								
+								yaxis: {
+								min: 0,
+								max: <%=@jobs_preview_arr.length %>
+								
+								},
+								
+								legend: {
+									container: $("#interest_chart_legend")
+								}
+						}
+				);
+
+                                }
+	});
+</script>
+
+<% end %>

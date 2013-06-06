@@ -1,0 +1,12 @@
+<%content_for :page_container_id do -%>page-container-opportinities<%end-%>
+<%content_for :page_container_class do -%>career_seeker<%end-%>
+<%=render :partial=>"account_tab",:locals=>{:step=>"cs_delete"}%>
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <%=render :partial=>"career_seeker_sub_menu",:locals=>{:step=>"cs_delete"}%>
+      <%=render :partial=>"cs_delete_request_table" %>
+    </div>
+  </div>
+</div>

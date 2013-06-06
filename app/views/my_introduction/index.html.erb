@@ -1,0 +1,145 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("seeker_account","myintro")%>
+<%end-%>
+<%content_for :page_js do -%>
+	<%=javascript_include_tag "myintro"%>
+<%end-%>
+<%=render :partial=>"/account/account_tab",:locals=>{:tab=>"intro"}%>
+
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="seeker-box">
+	<div class="my-intro-box">
+		<div class="my-intro-box-inner">
+			<div class="intro-content ">
+				
+				<div>
+					<%=render :partial=>"/account/panels/account_top_cover" -%>		
+					<div class="my-content-outer">
+						<div class="my-content-inner">
+							<div style="float:left;width: 400px;">
+								<span class="myintro-seeker-name">
+									<%=session[:job_seeker].first_name + " " + session[:job_seeker].last_name%>
+								</span>
+							</div>
+
+							<div style="float:right;">
+								<a href="javascript: void(0);" onclick="preview.open();"><img src="/assets/Preview_Employer_page.png"/></a>
+							</div>
+							<br class="clear-height"/>
+
+							<div class="myintro-white-bg">
+								<div style="width: 120px;margin-right: 5px;float:left;">
+									&nbsp;
+								</div>
+								
+								<div class="myint-section-head pos-left"> 
+									Contact Information
+								</div>
+								
+								<br class="clear-height"/>
+
+								<div class="myint-photo-box">
+									<%=render :partial =>"user_photo",:locals =>{ :job_seeker => session[:job_seeker]}%>
+								</div>
+								
+								<div class="myint-contact-box" id="contact_info_partial">
+									<%=render :partial =>"contact_info",:locals =>{ :job_seeker => session[:job_seeker]}%>
+								</div>
+								
+								<br class="clear-height"/>
+								
+								<div class="myint-photo-edit myint-edit-link">
+									&nbsp;&nbsp;
+									<%if @job_seeker.photo_file_name.blank?%>
+										<a href="javascript: void(0);" onclick="open_photo_edit.toggle();">+Add</a>
+									<%else%>
+										<a href="javascript: void(0);" onclick="open_photo_edit.toggle();">Change</a> |
+										<a href="javascript: void(0);" onclick="delete_photo();">Delete</a>
+									<%end%>
+								</div>
+
+								<div class="myint-contact-edit myint-edit-link">
+									<a href="javascript: void(0);" onclick="open_contact_edit.toggle();">Edit</a>
+								</div>
+
+								<br class="clear-height"/>
+								
+								<div id="myint-photo-form" style="display:none;">
+									<%=render :partial =>"edit_photo",:locals =>{ :job_seeker => @job_seeker}%>
+								</div>
+
+								<div id="myint-contact-form" style="display:none;">
+									<%=render :partial =>"edit_contact_info",:locals =>{ :job_seeker => @job_seeker}%>
+								</div>
+								
+								<div class="height10">&nbsp;</div>
+								<div class="height10">&nbsp;</div>
+
+								<div class="myint-section-head">
+									Upload Resume
+								</div>
+
+								<div class="myint-resume-box">
+									<%=render :partial =>"resume_info",:locals =>{ :job_seeker => @job_seeker} %>
+								</div>
+
+								<div class="myint-resume-edit myint-edit-link">
+									
+
+
+									<%if @job_seeker.resume_file_name.blank?%>
+										<a href="javascript: void(0);" onclick="open_resume.toggle();">+Add</a>
+									<%else%>
+										<a href="javascript: void(0);" onclick="open_resume.toggle();">Change</a> |
+										<a href="javascript: void(0);" onclick="delete_resume();">Delete</a>
+									<%end%>
+
+
+								</div>
+								
+								<div id="myint-resume-form" style="display:none;">
+									<%=render :partial =>"edit_resume",:locals =>{ :job_seeker => @job_seeker}%>
+								</div>
+								
+
+								<div class="height10">&nbsp;</div>
+								<div class="height10">&nbsp;</div>
+
+								<div class="myint-video-box">
+									<%=render :partial =>"video_section",:locals =>{ :job_seeker => @job_seeker}%>
+
+								</div>
+
+								<div class="myint-summary-box">
+									<%=render :partial =>"summary_section",:locals =>{ :job_seeker => @job_seeker}%>
+								</div>
+								<br class="clear-height"/>
+									
+									
+						
+
+							</div>
+						</div>
+					</div>
+					<%=render :partial=>"/account/panels/account_bottom_cover" -%>
+				</div>
+				
+				<div class="clear-zero-height"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	var youtube_vid_id_arr = [];
+	$(document).ready(function(){
+
+		<%if !params[:id].blank? and params[:id] == "samplevideo"%>
+			moveto('samples');
+			switch_sample('video');
+		<%end%>
+
+		//adjust_left_panel_height();
+	});
+</script>

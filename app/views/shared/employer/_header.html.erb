@@ -1,0 +1,53 @@
+<!-- Header start-->
+<div class="career-seeker-id" id="career-seeker_id">
+  <ul>
+    <%if @all_jobs_size < 1%>
+      <li id="career-seeker-ID" class="career-seeker-ID" style="color:#7F7FBB;">Career Seeker ID</li>
+
+      <script>
+        var config = {
+          over: _openCareerSeekerBox,
+          timeout: 500,
+          out: function() {},
+          sensitivity: 1
+        };
+        $("#career-seeker-ID").hoverIntent(config);
+      </script>
+
+    <% else %>
+      <li id="career-seeker-ID" class="career-seeker-ID" onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('xref-link'); if(areYouSureResp == false) { return false; } <% end %>_openCareerSeekerTextBox();" >Career Seeker ID</li>
+    <% end %>
+
+    <li>
+      <img src="/assets/employer_v2/img_seperator.png" style="height:18px;width: 1px;" />
+    </li>
+
+    <li>
+      <a onclick="<% if controller.controller_name == 'position_profile' and controller.action_name=='new_employer_profile' %>var areYouSureResp = areYouSure('signup'); if(areYouSureResp == false) { return false; } <% end %>show_employer_account_box(event);" id="employer_name_link" href="javascript:void(0);" style="text-decoration: none;margin-left: 4px; margin-top: 4px; text-decoration: none;">
+        <span>
+          <%=session[:employer].first_name.force_encoding('utf-8')%>&nbsp;&nbsp;<%=session[:employer].last_name.force_encoding('utf-8')%>&nbsp;&nbsp;
+        </span>
+        <img src="/assets/employer/blue_account_info_arrow.png"/></a>
+    </li>
+  </ul>
+</div>
+
+<div id="fade_normal_status_signout" class="black_overlay_light" onclick="show_normal_screen_signout();" style="z-index: 1001;"></div>
+<div class="employer-acc-box body-click-hide" id="employer-acc-box" style="display: none;">
+  <div class="employer-acc-box-inner">
+    <a href="javascript:openAccountTab();" style="color: #000066;font-size: 18px;font-weight: 300;"><%=t ("employer_header.account") %></a>
+    <div class="separator"></div>
+    <a href="javascript:openUserAdminTab();" style="color: #000066;font-size: 18px;font-weight: 300;"><%=t ("employer_header.user_admin") %></a>
+    <div class="separator"></div>
+    <a href="/login/logout" style="color: #000066;font-size: 18px;font-weight: 300;"><%=t ("employer_header.signout") %></a>
+    <div class="separator"></div>
+  </div>
+</div>
+<div class="employer-account-box body-click-hide" id="employer-acccount-box" style="display: none;">
+  <!-- Content loaded via ajax -->
+</div>
+<div class="user-admin-box" id="user-admin-box" style="display: none;">
+  <!-- Content loaded via ajax -->
+</div>
+<div class="clear-height">&nbsp;</div> 
+<!-- Header End-->

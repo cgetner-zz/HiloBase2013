@@ -1,0 +1,68 @@
+<div class="lang-outer-box" style="display:none;" id="lang_popup">
+	<div style="position:relative;">
+		
+		<div class="corner-close-box">	
+			<div class="lang_close">
+				<a href="javascript:void(0);" onclick="emp_select_lang_pop.close();" title="close"><img src="/assets/lightbox-cross.png"/></a>
+			</div>
+		</div>
+		<div class="clear-zero-height">&nbsp;</div>
+
+		<div ><img src="/assets/privacy_horizontal_top.png"/></div>
+		<div class="lang-inner-box">
+			<div class="lang-content">
+				<div class="lang-header">
+					Select upto six languages
+				</div>
+				
+				<div id="lang_error_div" style="color:red;display:none;text-align:center;margin-top:5px;">
+					At the most 5 languages can be selected.
+				</div>
+				<div id="lang-list">
+					
+
+
+					<%	cnt = 0
+						for lang in languages_list%>
+							<div class="lang-link-box">
+								<span>
+									<input type="checkbox" name="langpop_required_check[]" value="<%=lang.id%>" data-lang-name="<%=lang.name%>" class="emp-lang-select"/>
+									<%=h(lang.name) -%>
+								</span>
+								<br class="clear"/>
+							</div>
+							<%if (cnt + 1).divmod(2)[1] == 0%>
+							<br class="clear"/>
+							<%end%>
+					<%
+						cnt = cnt + 1
+						end
+					-%>
+					<br class="clear"/>
+
+				</div>
+				
+				
+				<div>
+					<div class="lang-clear">
+						<a href="javascript:void(0);" onclick="emp_select_lang_pop.clear();" class="button-a buttton_65X23">Clear All</a>
+					</div>
+					<div class="lang-select">
+						<a href="javascript:void(0);" onclick="emp_select_lang_pop.done();" class="button-a buttton_65X23">Save</a>
+					</div>
+					<br class="clear"/>
+				</div>
+				
+			</div>
+		</div>
+		<div><img src="/assets/privacy_horizontal_bottom.png"/></div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		emp_select_lang_pop.init();
+	});
+</script>

@@ -1,0 +1,22 @@
+<%form_for @job_seeker, :url => { :action => "upload_resume" }, :html => { :multipart => true } do |j| %>
+<div class="myint-contact-row">
+	<div class="myint-contact-label" style="width:60px;">
+		Resume : 
+	</div>
+
+	<div class="myint-contact-value">
+		<%= j.file_field :resume%> <%=submit_tag("Upload",:class=>"button-style-shared buttton_65X23")%>
+	</div>
+	
+	<br class="clear-height"/>
+	
+	<div class="myint-contact-label">
+		&nbsp;
+	</div>
+
+	<div class="myint-contact-value">
+		
+	</div>
+	<br class="clear-height"/>
+</div>
+<%end%>

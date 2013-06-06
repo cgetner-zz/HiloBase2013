@@ -1,0 +1,40 @@
+<%content_for :page_css do -%>
+  <%#=stylesheet_link_tag("employer_account")%>
+<%end-%>
+<%content_for :page_js do -%>
+  <!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+  <%= javascript_include_tag 'jquery.flot.js','jquery.flot.symbol.js' %>
+<%end-%>
+
+<div id="menu">
+  <%=render :partial => "/employer_account/shared/tabs",:locals=>{:tab=>"home"}  -%>
+</div>
+
+<div id="tab-content">
+  <div class="tab-content-top">&nbsp;</div>
+  <div class="emp-left-menu">
+    <%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs}%>
+  </div>
+
+  <div class="emp-right-content">
+
+    <div class="emp-content-box">
+      <div class="">
+        <div class="emp-content-box-inner">
+          <div class="height5">&nbsp;</div>		
+          <%=render :partial=>"/employer_account/activity_summary_panel"-%>
+
+          <div class="height10">&nbsp;</div>
+          <div class="height10">&nbsp;</div>		
+
+          <%=render :partial=>"/employer_account/home_chart" -%>
+        </div>
+      </div>
+      <%=render :partial=>"/position_profile/employer_bottom_section"%>
+
+    </div>
+
+  </div>
+  <div class="clear-height">&nbsp;</div>
+  <div class="tab-content-bottom">&nbsp;</div>
+</div>

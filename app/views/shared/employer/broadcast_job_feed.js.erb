@@ -1,0 +1,3 @@
+<% broadcast "/job_feed/#{@company_id}" do %>
+  $("#job_list").html("<%= escape_javascript render(:partial=>'job_feed/job_list')%>");
+<% end %>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="height:10px;"></div>
+    <br />
+    <div>
+      <%=@sender_name%> has created an account for you at <a href="https://thehiloproject.com/admin/">The Hilo Project</a> (https://TheHiloProject.com).
+      You can access the system by logging in with your email address <%= @email %> and with the temporary password of <%= @password %> .
+      Once you sign in you should change your password to something you can better remember.
+    </div>
+    <br />
+    <div>
+      <br /><br />
+      If you have any questions or need any assistance with the site, you can contact us at any time at Feedback@TheHiloProject.com
+      <br />
+      - Team Hilo
+      <br /><br />
+      <img alt="logo" src="https://<%=@host_name%>/assets/logo-hilo_new.png" width="120" height="103" />
+    </div>
+  </body>
+</html>

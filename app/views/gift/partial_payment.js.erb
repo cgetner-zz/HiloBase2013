@@ -1,0 +1,49 @@
+$("#fade_normal_warning").show();
+$('.popup-bottom-billing-review').show();
+$('#gift_one_click_loader_img').hide();
+$("#complete_purchase_no_one_click_gift .popup-bottom").show();
+$("#complete_purchase_one_click_gift .popup-bottom").show();
+$('#gift_one_click_loader_img1').hide();
+
+$("#gift_pay_pass").val('');
+$("#pay_pass").val('');
+$("#password_gift").val('');
+$("#username_gift").val('');
+
+$("#gift_pay_pass").removeClass('input-text input-text-active active-input');
+$("#pay_pass").removeClass('input-text input-text-active active-input');
+$("#password_gift").removeClass('input-text input-text-active active-input');
+$("#username_gift").removeClass('input-text input-text-active active-input');
+
+$("#gift_pay_pass").addClass('input-text');
+$("#pay_pass").addClass('input-text');
+$("#password_gift").addClass('input-text');
+$("#username_gift").addClass('input-text');
+
+$("#gift_confirm_button").show();
+$("#gift_confirm_button").removeClass("btn-Confirm-active");
+$("#gift_confirm_button").addClass("btn-Confirm");
+
+$("#confirm_button").show();
+$("#confirm_button").show().removeClass('btn-Confirm-active');
+$("#confirm_button").show().addClass('btn-Confirm');
+
+$("#gifts_payment_verify_button").show();
+$("#gifts_payment_verify_button").removeClass('buy-gift-button-active');
+$("#gifts_payment_verify_button").addClass('buy-gift-button');
+
+$("#popup-gift-bottom").show();
+$('#oneClick-payment_gift').hide();
+$('#non_reg_oneClick-payment_gift').hide();
+$("#gift_hilo_review_popup").removeClass('gift-hilo-review-popup-right-hide');
+<% if @old_payment_obj.nil? %>
+  $("#complete_purchase_no_one_click_gift").show();
+  $(".balance_amount").text('$<%= number_to_currency(GIFT_CARD_AMOUNT - @credit_value, :unit=>"") %>');
+  addFocusButton('continue-button-active_no_one_click');
+<% else %>
+  $("#complete_purchase_one_click_gift").show();
+  $(".balance_amount").text('$<%= number_to_currency(GIFT_CARD_AMOUNT - @credit_value, :unit=>"") %>');
+  addFocusButton('continue-button-active_one_click');
+<% end %>
+centralizePopup();
+hideBlockShadow();

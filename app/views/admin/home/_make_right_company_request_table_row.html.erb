@@ -1,0 +1,70 @@
+<% flag = true %>
+<% if not @companies.nil? %>
+  <% for company in @companies %>
+    <% @company_id = company.company_id %>
+    <% @status = nil %>
+    <% @status = company.company.parent_id if not company.company.parent_id.nil? %>
+    <% if flag == true %>
+      <% flag = false %>
+      <tr>
+        <th width="311"><label class="first" style="width: 280px; word-wrap: break-word;"><%= company.company.name %></label></th>
+        <th width="311"><label style="width: 280px; word-wrap: break-word;"><%= company.email.downcase %></label></th>
+        <th width="120">
+          <label id="status_<%= company.company_id %>">
+            <% if !@status.nil? %>
+              <%= image_tag "admin/green_dot.png", :alt=>"Granted", :style => "margin-left: 49px;" %>
+            <% else %>
+              <%= image_tag "admin/red_dot.png", :alt=>"Not Granted", :style => "margin-left: 49px;" %>
+            <% end %>
+          </label>
+        </th>
+        <th width="120">
+          <label style="text-align: center;">
+            <a class="action" href="javascript:void(0);" id="action_<%= company.company_id %>">
+              <% if !@status.nil? %>
+                <span class="right_revoke_action" id="row_<%= company.company_id %>">Unlink</span>
+              <% else %>
+                <span class="right_grant_action" id="row_<%= company.company_id %>">Link</span>
+              <% end %>
+            </a>
+          </label>
+        </th>
+      </tr>
+    <% else %>
+      <tr>
+        <td><label class="first" style="width: 170px; word-wrap: break-word;"><%= company.company.name %></label></td>
+        <td><label style="width: 200px; word-wrap: break-word;"><%= company.email.downcase %></label></td>
+        <td>
+          <label id="status_<%= company.company_id %>">
+            <% if !@status.nil? %>
+              <%= image_tag "admin/green_dot.png", :alt=>"Granted", :style => "margin-left: 49px;" %>
+            <% else %>
+              <%= image_tag "admin/red_dot.png", :alt=>"Not Granted", :style => "margin-left: 49px;" %>
+            <% end %>
+          </label>
+        </td>
+        <td>
+          <label style="text-align: center;">
+            <a class="action" href="javascript:void(0);" id="action_<%= company.company_id %>">
+              <% if !@status.nil? %>
+                <span class="right_revoke_action" id="row_<%= company.company_id %>">Unlink</span>
+              <% else %>
+                <span class="right_grant_action" id="row_<%= company.company_id %>">Link</span>
+              <% end %>
+            </a>
+          </label>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".action span.right_grant_action").unbind().click(function(){
+      grantRightStatus(this);
+    });
+    $(".action span.right_revoke_action").unbind().click(function(){
+      revokeRightStatus(this);
+    });
+  });
+</script>

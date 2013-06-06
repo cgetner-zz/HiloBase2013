@@ -1,0 +1,94 @@
+<div class="profile-image">
+    <% if @job_seeker && @job_seeker.photo_file_name.blank? %>
+        <label class="picture"><%= t('account.pairing_profile.intro.profile_picture.picture_text') %></label>
+        <label class="imageDetails"><%= t('account.pairing_profile.intro.profile_picture.jpg_text') %><br/><%= t('account.pairing_profile.intro.profile_picture.max_text') %></label>
+        <div id="addimage">
+            <a href="javascript:void(0)" class="addImage upload_link" id="add_image">
+                +Add
+            </a>
+        </div>    
+    <% elsif @job_seeker && !@job_seeker.photo.url.blank? %>
+        <div id="profileimage">
+        <%= image_tag(@job_seeker.photo.url(:original), :width =>"110px", :height =>"110px") %>
+        <a href="javascript:void(0);" title="Change" class="change" id="change_image">
+            <span id="delete_image"  style="float:left;display:block;" class="delete_image" title="<%= t('account.pairing_profile.intro.profile_picture.delete_text') %>" onclick="delete_photo();">X</span>
+            <span id="change_image_link" style="float:right;display:block;"><%= t('account.pairing_profile.intro.profile_picture.change_text') %></span>
+        </a>
+        </div>
+    <% end %>
+    <div id="addimageform">
+        <%= form_for @job_seeker, :url => { :action => "upload_photo" }, :html => { :multipart => true, :id=>"js-photo"} do |j| %>
+	    <%= j.file_field :photo, :class =>"hidden_browse", :onchange=>"submitPhoto();" %>        
+	<%end%>
+	<iframe id='upload_photo' name="upload_photo" style="display:none" src="about:blank"></iframe>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        
+        
+        BrowserDetect.init();
+        if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){	
+             $("#addimageform").html("");
+        }
+        
+        
+        $("#add_image").click(function(){
+            //show popup
+            BrowserDetect.init();
+            if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+                
+                showNormalShadow();
+                $.ajax({
+                    url: '/account/show_ie_popup',
+                    cache: false,
+                    success: function(){
+                        $("#file_upload_ie").show();
+                        centralizePopup();
+                        $("#job_seeker_photo").css('visibility', 'visible');
+                    }
+                });
+                
+            }
+            else{
+                $("#job_seeker_photo").click();
+                //e.preventDefault();
+            }
+        })
+        
+       
+        $("#change_image_link").click(function(){
+            //show popup
+            BrowserDetect.init();
+            if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+                
+                showNormalShadow();
+                $.ajax({
+                    url: '/account/show_ie_popup',
+                    cache: false,
+                    success: function(){
+                        $("#file_upload_ie").show();
+                        centralizePopup();
+                        $("#job_seeker_photo").css('visibility', 'visible');
+                    }
+                });
+                
+            }
+            else{
+                $("#job_seeker_photo").click();
+                //e.preventDefault();
+            }
+        })
+        
+        
+        
+        <% if @job_seeker && !@job_seeker.photo.url.blank? %>
+        $('#profileimage').hover(function(){
+		$('a#change_image',this).slideToggle('slow');
+	});
+        <% end %>
+        
+        
+    })
+</script>    

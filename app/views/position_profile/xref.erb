@@ -1,0 +1,191 @@
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js','jquery.flot.symbol.js' %>
+<%end-%>
+
+<!-- Content area start-->
+<input type="hidden" id="current_employer_id" value="<%=session[:employer].id%>"/>
+<div id="content">
+ <!-- Content area Heading-->
+      <div id="menu">
+        <%=render :partial => "/employer_account/shared/employer_tabs",:locals=>{:tab=>"home"}  -%>
+      </div>
+ <!--Content area heading end-->
+<!-- Content area center part-->
+      <div class="tab-content-top">&nbsp;</div>
+<div id="tab-content">
+  <div class="tab-content-area-left">
+      <div class="emp-left-menu" id="update_categories">
+	<%=render :partial=>"/employer_account/employer_left_menu",:locals=>{:jobs => @jobs}%>
+      </div>
+      <div class="dash-left-bottom">&nbsp;</div>
+  </div>
+      <!--Right Content Area Start-->
+  <div class="tab-content-area-right">
+      <div class="emp-right-content">
+
+              <div class="emp-content-box">
+                    <div class="chart-container">
+                      
+					<div class="height5">&nbsp;</div>
+					<%=render :partial=>"/employer_account/charts/xref_summary" -%>
+					<div class="height10">&nbsp;</div>
+					<div class="height10">&nbsp;</div>
+                                        <div id="xref-table">
+					<%=render :partial=>"/employer_account/charts/xref_chart" -%>
+                                        </div>
+					<div class="height10">&nbsp;</div>
+                    </div>
+
+                    <div class="table-container-xref" id="table-container-xref">
+                        <!--<div class="loader"><%=image_tag("ajax-loader-login.gif")%></div> -->
+                        <%=render :partial =>"/position_profile/xref_row" -%>
+                    </div>
+                    <!-- Notification Popup-->
+                    <div id="content_notification_box" style="display:none; z-index:11000; position:absolute; left:0; top:-18px">
+                    </div>
+                    <!-- Seeker Details Popup-->
+                    <div id="seeker_details_popup" style="z-index:11000; position:absolute; left:0; top:-18px">
+
+                    </div>
+              </div>
+      </div>
+      <div class="dash-right-bottom">&nbsp;</div>
+      <div id="dashboard-footer">
+          <div class="footer-content">
+                  <ul class="float-right">
+                          <li><a onclick="showAboutHilo();footerOnOpeningPopup();" href="javascript:void(0)" title="About Hilo">Company</a><span class="sepration">|</span></li>
+                          <li><a href="javascript:void(0)" onclick="showTermsPopup();centralizePopup();footerOnOpeningPopup();" title="Terms of Use">Terms of Use</a><span class="sepration">|</span></li>
+                          <li class="lastChlid"><label class="lblftrclr">Hilo. Inc. &copy; 2012</label></li>
+                  </ul>
+                  <div class="clear-height">&nbsp;</div>
+
+          </div>
+      </div>
+  </div>
+      <!-- Right Content Area End-->
+
+      <div class="clear-height">&nbsp;</div>
+</div>
+</div><!--/ Content area center part
+</div>
+<!-- Content area end -->
+<script type="text/javascript">
+        $(document).ready(function(){
+                $.ajax({
+                  url: "/ajax/set_xref_selected",
+                  cache: false,
+                  success: function(data){
+                          //alert(parseInt(data));
+                          switch(parseInt(data)){
+                            case -1:  $("#outer_pos label").html("ALL POSITIONS");
+                                      $("#parent_id").val(parseInt(data));
+                              break;
+                            case 0:
+                              $("#outer_pos label").html("MY POSITIONS");
+                              $("#parent_id").val(parseInt(data));
+                              break;
+                            default: <% if @name.present? %>
+                                      $("#outer_pos label").html('<%= @name %>');
+                                      $("#parent_id").val(parseInt(data));
+                                     <% else %>
+                                      $("#outer_pos label").html("ALL POSITIONS");
+                                      $("#parent_id").val(parseInt(data));
+                                     <% end %>
+                              break;
+                    }
+                
+                  }
+                });
+                
+		scrollT = $("#table_block").scrollTop();
+                scrollM = $("#table_block").scrollTop();
+		
+		$("#table_block").unbind("scroll").scroll(function () { 
+		    sortXrefTablesRows('active desc,internal desc,','pairing desc',scrollT,scrollM,10,5,-1);
+                });
+		
+		var wid = [46, 48, 160, 72, 83, 92, 59, 102];
+		var i = 0;
+		if($("table#list").height()>$("#table_block").height()){
+			 $('table#list').attr('width', 662);
+			 $('table#list').find('th').each(function(){
+				$(this).attr('width',wid[i]);
+				i = i+1;
+			})
+			 $("a.profile-days-left").each(function(){
+			     $(this).css('margin-left','10px');
+			 });
+			 $("a.buy-profile-link").each(function(){
+			     $(this).css('margin-left','10px');
+			 });
+		}
+
+                
+                setInterval(function() {
+			updateNotificationCount()
+		}, 300000);
+		
+		<% if  session[:express_payment_complete] == 1%>
+                    sortXrefTables('pairing','asc');
+                    _showSeekerPopup(<%=session[:seeker_id_one_click]%>, <%=session[:job_id_one_click]%>, <%= session[:employer].id %>);
+                    <%=  session[:express_payment_complete] = nil %>
+                <% elsif session[:cover_note_job_id] %>
+                  showNormalShadow();
+                  $('#cover_letter_box').show();
+                  centralizePopup();
+                  footerOnOpeningPopup();
+                <% end %>
+                
+		$("div.employer-chart-label").removeClass("active");
+                  <% case params[:activity]
+                  when "position_preview" then%>
+                    $("#preview_chart").addClass("active");
+                  <% when "position_detail" then%>
+                    $("#detail_chart").addClass("active");
+                  <% when "interested" then%>
+                    $("#interested_chart").addClass("active");
+                  <% when "wild_card" then%>
+                    $("#wild_chart").addClass("active");
+                  <% end %>
+
+                  <%session[:from_email_employer_alert] = nil%>
+                  <%if params[:position_id].present?%>
+                    <%j = Job.where(:id=>params[:position_id].to_i).first%>
+                    <%js = JobSeeker.where(:id=>params[:cs_id].downcase.gsub("cs", "").to_i).first%>
+                    <%if session[:employer].subtree_ids.include? j.employer_id %>
+                      <%unless js.can_view?(j) %>
+                        $("#xref_job_inactive").show();
+                        showErrorShadow();
+                        footerOnOpeningPopup();
+                        centralizePopup();
+                        addFocusButton("xref_job_inactive_button");
+                      <%else%>
+                        eval(<%=profile_buy_button(params[:cs_id].downcase.gsub("cs", "").to_i, session[:employer].id, params[:position_id].to_i, ([1,2,3].include? js.ics_type_id) ? 1 : 0, 1)%>);
+                      <%end%>
+                    <%else%>
+                      $("#unauthorized_purchase").show();
+                      showErrorShadow();
+                      footerOnOpeningPopup();
+                      centralizePopup();
+                      addFocusButton("unauthorized_purchase_button");
+                    <%end%>
+                  <%end%>
+
+        });
+</script>
+
+<%= javascript_include_tag("https://"+$FAYE_URL+".js") %>
+
+<script type="text/javascript">
+
+  $(function() {
+    var faye = new Faye.Client('<%="https://"+$FAYE_URL%>');
+    
+    faye.subscribe("/employer_update/<%= session[:employer].company_id %>/xref", function(data) {
+      eval(data);
+    });
+
+  });
+
+</script>

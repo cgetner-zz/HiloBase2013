@@ -1,0 +1,276 @@
+<% content_for :page_title do -%><%=t ("page_titles.employer_landing_page")%> | <% end %>
+<% content_for :page_js do -%>
+  <%=  javascript_include_tag "new_employer_landing" %>
+<% end -%>
+<%= render :partial => "/employer/landing/header", :locals => {:page => "home"}  %>
+<div class="main-container">
+  <!-- CONTENT -->
+  <div class="double-seperator">&nbsp;</div>
+  <div class="page-header">
+    <h1><%=t ("employer_landing_page.titleMessageLine1") %> <br /> <%=t ("employer_landing_page.titleMessageLine2") %></h1>
+    <p>
+      <%=t ("employer_landing_page.titleMessageLine1Sub1") %> <br />
+      <strong><%=t ("employer_landing_page.titleMessageLine1Sub2") %></strong> <%=t ("employer_landing_page.titleMessageLine1Sub3") %>
+    </p>
+  </div>
+  <div class="double-seperator">&nbsp;</div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="monitor">
+    <div class="top"></div>
+    <div class="middle">
+      <div class="slide">
+        <ul class="slide-content">
+          <li><img src="/assets/employer_landing/monitor-slide-1.jpg" alt="Watch: Our Latest Video" /></li>
+          <li><img src="/assets/employer_landing/monitor-slide-2.jpg" alt="Read: Our Latest White Paper" /></li>
+          <li><img src="/assets/employer_landing/monitor-slide-3.jpg" alt="View: A Candidate Career Forward Guide" /></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-one">
+      <div class="navigation">
+        <ul>
+          <li><a rel="1" href="javascript:void(0);">&nbsp;</a></li>
+          <li><a rel="2" href="javascript:void(0);">&nbsp;</a></li>
+          <li><a rel="3" href="javascript:void(0);">&nbsp;</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-two"></div>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="solutions-content">
+    <div class="image-holder">
+      <img src="/assets/employer_landing/solution-1.png" alt="Redeployment Solutions" />
+    </div>
+    <div class="content-holder">
+      <h2><%=t ("employer_landing_page.redeployment.header") %></h2>
+      <p>
+        <%=t ("employer_landing_page.redeployment.headerContentL1") %>
+        <%=t ("employer_landing_page.redeployment.headerContentL2") %>
+        <%=t ("employer_landing_page.redeployment.headerContentL3") %>
+        <%=t ("employer_landing_page.redeployment.headerContentL4") %>
+        <%=t ("employer_landing_page.redeployment.headerContentL5") %>
+        <%=t ("employer_landing_page.redeployment.headerContentL6") %>
+      </p>
+      <ul class="menu-options">
+        <li><a href="javascript:openVideoPopup(4);">{<%=t ("employer_landing_page.global_links.video") %>}</a></li>
+        <li><a href="javascript:openPDFPopup(1);">{<%=t ("employer_landing_page.global_links.white_paper") %>}</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="solutions-content">
+    <div class="content-holder lfloat">
+      <h2><%=t ("employer_landing_page.outplacement.header") %></h2>
+      <p>
+        <%=t ("employer_landing_page.outplacement.headerContentL1") %>
+        <%=t ("employer_landing_page.outplacement.headerContentL2") %>
+        <%=t ("employer_landing_page.outplacement.headerContentL3") %>
+        <%=t ("employer_landing_page.outplacement.headerContentL4") %>
+        <%=t ("employer_landing_page.outplacement.headerContentL5") %>
+        <%=t ("employer_landing_page.outplacement.headerContentL6") %>
+      </p>
+      <ul class="menu-options">
+        <li><a href="javascript:openVideoPopup(2);">{<%=t ("employer_landing_page.global_links.video") %>}</a></li>
+        <li><a href="javascript:openPDFPopup(2);">{<%=t ("employer_landing_page.global_links.white_paper") %>}</a></li>
+      </ul>
+    </div>
+    <div class="image-holder rfloat">
+      <img src="/assets/employer_landing/solution-2.png" alt="Outplacement Solutions" />
+    </div>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="solutions-content">
+    <div class="image-holder margin-T--25px">
+      <img src="/assets/employer_landing/solution-3.png" alt="Recruiting Solutions" />
+    </div>
+    <div class="content-holder">
+      <h2><%=t ("employer_landing_page.recruiting.header") %></h2>
+      <p>
+        <%=t ("employer_landing_page.recruiting.headerContentL1") %>
+        <%=t ("employer_landing_page.recruiting.headerContentL2") %>
+        <%=t ("employer_landing_page.recruiting.headerContentL3") %>
+        <%=t ("employer_landing_page.recruiting.headerContentL4") %>
+        <%=t ("employer_landing_page.recruiting.headerContentL5") %>
+        <%=t ("employer_landing_page.recruiting.headerContentL6") %>
+      </p>
+      <ul class="menu-options">
+        <li><a href="javascript:openVideoPopup(3);">{<%=t ("employer_landing_page.global_links.video") %>}</a></li>
+        <li><a href="javascript:openPDFPopup(3);">{<%=t ("employer_landing_page.global_links.white_paper") %>}</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="single-seperator">&nbsp;</div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="features-content">
+    <ul class="features">
+      <li onclick="openImagePopup('candidate_profile_popup');"><img src="/assets/employer_landing/feature-1.png" alt="Candidate Profile" /></li>
+      <li class="seperator"></li>
+      <li onclick="openImagePopup('position_showcase_popup');"><img src="/assets/employer_landing/feature-2.png" alt="Position Showcase" /></li>
+      <li class="seperator"></li>
+      <li onclick="openPDFPopup(4);"><img src="/assets/employer_landing/feature-3.png" alt="Birkman Assessment" /></li>
+    </ul>
+    <table class="features-text">
+      <tr>
+        <th class="first">
+          <div class="heading"><%=t ("employer_landing_page.candidate_profile.header") %></div>
+          <p>
+            <%=t ("employer_landing_page.candidate_profile.headerContentL1") %>
+            <%=t ("employer_landing_page.candidate_profile.headerContentL2") %>-
+            <%=t ("employer_landing_page.candidate_profile.headerContentL3") %>
+            <%=t ("employer_landing_page.candidate_profile.headerContentL4") %>
+            <strong><%=t ("employer_landing_page.candidate_profile.headerContentL5") %></strong>
+          </p>
+        </th>
+        <th class="second">
+          <div class="heading"><%=t ("employer_landing_page.position_showcase.header") %></div>
+          <p>
+            <%=t ("employer_landing_page.position_showcase.headerContentL1") %>
+            <%=t ("employer_landing_page.position_showcase.headerContentL2") %>
+            <strong><%=t ("employer_landing_page.position_showcase.headerContentL3") %></strong>
+            <%=t ("employer_landing_page.position_showcase.headerContentL4") %>
+            <%=t ("employer_landing_page.position_showcase.headerContentL5") %>
+          </p>
+        </th>
+        <th class="third">
+          <div class="heading"><%=t ("employer_landing_page.birkman_assessment.header") %></div>
+          <p>
+            <%=t ("employer_landing_page.birkman_assessment.headerContentL1") %>
+            <strong><%=t ("employer_landing_page.birkman_assessment.headerContentL2") %></strong> <%=t ("employer_landing_page.birkman_assessment.headerContentL3") %>
+            <%=t ("employer_landing_page.birkman_assessment.headerContentL4") %>
+            <%=t ("employer_landing_page.birkman_assessment.headerContentL5") %>
+            <%=t ("employer_landing_page.birkman_assessment.headerContentL6") %>
+          </p>
+        </th>
+      </tr>
+    </table>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="get-started">
+    <a class="get-started-button <%=I18n.locale%>" href="/employer/new">&nbsp;</a>
+    <div class="single-seperator">&nbsp;</div>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="quotes-container">
+    <ul class="quote-content">
+      <li class="active" rel="1">
+        <div class="message">
+          "<%=t ("employer_landing_page.feedback") %>"
+        </div>
+        <div class="signature">
+          <div>- Tom Monahan</div>
+          <div class="sub-signature">Chairman and CEO</div>
+          <div class="sub-signature">Corporate Executive Board</div>
+        </div>
+      </li>
+      <!--
+      <li rel="2">
+        <div class="message">
+          "Companies are seeking to manage talent assets with the same amount of rigor and depth as
+          they manage other corporate assets. People are going to demand more insight into talent and
+          they're going to need tools to do it and that's going to lead to richer, more predictive data sets."
+        </div>
+        <div class="signature">
+          <div>- Tom Monahan</div>
+          <div class="sub-signature">Chairman and CEO</div>
+          <div class="sub-signature">Corporate Executive Board</div>
+        </div>
+      </li>
+      <li rel="3">
+        <div class="message">
+          "Companies are seeking to manage talent assets with the same amount of rigor and depth as
+          they manage other corporate assets. People are going to demand more insight into talent and
+          they're going to need tools to do it and that's going to lead to richer, more predictive data sets."
+        </div>
+        <div class="signature">
+          <div>- Tom Monahan</div>
+          <div class="sub-signature">Chairman and CEO</div>
+          <div class="sub-signature">Corporate Executive Board</div>
+        </div>
+      </li>
+      -->
+    </ul>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div class="get-started padding-bottom-0px">
+    <a class="for-candidate-button <%=I18n.locale%>" href="/career_seeker_bridge">&nbsp;</a>
+    <div class="single-seperator">&nbsp;</div>
+  </div>
+  <!-- CONTENT -->
+  
+  <!-- FOOTER-->
+  <div class="footer">
+    <%= render :partial => "/employer/landing/menu" %>
+    <ul class="social-media">
+      <li><a class="facebook-icon" href="http://www.facebook.com/thehiloproject" title="<%=t('emp_search_non_loggedin.footer.facebook')%>" target="_blank">&nbsp;</a></li>
+      <li><a class="twitter-icon" href="http://twitter.com/thehiloproject" title="<%=t('emp_search_non_loggedin.footer.twitter')%>" target="_blank">&nbsp;</a></li>
+    </ul>
+    <ul class="footer-links <%=I18n.locale%>">
+      <li><a href="javascript:void(0);" id="web_engage_contact"><%=t("emp_search_non_loggedin.footer.contract")%></a></li>
+      <li><a href="javascript:showTermsPopup();centralizePopup();"><%=t("emp_search_non_loggedin.footer.terms_of_use")%></a></li>
+      <li><a href="javascript:showPrivacyPopup();centralizePopup();"><%=t("emp_search_non_loggedin.footer.privacy_policy")%></a></li>
+      <li class="hilo"><label><%=t("emp_search_non_loggedin.footer.hilo").html_safe%></label></li>
+    </ul>
+  </div>
+  <!-- FOOTER-->
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("body").click(function(){
+      $('.langauge-dropdown').hide();
+    })
+    $(".language-selector").click(function(e){
+      $('.langauge-dropdown').toggle();
+      e.stopPropagation();
+    })
+  });
+<% if session[:user_suspended] == true %>
+  <% session[:user_suspended] = nil %>
+    $(document).ready(function(){
+    showErrorShadow();
+    $("#user_suspended").show();
+    addFocusButton('user_suspended_button');
+    centralizePopup();
+    $(".footer-links .hilo").addClass('white');
+    });
+<% end %>
+<% if session[:user_deleted] == true %>
+  <% session[:user_deleted] = nil %>
+    $(document).ready(function(){
+    showErrorShadow();
+    $("#user_deleted").show();
+    addFocusButton('user_deleted_button');
+    centralizePopup();
+    $(".footer-links .hilo").addClass('white');
+    });
+<% end %>
+<% if session[:from_email_employer_alert].present? %>
+    $(document).ready(function(){
+      $("#xref_candidate").show();
+      showNormalShadow();
+      addFocusButton('xref_candidate_button');
+      centralizePopup();
+      $(".footer-links .hilo").addClass('white');
+    });
+<% end %>
+
+</script>

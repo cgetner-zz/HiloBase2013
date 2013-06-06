@@ -1,0 +1,75 @@
+<% flag = true %>
+<% if not @cs_delete_rec.nil? %>
+  <% for cs in @cs_delete_rec %>
+    <% if flag == true %>
+      <% flag = false %>
+      <tr id="cs_<%=cs.id%>" >
+        <th width="180">
+          <label class="first" style="cursor: default;"><%= cs.first_name %> <%= cs.last_name %></label>
+        </th>
+        <th width="210">
+          <label style="width: 200px; word-wrap: break-word; cursor: default;"><%= cs.email %></label>
+        </th>
+        <th width="160">
+          <label style="cursor: default;">
+            <% case cs.ics_type_id %>
+            <% when 1,2,3 %>
+              Internal User
+            <% when 4 %>
+              Global User
+            <% end %>
+          </label>
+        </th>
+        <th width="180">
+          <label style="cursor: default;">
+            <% if not cs.company_id.nil? %>
+              <%= cs.company.name %>
+            <% else %>
+              NA
+            <% end %>
+          </label>
+        </th>
+        <th width="128">
+          <label>
+            <a class="action" style="float:left;" href="javascript:void(0);" onclick="admin_job_seeker_delete_cancel(<%=cs.id%>);">Reject</a>
+            <a class="action" style="float:left; margin-left: 10px;" href="javascript:void(0);" onclick="admin_job_seeker_delete(<%=cs.id%>);">Delete</a>
+          </label>
+        </th>
+      </tr>
+    <% else %>
+      <tr id="cs_<%=cs.id%>" >
+        <td>
+          <label class="first" style="cursor: default;"><%= cs.first_name %> <%= cs.last_name %></label>
+        </td>
+        <td>
+          <label style="width: 200px; word-wrap: break-word; cursor: default;"><%= cs.email %></label>
+        </td>
+        <td>
+          <label style="cursor: default;">
+            <% case cs.ics_type_id %>
+            <% when 1,2,3 %>
+              Internal User
+            <% when 4 %>
+              Global User
+            <% end %>
+          </label>
+        </td>
+        <td>
+          <label style="cursor: default;">
+            <% if not cs.company_id.nil? %>
+              <%= cs.company.name %>
+            <% else %>
+              NA
+            <% end %>
+          </label>
+        </td>
+        <td>
+          <label>
+            <a class="action" style="float:left;" href="javascript:void(0);" onclick="admin_job_seeker_delete_cancel(<%=cs.id%>);">Reject</a>
+            <a class="action" style="float:left; margin-left: 10px;" href="javascript:void(0);" onclick="admin_job_seeker_delete(<%=cs.id%>);">Delete</a>
+          </label>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>

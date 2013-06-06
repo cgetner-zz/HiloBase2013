@@ -1,0 +1,4 @@
+showNormalShadow();
+$("#ajax-content").html('<%= escape_javascript render(:partial=>"privileged_list_history", :locals=>{:history=>@history}) %>');
+centralizePopup();
+hideBlockShadow();

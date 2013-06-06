@@ -1,0 +1,155 @@
+<%content_for :page_css do -%>
+	<%#=stylesheet_link_tag("employer_account")%>
+<%end-%>
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js','jquery.flot.symbol.js','jquery.autocomplete' %>
+<%end-%>
+
+<div id="content">
+	<!-- Content area Heading-->
+	<div id="menu">
+		<%=render :partial => "/employer_account/shared/employer_tabs",:locals=>{:tab=>"home"}  -%>
+	</div>
+	<!--Content area heading end-->
+	
+	<div id="tab-content">
+		<div class="tab-content-top">&nbsp;</div>
+		<div class="emp-left-menu">
+			<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs}%>
+		</div>
+		<!--Right Content Area Start-->
+		<div class="emp-right-content">
+
+			<div class="profileContainer">
+
+				<div class="profile-accordain">
+            	<!--accordan-->
+					<%= render :partial=>"/position_profile/employer_profile/position_profile_tabs" %>
+            	<!--/accordan-->
+				</div>	
+			</div>
+		</div>
+      <!-- Right Content Area End-->
+
+		<div class="clear-height">&nbsp;</div>
+	</div>	
+</div>
+
+<script type="text/javascript">
+	//$(document).ready(function(){
+	//if (<%=@modify%>)
+	//{
+	//	$(".profile_overview_content").hide();
+	//		$(".profile_work_role_env_content").show();
+	//		$('#profile_work_env_role_tab span.tab_overview').addClass('expand');
+	//		$("#profile_work_env_role_tab").addClass('tab_deactive');
+	//		$('#profile_overview_tab span.tab_overview').removeClass('expand');
+	//}
+	//else if (<%=@job.credential_complete%>) 
+	//{
+	//		$(".profile_overview_content").hide();
+	//		$(".profile_work_role_env_content").hide();
+	//		$(".profile_credentials_content").hide();
+	//		$(".profile_snapshot_content").show();
+	//		
+	//		$('#profile_snapshot_tab span.tab_overview').addClass('expand');
+	//		$("#profile_snapshot_tab").addClass('tab_deactive');
+	//}
+	//else if (<%=@job.basic_complete%>) 
+	//{
+	//		$(".profile_overview_content").hide();
+	//		$(".profile_work_role_env_content").show();
+	//		$('#profile_work_env_role_tab span.tab_overview').addClass('expand');
+	//		$("#profile_work_env_role_tab").addClass('tab_deactive');
+	//		$('#profile_overview_tab span.tab_overview').removeClass('expand');
+	//}
+	//else 
+	//{
+	//		$(".profile_overview_content").show();		
+	//		$('#profile_overview_tab span.tab_overview').addClass('expand');
+	//		$("#profile_overview_tab").addClass('tab_deactive');
+	//}
+	//
+	//
+	//   $("#profile_overview_tab").click(function(){
+	//		$(".profile_work_role_env_content").hide();
+	//		$(".profile_credentials_content").hide();
+	//		$(".profile_snapshot_content").hide();
+	//		$(".profile_overview_content").slideToggle('slow');
+	//		
+	//
+	//		$('span.tab_overview', this).toggleClass('expand');
+	//		$(this).toggleClass('tab_deactive');
+	//		
+	//		$('#profile_work_env_role_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_work_env_role_tab").removeClass('tab_deactive');
+	//		$('#profile_credentials_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_credentials_tab").removeClass('tab_deactive');
+	//		$('#profile_snapshot_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_snapshot_tab").removeClass('tab_deactive');
+	//		
+	//   });
+	//   
+	//  $("#profile_work_env_role_tab").click(function(){
+	//	if (<%=@job.basic_complete%>) {
+	//		$(".profile_overview_content").hide();
+	//		$(".profile_credentials_content").hide();
+	//		$(".profile_snapshot_content").hide();
+	//		$(".profile_work_role_env_content").slideToggle('slow');
+	//		
+	//		$('span.tab_overview', this).toggleClass('expand');
+	//		$(this).toggleClass('tab_deactive');
+	//		
+	//		$('#profile_overview_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_overview_tab").removeClass('tab_deactive');
+	//		$('#profile_credentials_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_credentials_tab").removeClass('tab_deactive');
+	//		$('#profile_snapshot_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_snapshot_tab").removeClass('tab_deactive');
+	//		
+	//	}
+	//   });
+	//   
+	//  $("#profile_credentials_tab").click(function(){
+	//	if (<%=@job.personality_work_complete%>){
+	//		$(".profile_overview_content").hide();
+	//		$(".profile_work_role_env_content").hide();
+	//		$(".profile_snapshot_content").hide();
+	//		$(".profile_credentials_content").slideToggle('slow');
+	//		
+	//		$('span.tab_overview', this).toggleClass('expand');
+	//		$(this).toggleClass('tab_deactive');
+	//		
+	//		$('#profile_overview_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_overview_tab").removeClass('tab_deactive');
+	//		$('#profile_work_env_role_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_work_env_role_tab").removeClass('tab_deactive');
+	//		$('#profile_snapshot_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_snapshot_tab").removeClass('tab_deactive');
+	//	}
+	//  
+	//  });
+	//  
+	//  $("#profile_snapshot_tab").click(function(){
+	//	if (<%=@job.credential_complete%>){
+	//		$(".profile_overview_content").hide();
+	//		$(".profile_work_role_env_content").hide();
+	//		$(".profile_credentials_content").hide();
+	//		$(".profile_snapshot_content").slideToggle('slow');
+	//		
+	//		$('span.tab_overview', this).toggleClass('expand');
+	//		$(this).toggleClass('tab_deactive');
+	//		
+	//		$('#profile_overview_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_overview_tab").removeClass('tab_deactive');
+	//		$('#profile_work_env_role_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_work_env_role_tab").removeClass('tab_deactive');
+	//		$('#profile_credentials_tab span.tab_overview').removeClass('expand');
+	//		$("#profile_credentials_tab").removeClass('tab_deactive');
+	//	}
+	//  });
+	//
+	//});
+	
+</script>

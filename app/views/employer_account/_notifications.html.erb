@@ -1,0 +1,19 @@
+<input type="hidden" id="total_notifications" value="<%=@notifications.length%>" />
+<div class="content">
+  <div class="gradient-content">
+    <h1>NOTIFICATIONS</h1>
+    <div class="notifications">
+      <%if !@notifications.nil?%>
+        <ul id="notification_rows">
+          <%= render :partial => "notifications_rows" %>
+        </ul>
+        <div id="rows_loader_notifications" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+      <%else%>
+         <h1>You have 0 Notification message</h1>
+      <%end%>
+    </div>
+        <span class="viewAll_container">
+          <a id="viewAll" class="viewAll" title="View All" href="javascript:void(0)" style="visibility:hidden; font-weight: 200; line-height: 23px !important; margin-right:10px;">VIEW ALL</a>
+        </span>
+  </div>
+</div>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en">
+
+  <head>
+    <title><%=yield :page_title%>Hilo - Meaningful employment.</title>
+    <meta name="Author" content="Hilo" />
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo"/>
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider."/>
+    <%= render :partial => "/shared/google_analytics" %>
+    <%= csrf_meta_tag %>
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <!--<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>-->
+    <%=stylesheet_link_tag("jquery-ui-1.8.custom","stylesheet")%>
+    <!--[if IE 7]>
+    <%=stylesheet_link_tag("stylesheet-IE7")%>
+	 <![endif]-->
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("stylesheet-IE8")%>
+	 <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("stylesheet-IE9")%>
+	 <![endif]-->
+    <%=yield :page_css%>
+
+    <%=javascript_include_tag("application","common","main","elementCheck","birkman","custom_form_element","pairing","jquery.caret","jquery.numeric","customdropdown","slimScroll", "accounting.min")%>
+
+    <%=yield :page_js%>
+
+    <%=yield :video_frame%>
+  </head>
+  <body id="inner-Page" oncontextmenu="">
+    <% if(controller.controller_name == "job_seeker") %>
+      <!--page-container-->
+      <div id="page-container-accountSetup">
+      <% elsif controller.controller_name == "questionnaire" or controller.controller_name == "hilo_search" %>
+        <!--page-container-->
+        <div id="page-container-personalityQuest">
+        <% elsif controller.controller_name == "pairing_profile" %>
+          <!--page-container-->
+          <div id="page-container-pairingProfile">
+          <% elsif controller.controller_name == "payment" %>
+            <!--page-container-->
+            <div id="page-container-siteActivation">
+            <% elsif controller.controller_name == "account" and controller.action_name=="opportunities" %>
+              <!--page-container-->
+              <div id="page-container-opportinities">
+              <% elsif controller.controller_name == "account" and controller.action_name=="pairing_profile" %>
+                <div id="page-container-profile">
+                <% elsif controller.controller_name == "account" and controller.action_name=="account_info" %>
+                  <div id="page-container-account">
+                  <% elsif controller.controller_name == "account" %>
+                    <!--page-container-->
+                    <div id="page-container-dashboard">
+                    <% end %>
+
+                    <div class="top-bar">&nbsp;</div>
+                    <!--main-container-->
+                    <div id="main-container">
+                      <%=yield -%>
+                      <!--footer-->
+                      <%=render :partial =>"/shared/footer" -%>
+                      <!--/footer-->
+                    </div>
+
+                    <!-- popup contents -->
+                  </div>
+                  <div id="gift_hilo_popup" class="white_content"></div>
+                  <div id="gift_purchase_review" class="white_content"></div>
+                  <%= render :partial => "shared/success_sharing_msg" %>
+                  <%= render :partial => "shared/job_not_active_sharing_msg" %>
+                  <%= render :partial => "shared/success_sharing_hilo_msg" %>
+                  <%= render :partial => "/shared/privacy_policy" -%>
+                  <%= render :partial => "/shared/terms_of_use" -%>
+                  <%= render :partial => "/shared/about_hilo" %>
+                  <%= yield :questionnaire %>
+                  <%= render :partial => "/gift/complete_purchase_one_click" %>
+                  <%= render :partial => "/gift/complete_payment_no_one_click" %>
+
+                  <% if controller.controller_name == "pairing_profile" %>
+                    <%= render :partial => "pairing_profile/advanced_popup" -%>
+                    <%= render :partial => "pairing_profile/credential_help_popup" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup2" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup3" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup4" %>
+                    <% if controller.action_name == "credentials" %>
+                      <%= render :partial => "pairing_profile/military", :locals => {:job_seeker => @job_seeker} %>
+                    <% end %>
+                    <% if controller.action_name == "basics" %>
+                      <%= render :partial => "pairing_profile/pairing_profile_complete" %>
+                      <%= render :partial => "pairing_profile/cant_find_promo" %>
+                      <%= render :partial => "home/beta_access_error" %>
+                      <%= render :partial => "home/beta_access_success" %>
+                    <% end %>
+                    <% if controller.action_name == "credentials" %>
+                      <%= render :partial => "pairing_profile/explore_roles" %>
+                    <% end %>
+                  <% end %>
+                  <% if controller.controller_name == "payment" %>
+                    <%= render :partial => "pairing_profile/cant_find_promo" %>
+                    <%= render :partial => "home/beta_access_error" %>
+                    <%= render :partial => "home/beta_access_success" %>
+                  <% end %>
+                  <% if controller.controller_name == "questionnaire" %>
+                    <%= render :partial => "questionnaire/questionnaire_complete" %>
+                  <% end %>
+
+                  <% if controller.controller_name == "account" %>
+                    <%= render :partial => "account/save_search" %>
+                    <%= render :partial => "account/following_confirmation" %>
+                    <%= render :partial => "pairing_profile/advanced_popup" -%>
+                    <%= render :partial => "pairing_profile/credential_help_popup" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup2" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup3" %>
+                    <%= render :partial => "pairing_profile/credential_help_popup4" %>
+                    <%= render :partial => "account/status_popup" -%>
+                    <%= render :partial => "account/authentication_popup" %>
+                    <%= render :partial => "account/auth_error" %>
+                    <%= render :partial => "/home/job_not_active" %>
+                    <%= render :partial => "/job_payment/complete_purchase_no_one_click" %>
+                    <%= render :partial => "/job_payment/complete_purchase_one_click" %>
+                    <%= render :partial => "account/legacy_data_popup" %>
+                    <%= render :partial => "/job_payment/not_authorized" %>
+
+                    <% if controller.action_name == "pairing_profile" %>
+                      <%= render :partial => "pairing_profile/explore_roles" %>
+                      <%= render :partial => "account/intro_popup" %>
+                      <%= render :partial => "account/areYouSure" %>
+                      <div id="skills_ajax"><%= render :partial => "account/skills_popup" %></div>
+                      <div id="employer_view_popup" class="white_content"></div>
+                      <%= render :partial => "account/upload_failure" %>
+                    <% end %>
+                    <% if controller.action_name == "account_info" %>
+                      <%= render :partial => "account/code_conformation_popup" %>
+                      <%= render :partial => "account/code_error_popup" %>
+                      <%= render :partial => "account/delete_confirmation_popup" %>
+                      <div id="ajax-content"></div>
+                    <% end %>
+
+                    <div id="notification"></div>
+                    <div id="position_details" class="detiled_content"></div>
+                    <div id="position_overview" class="white_content"></div>
+                    <div id="cc_billing_popup" class="white_content"></div>
+                    <div id="job_preview_details_popup"></div>
+                    <div id="old_pass_mismatch" class="white_content"></div>
+                    <div id="update_emailexist_error_popup" class="white_content"></div>
+                    <div id="file_upload_ie" class="white_content"></div>
+                    <%= render :partial => "account/birkman_pdf_download_error" -%>
+                    <%= render :partial => "account/career_code" -%>
+                    <%= render :partial => "account/career_code_error" -%>
+                    <%= render :partial => "account/account_popup" %>
+                    <%= render :partial => "account/one_click_login_error" %>
+                    <%= render :partial => "account/ajax_error" %>
+                    <%= render :partial => "account/pdf_ajax_error" %>
+                    <%= render :partial => "account/ajax_payment_error_popup" %>
+                    <%= render :partial => "account/congratulate_popup" %>
+                    <%= render :partial => "account/job_expiry_popup" %>
+                    <%= render :partial => "account/job_inactive_popup" %>
+                    <% #render :partial => "job_payment/credit_card_popup", :locals => {:promo_consumed_amount => nil, :remianing_amount => nil} %>
+                  <% end %>
+                  <% if controller.controller_name == "job_seeker" or controller.controller_name == "hilo_search"%>
+                    <%= render :partial => "home/login_failure_popup" %>
+                    <%= render :partial => "/home/forgot_password" %>
+                  <% end %>
+                  <% if controller.controller_name == "hilo_search" %>
+                    <%= render :partial => "/hilo_search/hilo_search_work_env_job_msg" %>
+                    <div id="hilo_search_job_seekers_few_records" class="white_content"></div>
+                  <% end %>
+                  <div id="fade_normal_status_skill-tooltip" class="black_overlay_skill" onclick="close_skill_tooltip_popup();close_cert_tooltip_popup();"></div>
+                  <div id="fade_normal_status_seeker_analyzer" class="black_seeker_analyzer" onclick="close_seeker_analyzer_popup();"></div>
+                  <div id="fade_normal_status" class="black_overlay_light" onclick="clickOutside(this);"><span class="popup-loader-light" style="display:none; float:left; margin-left: 50%; margin-top: 20%;" class="loader"><%=image_tag("ajax-loader-login-50p.gif")%></span></div>
+                  <div id="fade_normal" class="black_overlay" onclick="clickOutside(this);"><span class="popup-loader" style="display:none; float:left; margin-left: 50%; margin-top: 20%;"><%=image_tag("ajax-loader-login-grey.gif")%></span></div>
+                  <div id="fade_normal_dark" class="black_overlay_dark" onclick="clickOutside(this);"><span class="popup-loader" style="display:none; float:left; margin-left: 50%; margin-top: 20%;"><%=image_tag("ajax-loader-login-grey.gif")%></span></div>
+                  <div id="fade_success" class="sucess_overlay" onclick="clickOutside(this);"></div>
+                  <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+                  <div id="refresh_link" class="notification_overlay"><div class="ajax_loading"><div class="ajax_loading_msg"><%=t ("faye_refresh_job_seeker") %></div></div></div>
+                  <div id="fade_white" class="white_overlay"></div>
+                  <% if controller.controller_name == "questionnaire" %>
+                    <div id="fade_block_quest" class="block_overlay" style="display:block;"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+                  <% end %>
+                  <div id="fade_error" class="error_overlay" onclick="clickOutside(this);"></div>
+                  <div id="fade_error_warning" class="error_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+                  <div id="fade_normal_warning" class="black_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+                  <div id="fade_success_sharing" class="sucess_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+                  <input type="hidden" id="page_url_job" value="<%=CGI::escape(request.url)%>"></input>
+
+                  <%= render :partial => "/home/gift_hilo_registered_signin_failure" %>
+                  <%= render :partial => "/home/gift_hilo_one_click_signin_failure" %>
+                  <%= render :partial => "/home/gift_hilo_signin_failure" %>
+                  <%= render :partial => "/home/gift_hilo_failure" %>
+                  <div id="gift_hilo_popup" class="white_content"></div>
+                  <div id="gift_hilo_success_msg" class="white_content"></div>
+                  <div id="checkout_billing_info" class="white_content"></div>
+                  <div id="gift_cc_billing_popup" class="white_content"></div>
+
+                  <!--Seeker Analyzer pop up-->
+                  <div id="envNrole-cont-seeker-analyzer-popup" class="seeker-analyzer-popup" style="display:none;">
+                    <div class="seeker-analyzer-leftdiv">
+                      <div class="seeker-analyzer-popup-top">&nbsp;</div>
+                      <div class="seeker-analyzer-popup-content">
+                        <div id="popup-content-slider"></div>
+                      </div>
+                      <div class="seeker-analyzer-bottom">&nbsp;</div>
+                    </div>
+
+                    <div class="seeker-analyzer-rightdiv">
+                      <img src="/assets/seeker-communicator-arrow.png" height="25px" width="17px"/>
+                    </div>
+                  </div>
+                  <!--End here Seeker Analyzer pop up-->
+                  <%= render :partial => "/shared/webengage" %>
+                  </body>
+                  </html>
+                  <script type="text/javascript">
+<%if session[:job_seeker]%>
+    var login_section_type = "job_seeker";
+<%end%>
+   
+  document.onload = loading();
+   
+  function loading(){
+<% if session[:account_auth] == true and controller.action_name != "account_info" %>
+      showAuthenticationPopup();
+  <% session[:account_auth] = nil %>
+<% end %>
+
+<% if session[:upload_failure] == true %>
+      $("#upload-error").show();
+      showErrorShadow();
+  <% session[:upload_failure] = nil %>
+<% end %>
+    centralizePopup();
+
+<% if session[:success_job_seeker_msg] %>
+      hideBlockShadow();
+      show_job.call(<%=session[:share_job_id]%>);
+  <% if not session[:job_seeker_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:job_seeker_msg] %>');
+  <% end %>
+  <%  session[:url] = nil %>
+  <%  session[:share_job_id] = nil %>
+  <% session[:job_seeker_msg] = nil %>
+  <% session[:success_job_seeker_msg] = nil %>
+<% end %>
+
+<% if session[:success_share] %>
+      hideBlockShadow();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessHiloSharingMsg('<%= session[:hilo_msg] %>')
+  <% end %>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share] = nil %>
+<% end %>
+
+<% if session[:success_share_gift] %>
+      hideBlockShadow();
+      click_gift_hilo.gift_hilo_show();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_gift] = nil %>
+<% end %>
+
+<% if session[:success_share_about] %>
+      hideBlockShadow();
+      showAboutHilo();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_about] = nil %>
+<% end %>
+
+<% if session[:gift_express] %>
+      hideBlockShadow();
+      hideNormalShadow();
+      $('#gift_verify-loader-img').hide();
+      $('#gifts_payment_verify_button').show();
+      $("#checkout_billing_popup").hide();
+      $("#gift_cc_billing_popup").empty();
+      showSuccessShadow();
+      showSuccessGiftMsg();
+      centralizePopup();
+  <% session[:gift_express] = nil %>
+  <% session[:gift_url] = nil%>
+<% end %>
+
+  }
+                  </script>

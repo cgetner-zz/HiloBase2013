@@ -1,0 +1,5 @@
+<%  if session[:job_seeker] or session[:employer] %>
+  gift_hilo.reload_checkout_billing();
+<%  else %>
+  hideCheckoutBillingInfoPopup();
+<%  end %>

@@ -1,0 +1,631 @@
+<% if not session[:job_seeker].credit.nil?
+  credit_value = session[:job_seeker].credit.credit_value
+else
+  credit_value = nil
+end %>
+<!-- popup content -->
+<div class="popup-detailed-container">
+  <span class="popup-top">&nbsp;</span>
+  <div class="popup-content">
+    <div class="gradient-content">
+      <div class="popup-header-container-tableBig" <% if job.hiring_company == true %>style="margin:4px 20px 0"<% end %>>
+        <% if job.hiring_company == false %>
+          <div class="popup-mini-heading transform-letter"><%= job.company.name %> <%= t('opportunities.detailed_popup.on_behalf') %></div>
+          <input type="hidden" value="<%= job.company.name %>" id="company_name_id"/>
+        <% end %>
+        <label class="popup-heading transform-letter">
+          <% if job.hiring_company == false %>
+            <%= job.hiring_company_name.html_safe %>
+          <% else %>
+            <%= job.company.name %>
+          <% end %>
+          <input type="hidden" value="<%= job.hiring_company_name %>" id="hiring_company_name_id"/>
+        </label>
+        <label class="popup-heading rfloat" id="rt">
+          <% if job.expire_at %>
+            <%= format_remaining_time(job.expire_at)%>
+          <% end %>
+        </label>
+      </div>
+
+      <div class="content">
+        <table border="0" class="popup-table-forLpp" cellspacing="17" cellpadding="0">
+          <tr>
+            <th style="width:242px;"><h4 class="" style="max-width: 242px; word-wrap: break-word; line-height: 20px;"> <% if job.name %><span><%=h(job.name) -%></span><% end %></h4></th>
+            <th style="width:221px;"><h4 class="">&nbsp;</h4></th>
+            <th style="width:227px;"><h4 class="">&nbsp;</h4></th>
+            <th style="width:148px;"><h4 class=""><span class="lfloat">&nbsp;</span> <label class="rfloat"> <% if job.code %> <%= job.code.force_encoding('utf-8') -%><% end %> </label>  </h4></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="left-content-tableBig" style="margin-top: -16px;">
+                <!--content-blocks-->
+                <div class="content-blocks accountant" style="padding-bottom: 0px;">
+                  <div class="discription">
+                    <label class="lfloat" style="width:51%;">
+                      <% if @job_desired_emp %>
+                        <%for item in @job_desired_emp%>
+                          <%= item.upcase.html_safe.force_encoding('utf-8') -%><br/>
+                        <%end%>
+                      <%end%>
+                    </label>
+                    <label class="rfloat" style="width:49%; text-align: right;">
+                      <%if job.salary_not_disclosed%>
+                        Not Disclosed
+                      <%else%>
+                        <% if job.minimum_compensation_amount %>
+                          <%= compensation_range_by_value(job.minimum_compensation_amount)%>
+                        <% end %>
+                      <%end%>
+                    </label>
+
+                    <span class="clear-float"></span>
+
+                    <p class="margin-T-5px" style="clear:both;">
+                      <% if job_location.nil? %>
+                        <span style="font-size:13px; font-weight: 400;"><%= t('opportunities.detailed_popup.virtual_job_text1') %><br /><%= t('opportunities.detailed_popup.virtual_job_text2') %></span>
+                      <% else %>
+                        <span style="font-size:12px; font-weight: 400;">
+                          <% if (address_str)%>
+                            <%str = address_str.split(",")%>
+                            <%= str[0].titlecase.html_safe.force_encoding('utf-8') if !str[0].nil? %>
+                            <br/>
+                            <%=str[1].titlecase.html_safe.force_encoding('utf-8') if !str[1].nil? %>,
+                            <%=str[2].titlecase.html_safe.force_encoding('utf-8') if !str[2].nil? %>
+                            <br />
+                            <%=str[3].titlecase.html_safe.force_encoding('utf-8') if !str[3].nil? %>,
+                            <%=str[4].titlecase.html_safe.force_encoding('utf-8') if !str[4].nil? %>
+                          <%end%>
+                        </span>
+                      <% end %>
+                    </p>
+                    <% if job_location %>
+                      <div class="map-background">
+                        <div id="map_container" class="map-container">
+
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <!--.content-blocks-->
+
+                <!--Daily Responsibilities content-blocks-->
+                <div class="content-blocks virtual_setting">
+                  <h4 class="heading"><%= t('opportunities.detailed_popup.daily_responsibilties_text') %></h4>
+                  <div class="discription">
+                    <% cnt = 0
+                    for item in job.profile_responsibilities
+                      -%>
+                      <ul class="list-item" style="text-align: left;">
+                        <li>
+                          <span class="list-count"><%=(cnt + 1)%>)</span>
+                          <p style="float:none;">
+                            <% if item.name %>
+                              <%= item.name.html_safe.force_encoding('utf-8') -%>
+                            <% end %>
+                          </p>
+                        </li>
+                      </ul>
+                      <% cnt = cnt + 1
+                    end
+                    -%>
+                  </div>
+                </div>
+                <!--/ Daily Responsibilities content-blocks-->
+              </div>
+            </td>
+            <td>
+              <div class="left-center-content-tableBig" style="margin-top: -16px;">
+                <!--Position Overview content-blocks-->
+                <div class="content-blocks">
+                  <div class="discription">
+                    <div class="position-details margin-B-10px">
+                      <label class="detials-heading"><%= t('opportunities.detailed_popup.overview_text') %></label>
+                    </div>
+                    <% if job.summary %>
+                      <div id="overview-scroll-content">
+                        <p style="width:203px; padding-right: 10px;" class="margin-L-10px">
+                          <%= job.summary.gsub("\n","<br/>").html_safe.force_encoding('utf-8') %>
+                        </p>
+                        <br />
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+
+
+                <div class="content-blocks">
+                  <div class="discription">
+                    <div class="position-details margin-B-10px" style="margin-bottom: 10px;">
+                      <label class="detials-heading"><%if not job.job_attachments.blank?%><%= t('opportunities.detailed_popup.additional_text') %><%end%></label>
+                    </div>
+                    <p align="justify" class="margin-L-10px" style="width:213px;overflow-y:auto;">
+                      <% if job.job_attachments %>
+                        <% job.job_attachments.each do |job_attachment| %>
+                        <div style="overflow: auto;">
+                          <a href="/download_file/additional_details/<%=job_attachment.id%>" style="float: left; display: inline-block;">
+                            <img class="lfloat" width="39" height="49" border="0" src="/assets/resume-image_active.png" alt="Resume" />
+                          </a>
+                          <label onclick="javascript:window.location.href='/download_file/additional_details/<%=job_attachment.id%>'" class="attach-title" style="font-weight: 700; cursor: pointer; margin-left: 10px; float: left; display: inline-block; width: 180px; text-transform: uppercase;">
+						  <% if job_attachment.attachment_title.present? %>
+						  <%= job_attachment.attachment_title.html_safe.force_encoding('utf-8')%></label>
+						  <% else %>
+						  attachment
+						  <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                    </p>
+                  </div>
+                </div>
+                <!--/ Position Overview content-blocks-->
+              </div>
+
+            </td>
+            <td> <div class="right-center-content-tableBig" style="width:222px;overflow-x: auto ; margin-top: -16px;">
+                <!-- Position Details content-blocks-->
+                <div class="content-blocks">
+                  <div class="discription">
+                    <!--position-details-SKILLS-->
+                    <div class="position-details">
+                      <label class="detials-heading"><%= t('opportunities.detailed_popup.role_text') %></label>
+                      <ul class="details" style="text-align: left;">
+                        <%for item in job_roles%>
+                          <li>
+                            <% if item.title %>
+                              <%= item.title.html_safe.force_encoding('utf-8') -%>
+                            <% end %>
+                          </li>
+                        <%end-%>
+                      </ul>
+                    </div>
+                    <!--/position-details-SKILLS-->
+
+                    <!--position-details-degree-->
+                    <div class="position-details">
+                      <% if !job_degree.blank? %><label class="detials-heading"><%= t('opportunities.detailed_popup.degree_text') %></label><% end %>
+                      <% if job_degree.size > 0 %>
+                        <ul class="details" style="text-align: left;">
+                          <%for item in job_degree%>
+                            <li>
+                              <% if item %>
+                                <%= item.name %>&nbsp;<span class="<% if item.flag == 0 %>lang_blue<%else%>lang_red<%end%>"><% if item.flag == 0 %><%= t('opportunities.detailed_popup.desired_text') %><%else%><%= t('opportunities.detailed_popup.required_text') %><%end%></span>
+                              <% end %>
+                            </li>
+                          <%end%>
+                        </ul>
+                      <% end %>
+                    </div>
+                    <!--/position-details-degree-->
+
+                    <!--position-details-Certifications-->
+                    <div class="position-details">
+                      <% if not job_certifications.blank? %><label class="detials-heading"><%= t('opportunities.detailed_popup.license_certificate_text') %></label><%end%>
+                      <%if job_certifications.length > 0%>
+                        <ul class="details" style="text-align: left;">
+                          <% i = 0 %>
+                          <%for item in job_certifications%>
+                            <li>
+                              <% if item %>
+                                <%= item.html_safe.force_encoding('utf-8') -%>&nbsp;<span class="<% if required_certificates_arr[i] == "0" %>lang_blue<%else%>lang_red<%end%>"><% if required_certificates_arr[i] == "0" %><%= t('opportunities.detailed_popup.desired_text') %><% else %><%= t('opportunities.detailed_popup.required_text') %><% end %></span>
+                              <% end %>
+                            </li>
+                            <% i = i + 1 %>
+                          <%end%>
+                        </ul>
+                      <%end-%>
+                    </div>
+                    <!--/position-details-Certifications-->
+
+                    <!--position-details-Languages-->
+                    <div class="position-details">
+                      <label class="detials-heading"><%= t('opportunities.detailed_popup.language_text') %></label>
+                      <ul class="details" style="text-align: left;">
+                        <%for item in language_skills%>
+                          <li>
+                            <% item_profici_val = "" %>
+                            <% if item.name && item.proficiency_val%>
+                              <% if item.proficiency_val == "c"%>
+                                <% item_profici_val = "Conversational" %>
+                              <%elsif item.proficiency_val == "a"%>
+                                <% item_profici_val = "Advanced" %>
+                              <% end %>
+                              <%= item.name.html_safe.force_encoding('utf-8') -%>&nbsp;<span class="<% if item.proficiency_val == "c"%>lang_blue<%else%>lang_red<%end%>"><%= item_profici_val.downcase %></span>
+                            <% end %>
+                          </li>
+                        <%end%>
+                      </ul>
+                    </div>
+                    <!--/position-details-Languages-->
+
+                  </div>
+
+                  <a href="javascript:void(0)" class="close" onClick="job_detail_view.close();" id="oneclick-close">Close</a>
+                </div>
+                <!--/ Position Details content-blocks-->
+              </div>
+            </td>
+            <td>
+              <div class="right-content-tableBig" style="margin-top: -10px;">
+                <!--information-blocks-->
+                <div class="information-blocks">
+                  <div id="cards-block">
+                    <% if job.fit_name_by_pairing %>
+                      <ul style="padding-top: 2px;">
+                        <li>
+                          <% if job.fit_name_by_pairing == "Best" %>
+                            <label class="best active"><%= t('opportunities.detailed_popup.best') %></label>
+                          <% else %>
+                            <label class="best"><%= t('opportunities.detailed_popup.best') %></label>
+                          <% end %>
+                        </li>
+                        <li>
+                          <% if job.fit_name_by_pairing == "Better" %>
+                            <label class="better active"><%= t('opportunities.detailed_popup.better') %></label>
+                          <% else %>
+                            <label class="better"><%= t('opportunities.detailed_popup.better') %></label>
+                          <% end %>
+                        </li>
+                        <li>
+                          <% if job.fit_name_by_pairing == "Good" %>
+                            <label class="good active"><%= t('opportunities.detailed_popup.good') %></label>
+                          <% else %>
+                            <label class="good"><%= t('opportunities.detailed_popup.good') %></label>
+                          <% end %>
+                        </li>
+                        <li style="padding: 0;">
+                          <% if job.fit_name_by_pairing == "Wildcard" %>
+                            <label class="wildCard active"><%= t('opportunities.detailed_popup.wild_card') %></label>
+                          <% else %>
+                            <label class="wildCard"><%= t('opportunities.detailed_popup.wild_card') %></label>
+                          <% end %>
+                        </li>
+                      </ul>
+                    <% end %>
+                    <div id="card-rating">
+                      <% if job.fit_name_by_pairing %>
+                        <% if job.fit_name_by_pairing == "Best" %>
+                          <span class="wild-card active">&nbsp;</span>
+                          <span class="good active">&nbsp;</span>
+                          <span class="better active">&nbsp;</span>
+                          <span class="best active">&nbsp;</span>
+                        <% elsif job.fit_name_by_pairing == "Better" %>
+                          <span class="wild-card active">&nbsp;</span>
+                          <span class="good active">&nbsp;</span>
+                          <span class="better active">&nbsp;</span>
+                          <span class="best">&nbsp;</span>
+                        <% elsif job.fit_name_by_pairing == "Good" %>
+                          <span class="wild-card active">&nbsp;</span>
+                          <span class="good active">&nbsp;</span>
+                          <span class="better">&nbsp;</span>
+                          <span class="best">&nbsp;</span>
+                        <% elsif job.fit_name_by_pairing == "Wildcard" %>
+                          <span class="wild-card active">&nbsp;</span>
+                          <span class="good">&nbsp;</span>
+                          <span class="better">&nbsp;</span>
+                          <span class="best">&nbsp;</span>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <!-- /information-blocks-->
+
+                <!--information-blocks-->
+                <div class="information-blocks">
+                  <h4 class="heading">
+                    Role
+
+                    <%= image_tag("birkmanLogo.png", :alt=>"Birkman", :size=>"86x15", :class=>"rfloat") %>
+                  </h4>
+                  <div class="envNrole-cont" onclick="job_role();">
+                    <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                      <div class="random-block">
+                        <label class="random-heading"><%= t('opportunities.detailed_popup.you_label') %></label><br/>
+                        <% if seeker_role_txt_by_score(job_seeker_birkman_detail) %>
+                          <label class="small-text"><%=seeker_role_txt_by_score(job_seeker_birkman_detail)%></label>
+                          <div class="random-image">
+                            <% if seeker_role_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="random-block random-block-right">
+                        <label class="random-heading"><%= t('opportunities.detailed_popup.position_label') %></label><br/>
+                        <% if job and job_role_txt_by_score(job) %>
+                          <label class="small-text"><%=job_role_txt_by_score(job)%></label>
+                          <div class="random-image">
+                            <% if job_role_txt_by_score(job) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif job_role_txt_by_score(job) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif job_role_txt_by_score(job) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif job_role_txt_by_score(job) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="clear-float"></div>
+
+                    <%end%>
+                  </div>
+                </div>
+                <!-- /information-blocks-->
+
+                <!--information-blocks-->
+                <div class="information-blocks">
+                  <h4 class="heading" style="line-height: 20px;"><%= t('opportunities.detailed_popup.work_env_header') %></h4>
+                  <div class="envNrole-cont" onclick="job_workenv();">
+                    <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                      <div class="random-block">
+                        <label class="random-heading"><%= t('opportunities.detailed_popup.you_label') %></label><br/>
+                        <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) %>
+                          <label class="small-text"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></label>
+                          <div class="random-image">
+                            <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="random-block random-block-right">
+                        <label class="random-heading"><%= t('opportunities.detailed_popup.position_label') %></label><br/>
+                        <% if job and job_workenv_txt_by_score(job) %>
+                          <label class="small-text"><%=job_workenv_txt_by_score(job)%></label>
+                          <div class="random-image">
+                            <% if job_workenv_txt_by_score(job) == "DOER" %>
+                              <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                            <% elsif job_workenv_txt_by_score(job) == "COMMUNICATOR" %>
+                              <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                            <% elsif job_workenv_txt_by_score(job) == "THINKER" %>
+                              <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                            <% elsif job_workenv_txt_by_score(job) == "ANALYZER" %>
+                              <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div class="clear-float"></div>
+                    <%end%>
+                  </div>
+                </div>
+                <!-- /information-blocks-->
+
+                <!--information-blocks-->
+                <div class="information-blocks">
+                  <% if not job.website_one.nil? or not job.website_two.nil? or not job.website_three.nil?%>
+                    <h4 class="heading"><%= t('opportunities.detailed_popup.company_header') %></h4>
+                  <% end %>
+                  <p>
+                    <% if not job.website_one.nil?%>
+                      <a class="website_listing" target="_blank" href="<%= job.website_one.html_safe.force_encoding('utf-8') %>"><%= job.website_title_one.html_safe.force_encoding('utf-8') %></a><br />
+                    <% end %>
+                    <% if not job.website_two.nil?%>
+                      <a class="website_listing" target="_blank" href="<%= job.website_two.html_safe.force_encoding('utf-8') %>"><%= job.website_title_two.html_safe.force_encoding('utf-8') %></a><br />
+                    <% end %>
+                    <% if not job.website_three.nil?%>
+                      <a class="website_listing" target="_blank" href="<%= job.website_three.html_safe.force_encoding('utf-8') %>"><%= job.website_title_three.html_safe.force_encoding('utf-8') %></a><br />
+                    <% end %>
+
+                  </p>
+                </div>
+                <!-- /information-blocks-->
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="clear-float">&nbsp;</div>
+      <div class="popup-footer" style="margin: -25px 15px 10px;">
+        <ul class="lfloat">
+          <%if job.internal == false%>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_FACEBOOK_ID%>,<%=  session[:job_seeker].id%>); popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/job/<%= job.id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');"><%= image_tag("facebook_icon-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.facebook')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_LINKEDIN_ID%>,<%=  session[:job_seeker].id%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%= job.name%>&url=https://<%=request.env["HTTP_HOST"]%>/job/<%= job.id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=Check out this career opportunity with <%=job.company.name%> for a <%=job.name%>&source=<%=request.env["HTTP_HOST"]%>');"><%= image_tag("linkedin-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.linkedin')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_TWITTER_ID%>,<%=  session[:job_seeker].id%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/job/<%=job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('Check out this career opportunity with <%=job.company.name%> ' + 'https://<%=request.env["HTTP_HOST"]%>/job/<%=job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%> #<%=job.name%>') + '&via=thehiloproject ');"><%= image_tag("twitter-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.twitter')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.mail')}", :border=>0), :subject => "Hilo career code: #{job.code}",:body => job_sharing_msg(job,false), :encode => "hex", :onclick => "job_seeker_email(#{job.id}, 6);" %></a></li>
+          <%end%>
+        </ul>
+
+        <ul class="rfloat">
+          <% if following_company_flag == true %>
+            <li id="follow" style="margin-top: 3px;"><input style="width: 152px;" type="button" class="following-button" onclick="follow_company.call(<%= company.id %>,'unfollow',<%= job.id %>);"/></li>
+          <% else %>
+            <% if job.hiring_company == true %>
+              <li id="follow" style="margin-top: 3px;"><input style="width: 152px;" type="button" class="follow-button" onclick="follow_company.call(<%= company.id %>,'follow',<%= job.id %>);"/></li>
+            <% else %>
+              <li id="follow" style="margin-top: 3px;"><input style="width: 152px;" type="button" class="follow-button" onclick='follow_company.show_pop(<%= company.id %>,"follow",<%= job.id %>, "<%= job.company.name %>", "<%= job.hiring_company_name %>");'/></li>
+            <% end %>
+          <% end %>
+
+          <% if watchlist_flag == true %>
+            <li id="watchlist" style="margin-top: 3px;"><input type="button" class="in-watchlist-button" onclick="add_to_watchlist.call(<%= job.id %>,'remove');" /></li>
+          <% else %>
+            <li id="watchlist" style="margin-top: 3px;"><input type="button" class="watchlist-button" onclick="add_to_watchlist.call(<%= job.id %>, 'add');"/></li>
+          <% end %>
+
+          <li>
+            <% if !job_status.interested and !job_status.wild_card %>
+              <% if  session[:job_seeker].ics_type_id == 3 %>
+                <input id="buy-button" type="button" class="btn-Details-interest-excluded" value=""  onclick="interest_job.check(<%=job.id%>, 1);"/>
+              <% else %>
+                <input id="buy-button" type="button" class="btn-Details-interest-included" value="" onclick="interest_job.check(<%=job.id%>, 0);"/>
+              <% end %>
+            <% else %>
+              <input type="button" class="btn-Details-interested" value=""/>
+            <% end %>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+  <span class="popup-bottom">&nbsp;</span>
+</div>
+
+<div class="oneClick-payment-detail" id="oneClick-payment" style="display:none;">
+  <div class="payment-pop-top">&nbsp;</div>
+  <div class="payment-pop-cont">
+    <div class="gradient-content gradient-content-oneClick">
+      <div class="popup-header-container">
+        <label class="popup-heading"><%= t('opportunities.detailed_popup.payment.one_click_header') %></label>
+      </div>
+      <%=  form_tag("/job_payment/authenticate_one_click", :id => "one_click_form", :remote => true) do -%>
+        <input type="hidden" id="pay_method" value="promo" name="pay_method" />
+        <ul class="oneClick-details width-345px lfloat">
+          <li>
+            <div class="customized-input active-input">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="pay_name_placeholder" value="<%= t('opportunities.detailed_popup.payment.email') %>" />
+              <input type="text" name="pay_name" id="pay_name" value="<%=session[:job_seeker].email.force_encoding('utf-8')%>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForOneClick(event);" onkeydown="type_element(this)" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li>
+            <div class="customized-input input-text margin-R-5px">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="pay_pass_placeholder" value="<%= t('opportunities.detailed_popup.payment.password') %>" />
+              <input type="text" name="pay_pass" class="password" id="pay_pass" value="<%= t('opportunities.detailed_popup.payment.password') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForOneClick(event);" onkeypress="type_element(this,event);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+        </ul>
+        <div class="rfloat" style="width:90px;">
+          <% if credit_value.nil? or credit_value == 0 %>
+            <span id ="credit_remaining" class="credit_block">
+              <a href="javascript:void(0)" onclick="click_payment.credit_card_show('<%= session[:pay_for] %>')" id="preview_card_select"><%= t('opportunities.detailed_popup.payment.modify_payment_method') %></a>
+            </span>
+          <% else %>
+            <span id ="credit_remaining" class="credit_block">
+              <%= t('opportunities.detailed_popup.payment.credit_text') %><br /><%= t('opportunities.detailed_popup.payment.remaining_text') %><br />$<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>
+            </span>
+          <% end %>
+          <span>
+            <span id="loader-img" style="display:none;  margin-top: 55px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            <input type="button" id="confirm_button"  value="" class="btn-Confirm rfloat" />
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="payment-pop-bottom">&nbsp;</div>
+</div>
+
+<!-- popup content -->
+<!-- Congratulation Popup on "Indicate Interest/WildCard" button click-->
+<!-- /Congratulation Popup -->
+
+<%# content_for :detail_slider do %>
+<%#= render :partial => "/account/seeker_detailed_slider" %>
+<%# end %>
+
+
+<script type="text/javascript">
+	
+  var timer = setInterval(function() {
+    write_time(<%= job.expire_at.strftime("%Y") %>,<%= job.expire_at.strftime("%m") %>,<%= job.expire_at.strftime("%d") %>,<%= job.expire_at.strftime("%H") %>,<%= job.expire_at.strftime("%M") %>,<%= job.expire_at.strftime("%S") %>)
+  }, 1000);
+	
+  $(function(){
+<%if !full_address.blank?%>
+      load_map_script();
+      lat = "<%=job_location.latitude%>";
+      longi = "<%=job_location.longitude%>";
+      setTimeout("render_map()",2000);
+<%end%>
+
+<%if job_location.nil?%>
+      $(".virtual_setting").css("margin-top","55px");
+<% end %>
+  });
+	
+  $(document).ready(function(){
+
+    $(".envNrole-cont:first").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','64px');
+    })
+    $(".envNrole-cont:last").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','210px');
+    })
+
+    BrowserDetect.init();
+
+    if ( BrowserDetect.browser == "Explorer" )
+    {
+      //wiring to onkeydown event
+      //alert("IE");
+      document.getElementById('pay_pass').attachEvent('onkeydown', function(e){
+        editorEvents(document.getElementById('pay_pass'), e);
+      });
+
+    }
+    else if ( BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Safari" ){
+      document.getElementById('pay_pass').addEventListener('keydown', function(e){
+        editorEvents(document.getElementById('pay_pass'), e);
+      }, false);
+    }
+  });
+
+  function job_role() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_role_for_job',
+      data: 'id='+'<%= params[:job_id] %>',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+
+  function job_workenv() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_workenv_for_job',
+      data: 'id='+'<%= params[:job_id] %>',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+  
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_one_click_form = function(){
+      $('#confirm_button').hide();
+      $('#loader-img').show();
+      $('#credit_remaining').hide();
+      showBlockShadow();
+    }
+    var loaded_one_click_form = function(){
+      hideBlockShadow();
+      $('#credit_remaining').show();
+    }
+    var error_one_click_form = function(){
+      request.abort();hideBlockShadow();showAjaxPaymentErrorPopup();
+    }
+    $("#one_click_form")
+    .bind("ajax:beforeSend", loading_one_click_form)
+    .bind("ajax:complete", loaded_one_click_form)
+    .bind("ajax:error", error_one_click_form)
+  });
+</script>

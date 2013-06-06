@@ -1,0 +1,10 @@
+<div>
+  <%=  form_tag :url => ("/my_introduction/save_summary"),:loading=>"$('#submit-loader-img').show();",:loaded=>"$('#submit-loader-img').hide();$('#submit-button-intro').show();",:html=>{:id=>"edit_summary"}  , :remote => true do |j| %>
+    <div style="padding-top:2px;">
+      <%= text_area_tag :summary,job_seeker.summary,:class=>"input-field-style", :style=>"width:400px; height:150px;"%>
+      <%=submit_tag("Save",:class=>"button-style-shared buttton_65X23")%>
+
+      <br class="clear-height"/>
+    </div>
+  <%end%>
+</div>

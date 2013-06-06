@@ -1,0 +1,46 @@
+<!-- Beta Code Access -->
+<div id="beta_access" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content gradient-content-beta-access">
+        <div class="popup-header-container">
+          <label class="popup-heading">FREE ACCESS BY INVITATION ONLY</label>
+            <span class="rfloat" style="text-align:right;line-height: 1.25;">
+               already have an<br />access code?<br /><a href="job_seeker/new" style="text-decoration:none;">click here</a>
+            </span>
+        </div>
+        <div class="access-block">          
+          <div class="lfloat normal-text">            
+            <label class="free-text">Enter your email address to receive an access code.</label>
+          </div>
+          <div class="rfloat margin-T-13px" style="zoom:1;">
+            <%= form_for :coderequest, :remote => true, :url => { :controller => :access_code,:action => :send_email }, :html => { :method => :post, :id=>"beta_form" } do |f| %>
+              <div class="fp-input-cnt">
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="coderequest_email_placeholder" value="Email address" />
+                  <%=f.text_field :email, :onfocus => "focus_element(this)", :onblur =>"validateBetaEmail(this);blur_element(this)", :onkeyup => "validateBetaEmail(this)", :value => "Email address", :maxlength => 100, :onkeydown=>"type_element(this)"%>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </div>
+              <input type="button" class="enter-button" id="beta_button"/>
+              <%#=submit_tag('',:class=>"enter-button",:id=>"beta_button", :disabled=>"true")%>
+              <span id="loader_img1" style="display:none;float:left;margin-left: 20px;"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideBetaPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Beta Code Access -->
+<%= render :partial => "home/beta_access_error" %>
+<%= render :partial => "home/beta_access_success" %>

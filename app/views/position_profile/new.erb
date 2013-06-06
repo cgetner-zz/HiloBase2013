@@ -1,0 +1,236 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("employer_account")%>
+	<%=render :partial=>"/shared/slider_css" -%>
+<%end-%>
+<%content_for :page_js do -%>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+	<%= javascript_include_tag 'jquery.flot.js' %>
+<%end-%>
+<%=render :partial=>"/employer_account/employer_tab",:locals=>{:tab=>"home"} -%>
+<%=render :partial=>"/shared/top_line_cap" -%>
+<div class="emp-box">
+	<div class="emp-home-content ie-height-fix">
+		<div class="emp-left" id="update_categories">
+			<%=render :partial=>"/employer_account/employer_left_menu/",:locals=>{:jobs => @jobs} -%>
+		</div>
+
+		<div class="emp-right right-menu-adjust">
+			<%=render :partial=>"/employer_account/activity_summary_panel" -%>
+			<%=render :partial=>"/employer_account/home_chart" -%>
+
+			<%=render :partial=>"/position_profile/position_profile_tab",:locals=>{:current_tab => "edit_pos_profile"} -%>
+
+			<%=render :partial=>"/position_profile/create_position_tab",:locals=>{:current_tab => "description"} -%>
+			<div>
+				<div class="emp-pairing-contanainer">
+					<div style="padding:10px;">
+						<%=  form_tag "/position_profile/create", :method => :post do %>
+							<div class="pos-prof-create-header">
+								Description
+							</div>
+
+							<div class="pos-prof-label">Position Title</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "name", @job.name, :class => "input-field-style"%>
+								<%=hidden_field_tag :id, @job.id%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+
+
+							<div class="pos-prof-label">Group</div>
+							<div class="pos-prof-field">
+								<%=select_tag "company_group_id", options_from_collection_for_select(@company_groups, "id", "name",2),:class => "input-field-style"%>
+							
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+
+							<div class="pos-prof-label">Expires On</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "expire_at", set_job_expire_val(@job), :class => "jqcal input-field-style"%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+							<div class="pos-prof-label">Company Name</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "company_name", @company.name, :class => "input-field-style"%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+							<div class="pos-prof-label">Company Founded</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "company_founded_in", @company.founded_in, :class => "input-field-style"%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+
+							<div class="pos-prof-label">Company Website</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "company_website", @company.website, :class => "input-field-style"%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+							<div class="pos-prof-label">Number of employees</div>
+							<div class="pos-prof-field">
+								<%=text_field_tag "company_employee_strength", @company.employee_strength, :class => "input-field-style"%>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+
+							<div class="pos-prof-label">
+								Ownership
+								<%=hidden_field_tag :owner_ship_type_id, @company.owner_ship_type_id%>
+							</div>
+							<div class="pos-prof-field" style="width: 500px;">
+								<%for item in @ownerships%>
+									<div class="pos-prof-ownership-icon">
+										<a href="javascript:void(0);" data-ownership-id="<%=item.id%>"><img src="<%=(item.id == @company.owner_ship_type_id ? '/assets/neutral.png': '/assets/employer_v2/btn-radio-inactive.png')%>"/></a>
+									</div>
+									<div class="pos-prof-ownership-text">
+										<%=item.name%>
+									</div>
+								<%end%>
+
+								<div class="clear-height"></div>
+							</div>
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+							
+							
+							<div class="pos-prof-ticker" id="ticker-box" style="<%=@company.owner_ship_type_id == 3 ? '' : 'display:none;'%>">
+								<div class="pos-prof-label">Ticker</div>
+								<div class="pos-prof-field">
+									<%=text_field_tag "ticker_value", @company.ticker_value, :class => "input-field-style"%>
+								</div>
+								<div class="clear-height"></div>
+								<div class="height10"></div>
+							</div>
+
+
+							<div class="posprof-pos-loc">
+								<div>
+									Position's Location
+								</div>
+								<div>
+									<div class="pos-prof-label">
+										Street Address
+									</div>
+									<div class="pos-prof-field">
+										<%=text_field_tag "company_street_one", (@job_location.nil? ? "" : @job_location.street_one), :class => "input-field-style"%>
+									</div>
+									<div class="clear-height"></div>
+									<div class="height5"></div>
+
+									<div class="pos-prof-label">
+										&nbsp;
+									</div>
+									<div class="pos-prof-field">
+										<%=text_field_tag "company_street_two", (@job_location.nil? ? "" : @job_location.street_two) , :class => "input-field-style"%>
+									</div>
+									<div class="clear-height"></div>
+									<div class="height10"></div>
+
+									<div class="pos-prof-label">
+										City
+									</div>
+									<div class="pos-prof-field">
+										<%=text_field_tag "company_city", (@job_location.nil? ? "" : @job_location.city) , :class => "input-field-style"%>
+									</div>
+									<div class="clear-height"></div>
+									<div class="height5"></div>
+
+									<div class="pos-prof-label">
+										Zip Code
+									</div>
+									<div class="pos-prof-field">
+										<%=text_field_tag "company_zip",(@job_location.nil? ? "" : @job_location.zip_code) , :class => "input-field-style"%>
+									</div>
+									<div class="clear-height"></div>
+									<div class="height5"></div>
+								</div>
+							</div>
+
+							<div class="posprof-daily-resp">
+								<div>
+									Position's Top 5 Daily Responsibilities
+								</div>
+								<div  id="responsibility-box">
+									<%for pr in @job.profile_responsibilities%>
+										<div class="pos-prof-field responsibility-field"  >
+											<input type="text" name="responsiblities[]" value="<%=pr.name%>" class="input-field-style"/>
+										</div>
+									<%end%>
+								</div>
+							</div>
+							
+							
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+								
+							<div>
+								Position's Description
+							</div>
+							<div>
+								<%=text_area_tag("summary", @job.summary, :rows => 6,:class=>"textarea-field-style",:style=>"width:600px;")%>
+							</div>
+							
+							<div class="height10"></div>
+
+							<div class="pos-right"> 
+								<%=submit_tag("Save",:onclick=>"job_desc_before_save();",:class=>"button-style-shared buttton_65X23")%>
+							</div>
+
+							<div class="clear-height"></div>
+							<div class="height10"></div>
+							
+						<%end%>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear-zero-height"></div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		<%if @job.profile_responsibilities.length == 0%>
+			add_more_responsibility.add();
+		<%end%>
+		add_more_responsibility.init();
+
+		ownership_event.init();
+		<%if not @error_json.blank?%>
+			msg_box.show_error("<%=@error_json%>");
+		<%end%>
+
+		apply_calendar();
+
+		//adjust_left_panel_height();
+	});
+
+
+	function job_desc_before_save(){
+		
+	}
+
+
+	function apply_calendar(){
+		$(".jqcal").each(function(){
+			$(this).datepicker({
+			showOn: 'button',
+			buttonImage: '/assets/calendar.jpg',
+			buttonImageOnly: true,
+			dateFormat: "yy-mm-dd "
+			});	
+		});
+	}
+</script>

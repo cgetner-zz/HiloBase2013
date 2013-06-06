@@ -1,0 +1,81 @@
+
+
+<div class="lang-outer-box" style="display:none;" id="lang_popup">
+	<div style="">
+		<div id="lang_type_popup" style="display:none;">
+			<div class="lang-select-cross">
+				<span id="lang-type-popup-clear">
+				<a href="javascript:void(0);" onclick="lang_menu.select_level('clear');">Clear</a>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+				<a href="javascript:void(0);" onclick="$('#lang_type_popup').hide();"><img src="/assets/small_cross.png"/></a>
+			</div>
+			<br class="clear"/>
+			<div class="lang-type-popup-content">
+				<a href="javascript:void(0);" onclick="lang_menu.select_level('conversational');" class="conversational-lang">Conversational</a> 
+				&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="javascript:void(0);" onclick="lang_menu.select_level('advanced');" class="advanced-lang">Advanced</a> 
+				
+			</div>
+		</div>
+		
+		<div class="corner-close-box">	
+			<div class="lang_close">
+				<a href="javascript:void(0);" onclick="select_lang_pop.close();" title="close"><img src="/assets/lightbox-cross.png"/></a>
+			</div>
+		</div>
+		<div class="clear-zero-height">&nbsp;</div>
+		<div ><img src="/assets/privacy_horizontal_top.png"/></div>
+		<div class="lang-inner-box">
+			<div class="lang-content">
+				<div class="lang-header">
+					Select up to six languages. Choose your competency level for each selection, <span class="conversational-lang">Conversational</span> or <span class="advanced-lang">Advanced</span>. If you choose the
+					Advanced category you must be able speak, read, write and translate the selected language in a business context.
+				</div>
+				
+				<div id="lang_error_div" style="color:red;display:none;text-align:center;margin-top:5px;">
+					At the most 6 languages can be selected.
+				</div>
+				<div id="lang-list">
+					
+
+
+					<%	cnt = 0
+						for lang in languages_list%>
+							<div class="lang-link-box">
+								<span><a href="javascript:void(0);" class="lang-val" id="lang_link_<%=lang.id%>"><%=h(lang.name) -%></a></span>
+								<br class="clear"/>
+							</div>
+							<%if (cnt + 1).divmod(2)[1] == 0%>
+							<br class="clear"/>
+							<%end%>
+					<%
+						cnt = cnt + 1
+						end
+					-%>
+					<br class="clear"/>
+
+				</div>
+				
+				
+				<div>
+					<div class="lang-clear">
+						<a href="javascript:void(0);" onclick="select_lang_pop.clear();" class="button-a buttton_65X23">Clear All</a>
+					</div>
+					<div class="lang-select">
+						<a href="javascript:void(0);" onclick="select_lang_pop.done();" class="button-a buttton_65X23">Save</a>
+					</div>
+					<br class="clear"/>
+				</div>
+				
+			</div>
+		</div>
+		<div><img src="/assets/privacy_horizontal_bottom.png"/></div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		lang_menu.apply();
+	});
+</script>

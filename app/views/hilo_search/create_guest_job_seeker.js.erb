@@ -1,0 +1,6 @@
+$("#search_job_msg").html("<%= escape_javascript render(:partial => '/home/search_job_msg_popup',:locals=>{:guest_job_seeker_id=>@guest_job_seeker.id})%>");
+$('#hilo_email_popup').hide();
+$('#search_job_msg').show();
+centralizePopup();
+addFocusButton('search_job_msg_popup_button');
+

@@ -1,0 +1,11 @@
+<% if @old_payment_obj.nil? and (@credit_value.nil? or @credit_value == 0) %>
+  $("#gift_cc_billing_popup").html("<%= escape_javascript render(:partial => "/home/credit_card_popup", :locals => {:promo_consumed_amount => nil, :remianing_amount => nil}) %>");
+  gift_hilo.showGiftccBilingPopup();
+<% elsif !@old_payment_obj.nil? and (@credit_value.nil? or @credit_value == 0) %>
+  gift_hilo.showRegGiftPurchase('<%=@old_payment_obj.card_type%>');
+<% elsif !@credit_value.nil? and @credit_value >= GIFT_CARD_AMOUNT %>
+  gift_hilo.showRegGiftPurchase('promo');
+<% elsif !@credit_value.nil? and @credit_value < GIFT_CARD_AMOUNT %>
+  gift_hilo.showRegGiftPurchase('promo');
+<% end %>
+

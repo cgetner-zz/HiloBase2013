@@ -1,0 +1,51 @@
+<% @job_feed.each do |job| %>
+  <% company_name = job.company.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+  <% job_name = job.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+  <% job_url = "https://thehiloproject.com/job/"+company_name+"/"+job_name+"/"+job.id.to_s+"/4" %>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <th class="hilo-gem">
+            <div>
+              <img width="27" height="26" src="/assets/lolo_small.gif" alt="The Hilo Project" />
+            </div>
+          </th>
+          <th>
+            <div class="job-description">
+              <a href="<%=job_url%>" target="_blank">
+                <%= job.name %> at <% if job.hiring_company == false %><%= job.hiring_company_name %><% else %><%= job.company.name %><% end %>
+              </a>
+              <div class="overview">
+                <% job_overview = truncate(job.summary, :length => 90, :omission => '...') %>
+                <%= job_overview %>
+                <% if job_overview != job.summary %>
+                  <a href="<%=job_url%>" target="_blank">(see more)</a>
+                <% end %>
+              </div>
+              <div class="other-info">
+                <table>
+                  <tbody>
+                    <tr>
+                      <th class="location">
+                        <%= job.location_name %>
+                      </th>
+                      <th class="time-left">
+                        <% days_to_go = ((job.expire_at - DateTime.now)/(24*60*60)).to_i %>
+                        <% if days_to_go.to_i == 0 %>
+                          Expires today!
+                        <% else %>
+                          <%= pluralize(days_to_go, 'Day') %> left
+                        <% end %>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+<% end %>

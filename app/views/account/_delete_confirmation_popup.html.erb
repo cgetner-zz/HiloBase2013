@@ -1,0 +1,29 @@
+<div id="delete_confirmation_popup" class="white_content" style="z-index: 1008; top: 15%; position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading job_expiry_warning">DELETE MY ACCOUNT</label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" style="width: 285px !important;">
+            <label class="free-text job_expiry_msg">
+              <span id="delete_confirmation_popup_msg" style="font-weight: 400; font-size: 14px; display: inline-block; text-align: justify;"></span>
+            </label>
+          </div>
+          <div class="rfloat margin-T-25px">
+            <div class="lfloat"><input type="button" id="delete_confirmation_popup_cancel_button" class="cancel-button-active" onclick="job_seeker_delete.hideDeleteConfirmationPopup();" /></div>
+            <div class="lfloat"><input id ="job_expiry_error_continue" type="button" class="btn-Confirm-active" onclick="job_seeker_delete.continueDeleteConfirmationPopup();" style="margin-left: 10px; margin-top: 2px; height: 34px!important;" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onclick="job_seeker_delete.hideDeleteConfirmationPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

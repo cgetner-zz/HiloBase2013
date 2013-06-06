@@ -1,0 +1,21 @@
+<% broadcast "/dashboard_update#{@company_id}" do %>
+  <%
+     job_id = PurchasedProfile.where(:company_id => @company_id, :job_seeker_id => @job_seeker_id).last.job_id
+     emp_id =  Job.find(job_id).employer_id
+  %>
+
+  var ancestors = new Array();
+  <% Employer.find_by_id(emp_id).ancestor_ids.each do |id| %>
+    ancestors.push("<%= id %>");
+  <% end %>
+  ancestors.push("<%= emp_id %>");
+
+  if(ancestors.has($("#current_employer_id").val())){
+  <%# if Employer.find_by_id(emp_id).ancestor_ids.include?(session[:employer].id) or session[:employer].id = emp_id %>
+    $("#refresh_link").show();
+    $("#refresh_link").children().click(function(){
+      dashboardRefreshHandler();
+    });
+  <%# end %>
+  }
+<% end %>

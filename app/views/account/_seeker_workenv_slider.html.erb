@@ -1,0 +1,88 @@
+<div class="personality-scroller-content">
+  <div class="personality-scroll-content">
+    <div id="personalityFrame">
+        <!-- Contains the forward/back buttons, hides the scrollbar -->
+        <div class="button" id="left">
+              <a href="javascript:void(0)" onClick="ScrollArrowPersonality('left','toolbar-personality','personalityScroller','role-pane');">
+                  <%= image_tag("previous-blue-image.png", :alt=>"Slider Control", :onMouseDown => "this.src='/assets/previous-blue-image.png'", :onMouseUp => "this.src='/assets/previous-blue-image.png'") %>
+              </a>
+        </div>
+
+        <div id="personalityScroller">
+              <!-- Contains the horizontal scrollbar -->
+              <div id="personalityContent">
+                <% if defined?(career_seeker) and career_seeker=="nil" %>
+                  <div class="personalitySection" id="role-pane">
+                      <div class="you_label"><%= "SEEKER" %></div>
+                      <%= image_tag("Communicator.jpg", :size => "533x416", :alt => "Communicator") %>
+                  </div>
+                  <div class="personalitySection" id="roleInterest-pane">
+                      <div class="you_label"><%= "POSITION" %></div>
+                      <% if emp_workenv_text %>
+                        <% if emp_workenv_text == "doer" %>
+                                <%= image_tag("Doer.jpg", :alt=>"DOER", :size=>"533x416") %>
+                        <% elsif emp_workenv_text == "communicator" %>
+                                <%= image_tag("Communicator.jpg", :alt=>"COMMUNICATOR", :size=>"533x416") %>
+                        <% elsif emp_workenv_text == "thinker" %>
+                                <%= image_tag("Thinker.jpg", :alt=>"THINKER", :size=>"533x416") %>
+                        <% elsif emp_workenv_text == "analyzer" %>
+                                <%= image_tag("Analyzer.jpg", :alt=>"ANALYZER", :size=>"533x416") %>
+                        <% end %>
+                      <% end %>
+                  </div>
+                <% else %>
+                  <% if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil? %>
+                      <!-- Very wide to contain all the sections side-by-side -->
+                      <div class="personalitySection" id="role-pane">
+                          <div class="you_label"><%= session[:employer] ? "SEEKER" : "YOU" %></div>
+                          <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) %>
+                            <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                              <%= image_tag("Doer.jpg", :size=>"533x416", :alt=>"Doer") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                              <%= image_tag("Communicator.jpg", :size => "533x416", :alt => "Communicator") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                              <%= image_tag("Thinker.jpg", :size => "533x416", :alt => "Thinker") %>
+                            <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                              <%= image_tag("Analyzer.jpg", :size => "533x416", :alt => "Analyzer") %>
+                            <% end %>
+                          <% end %>
+                      </div>
+                      <div class="personalitySection" id="roleInterest-pane">
+                            <div class="you_label"><%= "POSITION" %></div>
+                            <% if defined?(job) %>
+                                <% if job and job_workenv_txt_by_score(job) %>
+                                  <% if job_workenv_txt_by_score(job) == "DOER" %>
+                                    <%= image_tag("Doer.jpg", :alt=>"DOER", :size=>"533x416") %>
+                                  <% elsif job_workenv_txt_by_score(job) == "COMMUNICATOR" %>
+                                    <%= image_tag("Communicator.jpg", :alt=>"COMMUNICATOR", :size=>"533x416") %>
+                                  <% elsif job_workenv_txt_by_score(job) == "THINKER" %>
+                                    <%= image_tag("Thinker.jpg", :alt=>"THINKER", :size=>"533x416") %>
+                                  <% elsif job_workenv_txt_by_score(job) == "ANALYZER" %>
+                                    <%= image_tag("Analyzer.jpg", :alt=>"ANALYZER", :size=>"533x416") %>
+                                  <% end %>
+                                <% end %>
+                            <% else %>
+                              <%= image_tag("Communicator.jpg", :alt=>"COMMUNICATOR", :size=>"533x416") %>
+                            <% end %>
+                      </div>
+                  <% end %>
+                <% end %>
+              </div>
+        </div>
+        <div class="button" id="right">
+            <a href="javascript:void(0)" onClick="ScrollArrowPersonality('right','toolbar-personality','personalityScroller','role-pane');">
+                  <%= image_tag("next-blue-image.png", :alt=>"Slider Control", :onmousedown => "this.src='/assets/next-blue-image.png'", :onmouseup => "this.src='/assets/next-blue-image.png'") %>
+            </a>
+        </div>
+    </div>
+    <ul id="toolbar-personality">
+        <li id="role-tab" class="active">
+              <a href="javascript:void(0)" onClick="ScrollSectionPersonality('role-pane', 'personalityScroller', 'role-pane'); return false" title="Role"></a>
+        </li>
+        <li id="roleInterest-tab" class="inactive">
+              <a href="javascript:void(0)" onClick="ScrollSectionPersonality('roleInterest-pane', 'personalityScroller', 'role-pane'); return false" title="Role"></a>
+        </li>
+    </ul>
+    <div style="clear: both"></div>
+  </div>
+</div>

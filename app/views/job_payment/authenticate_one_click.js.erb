@@ -1,0 +1,52 @@
+<%  if @job_seeker_authenticate.blank? or params[:pay_name] != session[:job_seeker].email %>
+  <% if not session[:job_seeker].credit.nil? %>
+    <% if session[:old_payment].nil? or session[:job_seeker].credit.credit_value >0%>
+      click_payment.authenticate_error('<%=session[:pay_for]%>', '<%=session[:pay_job].id%>', 'promo');
+    <% else %>
+      click_payment.authenticate_error('<%=session[:pay_for]%>', '<%=session[:pay_job].id%>', '<%=session[:old_payment].card_type%>');
+    <% end %>
+  <% end %>
+<%  else %>
+  <%  case params[:pay_method] %>
+  <%  when  "promo" %>
+    <% if  @credit_value >= @total_amount%>
+      <% controller.send("pay_all_by_hilo") %>
+      <%  if session[:pay_for] == "interest" or session[:pay_for] == "wild" %>
+        show_congratulation_popup('<%=session[:pay_job].id%>','<%=session[:pay_for]%>');
+      <%  else %>
+        job_detail_view.show('<%=session[:pay_job].id%>','<%=session[:pay_for]%>');
+      <%  end %>
+      $("#credit-amt-dash").text('<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>');
+    <% else %>
+      $('.white_content .popup-upper-block-positionPrevew .popup-bottom').show();
+      $("#pay_pass").val('');
+      $("#oneClick-payment").hide();
+      $("#fade_normal_warning").show();
+      <% if session[:old_payment].nil? %>
+        $("#verify-loader-img_no_one_click").hide();
+        $('.detiled_content').css('top','8%');
+        $('.popup-detailed-container .popup-bottom').show();
+        $("#continue-button-active_no_one_click").show();
+        $("#complete_purchase_no_one_click").show();
+        addFocusButton('continue-button-active_no_one_click');
+      <% else %>
+        $("#verify-loader-img_one_click").hide();
+        $('.detiled_content').css('top','8%');
+        $('.popup-detailed-container .popup-bottom').show();
+        $("#continue-button-active_one_click").show();
+        $("#complete_purchase_one_click").show();
+        addFocusButton('continue-button-active_one_click');
+        $("#total_amount_one_click").val('<%= number_to_currency(@total_amount - @credit_value, :unit=>"") %>');
+        $("#credit_amount_one_click").val('<%= number_to_currency(@credit_value, :unit=>"") %>');
+      <% end %>
+      $(".balance_amount").text('$<%= number_to_currency(@total_amount - @credit_value, :unit=>"") %>');
+    <% end %>
+  <%  when "NA", "master", "visa", "american_express", "discover"  %>
+    <%  controller.send("pay_all_by_credit_or_paypal") %>
+    <%  if session[:pay_for] == "interest" or session[:pay_for] == "wild" %>
+      show_congratulation_popup('<%=session[:pay_job].id%>','<%=session[:pay_for]%>');
+    <%  else %>
+      job_detail_view.show('<%=session[:pay_job].id%>','<%=session[:pay_for]%>');
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,82 @@
+<%=render :partial=>"/employer/employer_tab",:locals=>{:step=>"payment"}%>
+<div class="wizard-content">
+	<div class="pay-container">
+		<div class="pay-box">
+			<div class="pay-body">
+				
+					
+					<%=render :partial=>"/account/panels/pairing_top_cover" -%>
+					<div class="pay-content">
+						<%if show_employer_enter_hilo_button() -%>
+							<div style="text-align:center;height: 300px">
+								<div class="congrats">
+										Congratulations!
+								</div>
+								<div class="height10">&nbsp;</div>
+								<div id="post-payment-div" style="">
+									Your registration payment of $<%=EMPLOYER_REGISTRATION_COST%> has been processed.
+									<div class="height10">&nbsp;</div><div class="height10">&nbsp;</div>
+									<a href="/employer_account" class="button-pay-a button_pay_190X34" style="margin-left:auto;margin-right:auto;">Enter Hilo &#62;&#62;</a>
+								
+								</div>
+							</div>
+						<%else%>
+							
+							<div>
+								<div>
+									<div id="select_payment_msg">
+										Select one of the payment options below to activate your account for <b>$<%=EMPLOYER_REGISTRATION_COST%></b>.
+									</div>
+								</div>
+							</div>
+							<div class="heigh10">&nbsp;</div>
+							<div id="pre-payment-div">
+								<div class="payment-opt-box">
+									<a href="javascript:void(0);" onclick="payment_option.open('paypal_pro');">
+										<img src="/assets/pay_via_card.png"/>
+									</a>
+								</div>
+								
+								<div class="payment-opt-box">
+									<a href="javascript:void(0);" onclick="payment_option.open('paypal_express');">
+										<img src="/assets/pay_via_paypal.png"/>
+									</a>
+								</div>
+								
+								<div class="payment-opt-box">
+									<a href="javascript:void(0);" onclick="payment_option.open('promocode_form');">
+										<img src="/assets/pay_via_code.png"/>
+									</a>
+								</div>
+								<div class="clear">&nbsp;</div>
+							</div>
+							
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+							<div>
+								<%=render :partial => "card_form"%>
+							</div>
+							
+							<div class="pay-field-section-break">&nbsp;</div>
+							
+							<div class="clear">&nbsp;</div>
+						<%end%>
+					</div>
+					<%=render :partial=>"/account/panels/pairing_bottom_cover" -%>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		<%if not @error_json.blank?%>
+			msg_box.show_error("<%=@error_json%>");
+		<%end%>
+
+		<%if show_employer_enter_hilo_button() -%>
+			disable_form_on_complete_registration();	
+		<%end -%>
+	});
+</script>

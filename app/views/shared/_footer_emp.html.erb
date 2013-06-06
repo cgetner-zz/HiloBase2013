@@ -1,0 +1,43 @@
+<%if not ["share_hilo"].include?(controller.controller_name)%>
+<div class="footer <%=footer_bg()%>">
+	<div class="footer-content">
+		<div class="footer-left">
+        <div style="float:left;">
+				<a href="javascript:void(0);" class="gift-link">Gift Hilo</a>
+        
+        </div>
+        <div style="float:left;">
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+				<div style="float:left;">
+				<a href="javascript:void(0);" onclick="share_hilo.share('<%=SHARE_PLATFORM_FACEBOOK_ID%>');"><img src="/assets/facebook_icon.png"/></a>
+				
+        </div>
+        <div style="float:left;">
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div style="float:left;">
+				<a href="javascript:void(0);" onclick="share_hilo.share('<%=SHARE_PLATFORM_TWITTER_ID%>');"><img src="/assets/twitter_icon.png"/></a>
+        </div>
+        <div style="float:left;">
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div style="float:left;">
+				<a href="javascript:void(0);" onclick="share_hilo.share('<%=SHARE_PLATFORM_LINKEDIN_ID%>');"><img src="/assets/linkedin.png"/></a>
+        </div>
+        <div style="float:left;">
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        </div>
+        <div style="float:left;">
+				<%= mail_to "", image_tag("email_icon.png"), :subject => "Check out The Hilo Project!",:body => (social_networking_msg(false)), :encode => "hex" -%>
+        </div>
+		</div>
+		<div class="footer-right">
+			<%if not ["home"].include?(controller.controller_name)%><b><a onclick="tc.open();" href="javascript:void(0);">Terms of Use</a></b> &nbsp;&nbsp;|&nbsp;&nbsp; <b><a onclick="privacy.open();" href="javascript:void(0);">Privacy Policy</a></b> &nbsp;&nbsp;|&nbsp;&nbsp;<%end%>			
+			<a href="https://www.linkedin.com/company/hilo-inc." target="_blank">Hilo, Inc. &#169; 2012, All rights reserved.</a>
+
+		</div>
+		<div class="clear-height"></div>
+	</div>
+</div>
+<%end %>

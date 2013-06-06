@@ -1,0 +1,10 @@
+$('#invi_email').parent().removeClass('input-text input-text-active input-text-error').addClass('active-input');
+$('#invi_email').val("");
+$('#invi_email').blur();
+
+//show popup
+$("#csv-success").show();
+addFocusButton('ok-button');
+centralizePopup();
+$('#fade_success').show();
+footerOnOpeningPopup();

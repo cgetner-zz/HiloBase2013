@@ -1,0 +1,6 @@
+<% broadcast "/detailed#{@job_id}" do %>
+  $("#refresh_link").show();
+  $("#refresh_link").children().click(function(){
+    poolRefreshHandler();
+  });
+<% end %>

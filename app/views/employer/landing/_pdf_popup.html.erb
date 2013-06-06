@@ -1,0 +1,23 @@
+<div id="our_latest_pdf" class="white_content" style="top: 8%; position: fixed; overflow: visible;">
+  <div style="width: 1010px">
+    <% if @pdf_id == "1" %>
+      <embed style="box-shadow: 0px 0px 30px #000000; background: black;" width="1000" height="800" type="application/pdf" src="/HiloforRedeployment.pdf" id="pdf_emded" />
+      <div style="color: white;"><center><a style="color: white; text-decoration: underline;" href="home/download_pdf?id=1">Click Here</a> to download</center></div>
+    <% elsif @pdf_id == "2" %>
+      <embed style="box-shadow: 0px 0px 30px #000000; background: black;" width="1000" height="800" type="application/pdf" src="/QuantitativeOutplacement.pdf" id="pdf_emded" />
+      <div style="color: white;"><center><a style="color: white; text-decoration: underline;" href="home/download_pdf?id=2">Click Here</a> to download</center></div>
+    <% elsif @pdf_id == "3" %>
+      <embed style="box-shadow: 0px 0px 30px #000000; background: black;" width="1000" height="800" type="application/pdf" src="/TheCaseforReplacingJobBoards.pdf" id="pdf_emded" />
+      <div style="color: white;"><center><a style="color: white; text-decoration: underline;" href="home/download_pdf?id=3">Click Here</a> to download</center></div>
+    <% elsif @pdf_id == "4" %>
+      <embed style="box-shadow: 0px 0px 30px #000000; background: black;" width="1000" height="800" type="application/pdf" src="/Sample-Career-Foward-Guide.pdf" id="pdf_emded" />
+      <div style="color: white;"><center><a style="color: white; text-decoration: underline;" href="home/download_pdf?id=4">Click Here</a> to download</center></div>
+    <% elsif @pdf_id == "5" %>
+      <embed style="box-shadow: 0px 0px 30px #000000; background: black;" width="1000" height="800" type="application/pdf" src="/NewReality2012.pdf" id="pdf_emded" />
+      <div style="color: white;"><center><a style="color: white; text-decoration: underline;" href="home/download_pdf?id=5">Click Here</a> to download</center></div>
+    <% end %>
+  </div>
+</div>
+<script>
+  $("#pdf_emded").attr('height',$(window).height()-220);
+</script>

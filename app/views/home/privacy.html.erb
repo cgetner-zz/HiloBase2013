@@ -1,0 +1,31 @@
+<div class="t_c_container">
+	<%if request.xhr? -%>
+		<div class="corner-close-box">
+			<div class="t_c_close"><a href="javascript:void(0);" onclick="tc.close();" title="close"><img src="/assets/lightbox-cross.png"/></a></div>
+		</div>
+		<div class="clear-zero-height">&nbsp;</div>
+		<div><img src="/assets/privacy_horizontal_top.png"/></div>
+	
+		<div class="t_c_header">
+			<div>Privacy</div>
+		</div>
+	<%else -%>
+		<div>
+			<img src="/assets/hilo_logo.png"/>
+		</div>
+	<%end -%>	
+		<div class="t_c_box">
+			<div style="padding:10px;">
+				<div style="float:right;">
+					<a href="javascript:void(0);" onclick="window.open('/home/print_privacy','privacy','height=400px,width=500px,scrollbars=yes');" title="print"><img src="/assets/printer.gif" border="0"/></a>
+				</div>
+				<br class="clear"/>
+				
+				<%=render :partial=>"/shared/privacy_text"%>
+			</div>
+		</div>
+	
+	<%if request.xhr? -%>
+	<div><img src="/assets/privacy_horizontal_bottom.png"/></div>
+	<%end -%>	
+</div>

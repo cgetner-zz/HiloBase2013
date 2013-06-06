@@ -1,0 +1,8 @@
+var add_to_col;
+<% @children_ids.each do |child_id| %>
+  <% child = Employer.find_by_id(child_id) %>
+  add_to_col = getEmptyPosition();
+  $('.user-admin-box .content .user-rows:nth-child('+add_to_col+')').append("<%= escape_javascript render(:partial=>'shared/employer/user_admin_boxes', :locals => {:child => child})%>");
+<% end %>
+bindUserBoxes();
+all_atag_bindings();

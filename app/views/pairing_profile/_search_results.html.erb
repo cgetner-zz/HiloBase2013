@@ -1,0 +1,308 @@
+<div class="lfloat">
+  <div class="explore_select_role exploreRoleCluster">
+    <div class="career_cluster_top">&nbsp;</div>
+    <div class="career_cluster_middle">
+      <div class="explore_select_heading">
+        <p class="numericNo">1</p>
+        <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.cluster") %></p>
+        <p class="headingTxtSmall"><%=t ("pairing_profile.credentials.role_exp.content") %></p>
+      </div>
+      <ul id="career_clusters">
+        <% if desired_roles.size > 0 %>
+          <%# career_cluster = desired_roles.uniq{|p| p.Career_Cluster} %>
+          <%# career_cluster.each do |desired_role, i| %>
+          <li class="career_role">
+            <input type="hidden" id="career_role" value="<%#= desired_role.Career_Cluster %>" />
+          <%#= desired_role.Career_Cluster %>
+          </li>
+          <%# end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="career_cluster_bottom">&nbsp;</div>
+  </div>
+  <div class="clear-float">&nbsp;</div>
+  <div class="clear-float roles_cancelBtn margin-T-20px" style="float: left;">
+    <a href="javascript:void(0)" onclick="cancelRoleSelection();"><%= image_tag("Cancel_Continue_buttons.png") %></a>
+  </div>
+  <div class="roles_cancelBtn margin-T-20px" style="margin-top: 24px ! important; margin-left: 7px; float: left;">
+    <input type="button" onclick="resetSelectRolesPopup();" id="role_reset_button" class="reset-button lfloat" value="" />
+  </div>
+</div>
+
+<!--Career Paths starts-->
+<div class="explore_select_role exploreRolePath margin-L-10px" id="careerPathRole">
+  <div class="career_path_left_initial"><%= image_tag("cred_role_arrow.png") %></div>
+  <div class="career_path_left">&nbsp;</div>
+  <div class="career_path_group">
+    <div class="career_path_top">&nbsp;</div>
+    <div class="career_path_middle">
+      <div class="explore_select_heading">
+        <p class="numericNo">2</p>
+        <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.path") %></p>
+        <p class="headingTxtSmall"><%=t ("pairing_profile.credentials.role_exp.content1") %></p>
+      </div>
+      <ul id="careerPath">
+        <% if desired_roles.size > 0 %>
+          <%# career_paths = desired_roles.uniq{|p| p.Career_Pathway} %>
+          <%# career_paths.each do |desired_role| %>
+          <li class="career_role">
+            <input type="hidden" id="career_role" value="<%#= desired_role.Career_Cluster %>" />
+          <%#= desired_role.Career_Pathway %>
+          </li>
+          <%# end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="career_path_bottom">&nbsp;</div>
+  </div>
+</div>
+
+<!--Career desiredrole starts-->
+<% if desired_roles.size > 0 %>
+  <% select_desired_roles = desired_roles.uniq{|p| p.title} %>
+  <% roles_count = select_desired_roles.size %>
+<% else %>
+  <% roles_count = 0 %>
+<% end %>
+<div class="role-search-count" id="role_search_count"><%=t ("pairing_profile.credentials.role_exp.message") %> <%= roles_count %> roles</div>
+<div class="explore_select_role margin-L-10px" id="exploreRolDescription">
+  <div id="roles_list">
+    <div class="career_desiredrole_left_initial"><%= image_tag("cred_role_arrow.png") %></div>
+    <div class="career_desiredrole_left">&nbsp;</div>
+    <div class="career_desiredrole_group">
+      <div class="career_desiredrole_top">&nbsp;</div>
+      <div class="explore_select_heading explore_heading_background" style="padding-top: 5px;">
+        <p class="numericNo">3</p>
+        <p class="headingTxt transform-letter"><%=t ("pairing_profile.credentials.role_exp.role") %></p>
+        <p class="headingTxtSmall lfloat"><%=t ("pairing_profile.credentials.role_exp.content2") %></p>
+        <p class="rfloat role-search-filter close">Filter</p>
+        <div class="clear-float"></div>
+        <div class="role-filter-content">
+          <div class="lfloat" style="padding: 10px 0px 0px 10px;">
+
+            <input type="hidden" value="<%= @order.nil? ? 'alphabetical' : @order %>" id="role_sort_val" />
+            <div class="state-selector-block" id="sort-role-block">
+              <div class="state-slector" id ="sort-role">
+                <span class="label-default" id="temp">
+                  <% if @order.nil? %>
+                    Alphabetical
+                  <% elsif @order == "alphabetical" %>
+                    Alphabetical
+                  <% elsif @order == "relevance" %>
+                    Relevance
+                  <% end %>
+                </span>
+                <div class="state-options" id="sort-role-options" style="display:none;">
+                  <div class="state-options-top">&nbsp;</div>
+                  <div class="state-options-content">
+                    <label class="label-default-spec4">Sort By</label>
+                    <ul class="option">
+                      <li selected="">
+                        <label onclick="unbindKeydown();filterResults('<%= search_term %>', 'relevance');" id="1" >Relevance</label>
+                      </li>
+                      <li selected="">
+                        <label onclick="unbindKeydown();filterResults('<%= search_term %>', 'alphabetical');" id="2" >Alphabetical</label>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="state-options-bottom">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="rfloat" style="padding-right: 10px; padding-top: 12px;">
+            <input type="hidden" value="<%= @sensitivity %>" id="role_sensitivity_val" />
+            <div class="comp-slider-cotainer"><div id="slider_role"></div></div>
+            <div style="font-weight: 400; text-align: center; font-style: italic; font-size: 13px;">
+              Search Sensitivity
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="career_desiredrole_middle" id="career_desiredrole_middle3">        
+        <ul id="roleDescription" class="career_role">
+          <% if desired_roles.size > 0 %>
+            <% select_desired_roles.each do |desired_role| %>
+              <li onclick="rolesMoreInfo('<%= desired_role.onetsoc_code %>',this, 'search');autoSelectClusterAndPath('<%= desired_role.onetsoc_code %>');">
+                <%= format_role_text(desired_role.title, 45).html_safe  %>
+              </li>
+            <% end %>
+          <% else %>
+            <li>No Record Found</li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="career_desiredrole_bottom">&nbsp;</div>
+    </div>
+  </div>
+</div>
+<!--Career desiredrole Ends-->
+
+<!--Career desiredrole desc starts-->
+<div class="explore_select_role margin-L-10px" id="desiredRoleDescription"></div>
+<!--Career desiredrole Ends-->
+
+<script type="text/javascript">
+  $(function(){
+    $("div#or_browser_button").css("cursor","pointer");
+    $("ul#career_clusters").hide();
+    $(".career_cluster_middle .explore_select_heading").addClass('init');
+    $(".career_cluster_middle").addClass('init');
+    
+    $("ul#careerPath").hide();
+    $(".career_path_middle .explore_select_heading").addClass('init');
+    $(".career_path_middle").addClass('init');
+
+    var clusterHeight = $(".exploreRoleCluster").height();
+    var clusterWidth = $(".exploreRoleCluster").width();
+    $("#search_shadow_cluster").remove();
+    $("<div id='search_shadow_cluster'>&nbsp;</div>").appendTo("#credentials_exploreSelectDesiredRole");
+    $('#search_shadow_cluster').css('height',clusterHeight+(3-11)+'px');
+    $('#search_shadow_cluster').css('width',clusterWidth-7);
+    $('#search_shadow_cluster').click(function(){
+      resetSelectRolesPopup(true);
+    });
+    var pathHeight = $(".exploreRolePath").height();
+    var pathWidth = $(".exploreRolePath").width();
+    $("#search_shadow_path").remove();
+    $("<div id='search_shadow_path'>&nbsp;</div>").appendTo("#credentials_exploreSelectDesiredRole");
+    $("#search_shadow_path_arrow").remove();
+    $("<div id='search_shadow_path_arrow'>&nbsp;</div>").appendTo("#credentials_exploreSelectDesiredRole");
+    $('#search_shadow_path').css('height',pathHeight+(7-13));
+    $('#search_shadow_path').css('width',pathWidth+(4-24)+'px');
+    $(".career_path_left_initial").css("display","block");
+    $(".career_desiredrole_left_initial").css("display","block");
+    $(".career_desiredrole_left").css("display","none");
+    $("#search_shadow_cluster").css("display", "block");
+    $("#search_shadow_path").css("display", "block");
+    if($("#searchRoleClicked").val()=="1") {
+      $(".career_path_left").css("display","none");
+    }
+    $('#career_desiredrole_middle3').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+    $('.career_desiredrole_middle').css("height","379px");
+
+    $(document).bind("keypress", function (e) {
+      if (e.keyCode == 27) {
+        $("div#desiredRoleDescription").hide();
+        $("div#exploreRolDescription").show();
+        if($("input#searchRoleClicked").val()=="1") { $("div.role-search-count").show(); }
+      }
+    });
+  });
+
+  $('#fade_normal').bind().click(function() {
+    $("div#desiredRoleDescription").hide();
+    $("div#exploreRolDescription").show();
+    if($("input#searchRoleClicked").val()=="1") { $("div.role-search-count").show(); }
+  });
+  create_slider_roles_filter.call("<%= search_term %>");
+  var role_sensitivity = $("#role_sensitivity_val").val();
+  $("#slider_role").slider("value",(role_sensitivity));
+  $(".role-search-filter").click(function(){
+    if($(this).hasClass('close')) {
+      $(this).removeClass('close').addClass('open');
+      $("#roles_list .explore_select_heading").animate({'height':'85px'},500);
+      $("#career_desiredrole_middle3").animate({'height':'332px'},500);
+      $(".role-filter-content").show();
+    } else {
+      $(this).removeClass('open').addClass('close');
+      $("#roles_list .explore_select_heading").animate({'height':'38px'},500);
+      $("#career_desiredrole_middle3").animate({'height':'379px'},500);
+      $(".role-filter-content").hide();
+    }
+  });
+<% unless @order.nil? %>
+    $(".role-search-filter").removeClass('close').addClass('open');
+    $("#roles_list .explore_select_heading").css('height','85px');
+    $("#career_desiredrole_middle3").css('height','332px');
+    $(".role-filter-content").show();
+<% end %>
+  $('#sort-role.state-slector').click(function(e){
+    $("#sort-role.state-slector").removeClass("error");
+    $('#sort-role .default-level',this).css('display','none');
+    if($('#sort-role.state-options', this).is(":visible") == true) {
+      $('#sort-role.state-options', this).hide();
+    }
+    e.stopPropagation();
+  });
+
+  $('#sort-role .state-options-content ul li').each(function(){
+    $('label',this).click(function(){
+      var _labelVale = $(this).html();
+      $('#sort-role.state-slector .label-default').text(_labelVale);
+      $('#sort-role.state-slector .label-default-top').text(_labelVale);
+      $('#sort-role.state-slector .state-options').css("display","none");
+      //$('input#billing_state_gift').val(_labelVale);
+      return false;
+    });
+  });
+
+  $('body').click(function(){
+    $('#sort-role .state-options').css('display','none');
+    $(document).unbind('keydown');
+  });
+
+  $("div#sort-role").click(function(e){
+    $("div#sort-role-options").show();
+    $('#sort-role .option').children().each(function(){
+      if($(this).attr('selected')=='selected'){
+        $(this).removeClass('selected').removeAttr('selected');
+      }
+    });
+
+    $('#sort-role-options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+    $('#sort-role .option').scrollTop(0);
+    DropDownHandler.t = new Date().getTime();
+
+    $(document).unbind('keydown').bind('keydown', function(e){
+      DropDownHandler.func(e, document.getElementById('sort-role-options'), 'state');
+    });
+    e.stopPropagation();
+  });
+
+  $('#sort-role .option li').hover(function(){
+    $('#sort-role .option').children().each(function(){
+      if($(this).attr('selected')=='selected'){
+        $(this).removeClass('selected').removeAttr('selected');
+      }
+    });
+    $(this).addClass('selected').attr('selected', 'selected');
+  });
+
+  function filterResults(term, order) {
+    var search_term = term;
+
+    if(order == "relevance") {
+      var sort_by = "Score ASC, Role DESC";
+      $.ajax({
+        beforeSend: function() {
+          showBlockShadow();
+        },
+        url: '/pairing_profile/search_roles',
+        data: "search_roles=" + search_term + "&order=" + sort_by + "&sensitivity=" + $("#role_sensitivity_val").val(),
+        cache: false,
+        success: function() {
+          hideBlockShadow();
+        }
+      });
+    } else if(order == "alphabetical") {
+      var sort_by = "Role ASC, Score DESC";
+      $.ajax({
+        beforeSend: function() {
+          showBlockShadow();
+        },
+        url: '/pairing_profile/search_roles',
+        data: "search_roles=" + search_term + "&order=" + sort_by + "&sensitivity=" + $("#role_sensitivity_val").val(),
+        cache: false,
+        success: function() {
+          hideBlockShadow();
+        }
+      });
+    }
+  }
+</script>

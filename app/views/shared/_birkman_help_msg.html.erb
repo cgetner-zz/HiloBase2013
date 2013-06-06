@@ -1,0 +1,19 @@
+
+
+<div class="birkman-color-help">
+	<a href="javascript:void(0);" onclick="all_color.show();" title="Birkman Help">
+		<img src="/assets/help_icon.png"/>
+	</a>
+</div>
+
+<%if session[:job_seeker]%>
+<div class="pm-account-copy-right">
+	<%=render :partial =>"/shared/birkman_copy_right" -%>
+</div>
+<div class="career-guide-download">
+	<a href="javascript:void(0);" onclick="birkman_report.request_pdf();">
+		Download Career Forward Guide <img src="/assets/download_icon.png"/>
+	</a>
+</div>
+<%end%>
+<div class="clear-height">&nbsp;</div>

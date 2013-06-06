@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* CSS Document */
+#dashboard-header{position:static;}
+#cross_ref_box{top:30px; right:275px}
+#cc_billing_popup input{height:30px!important; padding-top:7px;}
+.customized-input.input-text input,
+.customized-input.active-input input,
+.customized-input.input-text-active input,
+.customized-input.input-text-unactive input,
+.customized-input.input-text-error input{height:27px !important; padding-top:10px;}
+.company-info input{ padding-top: 6px !important;}
+#content-container .dark-paper-container .form-container .form-element-container li{padding-bottom:19px; height:auto; overflow:hidden;}
+.popup-siteActivation .popup-content .gradient-content .personal-info ul li{height:auto; overflow:hidden; padding:0px 0;}
+.company-info-right-box{width:208px;}
+.company-info ul li{height:auto; overflow:hidden; padding-bottom:0px;}
+.company-info ul li.lastChild{padding-bottom:0px;}
+
+.dashboard_position_white_content{display:none; height: auto;
+                                  left: 22%;
+                                  overflow: auto;
+                                  padding: 16px;
+                                  position: fixed;
+                                  top: 25%;
+                                  z-index: 1002;
+}
+.company-info ul li .state {padding: 5px 10px;}
+
+#menu .emp-tabs-box .emp-tabs ul li a.candid_ie{padding-left: 28px;}
+#menu .emp-tabs-box .emp-tabs ul li a.posprof_ie{padding-left: 17px;}
+#menu .emp-tabs-box .emp-tabs ul li a.chanelmag_ie{padding-left: 9px;}
+
+.company-info ul li .sect_dd .state{padding:15px; float:left; width:187px!important; margin-top: 5px;   }
+
+#edit_category_id{float:left;}
+.group-row-add-txt-label{float:left;}
+.group-container{height: 45px;}
+.emp-tabs-box {
+    top: 32px !important;
+}
+.career-seeker-id-box{position: absolute;}
+
+.xref-tooltip-top {
+    background: url("/assets/employer_v2/tooltip-popup-top.png") no-repeat scroll left top transparent;   
+}
+.xref-tooltip-content {
+    background: url("/assets/employer_v2/tooltip-popup-bg.png") repeat-y scroll left top transparent;    
+}
+.xref-tooltip-bottom {
+    background: url("/assets/employer_v2/tooltip-popup-bottom.png") no-repeat scroll left top transparent;    
+}
+.xref-tooltip-content .bottomPreview {
+    background: url("/assets/employer_v2/arrow-bottom.png") no-repeat scroll left top transparent;   
+}
+.xref-tooltip-top {
+    background: url("/assets/employer_v2/tooltip-popup-top.png") no-repeat scroll left top transparent;
+}
+.xref-tooltip-content .bottomPreview {
+    background: url("/assets/employer_v2/arrow-bottom.png") no-repeat scroll left top transparent;
+}
+.xref-tooltip-content {
+    background: url("/assets/employer_v2/tooltip-popup-bg.png") repeat-y scroll left top transparent;
+}
+.xref-tooltip-bottom {
+    background: url("/assets/employer_v2/tooltip-popup-bottom.png") no-repeat scroll left top transparent;
+}
+
+.table-container .table-container-content .table-content a.profile-days-left {
+    background: url("../assets/employer_v2/profile-view-bg.png") no-repeat scroll left top transparent;
+
+}

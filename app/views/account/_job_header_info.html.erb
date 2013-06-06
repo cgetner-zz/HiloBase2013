@@ -1,0 +1,52 @@
+<div class="height10">&nbsp;</div>
+
+
+<div class="dc-job-info">
+					
+	<div class="dc-job-name-font">
+		<%=h(job.name) -%>
+	</div>
+	<div class="height5"></div>
+
+	<div class="dc-comp-name-font">
+		 <%=h(job.company.name) -%>
+	</div>
+	<div class="height5"></div>
+	
+	<div>
+			Type: <b><%=h(desired_emp) -%></b>
+	</div>
+	
+
+	<div>
+		Compensation: <b><%=compensation_range_by_value(job.minimum_compensation_amount)%></b>
+	</div>
+	
+	
+	<div class="height5"></div>
+</div>
+
+<div class="dc-job-share">
+		<div>
+			&nbsp;
+		</div>
+		<div>
+			<div class="fit-label">Fit:</div>
+			<div class="fit-value fit-selected">Good</div>
+			<div class="fit-value">Better</div>
+			<div class="fit-value">Best</div>
+			<div class="clear-height"></div>
+		</div>
+		<div class="height5"></div>
+		
+		<div>
+			Career Code: <b><%=h(job.code) -%></b>
+		</div>
+
+		<div>
+			Expires in: <%=format_remaining_time(job.expire_at)%>
+		</div>
+		<div class="height5"></div>
+</div>
+
+<div class="clear-height">&nbsp;</div>

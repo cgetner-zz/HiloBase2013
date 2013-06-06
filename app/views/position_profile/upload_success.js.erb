@@ -1,0 +1,22 @@
+<% if @create %>
+  assignJobID(<%=@job.id%>);
+<% end %>
+$("a#add-attachment").show();
+$("div#uploading-attachment").hide();
+hideIEPopupAttachment();
+increaseButtonHeight();
+$("#attachment-content").html("<%=escape_javascript render(:partial=>"position_profile/attachment", :locals=>{:job=>@job})%>");
+toggleAttachmentFlag();
+var count = 0;
+$(".addition-list-li-2 .attachment_title").each(function(){
+  $(this).val(attachmentTitleArray[count++])
+  $(this).parent().removeClass("input-text input-text-active input-text-error input-text-error-empty");
+  $(this).parent().addClass("active-input");
+});
+attachmentTitleArray.clear();
+footerOnClosingPopup();
+hideBlockShadow();
+var attachment_title = "attachment_title_" + <%= @job_attachment.id %>;
+$("input#"+attachment_title).parent().removeClass("customized-input input-text").addClass("customized-input input-text-unactive");
+$("input#"+attachment_title).val("");
+$("input#"+attachment_title).focus();

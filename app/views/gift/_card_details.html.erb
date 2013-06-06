@@ -1,0 +1,59 @@
+<div class="gift-hilo">
+  <%=image_tag("gift_hilo.png")%>
+</div>
+<br/>
+<%= form_tag :url => "/gift/make_payment",:html =>{:id=>"gift_pay_form"}, :remote => true do%>
+  <div style="padding-top:10px;">
+    <div>
+
+      <div style="<%=show_old_trasaction_option(@old_payment_obj) ? '' : 'display:none;'%>">
+        <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "gift-pay-coverline"} -%>
+        <div class="transaction-type-box" >
+          <input type="checkbox" name="transaction_type[]" value="old" onclick="toggle_payment_option('old');" <%=show_old_trasaction_option(@old_payment_obj) ? "checked='checked'" : ""%>/>
+                                          Make payment with: <%=old_transaction_detail(@old_payment_obj,@promo_code_obj)%>
+        </div>
+        <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "gift-pay-coverline"}%>
+      </div>
+
+      <div class="height5"></div>
+
+      <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "gift-pay-coverline"} -%>
+      <div  class="transaction-type-box">
+
+        <%if show_old_trasaction_option(@old_payment_obj)%>
+          <div>
+            <input type="checkbox" name="transaction_type[]" value="new" onclick="toggle_payment_option('new');" />
+                                                    Enter new card payment details
+          </div>
+        <%else%>
+          <div >
+            <input type="checkbox" name="transaction_type[]" value="new" onclick="toggle_payment_option('new');" checked='checked' style="display:none;"/>
+                                                    Enter payment details
+          </div>
+        <%end%>
+
+        <div>
+          <%=render :partial=>"card_form"%>
+        </div>
+      </div>
+      <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "gift-pay-coverline"}%>
+
+      <div class="height10"></div>
+
+      <div id="gift_payment_button"  >
+        <a href="javascript:void(0);" onclick="gift_pay.details('<%=params[:job_id]%>','<%=params[:pay_for]%>');" class="button-a buttton_106X23" id="pay_submit" >Make Pyament</a>
+        <img src="/assets/login-loader.gif" id="pay_loader_img" style="display:none;" alt="Loading ..."/>
+      </div>
+
+    </div>
+
+  </div>
+
+
+<%end%>
+
+<script type="text/javascript">
+<%if (session[:job_seeker] or session[:employer]) and  show_old_trasaction_option(@old_payment_obj)%>
+    disable_payment_field_options();
+<%end%>
+</script>

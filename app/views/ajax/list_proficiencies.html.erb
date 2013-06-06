@@ -1,0 +1,46 @@
+
+
+<div >
+	<div style="position:relative;text-align:left;">
+		<%=render :partial=>"/panels/midsize_border_top"-%>
+		<%=render :partial=>"/panels/midsize_header_close"-%>
+		<div class="prof_pop-inner-box">
+			<div>
+				<div class="lang-header">
+					Select proficiencies
+				</div>
+				
+				
+				
+				<div style="margin-top:15px;height:300px;overflow:auto;margin-left:15px;margin-right:15px;">
+					<%for prof in @proficiencies
+						row_css = cycle("prof-even","prof-odd")
+					%>
+
+						<div style="line-height:25px;padding-left:2px;" class = "<%=row_css%>">
+							<input type="checkbox" name="pop_proficiency_select[]" value="<%=prof.id.to_s + "_juprof_" + CGI::escape(prof.name) %>"/>&nbsp;&nbsp;&nbsp;
+							<%=h(prof.name) -%>
+						</div>
+					<%end%>
+				</div>
+				<div style="float:right;margin-right:10px;">
+					<a href="javascript:void(0);" onclick="pop_proficiency.select();" class="button-a buttton_65X23">Save</a>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<%=render :partial=>"/panels/midsize_border_bottom"-%>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var chk_arr = document.getElementsByName("pop_proficiency_select[]");
+		for(var i=0;i< chk_arr.length; i++){
+			if(pop_proficiency.list_arr.in_array(chk_arr[i].value) > -1 || pop_proficiency.list_arr.in_array(unescape_str(chk_arr[i].value)) > -1){
+				chk_arr[i].checked = true;
+			}
+		}
+	});
+</script>

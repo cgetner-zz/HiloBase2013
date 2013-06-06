@@ -1,0 +1,62 @@
+<%=render :partial=>"/panels/light_tab_top", :locals=>{:msg =>"",:class_name =>"work-role-desc-top-cover"} -%>
+<div class="color-msg_container">
+		<div class="small-color-msg-header">
+			<div class="small-color-left-sec">Maximize</div>
+			<div class="small-color-right-sec">Minimize</div>
+			<br class="clear"/>
+		</div>
+<%if  image_section == "workenv_top_left"%>
+		<%$work_red[:left].each_with_index{|val, i|%>
+				<div class="small-color-msg-row">
+					<div class="small-color-left-sec">
+						<%=$work_red[:left][i]%>
+					</div>
+					<div class="small-color-right-sec">
+						<%=$work_red[:right][i]%>
+					</div>
+					<br class="clear"/>
+				</div>
+		<%}%>
+
+<%elsif  image_section == "workenv_top_right"%>
+		<%$work_green[:left].each_with_index{|val, i|%>
+				<div class="small-color-msg-row">
+					<div class="small-color-left-sec">
+						<%=$work_green[:left][i]%>
+					</div>
+					<div class="small-color-right-sec">
+						<%=$work_green[:right][i]%>
+					</div>
+					<br class="clear"/>
+				</div>
+		<%}%>
+
+<%elsif  image_section == "workenv_bottom_left"%>
+		<%$work_yellow[:left].each_with_index{|val, i|%>
+				<div class="small-color-msg-row">
+					<div class="small-color-left-sec">
+						<%=$work_yellow[:left][i]%>
+					</div>
+					<div class="small-color-right-sec">
+						<%=$work_yellow[:right][i]%>
+					</div>
+					<br class="clear"/>
+				</div>
+		<%}%>
+
+<%elsif  image_section == "workenv_bottom_right"%>
+		<%$work_blue[:left].each_with_index{|val, i|%>
+				<div class="small-color-msg-row">
+					<div class="small-color-left-sec">
+						<%=$work_blue[:left][i]%>
+					</div>
+					<div class="small-color-right-sec">
+						<%=$work_blue[:right][i]%>
+					</div>
+					<br class="clear"/>
+				</div>
+		<%}%>
+
+<%end%>
+
+</div>

@@ -1,0 +1,32 @@
+<div id="header" <%if step == "search_tab_1" || step == "search_tab_2" %>style="overflow: visible;"<%end%>>
+  <h1 class="logo-container">
+    <% if @guest_user == "job_seeker" %>
+      <%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),:controller=>:home) %>
+    <% else %>
+      <%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),:controller=>:employer) %>
+    <% end %>
+  </h1>
+  <div class="header-right-container">
+    <div class="hil-info-link-section">
+      <% if controller.action_name == 'index' %>
+        <label class="welcome">WHAT IS YOUR IDEAL WORK ENVIRONMENT?</label>
+      <% elsif controller.action_name == 'pairing_results' or controller.action_name == 'employer_pairing_results'%>
+        <label class="welcome">TEST DRIVE THE SYSTEM</label>
+      <% end %>
+      <% if !session[:job_seeker] %>
+        <div class="info-links signin" >
+          <a title="SIGN IN" href="javascript:openLoginBox();">SIGN IN</a>
+        </div>
+        <%= render :partial=>"shared/new_login_box" %>
+      <% end %>
+    </div>
+    <div id="page-navigation">
+      <ul>
+        <li class="firstChild <%= 'active' if step == "search_tab_1" -%> disable"><a href="javascript:void(0);" title="Questionnaire">Questionnaire</a></li>
+        <li class="disable <%= 'active' if step == "search_tab_2" -%> disable"><a href="javascript:void(0);" title="Results Overview">Results<br />Overview</a></li>
+        <li class="empty"></li>
+        <li class="empty"></li>
+      </ul>
+    </div>
+  </div>
+</div>

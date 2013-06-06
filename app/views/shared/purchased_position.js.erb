@@ -1,0 +1,9 @@
+<% broadcast "/purchased#{@company_id}" do %>
+  var employer_id = "<%=@employer_id%>";
+  if(employer_id != $("#current_employer_id").val()){
+    $("#refresh_link").show();
+    $("#refresh_link").children().click(function(){
+      poolRefreshHandler();
+    });
+  }
+<% end %>

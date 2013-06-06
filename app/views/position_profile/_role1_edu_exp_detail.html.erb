@@ -1,0 +1,57 @@
+<div class="margin-R-5px lfloat skill-input">
+  <div class="customized-inner-input input-text">
+    <div class="input-left">&nbsp;</div>
+    <input type="hidden" value="Role 1 (click to access)" id="add_role1_placeholder" />
+    <input type="text" onkeydown="type_element(this);" onblur="blur_element(this);" onfocus="focus_element(this);" onclick="showSelectRolesPopup('add_role1', this);" class="accessDatabase" id="add_role1" name="add_role1" value="Role 1 (click to access)" tabindex="1" maxlength="40" />
+    <div class="input-right">&nbsp;</div>
+  </div>
+</div>
+<!--educationLevel-->
+<select style="height:0px; width:0px; position:absolute; top:-1000px; left:-10px;" id="edu-level-dummy" tabindex="2"></select>
+<div id="educationLevel" class="educationLevel">
+  <span id="temp_edu" class="education-default">Education Level</span><!--education-default-->
+  <!--education-options-->
+  <div style="display:none;" id="education-options" class="education-options">
+    <div class="education-options-top">&nbsp;</div><!--education-options-top-->
+    <!--education-options-content-->
+
+    <div class="education-options-content">
+      <label class="education-default">Education Level</label>
+      <ul class="option">
+        <% edu_all = EducationLevel.all %>
+        <% for edu in edu_all  %>
+          <li selected=""><label id="<%= edu.id %>_" value="<%= edu.id %>" onclick="unbindKeydown();"><%= edu.name %></label></li>
+        <% end %>
+      </ul>
+    </div>
+    <!--.education-options-content-->
+    <div class="education-options-bottom">&nbsp;</div>
+  </div>
+  <!--/education-options-->
+</div>
+<!--/educationLevel-->
+
+<!--skillLevel-->
+<select style="height:0px; width:0px; position:absolute; top:-1000px; left:-10px;" id="skill-level-dummy" tabindex="3"></select>
+<div id="skillLevel" class="skillLevel">
+  <span id="temp_skill" class="skill-default">Experience Level</span>
+  <!--skill-options-->
+  <div style="display:none;" id="skill-options" class="skill-options">
+    <div class="skill-options-top">&nbsp;</div><!--skill-options-top-->
+    <!--skill-options-content-->
+
+    <div class="skill-options-content">
+      <label class="skill-default">Experience Level</label>
+      <ul class="option">
+        <% exp_all = ExperienceLevel.all %>
+        <% for exp in exp_all  %>
+          <li selected=""><label id="<%= exp.id %>" value="<%= exp.id %>" onclick="unbindKeydown();"><%= exp.name %></label></li>
+        <% end %>
+      </ul>
+    </div>
+    <!--/skill-options-content-->
+    <div class="skill-options-bottom">&nbsp;</div><!--skill-options-top-->
+  </div>
+  <!--/skill-options-->
+</div>
+<!--/skillLevel-->

@@ -1,0 +1,10 @@
+location_graph(<%= params[:search_latitude]%>, <%= params[:search_longitude]%>, 'employer');
+birkman_graph(<%= params[:search_latitude]%>, <%= params[:search_longitude]%>, 'employer');
+role_cluster_graph(<%= params[:search_latitude]%>, <%= params[:search_longitude]%>, 'employer');
+wordle_graph(<%= params[:search_latitude]%>, <%= params[:search_longitude]%>, 'employer');
+hideBlockShadow();
+$(document).unbind('keyup').bind('keyup', function(e) {
+if(e.keyCode == 27) {
+closeGraphFullScreen();
+}
+});

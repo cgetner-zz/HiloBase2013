@@ -1,0 +1,100 @@
+<div class="system-msg">
+  <input type="hidden" value="" id="error_element" />
+  <span style="float:left;color: #000066; font-size: 13px; font-weight: 700;" id="processing_msg"></span>
+  <div class="error_msg" id="account_error_msg" style="color:#D71F0C; float:left;margin-top: -2px;font-size: 13px;font-weight: 700;"></div>
+  <div class="success_msg" id="account_success_msg" style="color:green; float:left;margin-top: -2px; font-size: 13px;font-weight: 700;"></div>
+</div>
+<span id="fill_up_company"></span>
+<input type="hidden" value="<%=@company_info.id%>" id="id" name="id"/>
+
+<ul class="account-info">
+  <li>
+    <input type="hidden" value="" id="error_element" />
+    <div class="customized-input active-input">
+      <div class="input-left">&nbsp;</div>
+      <input type="hidden" id="company_name_placeholder" value="<%=t ("employer_account.company.name") %>" />
+      <input type="text" maxlength="30" id="company_name" name="company_name" value="<%= @employer.company.name %>" onfocus="validateCompany(this);focus_element(this);" onblur="validateCompany(this);blur_element(this);validateCompanyDetails();" onkeydown="type_element(this);" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+      <div class="input-right">&nbsp;</div>
+    </div>
+  </li>
+  <li>
+    <div class="half first">
+      <div class="customized-input active-input">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="company_suite_placeholder" value="<%=t ("employer_account.company.appartment") %>" />
+        <input type="text" maxlength="100" id="company_suite" name="address_two" value="<%= @employer.company.street_one %>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </div>
+    <div class="half">
+      <div class="customized-input active-input">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="city_placeholder" value="<%=t ("employer_account.company.location") %>" />
+        <input type="text" maxlength="100" id="city" name="city" value="<%= @employer.company.city %>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);" onkeyup="validateCompanyDetails(); checkTab(event);submitCompanyFormonEnterButton(event);" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="half first">
+      <div class="customized-input <% if @employer.company.state.blank? %>input-text<%else%>active-input<%end%>">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="state_placeholder" value="<%=t ("employer_account.company.state") %>" />
+        <input type="text" maxlength="100" id="state" name="state" value="<% if @employer.company.state.blank? %>State<%else%><%=@employer.company.state%><%end%>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </div>
+    <div class="half">
+      <div class="quater country">
+        <div class="customized-input <% if @employer.company.country.blank? %>input-text<%else%>active-input<%end%>">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="country_placeholder" value="<%=t ("employer_account.company.country") %>" />
+          <input type="text" maxlength="100" id="country" name="country" value="<% if @employer.company.country.blank? %>Country<%else%><%=@employer.company.country%><%end%>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+      </div>
+      <div class="quater pincode">
+        <div class="customized-input <% if @employer.company.zip.blank? %>input-text<%else%>active-input<%end%>">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="zip_code_placeholder" value="<%=t ("employer_account.company.zip_code") %>" />
+          <input type="text" maxlength="6" id="zip_code" name="zip_code" value="<% if @employer.company.zip.blank? %>Zip Code (optional)<%else%><%=@employer.company.zip%><%end%>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="half first">
+      <div class="quater areacode">
+        <div class="customized-input <% if @employer.company.phone.blank? %>input-text<%else%>active-input<%end%>">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="area_code_placeholder" value="<%=t ("employer_account.company.area_code") %>" />
+          <input type="text" maxlength="10" id="area_code" name="area_code" value="<% if @employer.company.phone.blank? %>(Area Code)<%else%><%=@employer.company.phone.split("-")[0]%><%end%>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+      </div>
+      <div class="quater phone">
+        <div class="customized-input <% if @employer.company.phone.blank? %>input-text<%else%>active-input<%end%>">
+          <div class="input-left">&nbsp;</div>
+          <input type="hidden" id="telephone_number_placeholder" value="<%=t ("employer_account.company.telephone") %>" />
+          <input type="text" maxlength="30" id="telephone_number" name="telephone" value="<% if @employer.company.phone.blank? %>Telephone<%else%><%=@employer.company.phone.split("-")[1]%><%end%>" onfocus="focus_element(this);" onblur="blur_element(this);" onkeydown="type_element(this,event);$(this).numeric({decimal: false, negative: false});" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+          <div class="input-right">&nbsp;</div>
+        </div>
+      </div>
+    </div>
+    <div class="half">
+      <div class="customized-input active-input">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="website_placeholder" value="<%=t ("employer_account.company.website") %>" />
+        <input type="text" maxlength="100" id="website" name="website" value="<%= @employer.company.website %>" onfocus="websiteFieldErrorAcc(this);focus_element(this);" onblur="websiteFieldErrorAcc(this);blur_element(this);" onkeydown="type_element(this,event);" onkeyup="validateCompanyDetails();submitCompanyFormonEnterButton(event);" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </div>
+  </li>
+</ul>
+<div class="button-container">
+  <input class="update-button-active rfloat" type="button" value="" id="updateCompany" />
+  <span class="loader" id="company_loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+</div>
+
+<input type="hidden" name="dropdown_check_flag" id="dropdown_check_flag" value="<%if !@company_info.nil? && !@company_info.city.to_s.empty?%>1<%else%>0<%end%>" />

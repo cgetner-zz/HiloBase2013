@@ -1,0 +1,140 @@
+<div class="chart_table_header" style="display: block;margin-left: 0;">MATCHES</div>
+<div class="filter_checkbox search-container">
+  <%= form_tag("/position_profile/search_filter", :id=>"search_form", :remote => true) do %>
+    <div class="customized-inner-input input-text">
+      <div class="input-left">&nbsp;</div>
+      <input type="hidden" id="search_value" name="search_value" />
+      <input type="hidden" id="search_placeholder" value="Enter keywords to search"/>
+      <input type="text" id="search" name="search" value="Enter keywords to search" onfocus="focus_element(this);" onblur="validate_blur_search(); blur_element(this);" onkeydown="type_element(this);" onkeyup="setShowSave();"  autocomplete ="off"/>
+      <div class="input-right">&nbsp;</div>
+      <% if not session[:employer].employer_saved_searches.where(:deleted => false).empty? %>
+        <div class="arrow" id="search_arrow" ></div>
+      <% else %>
+        <div class="arrow" id="search_arrow" style="display:none;"></div>
+      <% end %>
+      <div class="dropdown-container">
+        <div id="saved_search_list" class="customized-dropdown" style="display: none;">
+          <span value="-1" class="default-value">Select saved search</span>
+          <div class="options-content" style="z-index: 100; display: none;">
+            <div class="options-content-top"></div>
+            <input type="hidden" name="save_show_emp" id="save_show_emp" value="1">
+            <div class="options-content-middle">
+              <%=render :partial => '/shared/employer/search_list' %>
+            </div>
+            <div class="options-content-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <input type="button" class="search-button" id="search_button_emp" value=""  onclick="$('#search_form').submit();"/>
+      <input type="button" class="btn-save active" id="save_button_emp" value="" style="display:none;" onclick="saveButtonClick();"/>
+    </div>
+    <ul class="filter_type">
+      <li><input value="0" type="checkbox" class="styled checkbox" /><label class="lbl lbl-filter">All Sources</label></li>
+      <li><input value="1" type="checkbox" class="styled checkbox" /><label class="lbl lbl-filter">My Sources</label></li>
+    </ul>
+  <% end %>
+</div>
+<div class="table-container">
+  <input type="hidden" id="job_id" value="<%=params[:id]%>" />
+  <input type="hidden" id="activity" value="<%=params[:activity]%>" />
+  
+  <div class="table-container-top">&nbsp;</div><!--table-container-top-->
+  <%=  render :partial => "/shared/employer/dashboard_tooltip_popup" %>
+  <!--table-container-content-->
+  <div class="table-container-content">
+    <%= render :partial => '/position_profile/employer_profile/pool_seeker_data' %>
+  </div>
+  <!--table-container-content-->
+  <div class="table-container-bottom">&nbsp;</div><!--table-container-bottom--->
+</div>
+<div class="reset-container">
+  <span class="ics-legend-color lfloat">&nbsp;</span>
+  <span class="ics-legend-label lfloat">Internal Candidate</span>
+  <input type="button" class="reset-button rfloat" id="reset_button_emp" value="" style="display:none;"/>
+  <div class="error-message rfloat" id="error_msg_empty_table">No results to filter</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    job_row_view.init();
+    Custom.init();
+    if ($("#filter_value").val() == 0){
+      Custom.check($(".filter_type span.checkbox").first());
+    }
+    else {
+      Custom.check($(".filter_type span.checkbox").last());
+    }
+    $(".filter_type span.checkbox").unbind().bind('click', function(){
+      $(".filter_type").children().each(function(){
+        if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+          Custom.check($(this).find('span.checkbox'));
+        }
+      });
+      Custom.check($(this));
+      $("#filter_value").val($(this).next().val());
+      $("#table_block .loader").removeClass("hidden");
+      sortCandidatePoolTables('pairing','desc', $("#filter_value").val(), 'table_data');
+    });
+
+    $(".filter_type label.lbl-filter").unbind().bind('click', function(){
+      $(".filter_type").children().each(function(){
+        if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+          Custom.check($(this).find('span.checkbox'));
+        }
+      });
+      Custom.check($(this).prev().prev());
+      $("#filter_value").val($(this).prev().val());
+      $("#table_block .loader").removeClass("hidden");
+      sortCandidatePoolTables('pairing','desc', $("#filter_value").val(), 'table_data');
+    });
+  });
+  if($("#table_block").hasScrollBar())
+      $("ul li a.labelFit").css("width","83px");
+  var config = {
+    over: open_xref_popup,
+    timeout: 500,
+    out: close_xref_popup,
+    sensitivity: 1
+  };
+  $("#xref_popup_tooltip").hoverIntent(config);
+
+  var config1 = {
+    over: open_vet_popup,
+    timeout: 500,
+    out: close_vet_popup,
+    sensitivity: 1
+  };
+  $("#vet_popup_tooltip").hoverIntent(config1);
+  $("#vet_popup_tooltip").mouseout(function(){close_vet_popup();});
+  
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_search_form = function(){
+      if($("#search").val().trim() == $("#search_placeholder").val() || $("#search").val().trim() == ""){
+        $("#search").parent().removeClass('input-text-active active-input input-text').addClass('input-text-error-empty');
+        return false;
+      }
+      else{
+        $('#search').parent().removeClass('input-text-error').addClass('active-input');
+      }
+      showBlockShadow();
+    }
+
+    var loaded_search_form = function(){
+      hideBlockShadow();
+    }
+
+    $("#search_form").bind("ajax:beforeSend", loading_search_form).bind("ajax:complete", loaded_search_form)
+
+  });
+
+  $('body').click(function(){
+    $('#saved_search_list, #saved_search_list .options-content').hide();
+  });
+
+  $('#search_arrow').live('click', function(e){
+    showSavedSearchContainer(e);
+  })
+</script>

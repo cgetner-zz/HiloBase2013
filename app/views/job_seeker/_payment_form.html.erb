@@ -1,0 +1,124 @@
+<div class="account-right">
+	<div class="section-intro">Payment Info:</div>
+	<div>
+		<input type="checkbox" value="paypal_pro" onclick="toggle_payment_type('pro');" name="payment_type[]" <%=checked_payment_mode("pro")%>/>
+		<b>Option 1: </b> Credit Card 
+	</div>
+	<div class="height5">&nbsp;</div>
+
+	<div class="pay-one-section">
+		<div class="field-height">
+			<div class="field-label-right">Card Type*:</div>
+			<div class="field-text-box">
+				<%=select_tag("card_type", options_for_select([ ["Visa","visa"], ["Mastercard","master"],["Discover","discover"],["American Express","american_express"] ]),:class=>"field-text reg-field-select") %>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Name*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :holder_name,"",:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Card Number*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :card_num,"",:class=>"field-text input-field-style",:autocomplete=>"off"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">CVV Number*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :cvv,"",:class=>"field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height" style="height:35px;">
+			<div class="field-label-right">Expiry Date*:</div>
+			<div class="field-text-box">
+				<div>
+					<%=text_field_tag :expiry_date,"",:class=>"field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+				</div>
+				<div>
+					MM/YYYY
+				</div>
+			</div>
+			<br class="clear"/>
+		</div>
+		<div class="height5">&nbsp;</div>
+		
+		<div>
+			Billing Address:
+			<div class="height5">&nbsp;</div>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Address 1*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :billing_address_one,payment_obj.billing_address_one,:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Address 2:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :billing_address_two,payment_obj.billing_address_two,:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">City*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :billing_city,payment_obj.billing_city,:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">State*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :billing_state,payment_obj.billing_state,:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Zip*:</div>
+			<div class="field-text-box">
+				<%=text_field_tag :billing_zip,payment_obj.billing_zip,:class=>"field-text input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="field-height">
+			<div class="field-label-right">Country*:</div>
+			<div class="field-text-box">
+				<%=select_tag("billing_country", options_for_select(Country.find(:all).map {|c| [c.name,c.alpha2]}.unshift(["---Select Country---",""]),payment_obj.billing_country),:class=>"field-text reg-field-select") %>
+			</div>
+			<br class="clear"/>
+		</div>
+	</div>
+
+	<div>
+		<input type="checkbox" value="paypal_express" onclick="toggle_payment_type('express');" name="payment_type[]" <%=checked_payment_mode("express")%>/>
+		<b>Option 2:</b> Paypal Express Checkout 
+	</div>
+
+	<div class="promotional-code">
+		Promotional Code <span>(optional)</span> <input type="text" name="promotional_code" class="input-field-style"/>
+	</div>
+
+	<div class="pay-button">
+		<%=image_submit_tag("proceed_to_payment.jpg",:onclick=>"return set_save_type('payment');")%>
+	</div>
+	<div class="clear"></div>
+
+</div>

@@ -1,0 +1,157 @@
+<div id="paypal_payment_option" style="<%=@old_payment_obj.blank? ? "" : "display:none;"%>">
+	<div>
+		<div class="payment-opt-box">
+				<a href="javascript:void(0);" onclick="purchase_profile_payment_option.open('paypal_pro');">
+					<img src="/assets/pay_via_card.png"/>
+				</a>
+			</div>
+			
+			<div class="payment-opt-box">
+				<a href="javascript:void(0);" onclick="purchase_profile_payment_option.open('paypal_express');">
+					<img src="/assets/pay_via_paypal.png"/>
+				</a>
+			</div>
+			
+			<div class="payment-opt-box">
+				<a href="javascript:void(0);" onclick="purchase_profile_payment_option.open('promocode_form');">
+					<img src="/assets/pay_via_code.png"/>
+				</a>
+			</div>
+			<div class="clear">&nbsp;</div>
+	</div>
+	<div class="heigh10">&nbsp;</div>
+	<input type="hidden" value="paypal_pro" name="payment_type" id="payment_type"/>
+	
+
+	<div id="carddetails_form" style="display:none;">
+		<div class="height10">&nbsp;</div>
+		<div class="height10">&nbsp;</div>
+
+		<div class="pay-fields-left">
+			<div><b>Card Details:</b></div>
+			<div class="height5">&nbsp;</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Card Type*:</div>
+				<div class="pay-field-text-box">
+					<%=select_tag("card_type", options_for_select([ ["Visa","visa"], ["Mastercard","master"],["Discover","discover"],["American Express","american_express"] ]),:class=>"field-text reg-field-select") %>
+				</div>
+				<br class="clear"/>
+			</div>
+
+
+			<div class="field-height">
+				<div class="pay-field-label">Name*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :holder_name,"",:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Card Number*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :card_num,"",:class=>"field-text input-field-style",:autocomplete=>"off"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">CVV Number*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :cvv,"",:class=>"field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Expiry Date*:</div>
+				<div class="pay-field-text-box">
+					<div>
+						<%=text_field_tag :expiry_date,"",:class=>"field-text input-field-style",:autocomplete=>"off",:style=>"width:70px;"%>
+					</div>
+					<div>
+						MM/YYYY
+					</div>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+
+		<div style="width:300px; margin-top:17px;">
+			<div style="width:150px;"><b>Billing Address:</b></div>
+			<div class="height5"></div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Address 1*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :billing_address_one,@payment.billing_address_one,:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Address 2:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :billing_address_two,@payment.billing_address_two,:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">City*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :billing_city,@payment.billing_city,:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">State*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :billing_state,@payment.billing_state,:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Zip*:</div>
+				<div class="pay-field-text-box">
+					<%=text_field_tag :billing_zip,@payment.billing_zip,:class=>"field-text input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="field-height">
+				<div class="pay-field-label">Country*:</div>
+				<div class="pay-field-text-box">
+					<%=select_tag("billing_country", options_for_select(Country.find(:all).map {|c| [c.name,c.alpha2]}.unshift(["---Select Country---",""]),@payment.billing_country),:class=>"field-text reg-field-select") %>
+				</div>
+				<br class="clear"/>
+			</div>
+		</div>
+		<br class="clear"/>
+	</div>
+	
+
+	<div id="promocode_form" class="pay-fields-left" style="<%=params[:promotional_code].blank? ? "display:none;" : ""%>">	
+			<div class="reg-field-height">
+					<div class="reg-field-label" style="width:145px;"><b>Promotional/Gift Code</b> :</div>
+					<div class="reg-field-text-box">
+						 <input type="text" name="promotional_code" id="promotional_code" class="field-text input-field-style" value="<%=params[:promotional_code]%>"/>
+					</div>
+					<br class="clear"/>
+			</div>
+	</div>
+	<br class="clear"/>
+
+
+
+	<div id="express_form" class="pay-fields-left" style="display:none;">	
+			<div class="reg-field-height">
+					<div><b>Click Make Payment to go to Paypal</b></div>
+			</div>
+	</div>
+	<div class="clear-height"></div>
+
+</div>

@@ -1,0 +1,137 @@
+<% company_name = session[:employer].company.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+<div class="profileContainer-channel-manager">
+  <div class="block-channel-manager">
+    <h4><%=t ("company_channels.posting_options.header") %></h4>
+    <div class="channel-manager-left">
+      <div class="channel-manager-left-bottom company">
+        <div class="top"></div>
+        <div class="content" style="height: 140px;">
+          <div class="content-top">
+            <span class="heading-inactive with-help">
+              <h4><%=t ("company_channels.posting_options.url.header") %></h4>
+              <img height="24" width="24" alt="help" src="/assets/info.png" onclick="openHelpPopup('company_link_help');" />
+            </span>
+          </div>
+          <div class="clear-float"></div>
+          <div class="content-bottom-inactive">
+            <p><%=t ("company_channels.posting_options.url.content") %></p>
+          </div>
+          <div class="clear-float"></div>
+          <div class="channel-manager-left-bottom-footer" id="copy_to_clipboard_container" style="position: relative;">
+            <span class="channel-manager-input-inactive">
+              <% bitly = Bitly.new($BITLY_KEY,$BITLY_SECRET)
+              page_url = bitly.shorten('https://thehiloproject.com/company/'+company_name+'/' + session[:employer].company_id.to_s + '/4') %>
+              <input type="text" value="<%=page_url.shorten%>" name="url" id="copy-url" readonly="readonly" />
+            </span>
+            <span class="copy-to-clipboard" id="copy_to_clipboard">
+              <img src="/assets/employer_v2/copy_button.png" alt="Copy To Clipboard" title="Copy To Clipboard" />
+            </span>
+          </div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+      <div class="channel-manager-left-bottom company">
+        <div class="top"></div>
+        <div class="content" style="height: 140px;">
+          <div class="content-top">
+            <span class="heading-inactive with-help">
+              <h4><%=t ("company_channels.posting_options.feed.header") %></h4>
+              <!--<img height="24" width="24" alt="help" src="/assets/info.png" onclick="openHelpPopup('company_link_help');" />-->
+            </span>
+          </div>
+          <div class="clear-float"></div>
+          <div class="content-bottom-inactive">
+            <p><%=t ("company_channels.posting_options.feed.content") %></p>
+          </div>
+          <div class="clear-float"></div>
+          <div class="channel-manager-left-bottom-footer" id="copy_to_clipboard_container3" style="position: relative;">
+            <span class="channel-manager-input-inactive">
+              <% bitly = Bitly.new($BITLY_KEY,$BITLY_SECRET)
+              begin
+                iframe_url = bitly.shorten('http://'+request.env["HTTP_HOST"]+'/job_feed/'+session[:employer].company_id.to_s)
+                iframe_url_short = iframe_url.shorten
+              rescue
+                iframe_url_short = 'http://'+request.env["HTTP_HOST"]+'/job_feed/'+session[:employer].company_id.to_s
+              end
+              %>
+              <input type="text" value='<iframe src="<%=iframe_url_short%>" style="border:0px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="380px" width="280px"></iframe>' name="feed-code" id="feed-code" readonly="readonly" />
+            </span>
+            <span class="copy-to-clipboard" id="copy_to_clipboard3">
+              <img src="/assets/employer_v2/copy_button.png" alt="Copy To Clipboard" title="Copy To Clipboard" />
+            </span>
+          </div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+    <div class="channel-manager-right company">
+      <div class="top"></div>
+      <div class="content" style="height: 294px;">
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/facebook-channel.jpg" alt="hilo" />
+          </span>
+          <span class="Channel_Manager_post">
+            <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_FACEBOOK_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_FACEBOOK_ID%>); popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');"><%= facebook_text(@posting_record.facebook_flag).html_safe %></a>
+            <%= sharing_tick(SHARE_PLATFORM_FACEBOOK_ID,@posting_record.facebook_flag).html_safe %>
+          </span>
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/employer_v2/linkedin-channel-active.png" alt="hilo" />
+          </span>
+          <span class="Channel_Manager_post">
+            <% if @employer_privilege.nil? %>
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%=session[:employer].company.name %>&url=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.linkedin.invitation_message") %>');"><%= linkedin_text(@posting_record.linkedin_flag).html_safe%></a>
+            <% elsif @employer_privilege.status == true %>
+              <% if @employer_privilege.discount_value == REGISTRATION_COST %>
+                <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%=session[:employer].company.name %>&url=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.linkedin.free_membership_message") %>');"><%= linkedin_text(@posting_record.linkedin_flag).html_safe%></a>
+              <% elsif @employer_privilege.discount_value > 0 %>
+                <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%=session[:employer].company.name %>&url=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.linkedin.discounted_membership_message") %>');"><%= linkedin_text(@posting_record.linkedin_flag).html_safe%></a>
+              <% else %>
+                <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%=session[:employer].company.name %>&url=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.linkedin.invitation_message") %>');"><%= linkedin_text(@posting_record.linkedin_flag).html_safe%></a>
+              <% end %>
+            <% elsif @employer_privilege.status == false %>
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%=session[:employer].company.name %>&url=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.linkedin.invitation_message") %>');"><%= linkedin_text(@posting_record.linkedin_flag).html_safe%></a>
+            <% end %>
+            <%= sharing_tick(SHARE_PLATFORM_LINKEDIN_ID,@posting_record.linkedin_flag).html_safe %>
+          </span>
+
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/employer_v2/tweeter-channel-active.png" alt="hilo" />
+          </span>
+          <% bitly = Bitly.new($BITLY_KEY,$BITLY_SECRET)
+          page_url = bitly.shorten('https://thehiloproject.com/company/'+company_name+'/'+session[:employer].company_id.to_s+'/'+SHARE_PLATFORM_TWITTER_ID.to_s) %>
+          <span class="Channel_Manager_post">
+            <% if @employer_privilege.nil? %>
+              <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.twitter.invitation_message") %> <%=page_url.shorten%>') + '&via=thehiloproject');"><%=twitter_text(@posting_record.twitter_flag) %></a>
+            <% elsif @employer_privilege.status == true %>
+              <% if @employer_privilege.discount_value == REGISTRATION_COST %>
+                <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.twitter.free_membership_message") %> <%=page_url.shorten%>') + '&via=thehiloproject ');"><%=twitter_text(@posting_record.twitter_flag) %></a>
+              <% elsif @employer_privilege.discount_value > 0 %>
+                <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.twitter.discounted_membership_message") %> <%=page_url.shorten%>') + '&via=thehiloproject ');"><%=twitter_text(@posting_record.twitter_flag) %></a>
+              <% else %>
+                <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.twitter.invitation_message") %> <%=page_url.shorten%>') + '&via=thehiloproject ');"><%=twitter_text(@posting_record.twitter_flag) %></a>
+              <% end %>
+            <% elsif @employer_privilege.status == false %>
+              <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_company_share(<%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/company/<%= company_name  %>/<%= session[:employer].company_id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('<%=session[:employer].company.name %> <%=t ("company_channels.posting_options.twitter.invitation_message") %> <%=page_url.shorten%>') + '&via=thehiloproject ');"><%=twitter_text(@posting_record.twitter_flag) %></a>
+            <% end %>
+            <%= sharing_tick(SHARE_PLATFORM_TWITTER_ID,@posting_record.twitter_flag).html_safe %>
+          </span>
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+      </div>
+      <div class="bottom"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<% for job in jobs %>
+  <% days_to_go = (job.expire_at - DateTime.now)/(24*60*60) %>
+  <tr id="job_row_<%=job.id%>" <%=job_row_attr_considering(job.id,job_statuses)%>>
+    <% if unread_dot(job.id,job_statuses) == "&nbsp;" %>
+      <td>
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+      </td>
+    <% else %>
+      <td class="checked">
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+        <%=unread_dot(job.id,job_statuses)%>
+      </td>
+    <% end %>
+    <td>
+      <label><% if job.fit_name_by_pairing.blank?%>&nbsp;<% else %><a href="javascript:void(0);"><%= job.fit_name_by_pairing %></a><% end %></label>
+    </td>
+    <td>
+      <label><a href="javascript:void(0);"><% if job.hiring_company == false %><%= job.hiring_company_name %><% else %><%= job.company.name %><% end %></a></label>
+    </td>
+    <td>
+      <% if job.name.blank? %>&nbsp;<% else %>
+        <a href="javascript:void(0);" title="" style="max-width: 99px; word-wrap: break-word;">
+          <%= job.name %>
+        </a>
+      <% end %>
+    </td>
+    <td>
+      <label>
+        <%= job.location_name %>
+      </label>
+    </td>
+    <td class="job-days">
+      <label class="job-days-lbl">
+        <% if days_to_go.to_i == 0 %>
+          Today
+        <% else %>
+          <%= days_to_go.to_i %> Days
+        <% end %>
+      </label>
+    </td>
+    <td  class="job-status">
+      <div class="status-block">
+        <%= render :partial => 'status_icons', :locals=>{:job_id => job.id, :job_statuses => job_statuses} %>
+      </div>
+    </td>
+  </tr>
+<% end %>
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+    <% for job in jobs %>
+      $("#job_row_<%=job.id%> .disable").css('height',$("#job_row_<%=job.id%>").height()-2);
+      $("#job_row_<%=job.id%> .disable").css('top',-(($("#job_row_<%=job.id%>").height()-2)/2)+($("#job_row_<%=job.id%> .disable-container").height()/2));
+    <% end %>
+  });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var arr = new Array();
+    //alert($("#search_result_arr").val());
+    if($("#search_result_arr").val() != "-1"){
+      var search_arr_val = $("#search_result_arr").val();
+      var search_arr = search_arr_val.split(",");
+      for (var i=0; i< search_arr.length; i++){
+        arr.push(search_arr[i]);
+      }
+      $('tr').each(function(){
+        if ($(this).attr('id') != undefined){
+          var id = $(this).attr('id').split('_')[2];
+          if (!arr.has(id)){
+            $(this).addClass('filter');
+          }
+        }
+      });
+    }
+  });
+</script>

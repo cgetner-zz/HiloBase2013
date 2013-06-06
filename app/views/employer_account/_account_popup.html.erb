@@ -1,0 +1,47 @@
+<div id="account_popup" class="white_content" style="display:none;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container" style="border:none;">
+          <label class="popup-heading"><%=t ("welcome_popup_emp.heading") %></label>
+        </div>
+        <div class="access-block">
+          <div class="movie-player-content movie-player-content-padding">
+            <div id="accountVideoPlayerEmp">
+              <iframe class="youtube-player" name="accountVplayerEmp1" id="accountVplayerEmp1" type="text/html" width="518" height="313" src="https://www.youtube.com/embed/RjNfhlzEr10?wmode=transparent&rel=0" frameborder="0"></iframe>
+            </div>
+          </div>
+        </div>
+        <!--hilo-blocks-->
+        <div class="hilo-blocks">
+          <!--blocks-->
+          <div class="blocks">
+            <label class="heading"><a href="javascript:void(0)" onclick="$('#account_popup').hide();$('#fade_normal').hide();stopWelcomePlayerEmp('accountVideoPlayerEmp','stopVideo');"><%=t ("welcome_popup_emp.contentP1L1") %></a></label>
+            <p> <%=t ("welcome_popup_emp.contentP1L2") %><br /><%=t ("welcome_popup_emp.contentP1L3") %></p>
+          </div>
+          <!--/blocks-->
+          <!--blocks-->
+          <div class="blocks">
+            <label class="heading"><a href="javascript:void(0)" onclick="$('#account_popup').hide();$('#fade_normal').hide();group_add.open();$('#add_group_field').focus();stopWelcomePlayerEmp('accountVideoPlayerEmp','stopVideo');"><%=t ("welcome_popup_emp.contentP2L1") %></a></label>
+            <p><%=t ("welcome_popup_emp.contentP2L2") %><br/><%=t ("welcome_popup_emp.contentP2L3") %><br/><%=t ("welcome_popup_emp.contentP2L4") %></p>
+          </div>
+          <!--/blocks-->
+          <!--blocks-->
+          <div class="blocks margin-R-0px">
+            <label class="heading" style="cursor: pointer;" onclick="$('#account_popup').hide();$('#fade_normal').hide();showAboutHilo();footerOnOpeningPopup();stopWelcomePlayerEmp('accountVideoPlayerEmp','stopVideo');"><%=t ("welcome_popup_emp.contentP3L1") %></label>
+            <p><%=t ("welcome_popup_emp.contentP3L2") %><br/><%=t ("welcome_popup_emp.contentP3L3") %><br/><%=t ("welcome_popup_emp.contentP3L4") %></p>
+          </div>
+          <!--/blocks-->
+        </div>
+        <!--/hilo-blocks-->
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="$('#account_popup').hide();$('#fade_normal').hide();stopWelcomePlayerEmp('accountVideoPlayerEmp','stopVideo');footerOnClosingPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

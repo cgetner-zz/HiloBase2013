@@ -1,0 +1,10 @@
+$("#status_<%= @company_id%>").html('<%= image_tag "admin/green_dot.png", :alt=>"Granted" %>');
+$("#column_credit_value_<%= @company_id %>").html('<span style="margin-left: 30px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@credit_value, :unit=>"") %></span>');
+$("#column_credit_value_<%= @company_id %>").addClass("static_dollar_fee");
+$("#column_discount_fee_<%= @company_id %>").html('<span style="margin-left: 60px;">$</span><span style="text-align: right; float: right;"><%= number_to_currency(@discout_value, :unit=>"") %></span>');
+$("#column_discount_fee_<%= @company_id %>").addClass("static_dollar_fee");
+$("#action_<%= @company_id %>").html('<span class="revoke_action" id="row_<%= @company_id %>">Revoke</span>');
+$(".action span.revoke_action").unbind().click(function(){
+  revokPrivilegedStatus(this);
+});
+hideBlockShadow();

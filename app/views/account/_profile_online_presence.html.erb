@@ -1,0 +1,86 @@
+<div class="online-presence-cell">
+  <div class="upper-bar">&nbsp;</div>
+  <div class="block-content">
+    <div class="gradient-content">
+      <label class="block-heading online-presence-heading"><%= t('account.pairing_profile.intro.online_presence.heading') %></label>
+      <input type="hidden" value="" id="error_id_website" />
+      <label class="error_msg" id="error_msg_website"></label>
+      <%= form_tag("/my_introduction/save_online_presence", :id=>"edit_website", :remote => true) do -%>
+        <input name="website_placeholder" type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_text') %>"  />
+        <input name="website_title_placeholder" type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_title') %>"  />
+        <ul class="online-list">
+          <li>
+            <div class="customized-inner-input <% if @job_seeker.website_one.nil? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input id="website_1_placeholder" type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_text') %>"  />
+              <input tabindex="4" maxlength="250" type="text" value="<% if @job_seeker.website_one.nil? %><%= t('account.pairing_profile.intro.online_presence.website_text') %><%else%><%=@job_seeker.website_one.force_encoding 'utf-8'%><% end %>" id="website_1" name="website_1" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+
+            <div class="customized-inner-input <% if @job_seeker.website_title_one.nil? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_title') %>" id="website_title_1_placeholder"  />
+              <input tabindex="5" maxlength="20" type="text" value="<% if @job_seeker.website_title_one.nil? %><%= t('account.pairing_profile.intro.online_presence.website_title') %><%else%><%=@job_seeker.website_title_one.force_encoding 'utf-8'%><% end %>" id="website_title_1" name="website_title_1" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li>
+            <div class="customized-inner-input <% if @job_seeker.website_two.nil? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_text') %>" id="website_2_placeholder"  />
+              <input tabindex="6" maxlength="250" type="text" value="<% if @job_seeker.website_two.nil? %><%= t('account.pairing_profile.intro.online_presence.website_text') %><%else%><%=@job_seeker.website_two.force_encoding 'utf-8'%><% end %>" id="website_2" name="website_2" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+
+            <div class="customized-inner-input <% if @job_seeker.website_title_two.nil? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_title') %>" id="website_title_2_placeholder"  />
+              <input tabindex="7" maxlength="20" type="text" value="<% if @job_seeker.website_title_two.nil? %><%= t('account.pairing_profile.intro.online_presence.website_title') %><%else%><%=@job_seeker.website_title_two.force_encoding 'utf-8'%><% end %>" id="website_title_2" name="website_title_2" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+          <li>
+            <div class="customized-inner-input <% if @job_seeker.website_three.nil? %>input-text<%else%>active-input<% end %> website-name">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_text') %>" id="website_3_placeholder"  />
+              <input tabindex="8" maxlength="250" type="text" value="<% if @job_seeker.website_three.nil? %><%= t('account.pairing_profile.intro.online_presence.website_text') %><%else%><%=@job_seeker.website_three.force_encoding 'utf-8'%><% end %>" id="website_3" name="website_3" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+
+            <div class="customized-inner-input <% if @job_seeker.website_title_three.nil? %>input-text<%else%>active-input<% end %> website-title">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" value="<%= t('account.pairing_profile.intro.online_presence.website_title') %>" id="website_title_3_placeholder"  />
+              <input tabindex="9" maxlength="20" type="text" value="<% if @job_seeker.website_title_three.nil? %><%= t('account.pairing_profile.intro.online_presence.website_title') %><%else%><%=@job_seeker.website_title_three.force_encoding 'utf-8'%><% end %>" id="website_title_3" name="website_title_3" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+        </ul>
+      <% end %>
+      <div class="online-presence-content"><%= t('account.pairing_profile.intro.online_presence.content') %></div>
+
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<script type="text/javascript">
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_edit_website = function(){
+      $('#submit-button-intro').hide();
+      $('#submit-loader-img').show();
+    }
+    var loaded_edit_website = function(){
+      $('#submit-loader-img').hide();
+      $('#submit-button-intro').show();
+      disableSaveButton();
+      hideBlockShadow();
+    }
+
+    $("#edit_website")
+    .bind("ajax:beforeSend", loading_edit_website)
+    .bind("ajax:complete", loaded_edit_website)
+
+  });
+</script>

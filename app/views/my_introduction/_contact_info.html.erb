@@ -1,0 +1,37 @@
+<div >
+	
+	<div class="myint-contact-row">
+		<div class="myint-contact-label">
+			Phone 1: <%=preferred_mark("phone_one",job_seeker.preferred_contact)%>
+		</div>
+
+		<div class="myint-contact-value">
+			<%=job_seeker.phone_one%>
+		</div>
+		
+		<br class="clear-height"/>
+	</div>
+
+	<div class="myint-contact-row">
+		<div class="myint-contact-label">
+			Phone 2: <%=preferred_mark("phone_two",job_seeker.preferred_contact)%>
+		</div>
+		
+		<div class="myint-contact-value">
+			<%=job_seeker.phone_two%>
+		</div>
+		
+		<br class="clear-height"/>
+	</div>
+	
+	<div class="myint-contact-row">
+		<div class="myint-contact-label">
+			Email: <%=preferred_mark("contact_email",job_seeker.preferred_contact)%>
+		</div>
+		
+		<div class="myint-contact-value">
+			<%=job_seeker.contact_email%>
+		</div>
+		<br class="clear-height"/>
+	</div>
+</div>

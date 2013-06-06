@@ -1,0 +1,26 @@
+<div id="hilo_employer_search_popup" class="white_content" style="position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("emp_search_non_loggedin.pop_up.heading") %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" style="width: 415px; text-align: justify;">
+            <label class="free-text"><%=t ("emp_search_non_loggedin.pop_up.content") %></label>
+          </div>
+          <div class="rfloat" style="margin-top: 55px;">
+            <%= link_to "", hilo_search_index_path(:user_type => "employer"), :class => "begin-button-active #{I18n.locale}", :id => "hilo_employer_search_popup_button" ,:style => "display: block;" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideHiloEmployerSearchPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

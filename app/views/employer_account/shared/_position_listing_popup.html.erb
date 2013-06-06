@@ -1,0 +1,148 @@
+
+<div style="display:none;" class="catageory_position-tooltip" id="catageory_position_popup">
+  <div class="catageory_position-tooltip_leftarrow">
+    <img style="height:27px;width:17px;margin-top: 568px;z-index:5000;position:absolute;" src="/assets/employer_v2/positionarrow.png" />
+  </div>
+  <div class="catageory_position_rightDiv">
+    <div class="catageory_position_top">&nbsp;</div>
+    <div class="catageory_position_middle" id="green_middle" style="display:none;">
+      <h1><%=t ("emp_left_menu.active_popup") %>
+        <div class="green_count">
+          <div class="left"></div>
+          <div class="middle">
+            <span class="green-square-status">
+              <a href="javascript:void(0);"></a>
+            </span>
+          </div>
+          <div class="right"></div>
+        </div>
+      </h1>
+
+      <div class="notifications-emp" id="testrailvisible-green">
+        <ul>
+          <% flag_border = true %>
+          <% for job_list in @jobs %>
+            <%if not job_list.job_id.blank? %>
+              <% if !job_list.deleted and job_list.active == 1 and job_list.internal == 0%>
+                <li class="table <% if flag_border %>tableTop-bdr<% flag_border = false %><% end %>" onclick="window.location='/position_profile/candidate_pool/<%=job_list.job_id%>?selected='+$('#parent_id').val()">
+                  <img width="27" height="26" src="/assets/lolo_small.gif" alt="logo" />
+                  <p>
+                    <label class="transform-letter"><%=job_list.job_code%></label><br>
+                    <span class="work-detail">
+                      <label class="transform-letter"><%=job_list.group_name %>:</label>
+                      <span><%=job_list.name%></span>
+                    </span>
+
+                  </p>
+                  <p class="red-green-status">
+                    <img width="14" height="14" src="/assets/employer_v2/green-circle-true.png" alt="logo" />
+                  </p>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="catageory_position_middle" id="yellow_middle" style="display:none;">
+      <h1><%=t ("emp_left_menu.internal_popup") %>
+        <div class="yellow_count">
+          <div class="left"></div>
+          <div class="middle">
+            <span class="yellow-square-status">
+              <a href="javascript:void(0);"></a>
+            </span>
+          </div>
+          <div class="right"></div>
+        </div>
+      </h1>
+
+      <div class="notifications-emp" id="testrailvisible-green">
+        <ul>
+          <% flag_border = true %>
+          <% for job_list in @jobs %>
+            <%if not job_list.job_id.blank? %>
+              <% if !job_list.deleted and job_list.active == 1 and job_list.internal == 1%>
+                <li class="table <% if flag_border %>tableTop-bdr<% flag_border = false %><% end %>" onclick="window.location='/position_profile/candidate_pool/<%=job_list.job_id%>?selected='+$('#parent_id').val()">
+                  <img width="27" height="26" src="/assets/lolo_small.gif" alt="logo" />
+                  <p>
+                    <label class="transform-letter"><%=job_list.job_code%></label><br>
+                    <span class="work-detail">
+                      <label class="transform-letter"><%=job_list.group_name %>:</label>
+                      <span><%=job_list.name%></span>
+                    </span>
+
+                  </p>
+                  <p class="red-green-status">
+                    <img width="14" height="14" src="/assets/employer_v2/yellow-circle-true.png" alt="logo" />
+                  </p>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+    <div class="catageory_position_middle" id="red_middle" style="display:none;">
+      <h1><%=t ("emp_left_menu.inactive_popup") %>
+        <div class="red_count">
+          <div class="left"></div>
+          <div class="middle">
+            <span class="red-square-status">
+              <a href="javascript:void(0);"></a>
+            </span>
+          </div>
+          <div class="right"></div>
+        </div>
+      </h1>
+
+      <div class="notifications-emp" id="testrailvisible-red">
+        <ul>
+          <% flag_border = true %>
+          <% for job_list in @jobs %>
+            <%if not job_list.job_id.blank? %>
+              <% if !job_list.deleted and job_list.active == 0 %>
+                <% if job_list.profile_complete == 0 %>
+                  <li class="table <% if flag_border %>tableTop-bdr<% flag_border = false %><% end %>" onclick="window.location='/position_profile/new_employer_profile/<%=job_list.job_id%>?selected='+$('#parent_id').val();">
+                  <% else %>
+                  <li class="table <% if flag_border %>tableTop-bdr<% flag_border = false %><% end %>" onclick="window.location='/postings/index/<%=job_list.job_id%>?selected='+$('#parent_id').val();">
+                  <% end %>
+                  <img width="27" height="26" src="/assets/lolo_small.gif" alt="logo" />
+                  <p>
+                    <label class="transform-letter"><%=job_list.job_code%></label><br>
+                    <span class="work-detail">
+                      <label class="transform-letter"><%=job_list.group_name %>:</label>
+                      <span><%=job_list.name%></span>
+                    </span>
+
+                  </p>
+                  <p class="red-green-status">
+                    <img width="14" height="14" src="/assets/employer_v2/red-circle-false.png" alt="logo" />
+                  </p>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        </ul>
+      </div>
+
+    </div>
+    <div class="catageory_position_bottom">&nbsp;</div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $('#testrailvisible-green').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+    $('#testrailvisible-red').slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+</script>

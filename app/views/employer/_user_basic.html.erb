@@ -1,0 +1,112 @@
+<div class="form-element-container">
+	<ul>
+		<li style="padding-bottom: 0px;">
+			<%= render :partial => "user_type_selection"%>
+		</li>
+		<li>
+			<div class="customized-input <%if !@f_name.nil?%>active-input<%else%>input-text<%end%>">
+				<div class="input-left">&nbsp;</div>
+                                <input type="hidden" id="first_name_placeholder" value="<%=t ("employer_acc_setup.first_name") %>"/>
+				<input type="text" onfocus="focus_element(this);validateEmpBasicInfoError(this);" onblur="validateEmpBasicInfoError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfo(this);" id="first_name" name="employer[first_name]" maxlength="30" value="<%= @f_name || t('employer_acc_setup.first_name')%>" tabindex='1' />
+				<div class="input-right">&nbsp;</div>
+			</div>
+		</li>
+		<li>
+			<div class="customized-input <%if !@l_name.nil?%>active-input<%else%>input-text<%end%>">
+				<div class="input-left">&nbsp;</div>
+				<input type="hidden" id="last_name_placeholder" value="<%=t ("employer_acc_setup.last_name") %>"/>
+                                <input type="text" onfocus="focus_element(this);validateEmpBasicInfoError(this);" onblur="validateEmpBasicInfoError(this);blur_element(this);" onkeydown="type_element(this)" onkeyup="validateEmpBasicInfo(this);" id="last_name" name="employer[last_name]" maxlength="30" value="<%= @l_name || t('employer_acc_setup.last_name')%>" tabindex='2' />
+				<div class="input-right">&nbsp;</div>
+			</div>
+		</li>
+		<li>
+			<div class="customized-input <%if !@email.nil?%>active-input<%else%>input-text<%end%>">
+				<div class="input-left">&nbsp;</div>
+				<input type="hidden" id="email_placeholder" value="<%=t ("employer_acc_setup.email") %>"/>
+                                <input type="text" onfocus="focus_element(this);validateEmpBasicInfoError(this);" onblur="validateEmpBasicInfoError(this);blur_element(this);" onkeyup="validateEmpBasicInfo(this);" onkeydown="type_element(this);" id="email" name="employer[email]" maxlength="100" value="<%= @email || t('employer_acc_setup.email') %>" tabindex='3' />
+				<div class="input-right">&nbsp;</div>
+			</div>
+		</li>
+		<li>
+			<div class="customized-input input-text">
+				<div class="input-left">&nbsp;</div>
+				<input type="hidden" id="password_placeholder" value="<%=t ("employer_acc_setup.pwd") %>" />
+				<%if @disable_password_field%>
+					<input type="password" class="password" id="password" name="employer[password]" disabled="disabled" maxlength="30" value="Password1" tabindex='4' />
+				<%else%>
+					<input type="text" class="password" id="password" onfocus="focus_element(this); validateEmpBasicInfoError(this);" onblur="validateEmpBasicInfoError(this);blur_element(this);" onkeyup="validateEmpBasicInfo(this);validatePasswordOnKeyUp(this)" onkeypress="type_element(this,event);" name="employer[password]" maxlength="30" value="<%= t ('employer_acc_setup.pwd') %>" tabindex='4' />
+				<%end%>
+				<div class="input-right">&nbsp;</div>
+			</div>
+		</li>
+		<li>
+			<div class="customized-input input-text">
+				<div class="input-left">&nbsp;</div>
+				<input type="hidden" id="confirm_password_placeholder" value="<%= t ("employer_acc_setup.conf_pwd") %>"/>
+				<%if @disable_password_field%>
+					<input type="password" class="password" id="confirm_password" name="employer[password_confirmation]" disabled="disabled" maxlength="30" value="Password1" tabindex='5' />
+				<%else%>
+					<input type="text" onfocus="focus_element(this); validateEmpBasicInfoError(this);" onblur="validateEmpBasicInfoError(this);blur_element(this);" onkeyup="validateEmpBasicInfo(this);validatePasswordOnKeyUp(this);" onkeypress="type_element(this,event)" class="password" id="confirm_password" name="employer[password_confirmation]" maxlength="30" value="<%= t ('employer_acc_setup.conf_pwd') %>" tabindex='5' />
+				<%end%>
+				<div class="input-right">&nbsp;</div>
+			</div>
+		</li>
+
+		<li class="last_child term_free">
+			<%= j.check_box "terms_of_service", :class=>"styled checkbox employer_signup", :id=>"privacyText", :onclick=>"validateEmpBasicInfo();", :onFocus=>"$('.employer_signup').prev().css('border','thin dotted');", :onBlur=>"$('.employer_signup').prev().css('border','none');", :tabIndex => '6' %>
+		</li>
+		<li style="float:left; padding-top: 35px;">
+			<label class="label-privacy-text"><span onclick="Custom.check($('.term_free span.checkbox'));validateEmpBasicInfo();"><%=t ("employer_acc_setup.i_agree") %><sup>&reg;</sup></span> <a href="javascript:void(0);" id="terms" title="Terms of Use" onclick="showTerms(event);" style="text-decoration: none;"><%=t ("employer_acc_setup.terms") %></a> <!--<a title="Privacy Policy" id="policy" href="javascript:void(0);" onclick="showPrivacyPopup();centralizePopup();" style="text-decoration: none;">Privacy Policy</a>--> </label>
+		</li>
+	</ul>
+</div>
+<!-- Form element container end-->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		BrowserDetect.init();
+
+		if (BrowserDetect.browser == "Explorer" && BrowserDetect.version == "8") {
+			$("#privacyText").change(function() {
+				if ($("#privacyText").prev().css('background-position-x') == "0px" && $("#privacyText").prev().css('background-position-y') == "-50px") {
+					$(".employer_signup").attr("checked", "checked");
+					Custom.check($(".employer_signup").prev());
+					validateEmpBasicInfo();
+				} else {
+					$(".employer_signup").removeAttr("checked");
+					Custom.check($(".employer_signup").prev());
+					validateEmpBasicInfo();
+				}
+			});
+		} else {
+			$("#privacyText").change(function() {
+				if ($("#privacyText").prev().css('background-position') == "0px -50px") {
+					$(".employer_signup").attr("checked", "checked");
+					Custom.check($(".employer_signup").prev());
+					validateEmpBasicInfo();
+				} else {
+					$(".employer_signup").removeAttr("checked");
+					Custom.check($(".employer_signup").prev());
+					validateEmpBasicInfo();
+				}
+			});
+		}
+
+		Custom.init();
+		$(".checkbox").live('click', function(e) {
+			validateEmpBasicInfo();
+		});
+		$("#new_employer .account-type .free_user span.checkbox").unbind().live('click', function(e) {
+			showFreeUser();
+		});
+		$("#new_employer .account-type .corp_user .checkbox").unbind().live('click', function(e) {
+			showCorpUser();
+		});
+
+	});
+
+	function showTerms(e) {
+		showTermsPopup();
+		centralizePopup();
+	}
+</script>

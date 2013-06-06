@@ -1,0 +1,28 @@
+<!-- Email Error Popup -->
+<div id="email_error" class="white_content" style="display:none;">
+  <div class="email_error_reg">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t ("employer_acc_setup.email_error.heading") %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat beta-error-text">
+            <label class="free-text"><%=t ("employer_acc_setup.email_error.content") %></label>
+          </div>
+          <div class="rfloat margin-T-5px">
+            <input type="button" class="retry-button-active" onclick="hideErrorShadow();$('#email_error').hide();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" id="email_error_button" class="close" onClick="hideErrorShadow();$('#email_error').hide();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>  
+</div>
+<!-- /Email Error Popup -->

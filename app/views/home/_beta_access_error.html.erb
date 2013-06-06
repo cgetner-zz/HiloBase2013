@@ -1,0 +1,28 @@
+<!-- Beta Access Error Popup -->
+<div id="beta_error" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('beta_error.heading') %></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat beta-error-text">
+            <label class="free-text"><%= t('beta_error.free_text1') %><br /><%= t('beta_error.free_text2') %></label>
+          </div>
+          <div class="rfloat margin-T10px">
+            <input type="button" id="beta_access_error_retry" class="retry-button-active" onclick="hideErrorBeta(); showBetaPopup();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" id="beta_access_error_close" class="close" onClick="hideErrorBeta();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- /Beta Access Error Popup -->

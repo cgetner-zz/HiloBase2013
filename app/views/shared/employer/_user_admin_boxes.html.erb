@@ -1,0 +1,187 @@
+<%
+  total_amount = 0
+  child.subtree_ids.each do |child_sub|
+  emp_obj = Employer.find_by_id(child_sub)
+  total_amount = total_amount + emp_obj.spending_limits.last.spend_limit if not emp_obj.spending_limits.last.blank?
+end %>
+<div class="user-box close" id="user_box_<%= child.id %>"><!-- Use class [open] or [close] and [error] if the box has an error -->
+  <div class="top">
+    <% if child.suspended %>
+      <span id="suspend_image" class="yellow-dot"></span>
+    <% else %>
+      <span id="suspend_image" class="green-dot"></span>
+    <% end %>
+    <% last = initial_finder(child.last_name) %>
+    <% user_name = child.first_name + " " + last %>
+    <span class="user-name"><%= truncate(user_name, :length => 15, :omission => '...') %></span>
+  </div>
+  <div class="slide">
+    <%= form_tag('/employer/spending_limit', :remote => true, :id=>"spending_form_#{child.id}") do %>
+    <input type="hidden" value="<%= child.id %>" name="spending_user_id" id="spending_user_id" />
+    <div class="middle">
+
+      <!-- Spending Limit Block -->
+      <div class="block-title <% if child.suspended == true %>disabled<% end %>"><%=t ("user_admin.accounts.user_admin_boxes.spending_limit") %></div>
+      <div class="block-content">
+        <div class="options-container spending-limit <% if child.suspended == true %>disabled<% end %>">
+          <!-- Option Block -->
+          <% if session[:employer].is_root? || session[:employer].spending_flag == false%>
+            <div class="center-content">
+              <% if child.spending_flag == false %>
+                <% if child.suspended == true %>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% else %>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-inactive.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% end %>
+              <% else %>
+                <% if child.suspended == true %>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% else %>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-inactive.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% end %>
+              <% end %>
+
+            </div>
+          <% end %>
+          <!-- /Option Block -->
+          
+          <!-- $ Block -->
+          <div class="limit-container">
+            <div class="customized-inner-input <% if child.spending_flag == false %>input-text<% else %>active-input<% end%>  ">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="limit_<%= child.id %>_placeholder" value="$"/>
+              <input style="width: 50px;" type="text" class="limit" name ="limit_text" id="limit_<%= child.id %>" numeric ="decimal" onfocus="focus_element_spend_limit(this); var val=this.value; this.value=''; this.value= val;$(this).caretToEnd();" onblur="limit_empty_and_crossed_check(this, <%= child.id %>); blur_element(this);" onkeydown="type_element(this); checkForEnter(<%= child.id %>, event);" value="<% if child.spending_flag == true %>$ <%= number_to_currency(total_amount, :unit=>"") %><% else %>$<% end %>" tabindex='1' <% if child.spending_flag == false or child.suspended == true %>disabled="disabled"<% end %> />
+              <div class="input-right">&nbsp;</div>
+            </div>
+            <div class="disabled <% if child.spending_flag == false or child.suspended == true %>active<% end %>"></div><!-- add class [active] to disable text box -->
+          </div>
+          <!-- /$ Block -->
+
+        </div>
+      </div>
+      <!-- /Spending Limit Block -->
+
+      <!-- Monthly Auto Renew Block -->
+      <% if session[:employer].is_root? %>
+        <div class="block-title <% if child.spending_flag == false or child.suspended == true %>disabled<% end %>"><%=t ("user_admin.accounts.user_admin_boxes.monthly_auto_renew") %></div>
+        <div class="block-content">
+          <div class="options-container monthly-renew <% if child.spending_flag == false or child.suspended == true %>disabled<% end %>">
+            <% if child.spending_flag == false %>
+              <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+              <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+              <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+              <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+            <% else %>
+              <% if child.monthly_renew_flag == false %>
+                <% if child.suspended == true %>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% else %>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-inactive.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% end %>
+              <% else %>
+                <% if child.suspended == true %>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active-disabled.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% else %>
+                  <a href="javascript:void(0);"><img src="/assets/employer_v2/btn-radio-inactive.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.no") %></label>
+                  <a href="javascript:void(0);" selected="selected"><img src="/assets/employer_v2/btn-radio-active.png" height="21" /></a>
+                  <label><%=t ("user_admin.accounts.user_admin_boxes.yes") %></label>
+                <% end %>
+              <% end %>
+           <% end %>
+          </div>
+        </div>
+      <% end %>
+      <!-- Monthly Auto Renew Block -->
+      <div class="button-container">
+        <input type="button" class="usr-delete-button" onclick="deleteUser(<%= child.id %>);"/>
+        <% if child.suspended == true %>
+          <input type="button" class="usr-reinstate-button" id="user_suspend_<%= child.id %>" onclick="reinstateUser(<%= child.id %>)"/>
+        <% else %>
+          <input type="button" class="usr-suspend-button" id="user_suspend_<%= child.id %>" onclick="suspendUser(<%= child.id %>);"/> <!-- Use class [usr-reinstate-button] for Reinstate button -->
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+    <div class="bottom"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var user_id = 0;
+  $(document).ready(function(){
+    var user_id = <%= child.id %> ;
+    $("#spending_form_"+user_id)
+      .unbind().bind("ajax:complete", function spending_form_success(){
+         $('#spending_form_'+user_id + ' .options-container.monthly-renew a').each(function(){
+          if($(this).index()==0) {
+            $(this).attr('selected','selected');
+            $(this).html('<img src="/assets/employer_v2/btn-radio-active.png" height="21" />');
+          } else {
+            $(this).html('<img src="/assets/employer_v2/btn-radio-inactive.png" height="21" />');
+          }
+        });
+        $('#spending_form_'+user_id + ' .options-container.monthly-renew').parent().prev().removeClass('disabled');
+        $('#spending_form_'+user_id + ' .options-container.monthly-renew').removeClass('disabled');
+        $("#limit_"+user_id).parent().removeClass('input-text-error').addClass('active-input');
+      })
+      $('input[numeric]').keyup(function() {
+        if ($(this).val()){
+        var d = $(this).attr('numeric');
+        var value = $(this).val();
+        var set_flag = 0;
+        if(!(value.indexOf('$') == -1))
+        {
+          value = $(this).val().split('$')[1];
+          set_flag = 1;
+        }
+        var orignalValue = value;
+        value = value.replace(/[0-9]*/g, "");
+        if (d == 'decimal') {
+          value = value.replace(/\./, "");
+        }        
+        if (value != '') {
+          orignalValue = orignalValue.replace(/([^0-9].*)/g, "")
+          if ((set_flag)){
+            orignalValue = "$" + orignalValue;
+          }
+          
+          $(this).val(orignalValue);
+        }
+        else{
+          var new_arr = new Array();
+          split_val = $(this).val().split('');
+          for (i=0; i<split_val.length; i++){
+            if(split_val[i] != "$"){
+              new_arr.push(split_val[i]);
+            }
+          }
+          new_val = new_arr.join('');
+          $(this).val("$"+new_val);
+
+        }
+        }
+    });
+  });
+</script>

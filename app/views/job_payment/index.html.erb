@@ -1,0 +1,89 @@
+<div>
+  <div class="light-header-left">	</div>
+  <div class="light-header-center">
+    <div class="job-preview-row-header">
+      <div class="pos-left"></div>
+      <div class="detail-comparison-close">
+        <a href="javascript:void(0);" onclick="job_detail_view.close();" title="close"><img alt="" src="/assets/close.gif"/></a>
+      </div>
+      <br class="clear"/>
+    </div>
+  </div>
+  <div class="light-header-right">	</div>
+  <br class="clear-height"/>
+</div>
+
+<div>
+  <%= form_tag :url => "/job_payment/make_payment",:html =>{:id=>"job_view_pay_form"} , :remote => true do%>
+    <div class="job-pay-box">
+      <div style="padding:15px;" id="job-pay-container">
+        <div class="back-job-view">
+          <%if params[:from_view].blank? -%>
+            <a href="javascript:void(0);" onclick="back_to_job(<%=params[:job_id]%>);">&#60;&#60; back to Job view</a>
+          <%end -%>
+        </div>
+        <br class="clear"/>
+        <div class="pay_for_msg">
+          <%=pay_for_job_message(params[:pay_for])%>
+          <input type="hidden" value="<%=params[:job_id]%>" name="job_id" class="pay_form_job_id"/>
+          <input type="hidden" value="<%=params[:pay_for]%>" name="pay_for"/>
+          <input type="hidden" value="<%=params[:from_view].blank? ? "show_job" : "comparison_view"%>" name="view_from"/>
+        </div>
+
+        <div class="pay-comp-box">
+          <div class="pay-comp-section">
+            <%=@company.name%>
+          </div>
+
+          <div class="pay-comp-section">
+            <%=@job.name%>
+          </div>
+
+          <div class="pay-comp-section">
+              Career Code: <%=@job.code%>
+          </div>
+          <br class="clear"/>
+        </div>
+
+        <div style="padding-top:10px;">
+          <div>
+            <%if !@old_payment_obj.blank?%>
+              <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "jobview-pay-coverline"} -%><div class="transaction-type-box">
+                <input type="checkbox" name="transaction_type[]" value="old" onclick="toggle_payment_option('old');" checked='checked'/>
+                                                                                        Make payment with: <%=old_transaction_detail(@old_payment_obj,@promo_code_obj)%>
+
+              </div>
+              <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "jobview-pay-coverline"} -%>
+              <div class="height10"></div>
+            <%end%>
+            <input type="hidden" name="past_promo_code" id="past_promo_code" value="<%=@promo_code_obj.blank? ? "" : @promo_code_obj.code%>"/>
+            <%=render :partial =>"/panels/custom_top_cover",:locals=>{:class_name => "jobview-pay-coverline"} -%>
+            <div  class="transaction-type-box">
+              <div>
+                <input type="checkbox" name="transaction_type[]" value="new" onclick="toggle_payment_option('new');" <%=@old_payment_obj.blank? ? "checked='checked'" : ""%> />
+                                                                                      Select new payment method.
+              </div>
+              <div>
+                <%=render :partial=>"card_form"%>
+              </div>
+            </div>
+            <%=render :partial =>"/panels/custom_bottom_cover",:locals=>{:class_name => "jobview-pay-coverline"} -%>
+            <div class="height10"></div>
+            <div id="job_pay_payment_button">
+              <a href="javascript:void(0);" onclick="job_view_pay.details('<%=params[:job_id]%>','<%=params[:pay_for]%>');" class="button-a buttton_106X23">Make Payment</a>
+              <img alt="" src="/assets/login-loader.gif" id="pay_loader_img" style="display:none;"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#fade_layer_div").css("top","25px");
+		disable_payment_field_options();
+	});
+	
+</script>

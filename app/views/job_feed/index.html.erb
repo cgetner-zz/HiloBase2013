@@ -1,0 +1,25 @@
+<div class="job-feed-container">
+  <div class="header">Jobs @ The Hilo Project</div>
+  <ul id="job_list">
+    <%= render :partial => "job_list" %>
+  </ul>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    bindScrollForJobFeed();
+  });
+  $(window).resize(function() {
+    $("#job_list").css('height',getWindowHeight());
+    $("#job_list").parent().css('height',getWindowHeight());
+  });
+  function bindScrollForJobFeed() {
+    $('#job_list').slimscroll({
+      railVisible: true,
+      allowPageScroll: false,
+      height: getWindowHeight()
+    });
+  }
+  function getWindowHeight() {
+    return ($(window).height()-($('.job-feed-container .header').height()+40));
+  }
+</script>

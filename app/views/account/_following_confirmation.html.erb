@@ -1,0 +1,65 @@
+<div class="white_content" id="following_confirmation" style="display: none;">
+  <div class="popup-upper-block-military advanced-popup">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content gradient-content-white">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('following_confirmation.heading') %></label>
+
+          <div class="checkbox-cont">
+            <input type="hidden" id="comp_id" value=""/>
+            <input type="hidden" id="jobID" value=""/>
+            <input type="checkbox" id="follow-check" class="styled language_check follow-confirm" name="follow-check"/>
+            <label id="follow-check-label" style="font-weight:400; font-size:13px; margin-top:2px;">
+              <div onclick="Custom.check($('.follow-confirm').prev());"><%= t('following_confirmation.confirmation_msg') %></div>
+            </label>
+          </div>
+
+        </div>
+        <div class="popup-inner-content" style="height:auto; overflow:hidden; margin-top: 20px; width: 520px;">
+           <table cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+            <tr>
+              <td style="vertical-align:top;">
+                <p style="width:396px; font-size:14px; font-weight:400; text-align:justify;" class="lfloat">
+                  <%= t('following_confirmation.free_text1') %> <span id="hiring_company_name" style="text-transform: uppercase;"></span> <%= t('following_confirmation.free_text2') %> <span style="text-transform: uppercase;" class="user_company_name"></span>. <%= t('following_confirmation.free_text3') %> <span style="text-transform: uppercase;" class="user_company_name"></span>.
+                </p>
+              </td>
+              <td style="vertical-align:bottom;"><input id="following_confirmation_button" type="button" style="margin-left: 24px;" class="continue-button-active rfloat" onClick="follow_company.call($('#comp_id').val(), 'follow', $('#jobID').val()); follow_company.close_pop();" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <a onclick="follow_company.close_pop()" class="close" href="javascript:void(0)">Close</a>
+
+    </div>
+
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+
+</div>
+
+<script type="text/javascript">
+	
+  document.onload = clickBind();
+		
+  function clickBind(){
+
+<%# if controller.action_name == "credentials" %>
+    Custom.init();
+<%# end %>
+                
+    /*
+                $(".checkbox-cont span.checkbox").live("click", function(){
+                        alert("1");
+                        follow_company.check();
+			
+                });
+                $(".checkbox-cont label#follow-check-label").live("click", function(){
+                        alert("2");
+                        follow_company.check();
+
+                });
+     */
+  }
+	
+</script>

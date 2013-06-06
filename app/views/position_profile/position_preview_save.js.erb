@@ -1,0 +1,95 @@
+showBlockShadow();
+$("#active_inactive").html("<%= escape_javascript render(:partial => '/employer_account/shared/position_listing_popup', :locals=>{:jobs => @jobs})%>");
+$("#company-group-list-section").html("<%= escape_javascript render(:partial => '/employer_account/company_group_list',:locals=>{:jobs => @jobs})%>");
+$("#group_container").html("<%= escape_javascript render(:partial => '/employer_account/group_container')%>");
+if($('#parent_id').val() == '-1'){
+$("#outer_pos label").html($("#all_positions").html());
+}
+else if($('#parent_id').val() == '0'){
+$("#outer_pos label").html($("#my_positions").html());
+}
+else{
+$('#children').children().each(function(){
+if($(this).attr('emp_id')==$('#parent_id').val()){
+$("#outer_pos label").html($(this).text());
+}
+});
+}
+<% if session[:employer].account_type_id != 3 %>
+  if ($("#outer_pos label").html() == "MY POSITIONS"){
+  $("#company-group-list-section").sortable("enable");
+  $("#company-group-list-section").removeClass("disable");
+  emp_left_menu_event.group_drag();
+  emp_left_menu_event.job_section_drag();
+  }
+  else{
+  $("#company-group-list-section").sortable("disable");
+  $("#company-group-list-section").addClass("disable");
+  $(".group-section").each(function(){
+  var temp_id = $(this).attr("id");
+  $("#" + temp_id).unbind();
+  });
+  }
+<% end %>
+emp_left_menu_event.toggle_group_event();
+emp_left_menu_event.edit_name();
+emp_left_menu_event.toggle_job_delete_icon();
+emp_left_menu_event.toggle_group_delete_icon();
+leftmenuBodyClick();
+var currently_viewed_job_id = "<%=(!@job.nil? and  !@job.id.nil?) ? @job.id : 0%>";
+
+openTabOnLoad(<%= @job.id %>);
+$("#jid").val(<%= @job.id %>);
+$("#jobid").val(<%= @job.id %>);
+$("#job_id_save").val(<%= @job.id %>);
+placeholderReplace();
+
+$("#role_err_msg").hide();
+$("#language_err_msg").hide();
+$("#degree_err_msg").hide();
+$("#deg-cnt").removeClass("error");
+<% if @job.credential_complete == true %>
+  $("#skill-cnt").removeClass("error");
+  $("#lang-cnt").removeClass("error");
+  $("#cert_err_msg").hide();
+<% else %>
+  $("#error-message").html("SAVED<br />Incomplete<br />fields are<br />shown in red.<br />");
+  <% if params[:selected_languages].blank? %>
+    $("#lang-cnt").addClass("error");
+  <% else %>
+    $("#lang-cnt").removeClass("error");
+  <% end %>
+  <% if params[:selected_roles].blank? %>
+    $("#skill-cnt").addClass("error");
+  <% else %>
+    $("#skill-cnt").removeClass("error");
+  <% end %>
+<% end %>
+
+// Check is the Overview tab is complete, mark tab as completed, close this tab and open the next tab
+<% if @job.basic_complete == true and @job.credential_complete == true %>
+  active_tab_1to3('overview');
+  if($("#whatWasClicked").val()=="") {
+  profile_blocks.open_wrkenv();
+  } else {
+  openWhatWasClicked($("#whatWasClicked").val());
+  }
+  <% if @job.basic_complete == true and @job.personality_work_complete == true and @job.personality_role_complete == true and @job.credential_complete == true %>
+    active_tab_4();
+  <% else %>
+    deactive_tab_4();
+    unbindChannelManagerOnComplete();
+  <% end  %>
+<% else %>
+  deactive_tab_1to3('overview');
+  deactive_tab_4();
+  unbindChannelManagerOnComplete();
+  if($("#whatWasClicked").val()!="") {
+  if(!$("#error-message").hasClass("fatal")) {
+  openWhatWasClicked($("#whatWasClicked").val());
+  }
+  }
+<% end %>
+text_in_college_box = false;
+text_in_cert_box = false;
+hideBlockShadow();

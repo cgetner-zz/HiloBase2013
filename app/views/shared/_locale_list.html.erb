@@ -1,0 +1,18 @@
+<% if $ENABLE_LANGUAGE_LOCALIZATION == 1 %>
+  <div class="language-selector <%=for_class%>">Language</div>
+  <div class="langauge-dropdown <%=for_class%>">
+    <div class="top"></div>
+    <div class="middle">
+      <ul>
+        <% l_links = language_links %>
+        <% l_links.each do |language| %>
+          <li><%=language.html_safe%></li>
+          <% if l_links.last != language %>
+            <li class="seperator">&nbsp;</li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+<% end %>

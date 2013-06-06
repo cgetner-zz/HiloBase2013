@@ -1,0 +1,462 @@
+<div class="popup-jobtitle" style="width: 850px;">
+  <div class="popup-top">&nbsp;</div>
+  <div class="popup-content">
+    <div class="gradient-content">
+      <div class="popup-header-container">
+        <label class="popup-heading transform-letter">
+          <% if job.name -%>
+            <%=  job.name.html_safe.force_encoding('utf-8')%> - <%= @desired_emp %>
+          <% end %>
+        </label>
+        <label class="popup-heading rfloat">
+          <% if job.expire_at %>
+            <%=format_remaining_time(job.expire_at)%>
+          <% end %>
+        </label>
+      </div>
+      <div class="job-content-popup">
+        <table class="popup-table-jobtitle" cellspacing="0" cellpadding="0" border="0" style="border-spacing: 19px 5px;">
+          <tbody>
+            <tr>
+              <th style="width:330px;">
+                <h4>
+                  <% if  @job_seeker.first_name %>
+                    <span id="seeker_full_name"class="lfloat">
+                      <%= @job_seeker.first_name.force_encoding('utf-8')+" "+@job_seeker.last_name.force_encoding('utf-8') %>
+                    </span>
+                    <span id="email-text" class="email-text">
+                      <%if @job_seeker.preferred_contact == "contact_email"%>
+                        <a href="mailto:<%=h(@job_seeker.contact_email) %>?subject=I%20saw%20your%20profile%20on%20Hilo.%20Let%27s%20talk%21"><%=h(@job_seeker.contact_email) %></a>
+                      <%else%>
+                        (<%=h(@job_seeker.area_code) -%>) &nbsp; <%=h(@job_seeker.phone_one) -%>
+                      <%end%>
+                    </span>
+
+                  <% end %>
+                  <%if @job_seeker.armed_forces==true%>
+                    <%= image_tag("/assets/employer_v2/US-Veteran.png", :width =>"23px", :height =>"21px",:class=>"usVeteran") %>
+                  <%end%>
+                </h4>
+              </th>
+              <th style="width:222px;">
+                &nbsp;
+              </th>
+              <th style="width:155px;">
+                <h4><label class="rfloat"><% if job.code %><%=h(job.code) -%> <% end %></label></h4>
+              </th>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="job-details-block">
+                  <div class="job-details">
+                    <p id="summary" class="margin-B-20px image-cnt-back-img" style="overflow-y:auto;">
+                      <span class="image-cnt">
+                        <%if @job_seeker.photo_file_name.blank? or !session[:employer].company.graphical_content %>
+                          <%= image_tag('candidate_img.png', :width =>"110px", :height =>"110px") %>
+                        <%else%>
+                          <%= image_tag(@job_seeker.photo.url(:original), :width =>"110px", :height =>"110px") %>
+                        <%end%>
+                      </span>
+                      <% if @job_seeker.summary %>
+                        <%= @job_seeker.summary.html_safe.force_encoding('utf-8') %>
+                      <% end %>
+                    </p>
+                    <% unless @job_seeker_status.nil? %>
+                      <% unless @job_seeker_status.cover_note.nil? %>
+                        <div style="margin-bottom: 15px; text-decoration: underline;">
+                          <a href="javascript:viewCoverLetter(<%=job.id%>,<%=@job_seeker.id%>);">VIEW COVER LETTER</a>
+                        </div>
+                      <% end %>
+                    <% end %>
+                    <%if !@job_seeker.video_url.blank?%>
+                      <% if session[:employer].company.graphical_content %>
+                        <div class="video-container" id="seeker_profile_video">
+                          <iframe class="youtube-player" name="seeker_profile_video" id="seeker_profile_video" type="text/html" width="315" height="200" src="https://www.youtube.com/embed/<%=youtube_video_id(@job_seeker.video_url)%>?wmode=transparent&rel=0" frameborder="0"></iframe>
+                        </div>
+                      <% else %>
+                        <div class="video-container" id="seeker_profile_video">
+                          <span style="color: white; display: inline-block; margin: 75px 10px 0px; text-align: center;">
+                            This video content has been restricted in compliance with your company's account settings.
+                          </span>
+                        </div>
+                      <% end %>
+                    <%end%>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="right-center-content">
+                  <!--content-blocks-->
+                  <div class="content-blocks">
+                    <div class="discription">
+                      <!--position-details-->
+                      <div class="position-details">
+                        <label class="detials-heading"><a href="javascript:void(0);" id="skillpopup-id" onclick="open_skill_tooltip_popup();">DESIRED ROLES</a></label>
+                        <ul class="details">
+                          <%for item in job_seeker_roles%>
+                            <li>
+                              <% if item.title %>
+                                <%= h(item.title).force_encoding('utf-8') -%>
+                              <% end %>
+                            </li>
+                          <%end-%>
+                        </ul>
+                      </div>
+                      <!--/position-details-->
+
+                      <!--position-details-degree-->
+                      <div class="position-details">
+                        <label class="detials-heading">HIGHEST DEGREE</label>
+                        <% if job_seeker_degree.size > 0 %>
+                          <ul class="details">
+                            <%for item in job_seeker_degree%>
+                              <li>
+                                <% if item %>
+                                  <%= item.name %>
+                                <% end %>
+                              </li>
+                            <%end%>
+                          </ul>
+                        <% end %>
+                      </div>
+                      <!--/position-details-degree-->
+
+                      <!--position-details-->
+                      <% size_cert = job_licenses.size + job_certifications.size %>
+                      <% count_cert = 1%>
+                      <div class="position-details">
+                        <%if !job_certifications.blank? || !job_licenses.blank? %><label class="detials-heading" id="lic_cert_id">LICENSES + CERTIFICATIONS</label><% end %>
+                        <ul class="details">
+                          <%for item in job_licenses%>
+                            <li>
+                              <% if item %>
+                                License - <%= h(item).force_encoding('utf-8') -%>
+                              <% end %>
+                              <% count_cert = count_cert+1 %>
+                              <% if count_cert > 4 %>
+                                <% break %>
+                              <% end %>
+                            </li>
+                          <%end%>
+                          <%for item in job_certifications%>
+                            <li>
+                              <% if item %>
+                                Certification - <%= h(item).force_encoding('utf-8') -%>
+                              <% end %>
+                              <% count_cert = count_cert+1 %>
+                              <% if count_cert > 4 %>
+                                <% break %>
+                              <% end %>
+                            </li>
+                          <%end%>
+                          <% if size_cert > 4 %>
+                            <li onclick="open_cert_tooltip_popup();" class="see-all">see all...</li>
+                          <% end %>
+                        </ul>
+                      </div>
+                      <!--/position-details-->
+
+                      <!--position-details-->
+                      <div class="position-details">
+                        <label class="detials-heading">LANGUAGES</label>
+                        <ul class="details">
+                          <%for item in language_skills%>
+                            <li>
+                              <% item_profici_val = "" %>
+                              <% if item.name && item.proficiency_val%>
+                                <% if item.proficiency_val == "c"%>
+                                  <% item_profici_val = "Conversational" %>
+                                  <% lang_class = "lang_blue" %>
+                                <%elsif item.proficiency_val == "a"%>
+                                  <% item_profici_val = "Advanced" %>
+                                  <% lang_class = "lang_red" %>
+                                <% end %>
+                                <%= h(item.name).force_encoding('utf-8') -%>&nbsp;<span class="<%=lang_class%>"><%= item_profici_val.downcase %></span>
+                              <% end %>
+                            </li>
+                          <%end%>
+                        </ul>
+                      </div>
+                      <!--/position-details-->
+
+                      <div class="resume">
+                        <label class="heading" style="border:0px;">R&eacute;sum&eacute;/CV</label>
+                        <%if !@job_seeker.resume_file_name.blank?%>
+
+                          <div class="download-anchor">
+                            <ul>
+                              <li>
+                                <a id="download-resume" href="/download_file/resume/<%=@job_seeker.id%>">
+                                  <img src="/assets/employer_v2/img_downloadCV.png"></img>
+                                </a>
+                              </li>
+                              <li class="download"><a href="/download_file/resume/<%=@job_seeker.id%>">Download</a></li>
+                            </ul>
+                          </div>
+                        <% else %>
+                          <div class="download-anchor">
+                            <ul>
+                              <li>
+                                <%= image_tag("resume-image.png", :size=>"39x49", :alt=>"Resume", :border=>"0", :class=>"lfloat") %>
+                              </li>
+                            </ul>
+                          </div>
+                        <%end%>
+                        <img id="career_guide_loader" src="/assets/employer_v2/ajax-loader-login-grey.gif" style="display:none;" style="background:red;" />
+                      </div>
+                      <!--/position-details-->
+                    </div>
+                  </div>
+                  <!--/content-blocks-->
+                </div>
+              </td>
+              <td>
+                <div class="right-content">
+                  <div class="information-blocks">
+                    <div id="cards-block">
+                      <% if job.fit_name_by_pairing %>
+                        <ul style="width:85px;">
+                          <li>
+                            <% if job.fit_name_by_pairing == "Best" %>
+                              <label class="best active">BEST</label>
+                            <% else %>
+                              <label class="best">BEST</label>
+                            <% end %>
+                          </li>
+                          <li>
+                            <% if job.fit_name_by_pairing == "Better" %>
+                              <label class="better active" >BETTER</label>
+                            <% else %>
+                              <label class="better">BETTER</label>
+                            <% end %>
+                          </li>
+                          <li>
+                            <% if job.fit_name_by_pairing == "Good" %>
+                              <label class="good active" >GOOD</label>
+                            <% else %>
+                              <label class="good">GOOD</label>
+                            <% end %>
+                          </li>
+                          <li>
+                            <% if job.fit_name_by_pairing == "Wildcard" %>
+                              <label class="wildCard active" >WILD CARD</label>
+                            <% else %>
+                              <label class="wildCard">WILD CARD</label>
+                            <% end %>
+                          </li>
+                        </ul>
+                      <% end %>
+                      <div id="card-rating">
+                        <% if job.fit_name_by_pairing %>
+                          <% if job.fit_name_by_pairing == "Best" %>
+                            <span class="wild-card active">&nbsp;</span>
+                            <span class="good active">&nbsp;</span>
+                            <span class="better active">&nbsp;</span>
+                            <span class="best active">&nbsp;</span>
+                          <% elsif job.fit_name_by_pairing == "Better" %>
+                            <span class="wild-card active">&nbsp;</span>
+                            <span class="good active">&nbsp;</span>
+                            <span class="better active">&nbsp;</span>
+                            <span class="best">&nbsp;</span>
+                          <% elsif job.fit_name_by_pairing == "Good" %>
+                            <span class="wild-card active">&nbsp;</span>
+                            <span class="good active">&nbsp;</span>
+                            <span class="better">&nbsp;</span>
+                            <span class="best">&nbsp;</span>
+                          <% elsif job.fit_name_by_pairing == "Wildcard" %>
+                            <span class="wild-card active">&nbsp;</span>
+                            <span class="good">&nbsp;</span>
+                            <span class="better">&nbsp;</span>
+                            <span class="best">&nbsp;</span>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="information-blocks">
+                    <h4 class="heading">
+                      Role
+                      <%= image_tag("birkmanLogo.png", :alt=>"Birkman", :size=>"86x15", :class=>"rfloat" , :style=>"margin-top:3px;") %>
+                    </h4>
+                    <div class="envNrole-cont" onclick="seeker_role();">
+                      <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                        <div class="random-block margin-R-20px">
+                          <label class="random-heading">Seeker</label>
+                          <% if seeker_role_txt_by_score(job_seeker_birkman_detail) %>
+                            <label class="small-text"><%=seeker_role_txt_by_score(job_seeker_birkman_detail)%></label>
+                            <div class="random-image">
+                              <% if seeker_role_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                                <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                              <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                                <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                              <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                                <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                              <% elsif seeker_role_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                                <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="random-block">
+                          <label class="random-heading">Position</label>
+                          <% if job and job_role_txt_by_score(job) %>
+                            <label class="small-text"><%=job_role_txt_by_score(job)%></label>
+                            <div class="random-image">
+                              <% if job_role_txt_by_score(job) == "DOER" %>
+                                <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                              <% elsif job_role_txt_by_score(job) == "COMMUNICATOR" %>
+                                <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                              <% elsif job_role_txt_by_score(job) == "THINKER" %>
+                                <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                              <% elsif job_role_txt_by_score(job) == "ANALYZER" %>
+                                <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="clear-float"></div>
+
+                      <%end%>
+                    </div>
+                  </div>
+
+                  <div class="information-blocks">
+                    <h4 class="heading">Work Environment</h4>
+                    <div class="envNrole-cont" onclick="seeker_workenv();">
+                      <%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+                        <div class="random-block margin-R-20px">
+                          <label class="random-heading">Seeker</label>
+                          <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) %>
+                            <label class="small-text"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></label>
+                            <div class="random-image">
+                              <% if seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "DOER" %>
+                                <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                              <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "COMMUNICATOR" %>
+                                <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                              <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "THINKER" %>
+                                <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                              <% elsif seeker_workenv_txt_by_score(job_seeker_birkman_detail) == "ANALYZER" %>
+                                <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="random-block">
+                          <label class="random-heading">Position</label>
+                          <% if job and job_workenv_txt_by_score(job) %>
+                            <label class="small-text"><%=job_workenv_txt_by_score(job)%></label>
+                            <div class="random-image">
+                              <% if job_workenv_txt_by_score(job) == "DOER" %>
+                                <%= image_tag("red_circle.png", :alt=>"DOER", :size=>"41x47") %>
+                              <% elsif job_workenv_txt_by_score(job) == "COMMUNICATOR" %>
+                                <%= image_tag("green_circle.png", :alt=>"COMMUNICATOR", :size=>"41x47") %>
+                              <% elsif job_workenv_txt_by_score(job) == "THINKER" %>
+                                <%= image_tag("blue_circle.png", :alt=>"THINKER", :size=>"41x47") %>
+                              <% elsif job_workenv_txt_by_score(job) == "ANALYZER" %>
+                                <%= image_tag("yellow_circle.png", :alt=>"ANALYZER", :size=>"41x47") %>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
+                        <div class="clear-float"></div>
+                      <%end%>
+                    </div>
+                  </div>
+
+                  <div class="information-blocks">
+                    <h4 class="heading">BASICS</h4>
+
+                    <div style="font-size:13px; font-weight:400;margin-top: 5px;">
+                      <% if @job_seeker%>
+                        <%if @job_seeker.minimum_compensation_amount %>
+                          <%=compensation_range_by_value(@job_seeker.minimum_compensation_amount)%><br />
+                        <%end%>
+                        <% if @job_seeker.desired_employments %>
+                          <ul style="list-style-position: inside; list-style-type: disc; padding-left: 1px; width:155px; margin-top: 5px;">
+                            <%for item in @job_seeker.desired_employments%>
+                              <% if item.name %>
+                                <li style="float:left; <% if item.id == 1 %>margin-right:14px;<% elsif item.id == 2 %>margin-right:3px;<%else%>margin-right:8px;<%end%>"><%= h(item.name) -%></li>
+                              <% end %>
+                            <%end%>
+                          </ul>
+                        <%end%>
+                      <%end%>
+                    </div>
+                    <div style="float:left; width:155px; margin-top: 5px;" id="weblisitng">
+                      <% if not @job_seeker.website_one.nil?%>
+                        <a class="website_listing" target="_blank" href="<%= @job_seeker.website_one.force_encoding('utf-8') %>"><%= @job_seeker.website_title_one.force_encoding('utf-8') %></a><br />
+                      <% end %>
+                      <% if not @job_seeker.website_two.nil?%>
+                        <a class="website_listing" target="_blank" href="<%= @job_seeker.website_two.force_encoding('utf-8') %>"><%= @job_seeker.website_title_two.force_encoding('utf-8') %></a><br />
+                      <% end %>
+                      <% if not @job_seeker.website_three.nil?%>
+                        <a class="website_listing" target="_blank" href="<%= @job_seeker.website_three.force_encoding('utf-8') %>"><%= @job_seeker.website_title_three.force_encoding('utf-8') %></a><br />
+                      <% end %>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+
+
+      </div>
+    </div>
+    <a onclick="_closeOverlay();clearInterval(timer);stopWelcomePlayerEmp('seeker_profile_video','pauseVideo')" class="close" href="javascript:void(0)">Close</a>
+  </div>
+  <div class="popup-bottom">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".envNrole-cont:first").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','69px');
+    })
+    $(".envNrole-cont:last").unbind().click(function(){
+      $('.seeker-analyzer-rightdiv img').css('margin-top','210px');
+    })
+    $("#skill-tooltip-content").slimscroll({
+      railVisible: true,
+      allowPageScroll: true
+    });
+  });
+
+<% if format_remaining_time(job.expire_at) != "Expired"%>
+    var timer = setInterval(function() {
+      write_time(<%= job.expire_at.strftime("%Y") %>,<%= job.expire_at.strftime("%m") %>,<%= job.expire_at.strftime("%d") %>,<%= job.expire_at.strftime("%H") %>,<%= job.expire_at.strftime("%M") %>,<%= job.expire_at.strftime("%S") %>)
+    }, 1000);
+<%end %>
+  function seeker_role() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_role_for_job',
+      data: 'id='+'<%= job.id %>&seeker_id='+'<%= params[:seeker_id] %>',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+
+  function seeker_workenv() {
+    showBlockShadow();
+    $.ajax({
+      url: '/account/seeker_workenv_for_job',
+      data: 'id='+'<%= job.id %>&seeker_id='+'<%= params[:seeker_id] %>',
+      cache: false,
+      success: function(){
+        open_seeker_analyzer_popup();
+        hideBlockShadow();
+      }
+    });
+  }
+</script>

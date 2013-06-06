@@ -1,0 +1,49 @@
+<div id="congratulation_popup" class="white_content" >
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content" style="padding: 0 5px; width: 593px;">
+      <div class="gradient-content" style="padding: 10px 22px;">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('congratulation_popup.heading') %></label>
+        </div>
+        <div class="payment-options" style="margin-top:15px;">
+          <div id="without-job-link-content">
+            <label class="free-text" style="display: inline-block; font-size: 14px; font-weight: 400; text-align: justify; width: 324px;">
+              <%= t('congratulation_popup.free_text') %>
+            </label>
+            <div class="cover-letter-top"></div>
+            <div class="cover-letter-middle">
+              <div class="gradient-content">
+                <div class="headerInformation">
+                  <label class="videoInfo fontweight-700px"><%= t('congratulation_popup.cover_letter') %></label>
+                  <label name="chars_remain" id="left" class="playerInfo"><%= t('congratulation_popup.char_remaining') %>
+                    <strong id="count_holder">550</strong>
+                  </label>
+                </div>
+                <div class="text-area-block"></div>
+                <div class="text-area-block-content">
+                  <input type="hidden" value="<%= t('congratulation_popup.cover_letter_text') %>" id="summary_placeholder" />
+                  <div class="textbox input-text" style="margin-left:10px;">
+                    <%= text_area_tag :summary,"#{t('congratulation_popup.cover_letter_text')}",  :class=>"text-area", :id=>"summary", :onfocus=>"focus_element(this);", :onblur=>"blur_element(this);", :onKeyDown=>"type_element(this);calculateChars(this, 550, 'job_seeker');", :onkeyup=>"calculateChars(this, 550, 'job_seeker');" %>
+                  </div>
+                </div>
+                <div class="text-area-bottom">&nbsp;</div>
+              </div>
+            </div>
+            <div class="cover-letter-bottom"></div>
+            <input id="continue-button" type="button" class="continue-button-active rfloat" value="" style="margin-top: -31px;" onclick="close_congratulation_popup();"/>
+          </div>
+          <div id="with-job-link-content">
+            <label class="free-text" style="display: inline-block; font-size: 14px; font-weight: 400; text-align: justify; width: 324px;">
+              <%= t('congratulation_popup.free_text2') %>
+            </label>
+            <input id="continue-button" type="button" class="continue-button-active rfloat" value="" style="margin-top: 25px;" onclick="close_congratulation_popup();"/>
+            <input id="apply-via-button" type="button" class="apply-via-button-active rfloat" value="" style="margin-top: 29px;" />
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="close_congratulation_popup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

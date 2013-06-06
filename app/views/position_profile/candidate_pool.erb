@@ -1,0 +1,173 @@
+<%content_for :page_js do -%>
+  <!--[if IE]><script language="javascript" type="text/javascript" src="/assets/excanvas.min.js"></script><![endif]-->
+  <%= javascript_include_tag 'jquery.flot.js','jquery.flot.symbol.js' %>
+<%end-%>
+
+<!-- Content area start-->
+<input type="hidden" id="current_employer_id" value="<%=session[:employer].id%>"/>
+<div id="content">
+  <!-- Content area Heading-->
+  <div id="menu">
+    <%=render :partial => "/employer_account/shared/employer_tabs",:locals=>{:tab=>"home"}  -%>
+  </div>
+  <!--Content area heading end-->
+  <!-- Content area center part-->
+  <div class="tab-content-top">&nbsp;</div>
+  <div id="tab-content">
+    <div class="tab-content-area-left">
+      <div class="emp-left-menu" id="update_categories">
+        <%=render :partial=>"/employer_account/employer_left_menu",:locals=>{:jobs => @jobs}%>
+      </div>
+      <div class="dash-left-bottom">&nbsp;</div>
+    </div>
+    <!--Right Content Area Start-->
+    <div class="tab-content-area-right">
+      <div class="emp-right-content">
+
+        <div class="emp-content-box">
+
+          <div class="chart-container">
+            <%if !@job.nil?%>
+              <input type="hidden" id="job_id" value="<%=@job.id%>"/>
+
+              <%=render :partial=>"/employer_account/charts/pool_summary" -%>
+              <div class="height10">&nbsp;</div>
+              <div class="height10">&nbsp;</div>
+              <%=render :partial=>"/employer_account/charts/pool_chart" -%>
+              <div class="height10">&nbsp;</div>
+
+            <%end%>
+
+          </div>
+
+
+          <div id="purchase_profile_payment_box">
+
+          </div>
+          <input type="hidden" name="filter_value" id ="filter_value" value="0" />
+          <input type="hidden" name="search_result_arr" id ="search_result_arr" value="-1" />
+          <div class="table-container-dashboard" id="table-container-candidate">
+              <!--<div class="loader"><%=image_tag("ajax-loader-login.gif")%></div> -->
+            <%=render :partial =>"/position_profile/employer_profile/pool_seeker_table" -%>
+          </div>
+
+          <!-- Notification Popup-->
+          <div id="content_notification_box" style="display:none; z-index:11000; position:absolute; left:0; top:-18px">
+
+          </div>
+          <!-- Seeker Details Popup-->
+          <div id="seeker_details_popup" style="z-index:11000; position:absolute; left:0; top:-18px">
+
+          </div>
+        </div>
+      </div>
+      <div class="dash-right-bottom">&nbsp;</div>
+      <%=render :partial =>"/shared/employer/footer" -%>
+
+    </div>
+    <!-- Right Content Area End-->
+
+    <div class="clear-height">&nbsp;</div>
+  </div>
+</div>
+<!-- Content area end -->
+<script type="text/javascript">
+  $(document).ready(function(){
+<% if params[:selected].present? %>
+  <% if session[:employer].account_type_id != 3 %>
+    $("#parent_id").val('<%= params[:selected] %>');
+    <% case params[:selected].to_i %>
+    <% when -1 %>
+          $("#outer_pos label").html("ALL POSITIONS");
+    <% when 0 %>
+          $("#outer_pos label").html("MY POSITIONS");
+          $("#company-group-list-section").sortable("enable");
+          $("#company-group-list-section").removeClass("disable");
+          emp_left_menu_event.group_drag();
+          emp_left_menu_event.job_section_drag();
+    <% else %>
+      <% if @name.present? %>
+            $("#outer_pos label").html('<%= @name %>');
+      <% else %>
+            $("#outer_pos label").html("ALL POSITIONS");
+      <% end %>
+    <% end %>
+  <% else %>
+  <% end %>
+<% end %>
+    //sortCandidatePoolTables('pairing','desc', 0);
+    //sortDashboardTables('pairing','asc');
+    scrollT = $("#table_block").scrollTop();
+    scrollM = $("#table_block").scrollTop();
+                
+    $("#table_block").unbind("scroll").scroll(function () {
+      sortCandidatePoolTablesRows('pairing','desc',scrollT,scrollM,10,5,$("#filter_value").val());
+    });
+                
+    setInterval(function() {
+      updateNotificationCount()
+    }, 300000);
+		
+    var wid = [41, 94, 91, 111, 113, 49, 51, 126];
+    var i = 0;
+    if($("table#list").height()>$("#table_block").height()){
+      $('table#list').attr('width', 660);
+      $('table#list').find('th').each(function(){
+        $(this).attr('width',wid[i]);
+        i = i+1;
+      })
+      $("a.profile-days-left").each(function(){
+        $(this).css('margin-left','20px');
+      });
+      $("a.buy-profile-link").each(function(){
+        $(this).css('margin-left','20px');
+      });
+    }
+
+<% if  session[:express_payment_complete] == 1%>
+      sortCandidatePoolTables('pairing','asc',$("#filter_value").val());
+      _showSeekerPopup(<%=session[:seeker_id_one_click]%>, <%=session[:job_id_one_click]%>, <%= session[:employer].id %>);
+  <%=  session[:express_payment_complete] = nil %>
+<% end %>
+    $("div.employer-chart-label").removeClass("active");
+<% case params[:activity]
+when "position_preview" then%>
+      $("#preview_chart").addClass("active");
+<% when "position_detail" then%>
+      $("#detail_chart").addClass("active");
+<% when "interested" then%>
+      $("#interested_chart").addClass("active");
+<% when "wild_card" then%>
+      $("#wild_chart").addClass("active");
+<% when "purchased_profile" then%>
+      $("#profile_chart").addClass("active");
+<% end %>
+  });
+</script>
+
+<%= javascript_include_tag("https://"+$FAYE_URL+".js") %>
+
+<script type="text/javascript">
+
+  $(function() {
+    var faye = new Faye.Client('<%="https://"+$FAYE_URL%>');
+    
+    faye.subscribe("/employer_update/<%= session[:employer].company_id %>/candidate_pool", function(data) {
+      eval(data);
+    });
+  });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

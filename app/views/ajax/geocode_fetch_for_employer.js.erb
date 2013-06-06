@@ -1,0 +1,51 @@
+<% if !@result.nil? %>
+  <% if !@result.first.nil? %>
+      $("#dropdown_check_flag").val(1);
+      <% if @result.first.city.nil? %>
+        $("#company_city_flag").val(0);
+      <% else %>
+        $("#company_city_flag").val(1);
+        $("#company_city").blur();
+        $("#company_city").val('<%= @result.first.city %>');
+      <% end %>
+
+      <% if @result.first.state.nil? %>
+        $("#company_state_flag").val(0);
+      <% else %>
+        $("#company_state").val('<%= @result.first.state %>');
+        $("#company_state_flag").val(1);
+      <% end %>
+
+      <% if @result.first.postal_code.nil? %>
+        $("#company_zip_flag").val(0);
+      <% else %>
+        $("#company_zip").val('<%= @result.first.postal_code %>');
+        $("#company_zip_flag").val(1);
+      <% end %>
+
+      <% if @result.first.country.nil? %>
+        $("#company_country_flag").val(0);
+      <% else %>
+        $("#company_country").val('<%= @result.first.country %>');
+        $("#company_country_flag").val(1);
+      <% end %>
+
+      <% if !@result.first.latitude.nil? %>
+        $("#company_latitude").val('<%= @result.first.latitude %>');
+      <% end %>
+
+      <% if !@result.first.longitude.nil? %>
+        $("#company_longitude").val('<%= @result.first.longitude %>');
+      <% end %>
+  <% else %>
+      $("#country_flag").val(0);
+      $("#pincode_flag").val(0);
+      $("#state_flag").val(0);
+      $("#dropdown_check_flag").val(0);
+  <% end %>
+<% else %>
+    $("#country_flag").val(0);
+    $("#pincode_flag").val(0);
+    $("#state_flag").val(0);
+    $("#dropdown_check_flag").val(0);
+<% end %>

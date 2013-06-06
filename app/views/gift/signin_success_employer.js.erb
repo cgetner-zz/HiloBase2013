@@ -1,0 +1,19 @@
+<%  if !@promo_code_obj.nil? %>
+  <%  if @promo_code_obj.amount - @promo_code_obj.consumed_amount >= GIFT_CARD_AMOUNT %>
+    gift_hilo.showNonRegAuthorizeGiftPurchase('<%=  @old_payment_obj.card_type %>');
+  <%  else %>
+    $("#gift_cc_billing_popup").html("<%= escape_javascript render(:partial => "/home/credit_card_popup", :locals => {:promo_consumed_amount => (@promo_code_obj.amount - @promo_code_obj.consumed_amount), :remianing_amount => (GIFT_CARD_AMOUNT - (@promo_code_obj.amount - @promo_code_obj.consumed_amount))})%>" ) ;
+    gift_hilo.showGiftccBilingPopup();
+  <%  end %>
+<%  elsif !@old_payment_obj.nil? %>
+  gift_hilo.showNonRegAuthorizeGiftPurchase('<%=  @old_payment_obj.card_type %>');
+  $("#credit_gift_block").html('<span id ="credit_remaining" class="credit_block"><a href="javascript:void(0)" onclick="gift_hilo.openPopup();" id="preview_card_select">Modify payment method</a></span>');
+<%  else %>
+  $("#gift_cc_billing_popup").html("<%= escape_javascript render(:partial => "/home/credit_card_popup", :locals => {:promo_consumed_amount => nil, :remianing_amount => nil}) %>");
+  gift_hilo.showGiftccBilingPopup();
+  $('#senders_name_pay').val(senders_name);
+  $('#senders_email_pay').val(senders_email);
+  $('#recievers_name_pay').val(recievers_name);
+  $('#recievers_email_pay').val(recievers_email);
+  $('#personal_msg_pay').val(personal_msg);
+<%  end %>

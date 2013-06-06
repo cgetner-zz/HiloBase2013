@@ -1,0 +1,99 @@
+<div id="header" <%if step == "account"%>style="overflow: visible;"<%end%>>
+  <h1 class="logo-container">
+    <%= link_to(image_tag("logo-hilo.png",:alt=>"Hilo",:size=>"106x81",:border=>0),:controller=>:home) %>
+  </h1>
+  <!--header-right-container-->
+
+
+  <%if step == "account" -%>
+    <div class="header-right-container">
+      <!--hil-info-link-section-->
+      <div class="hil-info-link-section">
+        <label class="welcome"><%=t ("cs_account_set_up.header") %></label>
+        <% if !session[:job_seeker] %>
+          <div class="info-links signin" >
+            <a title="SIGN IN" href="javascript:openLoginBox();"><%=t ("cs_account_set_up.sign_in") %></a>
+          </div>
+          <%= render :partial=>"shared/new_login_box" %>
+        <% else %>
+          <!--<div class="info-links" style="font-size: 13px; padding: 0 15px 0 0;">
+            <a title="SIGNOUT" href="/login/logout">SIGNOUT</a>
+          </div>-->
+        <% end %>
+      </div>
+      <!--/hil-info-link-section-->
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild active disable"><a href="javascript:void(0);" title="Account Set-Up"><%=t ("cs_registration.header.account_set_up1") %><br /><%=t ("cs_registration.header.account_set_up2") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Personality Questionnaire"><%=t ("cs_registration.header.personality") %> <br />
+              <%=t ("cs_registration.header.questionnaire") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Pairing Profile"><%=t ("cs_registration.header.pairing") %> <br /><%=t ("cs_registration.header.profile") %></a></li>
+          <li class="lastChild disable"><a href="javascript:void(0);" title="Site Activation"><%=t ("cs_registration.header.site") %> <br /><%=t ("cs_registration.header.activation") %></a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    </div>
+  <%elsif step == "questionnaire" -%>
+    <div class="header-right-container">
+      <!--hil-info-link-section-->
+      <div class="hil-info-link-section">
+        <label class="welcome"><%=t ("personality_questionnaire.header") %></label>
+      </div>
+      <!--/hil-info-link-section-->
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+
+          <li class="firstChild disable"><a href="javascript:void(0);"  title="Account Set-Up"><%=t ("cs_registration.header.account_set_up1") %> <br /><%=t ("cs_registration.header.account_set_up2") %></a></li>
+          <li class="active disable"><a href="javascript:void(0);" title="Personality Questionnaire"><%=t ("cs_registration.header.personality") %> <br /><%=t ("cs_registration.header.questionnaire") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Pairing Profile"><%=t ("cs_registration.header.pairing") %> <br /><%=t ("cs_registration.header.profile") %></a></li>
+          <li class="lastChild disable"><a href="javascript:void(0);" title="Site Activation"><%=t ("cs_registration.header.site") %> <br /><%=t ("cs_registration.header.activation") %></a></li>
+        </ul>
+
+      </div>
+      <!--/page-navigation-->
+    </div>
+
+  <%elsif step == "pairing" -%>
+    <!--header-right-container-->
+    <div class="header-right-container">
+      <!--hil-info-link-section-->
+      <div class="hil-info-link-section">
+        <label class="welcome"><%=t ("pairing_profile.header") %></label>
+      </div>
+      <!--/hil-info-link-section-->
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild disable"><a href="javascript:void(0);" title="Account Set-Up"><%=t ("cs_registration.header.account_set_up1") %> <br /><%=t ("cs_registration.header.account_set_up2") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Personality Questionnaire"><%=t ("cs_registration.header.personality") %> <br /><%=t ("cs_registration.header.questionnaire") %></a></li>
+          <li class="active disable"><a href="javascript:void(0);" title="Pairing Profile"><%=t ("cs_registration.header.pairing") %> <br /><%=t ("cs_registration.header.profile") %></a></li>
+          <li class="lastChild disable"><a href="javascript:void(0);" title="Site Activation"><%=t ("cs_registration.header.site") %> <br /><%=t ("cs_registration.header.activation") %></a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    </div>
+    <!--/header-right-container-->
+  <%else-%>
+    <div class="header-right-container">
+      <!--hil-info-link-section-->
+      <div class="hil-info-link-section">
+        <label class="welcome"><%=t ("site_activation.header") %></label>
+      </div>
+      <!--/hil-info-link-section-->
+      <!--page-navigation-->
+      <div id="page-navigation">
+        <ul>
+          <li class="firstChild disable"><a href="javascript:void(0);" title="Account Set-Up"><%=t ("cs_registration.header.account_set_up1") %> <br /><%=t ("cs_registration.header.account_set_up2") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Personality Questionnaire"><%=t ("cs_registration.header.personality") %> <br />
+              <%=t ("cs_registration.header.questionnaire") %></a></li>
+          <li class="disable"><a href="javascript:void(0);" title="Pairing Profile"><%=t ("cs_registration.header.pairing") %> <br /><%=t ("cs_registration.header.profile") %></a></li>
+          <li class="lastChild active"><a href="javascript:void(0);" title="Site Activation"><%=t ("cs_registration.header.site") %> <br /><%=t ("cs_registration.header.activation") %></a></li>
+        </ul>
+      </div>
+      <!--/page-navigation-->
+    </div>
+  <%end%>
+  <!--/header-right-container-->
+</div>

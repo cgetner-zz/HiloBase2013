@@ -1,0 +1,6 @@
+<% if @guest_user == "job_seeker" %>
+  <%= render :partial => "/hilo_search/job_seeker_questionaire"  %>
+<% else %>
+  <%= render :partial => "/hilo_search/employer_questionaire"  %>
+<% end %>
+

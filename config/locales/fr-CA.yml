@@ -1,0 +1,289 @@
+# Sample localization file for Canadian French. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+fr-CA:
+  page_titles:
+    meaningful_employment: "Hilo - Emploi logique."
+    employer_landing_page: "Employeur"
+    career_seeker: "Demandeur d'emploi"
+  common:
+    learn_more: "EN SAVOIR PLUS"
+    sign_in: "INSCRIPTION"
+  sign-in-box:
+    email: "Email"
+    password: "Mot de passe"
+    forgot_password: "Mot de passe oublié?"
+  forgot_password:
+    popup-heading: "MOT DE PASSE OUBLIE?"
+    free-text: "Nous allons vous envoyer un E-mail contenant un lien pour réinitialiser votre mot de passe."
+    email: "Email"
+  login_error:
+    popup-heading: "OUPS!"
+    free-text: "L'adresse email ou mot de passe indiquée est incorrecte. Veuillez réessayer."
+  login_failure_popup:
+    title: "OUPS!"
+    content: "L'adresse email ou mot de passe indiquée est incorrecte. Veuillez réessayer."
+  forgot_password_success:
+    popup-heading: "SUCCÈS!"
+    free-text: "Un lien pour réinitialiser votre mot de passe vous a été envoyé par email."
+  forgot_password_error:
+    popup-heading: "OUPS!"
+    free-text: "L'adresse email indiquée est incorrecte. Veuillez réessayer."
+  translation:
+    en: "English"
+    fr-CA: "Français (Canadien)"
+  hello: "Bonjour, le Monde!"
+  employer_landing_page:
+    headerPairingEngine: "Testez le moteur couplé Hilo!"
+    headerCandidateSite: "Vous recherchez le site du candidat?"
+    titleMessageLine1: "Solution facile pour les entreprises"
+    titleMessageLine2: "affectez enfin les bonnes personnes aux bons postes"
+    titleMessageLine1Sub1: "Intégrez des données relatives à la personnalité du candidat et à son expérience pour"
+    titleMessageLine1Sub2: "place de marché rationnelle"
+    titleMessageLine1Sub3: "pour le redéploiement, l'aide à la reconversion et le recrutement."
+    redeployment:
+      header: "Solutions de redéploiement"
+      headerContentL1: "que vous tentiez de former une nouvelle équipe ou de vous améliorer"
+      headerContentL2: "efficacité départementale, l'analyse Hilo peut aider."
+      headerContentL3: "Le bon rôle et le bon environnement de travail peut largement améliorer le"
+      headerContentL4: "potentiel de vos équipes et vous aider à atteindre de nouveaux objectifs."
+      headerContentL5: "Chez Hilo, nous nous engageons à vous aider à tirer le meilleur de"
+      headerContentL6: "vos équipes en affectant les bonnes personnes aux bons postes."
+    global_links:
+      video: "Vidéo"
+      white_paper: "Papier blanc"
+    outplacement:
+      header: "Solutions d'aide à la reconversion"
+      headerContentL1: "Hilo est un système analytique qui vous permet de"
+      headerContentL2: "réaliser une étude Birkman de chaque candidat et de son parcours professionnel."
+      headerContentL3: "Nous utilisons les données que nous obtenons à partir de cette étude pour comprendre"
+      headerContentL4: "la façon dont vous déployez vos candidats sur le marché."
+      headerContentL5: "La solution de reconversion proposée par Hilo aidera vos équipes de travail"
+      headerContentL6: "à retrouver rapidement un poste, sans dépenses supplémentaires."
+    recruiting:
+      header: "Solutions de recrutement"
+      headerContentL1: "Dans quelle mesure une position correspond aux intérêts innés d'un candidat"
+      headerContentL2: "et l'environnement de travail idéal sont les indicateurs les plus directes"
+      headerContentL3: "du succès. Hilo est la seule entreprise qui quantifie avec précision "
+      headerContentL4: "ces métriques et les intègre pour créer une liste classée de"
+      headerContentL5: "candidats pour un emploi donné. Après tout, trouver les bonnes personnes"
+      headerContentL6: "dans les bonnes sièges est trop importante pour être laissée à la seule intuition."
+    candidate_profile:
+      header: "Profile du candidat"
+      headerContentL1: "L’intelligence au bout de vos doigts."
+      headerContentL2: "Chaque candidat dispose d’un profile multimédia"
+      headerContentL3: "gratuit qui contient toutes les"
+      headerContentL4: "information s dont vous avez besoin"
+      headerContentL5: "afin de faciliter la prise de décision rapide."
+    position_showcase:
+      header: "Présentation du poste"
+      headerContentL1: "Hilo vous donne la possibilité de commercialiser"
+      headerContentL2: "des postes d'une manière concise, convaincante."
+      headerContentL3: "Des médias sociaux intégrés de gestion de management"
+      headerContentL4: "élargit considérablement votre portée et en même temps "
+      headerContentL5: "diminue votre travail."
+    birkman_assessment:
+      header: "Etude Birkman"
+      headerContentL1: "Chaque candidat reçoit un"
+      headerContentL2: "Guide de Suivi Professionnel personnalisé"
+      headerContentL3: "dès qu’il créé"
+      headerContentL4: "son profile. Ce suivi permet"
+      headerContentL5: "d’autonmiser le candidat et de"
+      headerContentL6: "stimuler le moteur de couplé (PAIRING ENGINE) Hilo."
+    feedback: "Les entreprises cherchent à gérer les talents avec le même dégrée de rigueur et de profondeur
+          avec le quel ils gèrent d'autres actifs de l'entreprise. Les gens vont demander plus des informations sur le talent et
+          ils auront besoin d'outils pour le faire et cela va conduire à des groups de données plus riches, plus prédictifs. "
+  employer_landing_pageGlobalLink1: "Vidéo"
+  employer_landing_pageGlobalLink2: "Papier blanc"
+  employer_terms_of_use:
+    header: "CONDITIONS D’UTILISATION"
+    user_agreement:
+      title: "Contrat de licence utilisateur"
+      revised: "Dernière révision en janvier"
+      welcome: "Bienvenue sur"
+      title_contentL1: "Hilo, Inc (\" Hilo \"), par le site Hilo, des applications et des services en ligne, est heureux de vous offrir son service, service soumis aux termes et conditions suivants. Lissez le présent Contrat d'Utilisation (le «Contrat») avant d'accéder ou utiliser les services de Hilo (le \"Service\"). "
+      title_contentL2: "EN CLIQUANT SUR LE BUTTON « J'ACCEPTE »CI- DESSUS VOUS CONVENEZ QUE VOUS AVEZ LU LES TERMES ET CONDITIONS DE CE CONTRAT, Y COMPRIS LA POLITIQUE DE CONFIDENTIALITÉ ET QUE VOUS ACCEPTEZ D'ÊTRE LIÉ PAR EUX. SI VOUS UTILISEZ LES SERVICES POUR LE COMPTE D'UN EMPLOYEUR OU AUTRE ENTITÉ, EN CLIQUANT SUR «J'ACCEPTE\", VOUS GARANTISSEZ DE PLUS QUE VOUS AVEZ L’AUTHORITE D’ACCEPTER CES TERMES AU NOM DE CETTE ENTITÉ ET QUE VOUS ACCEPTEZ CES TERMES AU NOM D'UNE TELLE ENTITE. LES REFERENCES A «VOUS» ET LES TERMES CORRELATIFS DANS CE DOCUMENT DÉSIGNENT LA PERSONNE EN CLIQUANT SUR «J'ACCEPTE» ET, S'IL Y A LE CAS, L'ENTITE REPRESENTEE PAR CETTE PERSONNE. "
+    general:
+      title: "GENERALITES"
+      title_contentL1: "Hilo peut mettre à jour le présent Contrat de temps en temps. Un avis de modifications du Contrat sera affiché sur cette page. Des termes supplémentaires qui s'appliquent à des parties spécifiques du Service peuvent également être affichés dans les parties pertinentes du site Hilo de temps en temps et ils seront clairement identifiés. Tous ces termes supplémentaires sont incorporés par référence dans le présent Contrat. Toutes les modifications au présent Contrat entreront en vigueur dès leur publication. Votre utilisation continue de ce Service est considérée comme votre acceptation de toute modification ou révision du présent Contrat, donc consultez cette page régulièrement."
+      title_contentL2: " Ne pas se conformer aux termes du Service, même s'ils sont contenu par le présent Contrat ou par des avis affichés en divers points du Service, peut entraîner la résiliation de votre accès au Service et à votre adhésion Hilo, en plus de tous autres recours qui sont à la disposition de Hilo et / ou à son contenu associé ou fournisseurs de services. Détermination d'une telle défaillance de conformité est à la seule discrétion de Hilo, et Hilo considéra à la fois la lettre et l'esprit du présent Contrat."
+    proprietary_content:
+      title: "CONTENU EXCLUSIF"
+      title_contentL1: "Hilo respecte la propriété intellectuelle des autres et demande à son utilisateurs de faire la même chose. Vous admettez et acceptez que le Service contienne d’informations exclusives de valeur qui sont protégées par la propriété intellectuelle applicable et par d'autres droits et lois. Si vous pensez que le travail sur le quel vous avez du copyright a été enfreint sur le Service, ou sur tout autre site du quel le Service este lie, consultez notre procédure de réclamation pour l'enfreindre du copyright."
+      title_contentL2: "Hilo est le propriétaire, le concessionnaire ou l'utilisateur autorisé de toute marque de fabrique, marque de service, marque déposée ou marque de service déposée figurant sur le site web de Hilo. Tous les droits sont réservés. Les autres marques, produits ou services sont des marques de fabrique, marques de service, marques déposées, ou marques de service déposées de leurs propriétaires respectifs et doivent être traitées comme telle."
+      title_contentL3: "Hilo est le propriétaire du copyright ou le licencié, ou a autrement-dit le droit d'afficher tout le contenu et l'information sur le site Internet Hilo. Hilo a copyright sur la sélection, la coordination, l'arrangement et l'amélioration du contenu du Service comme une compilation d'un travail collectif, ainsi que du contenu original du Hilo, y compris, mais sans s'y limiter, à des écrans apparaissant sur le site Internet du Hilo."
+      title_contentL4: "Vous pouvez télécharger et imprimer des parties du matériel des différents sections du Service, avec les restrictions et limitations suivantes .Vous pouvez faire des copies imprimées de toutes les sections du matériel téléchargés du Service uniquement pour votre propre usage non commercial, ou, pour les portions du Service conçu pour un usage commercial par les employeurs, pour les besoins internes de ressources humaines ou pour autres buts qui sont expressément autorisées par Hilo. En plus, et sauf disposition contraire expressément autorisée par la loi américaine sur le copyright, aucune autre copie, redistribution, retransmission, publication, performance, affichage , modification, création d'œuvres dérivées ou exploitation commerciale du contenu du Service, en tout ou en partie, ne sera permis sans l'autorisation écrite préalable de Hilo et du propriétaire du copyright (si ce n'est pas Hilo). En cas de permission de faire des copies, redistribution ou publication autorisée de matériel protégé, aucun changement ou suppression de l' attribution de l'auteur, la légende de la marque ou copyright seront faites. Vous admettez que vous n'obtenez aucun droit de propriété en téléchargeant matériel protégé par copyright. Sauf qu'il est expressément indiqué dans le Contrat, Hilo n'accorde aucun licence ou autre autorisation à vous ou à n'importe quel utilisateur ou à nos fournisseurs de contenus ou de services , de marques de fabrique, marques déposées, marques de service, marques de service déposées, autre matériel protégé par copyright ou autres propriété intellectuelle, en les plaçant sur le site Internet du Hilo."
+      title_contentL5: "Les matériaux et les informations qui: (A) un chercheur d’emploi soumet pour créer un compte, entrer les données de profil de couplage, remplir un questionnaire de personnalité, et  entrer les informations de paiement (tous ces éléments sont appelés \"Informations personnels \") et (B) un employeur ou un utilisateur similaire soumet pour créer un compte, entrer les données de profil de couplage, en entrant autre information sur l'employeur ou informations relatifs au travail (ceux-ci sont considérés comme de \"Renseignements de l'employeur\", et avec les Informations personnelles, \"Information sur l'utilisateur\"), sont régis par notre Politique de Confidentialité, qui est incorporé ici par référence. Séparé et différent de ces domaines qui collectent Informations d' utilisateur, le Service Hilo peut inclure certains domaines qui sont publiques, et permettre une discussion, l'affichage et l'interaction entre les utilisateurs du Hilo. Ces zones publiques peuvent inclure des groupes de discussion, messagerie électronique, forums, newsgroup et autres zones similaires. Informations et postes que vous soumettez à travers ces zones publiques du Service sont traitées différemment des informations d'utilisateur. Vous acceptez d'accorder à Hilo une licence non exclusive, libre de redevance, dans le monde entier, une licence perpétuelle, avec le droit de sous-licencier, reproduire, distribuer, transmettre, créer d’ œuvres dérivatives, afficher publiquement et exécuter publiquement tout matériel et toute autre information (y compris , sans limitation, toutes les idées qui y sont contenues) que vous soumettez, affichez ou transmettez par les zones publiques du Service (telles que les groupes de discussion, messagerie électronique, des forums, et newsgroups) par tous les moyens et dans tous les médias actuellement connus ou développés ultérieurement. Vous pouvez choisir d'associer votre nom ou un nom d'utilisateur avec vos messages publics ou avec des communications. Si vous choisissez d'associer votre nom ou un nom d'utilisateur avec vos messages publiques ou avec des communications, vous accordez à Hilo le droit d'utiliser ces noms et d'autres informations dans ces zones publiques du Service, ainsi que pour toute publicité, marketing et matériel promotionnelle lie à celui-ci. Vous admettez que Hilo peut librement céder ou transférer les droits accordés par les présentes. En outre, vous convenez que vous n'aurez aucun recours contre Hilo pour toute infraction présumée ou réelle ou appropriation illicite de tout droit de propriété dans vos communications à nous (sauf en ce qui concerne vos informations personnelles) ou dans tout matériel que vous soumettez, affichez, ou transmettez par les zones publiques du Service."
+      title_contentL6: "Vous déclarez et garantissez à Hilo que (a) vous avez l'autorité d'entrer dans ce Contrat et des droits suffisants pour accorder les licences accordées aux présentes, et (b) les matériaux et autres informations que vous soumettez, affichez ou transmettez par le Service n'enfreindront pas le copyright d'un tiers, les brevets, marques de fabrique, secrets commerciaux ou autres droits de propriété.  Vous admettez que la charge de s'assurer qu'un élément soumis ou affiché n'est pas protégé par copyright appartient à vous et vous acceptez que vous sera le seul responsable pour tout dommage résultant de l'atteinte aux droits de copyright et aux autres droits de propriété ou tout dommage résultant de vos soumissions ou publications. En plus, vous acceptez de respecter toutes les autres dispositions du présent Contrat concernant les matériaux ou autres informations qui vous soumettez, affichez ou transmettez par le Service."
+    hilo_accounts:
+      title: "COMPTES  HILO"
+      title_contentL1: "Bien que vous puissiez accéder et utiliser certaines parties du Service sans créer un compte Hilo et sans devenir un membre, un compte est nécessaire pour profiter pleinement et bénéficier de certaines prestations de service, y compris la possibilité d'utiliser certains outils d'évaluation, de recevoir du contenu personnalisé , et de profiter de notre moteur couplé."
+      title_contentL2: "Toutefois, l'adhésion à Hilo est destiné aux citoyens et résidents américains. Si vous n'êtes pas un citoyen ou résident américain, mais vous registrez comme membre Hilo, vous devez être conscients que les données personnelles que vous fournissez peuvent être stockés dans un pays autre que celui dans lequel vous résidez. Par conséquence, ne créez pas un compte Hilo, ce chose fera la collecte ou de la protection des données que vous soumettez sujet aux lois de toute juridiction non américaine."
+      title_contentL3: " Lorsque vous créez un compte Hilo, vous utilisez votre ID et mot de passe Hilo pour accéder au Service. Votre intimité est importante pour nous, donc n'oubliez pas qu'il est votre responsabilité de maintenir la confidentialité en ce qui concerne votre ID et mot de passe Hilo .Ne partagez pas votre ID Hilo ou mot de passe. En tant que membre Hilo, vous consentez à notifier Hilo immédiatement de toute utilisation non autorisée de votre mot de passe ou ID Hilo, ou de toute autre violation de sécurité. En plus, vous acceptez de payer tous les frais encourus par les utilisateurs de votre Hilo identifiant et votre carte de crédit ou autre moyen de paiement à des prix en vigueur lorsque ces frais sont engagés, y compris les taxes applicables. Vous comprenez que certains tiers peuvent offrir des services par le Service. Les prix des produits et services offerts par le Service peuvent changer à tout moment. Vous comprenez aussi que Hilo n'est pas responsable pour la compromission de la sécurité ou l'intégrité de votre ID Hilo, mot de passe, compte ou information de l'utilisateur , ou de toute perte ou dommage qui se produit dans le cadre ou à la suite de n'importe quel ordinateur et d'autres équipements, configuration du logiciel et des logiciels, des composants du réseau et du réseau, ou fournisseur de services Internet que vous utilisez pour communiquer avec le Service. Hilo n'a aucun contrôle sur ces questions et vous assumez le risque et la responsabilité totale de votre connexion et communication sur l’internet. Hilo ne peut pas et ne sera pas responsable de votre non-respect de l'une de ces termes."
+      title_contentL4: "Si vous fournissez des informations vers ou via le Service, vous déclarez et garantissez que vous êtes le propriétaire de ces informations, ou que vous avez obtenu l'autorisation complète et correcte et avez le droit de fournir telles informations. Si vous publiez des informations sur une opportunité ou une poste, vous déclarez et garantissez que vous avez l’autorité pour faire une telle annonce au nom de l'employeur concerné."
+    user_conduct:
+      title: "CONDUITE DE L’UTILISATEUR"
+      title_contentL1: "Hilo s'efforce de vous fournir les informations les plus importantes et appropriées pour les chercheurs d'emploi, et aussi aide le chercheur d’emploi afin d'évaluer la satisfaction au travail, les choix de carrière, les caractéristiques de la personnalité et des relations de travail. Hilo travaille également pour fournir des informations aux employeurs dans l'évaluation des environnements de travail, des postes et des rôles, et dans la compréhension des attributs des candidats. En considérant votre utilisation du Service, vous acceptez de fournir des informations vraies, exactes, à jour et complètes au moment de remplir vos informations de compte, les profils de pairage, des questionnaires de personnalité et des données de pairage, ou lorsque vous êtes demandés des informations sur le Service, et de maintenir et mettre à jour ces informations pour le garder vrai, exactes, à jour et complètes. Cela inclut expressément la fourniture des informations concernant les cartes de crédit ou d'autres informations sur les mécanismes de paiement Si  information que vous fournissez est fausse, inexacte, incomplète ou pas mise au jour Hilo se réserve le droit de résilier votre accès et votre utilisation du Service sans préavis."
+      title_contentL2: "Hilo offre le Service pour l'utilisation personnelle, non commerciale et le plaisir du chercheur d'emploi, et pour les besoins internes de ressources humaines des employeurs et pour des utilisations similaires. Vous acceptez de ne pas reproduire, dupliquer, copier, vendre, revendre ou exploiter pour un but commercial une partie de Service, éléments du design ou mise en page du Service, toute utilisation du Service, ou l'accès au Service. Dans le cas où un agent de recherche ou de placement est autorisée par un employeur à afficher, gérer, contribuer ou modifier les informations, y compris les informations relatives aux des postes d'un employeur, l'environnement de travail ou des rôles disponibles, l'agent peut utiliser le Service seulement si: (i) l'agent est expressément autorisée à agir au nom de l'employeur, et (ii) l'employeur reste responsable des actes de l'agent et le contenu de ces informations. En utilisant le Service, un tel agent atteste et garantit que les conditions précédentes ont été satisfaites."
+      title_contentL3:
+        title_contentL3Msg: " Hilo soutient la liberté d'expression et le libre échange d'idées sur les espaces publics du Service. Toutefois, compte tenu de Hilo et le Service comme fournissant une communauté en ligne forte et dynamique, réceptive et respectueux en ce qui concerne les utilisateurs d'origines, de cultures et les groupes d'âge diverses, et en protégeant  la valeur et l'utilité des données et des informations fournies via le Service, vous acceptez que lorsque vous accédez ou utilisez le Service, vous ne "
+        title_contentL3of1: "restreignez ou empêchez autre utilisateur d'utiliser ou de profiter du Service, ou "
+        title_contentL3of2: "représentez vous-même comme un autre ou comme un personnage fictif, sauf si vous participez à une zone du Service qui facilite ou encourage l'anonymat, ou "
+        title_contentL3of3: "dérangez ou perturbez le Service, ou modifiez ou altérez toute information ou matériels sur ou associés avec le Service qui ne sont pas présenté et maintenu par vous, ou "
+        title_contentL3of4: "publiez ou transmettez du matériel illégal, frauduleux, diffamatoire, obscène, pornographique, blasphématoire, menaçant, abusif, haineux, offensant, harcelant , ou autrement répréhensible, information de toute nature, y compris, mais sans s'y limiter, toute transmission constituant ou encourageant une conduite qui constituerait une infraction criminelle, donner lieu à une responsabilité civile ou autrement violer toute loi locale, provinciale, nationale ou étrangère, ou "
+        title_contentL3of5: "affichez ou transmettez toute information qui ne respecte pas les droits à la vie privée ou de publicité, ou qui enfreint ou viole en aucune façon les droits des autres, ou"
+        title_contentL3of6: "affichez ou transmettez publicité, sollicitation, lettres en chaines, systèmes pyramidaux, opportunités reliées sur commission , marketing par paliers multiples, les possibilités d'investissement ou des programmes, ou d'autres communications commerciales non sollicitées, ou des producteurs de spamming ou des inondations, ou"
+        title_contentL3of7: 'affichez ou transmettez information ou logiciel contenant un virus, un cheval de Troie, un ver ou tout autre élément nuisible; ou'
+        title_contentL3of8: 'affichez, publiez, transmettez, reproduisez, distribuez ou exploitez de quelque manière toute information, logiciel ou autre matériel obtenu grâce au Service pour des buts commerciales (autres que celles expressément autorisées par le fournisseur de ces informations, les logiciels ou autre matériel); ou '
+        title_contentL3of9: "téléchargez, affichez, publiez, transmettez, reproduisez ou distribuez de quelque façon (autre que ceux expressément autorisés en vertu du présent Contrat), les informations, les logiciels ou tout autre matériel obtenu grâce au Service qui sont protégés par le droit d'auteur ou autre droit de propriété ou des ouvrages dérivés à cet égard, sans obtenir la permission du titulaire des droits d'auteur; ou "
+        title_contentL3of10: 'téléchargez, affichez, publiez, reproduisez, transmettez ou distribuez de quelque façon (autre que ceux expressément autorisés en vertu du présent Contrat) tout composant du Service , ou des travaux dérivés à cet égard, le Service étant protégé comme une œuvre collective en vertu des lois américaines sur le copyright.'
+      title_contentL4: "Certaines parties du Service peuvent obliger les utilisateurs à poster des photos de profil ou autres renseignements identificatoires Utilisateurs de l'employeur peuvent être obliges de publier des informations spécifique sur le poste. Dans le cas ou le Service nécessite de telles informations, il sera considéré comme une violation des termes d'utilisation pour poster des informations fictives (y compris les images de fiction tels que les avatars), non recevables, obsolètes, ou autrement non conformes."
+      title_contentL5: "Les post de l'employeur doivent être tenus à jour, et doivent être enlevés si un poste a été occupé ou n'est pas plus offert."
+      title_contentL6: "Dans le cas où Hilo croit que les conditions d'utilisation du Service, y compris les restrictions ci-dessus, ont été violés, Hilo peut résilier ou suspendre le compte de tout utilisateur associé à une telle violation. "
+      title_contentL7: "Hilo est un distributeur de contenu fournis par des tiers et des utilisateurs. Hilo n'endosse ni n'est responsable de l'exactitude ou la fiabilité de tout avis, conseil ou déclaration faite sur le site Hilo par quelqu'un que  le porte-parole autorisé du personnel Hilo en agissant en sa qualité officielle. Bien que Hilo n'a aucune obligation de surveiller le Service, vous admettez et acceptez que Hilo a le droit de contrôler le contenu et l'utilisation du Service de temps en temps et de divulguer toute information nécessaire ou approprié pour satisfaire toute loi, règlement ou autre procédure gouvernementale , pour faire fonctionner le Service correctement, ou pour se protéger ou protéger ses utilisateurs, comme indiqué plus en détail dans notre Politique de confidentialité. Hilo se réserve le droit de refuser d'afficher ou de supprimer toute information ou matériel du site Hilo, intégral ou en partie, qui, à son avis, est inacceptable, indésirable, inapproprié ou en violation du présent Contrat. "
+    privacy_policy:
+      title: " POLITIQUE DE CONFIDENTIALITE"
+      title_contentL1: "Hilo reconnaît votre droit à la confidentialité et s'engage à protéger votre intimité. Notre politique de confidentialité décrit quelles informations sont collectées par le Service, comment elles peuvent être utilisées, avec qui elles peuvent être partagées, ainsi que votre contrôle sur ces questions. Bien que Hilo prend des mesures raisonnables et appropriées pour s'assurer que vos informations personnelles ne soit pas divulgués que selon la politique de confidentialité, vous comprenez et acceptez que l'internet est un système ouvert et que Hilo ne peut pas et ne garantit pas que les données que vous entres dans le Service ne seront pas interceptées et décryptées par d'autres. Lisez en entier notre politique de confidentialité, qui peut être modifiée de temps en temps Vous comprenez qu'en accédant ou en utilisant le Service, vous acceptez sans modification les termes, conditions et mentions d'avertissement contenus dans la Politique de confidentialité Hilo et acceptez d'être lié par elles. Si vous n'êtes pas d'accord avec les règles contenues dans notre Politique de confidentialité, s'il vous plaît ne pas utiliser le Service."
+    third_party_sites:
+      title: 'LIENS VERS DU SITES TIERS'
+      title_contentL1: "Hilo travaille pour vous offrir un service de la plus haute qualité et honorabilité, qui sera de la plus grande valeur pour vous. Toutefois, le Service peut contenir des liens ou des interfaces qui vous mèneront à des sites Internet qui ne sont pas sous le contrôle de Hilo. Ces liens ou interfaces sont fournies par Hilo uniquement pour votre commodité et la mise à disposition d'un lien ou d'une interface n'est pas un endossement de Hilo, de ce site ou de son contenu, ses produits, ses services ou ses liens vers d'autres sites qui y sont offerts. Hilo ne contrôle pas, n'approuve ni assume la responsabilité de tout site tiers qui optent pour un lien vers le site internet Hilo .Vous pouvez accéder et utiliser tous ces sites liés uniquement à vos propres risques, et Hilo ne fait aucune déclaration ni garantie quant à leur contenu, fonctionnement ou disponibilité .En outre, la politique de confidentialité Hilo est uniquement applicable sur le site Hilo et lorsque liés à un autre site internet, vous devriez lire la politique de confidentialité de ce site avant de divulguer des informations personnels."
+    disclaimer:
+      title: "DENI DE RESPONSABILITE A L'EGARD DES GARANTIES"
+      title_contentL1: "VOUS ASSUMEZ LE RISQUE TOTAL ET RESPONSABILITÉ DE VOTRE UTILISATION DU SERVICE ET DE L'INTERNET .VOUS COMPRENEZ ET ACCEPTEZ QUE HILO OFFRE CE SERVICE «TEL QUEL», «AVEC TOUS SES DÉFAUTS» ET NE FAIT AUCUNE DÉCLARATION OU GARANTIE DE QUELQUE NATURE QUE CE SOIT EN CE QUI CONCERNE LE SERVICE, LE SITE HILO, SON CONTENU, SA DISPONIBILITE, OU SON FONCTIONNEMENT. HILO ET SON CONTENU ET FOURNISSEURS DE SERVICES DÉCLINENT TOUTE DÉCLARATION ET GARANTIE, EXPRESSE OU IMPLICITE, Y COMPRIS, MAIS SANS S'Y LIMITER, A LES GARANTIES DE COMMERCIALISATION ET DE COMPATIBILITE , POUR UN BUT PARTICULIER, DE TITRE ET D'ABSENCE DE CONTREFAÇON EN CE QUI CONCERNE LE SERVICE, OU TOUT PRODUIT, INFORMATION OU SERVICE FOURNI PAR LE SITE HILO OU PAR L'INTERNET EN GÉNÉRAL .EN OUTRE, HILO NE GARANTIT PAS QUE LES INFORMATIONS ACCESSIBLES VIA LE SITE DE HILO (Y COMPRIS, MAIS SANS S'Y LIMITER, PROFILS DES CHERCHEURS D' EMPLOI OU DES INFORMATIONS SUR LA POSITION DE L'EMPLOYEUR) EST EXACT, COMPLET, ACTUEL, OU SANS VIRUS OU AUTRES EFFETS NOCIFS OU DELETERES. LE SERVICE N'EST PAS UN SERVICE QUI OFFRE OUTIL PSYCHOLOGIQUE, N'EST PAS CONÇU POUR FAIRE UN DIAGNOSTIC DE TROUBLES PSYCHOLOGIQUES OU DU PERSONNALITE OU DISABILITES, IL N'EST PAS CONÇU POUR DES APPLICATIONS CLINIQUES."
+    liability:
+      title: 'LIMITATION DE LA RESPONSABILITE'
+      title_contentL1: "EN AUCUN CAS HILO ET / OU SES FOURNISSEURS DE CONTENU OU SERVICE SERONT RESPONSABLES, DANS LE PRÉSENT CONTRAT OU EN VERTU D'UN CONTRAT, DE NEGLIGENCE, RESPONSABILITÉ STRICTE, D'UN DÉLIT OU TOUTE AUTRE THÉORIE JURIDIQUE OU ÉQUITABLE POUR DES DOMMAGES DIRECTS, INDIRECTS, ACCESSOIRES SPÉCIAUX, EXEMPLAIRES, CONSÉCUTIFS, PUNITIFS QUE Y COMPRIS, MAIS SANS S'Y LIMITER, LES DOMMAGES RÉSULTANT DE LA PERTE D'UTILISATION, DE DONNEES OU DE PROFITS, PROVENANT DE OU EN RELATION AVEC L'UTILISATION, LA DISPONIBILITÉ, LE FONCTIONNEMENT OU LA PERFORMANCE DU SERVICE, MEME S'IL A ETE INFORME DE LA POSSIBILITE DE TELS DOMMAGES. HILO NE SERA PAS RESPONSABLE POUR TOUTE RÉCLAMATION IMPUTABLE A DES DEFAUTS, RETARDS, ERREURS, OMISSIONS OU INEXACTITUDES CONTENUES DANS LE SERVICE ET / OU DES MATERIAUX OU INFORMATIONS TELECHARGES PAR, OU LIES A, OU D'UN SERVICE OU DES ACTIONS PRISES SUR LEUR FONDEMENT. VOUS RECONNAISSEZ SPÉCIFIQUEMENT QUE HILO N'EST PAS RESPONSABLE DE LA CONDUITE DIFFAMATOIRE, OFFENSIVE OU ILLÉGALE D'AUTRES UTILISATEURS DU SERVICE OU DE TIERS, ET QUE LE RISQUE DE BLESSURES RESTE ENTIÈREMENT AVEC VOUS. PARCE QUE CERTAINS ÉTATS NE PERMETTENT PAS L'EXCLUSION OU LA LIMITATION DE RESPONSABILITÉ POUR LES DOMMAGES DIRECTS OU INDIRECTS, LA LIMITATION CI-DESSUS PEUT NE PAS ETRE APPLICABLE DANS VOTRE CAS. DANS CES ÉTATS, LA RESPONSABILITÉ DE HILO ET SA ACCOMPLISSEMENT EST LIMITEE DANS TOUTE LA MESURE AUTORISEE PAR LA LOI."
+    indemnification:
+      title: 'INDEMNISATION'
+      title_contentL1: " Vous acceptez d'indemniser, défendre et dégager de toute responsabilité Hilo et ses filiales, sociétés affiliées, membres, dirigeants, administrateurs, agents, employés, licencieurs, fournisseurs, et tout autre tiers fournisseurs de services et de contenu de toute réclamation, responsabilité, frais, dommages et coûts, y compris, mais sans s'y limiter, les honoraires d'avocat , faits par une tierce partie liée à ou résultant de votre utilisation du Service, tout contenu que vous soumettez, affichez ou transmettez par le Service, votre connexion au Service, votre violation du présent Contrat, ou de votre violation des droits des autres. "
+    third_party_rights:
+      title: 'DROITS DE TIERS'
+      title_contentL1: "Les dispositions du présent Contrat, y compris, mais sans s'y limiter, au Contenu Exclusif, Conduite de L’Utilisateur , exclusions de garanties, limitation de responsabilité  et au paragraphes ci-dessus sur l’indemnisation sont à l'avantage de Hilo et de ses filiales, membres, directeurs, affiliés, administrateurs , agents, employés, licencieurs, fournisseurs, et tout autre tiers fournisseurs de services ou de contenu par le Service. Chacun de ces individus ou entités auront le droit d'affirmer et imposer ces dispositions directement contre vous en son nom propre."
+    miscellaneous:
+      title: 'DISPOSITIONS DIVERSES'
+      title_contentL1: " Le service fourni par Hilo peut être consulté du chacun des 50 états des États-Unis, ainsi que d'autres pays à travers le monde. Comme chacun de ces endroits a des lois qui peuvent différer, en accédant et en utilisant le Service vous acceptez que ce Contrat sera régi et interprété conformément aux lois de l'État de New York, sans égard au conflit des dispositions juridiques. Vous acceptez que toute action ou procédure juridique entre Hilo et vous pour n'importe quel but concernant ce Contrat ou en vertu des présentes obligations des parties soit porté exclusivement devant un tribunal fédéral ou d'État compétent dans le district ouest de New York, et vous acceptez de vous soumettre à la compétence personnelle desdits tribunaux. Hilo ne déclare pas  que les matériaux ou autres informations accessibles sur ou via le Service sont appropriés ou disponibles pour utilisation dans d'autres endroits et y accéder à partir des endroits où leur contenu est illégal est interdit. Accéder au service de l'extérieur des 50 États des États-Unis est à votre propre risque et initiative et vous êtes responsable de respecter les lois locales .Toute cause d'action ou réclamation que vous pourriez avoir à l'égard du Service doit être intentée dans un (1) an après la réclamation ou cause d'action ou telle réclamation ou cause d'action est définitivement prescrite, indépendamment de n'importe quel statut ou  loi à l'effet contraire. "
+      title_contentL2: "Le défaut de Hilo d'insister sur le respect de toute disposition du présent Contrat ne peut être interprétée comme une renonciation de toute disposition ou droit. Ni le cours de conduite entre les parties, ni la pratique commerciale ne doit agir pour modifier une disposition quelconque du présent Contrat. Hilo peut céder ses droits et obligations en vertu du présent accord à toute partie, à tout moment,  sans préavis."
+      title_contentL3: "Les dispositions du présent Contrat sont indépendants et séparés les uns des autres et aucune provision ne doit être affecté ou rendue invalide ou inapplicable en vertu du fait que, pour une raison quelconque, une ou plusieurs d'entre eux peut être invalide ou inapplicable en tout ou en partie. Si une section quelconque de cet accord est invalide ou inapplicable, cette section (s) doit être limitée ou exclue du présent Contrat dans la mesure minimale nécessaire, et l'équilibre du présent accord restera en vigueur et en plein effet."
+    termination:
+      title: 'RESILIATION'
+      title_contentL1: "Le présent Contrat peut être résilié par chacune des parties à tout moment pour n'importe quelle raison, sans préavis, et vous ne pouvez plus accéder ou utiliser le Service après cet accord a été résilié. Dès la résiliation, votre ID et mot de passe Hilo peut être désactivé et tout autre accès à vos données personnelles interdit. Les dispositions des certains paragraphes ci-dessus , y compris celles sur le contenu exclusif, Conduite de l'utilisateur , limitation de responsabilité, l'indemnisation, les droits de tiers, Divers survivront à la résiliation du présent Contrat."
+      title_contentL2: "Hilo se réserve le droit de modifier, de suspendre ou d'interrompre le Service, l'opération du Service, les politiques de maintenance ou d'assistance et les procédures,  le contenu du Service à tout moment, temporairement ou définitivement, sans préavis. Vous acceptez que Hilo ne sera pas responsable à vous ou à tout tiers pour toute modification, suspension ou interruption."
+    acknowledgment:
+      title: 'RECEPTION'
+      title_contentL1: "Le présent Contrat (avec matériels incorporés par renvoi dans le présent Contrat) représente l'intégralité du contrat entre vous et Hilo concernant l'utilisation du Service et remplace tous les accords antérieurs, les déclarations ou les représentations. En accédant ou en utilisant le Service, VOUS ACCEPTEZ D'ETRE LIE PAR CET ACCORD ET PAR LA POLITIQUE DE CONFIDENTIALITÉ HILO CITÉS."
+  employer_privacy_policy:
+    title: 'POLITIQUE DE CONFIDENTIALITE'
+    sub_title: 'Politique de confidentialité'
+    overview:
+      title: 'Généralités'
+      title_contentL1: "Hilo, Inc (\" Hilo \"), en fournissant le site internet Hilo et les services connexes en ligne, se préoccupe pour la protection de votre intimité et comprend que vous vous souciez de la façon dont les informations qui vous concernant sont utilisées et partagées . Cet avis (la «Politique de confidentialité») décrit comment nous pouvons recueillir et utiliser les informations personnelles sur vous, avec qui nous pouvons les partager, les choix que vous avez en les concernant, comment nous les protégeons. Cette politique de confidentialité est incorporée et fait partie de l’Accord d' utilisateur pour le chercheur d'emploi régissant l'utilisation des services en ligne Hilo (le «Service»). Nous vous encourageons à vous familiariser avec nos pratiques de confidentialité, comme indiqué ci-dessous. En accédant et en utilisant le Service, vous reconnaissez que vous avez lu et compris la présente Politique de confidentialité et vous acceptez et consentez aux pratiques de confidentialité décrites ci-dessous."
+    information_collect:
+      title: "Quelles informations recueillons-nous?"
+      title_contentL1:
+        title: "Hilo peut recueillir divers types d' informations de ou sur vous par ou en relation avec le Service. Par exemple: "
+        title_contentL1of1: "Lorsque vous créez un compte avec nous, vous nous fournissez des renseignements de base (tel que votre nom, numéro de téléphone, code postal, adresse e-mail). Si vous créez un compte qui est associé à un service de réseautage social, tels que Facebook ou Twitter, nous pouvons également recueillir certaines informations utilisées pour identifier votre compte avec ces services."
+        title_contentL1of2: "Quand vous entrez des données de profil de pairage, vous nous fournissez des informations sur vos exigences et sur vos qualifications pour un poste (tel que la rémunération, les exigences de trajet, l'éducation, l'expérience et les compétences), ce qui peut être utile pour associer votre profil avec des opportunités spécifiques."
+        title_contentL1of3: "Lorsque vous remplissez le questionnaire de personnalité, vous nous fournissez, et à notre tiers fournisseur de test,  des informations de contact, des informations sur vos qualifications, et les réponses à une série de questions visant à obtenir des informations sur votre personnalité et vos intérêts."
+        title_contentL1of4: "Lorsque vous avez terminé le processus d'activation du site, nous collectons les informations de paiement (y compris les coordonnées et informations de carte de crédit). En nous fournissant ces informations, nous pouvons compléter votre achat de tout produit ou service que vous choisissez de recevoir et de payer pour."
+      title_contentL2: "En outre, si vous correspondez ou communiquez avec Hilo ou avec ses représentants du service clientèle, Hilo peut conserver le contenu et les métadonnées de correspondance et de la communication, quel que soit le mode ou moyen par lequel elle a été faite. Cette information aide Hilo à améliorer le Service et les matériaux, les produits et les services que nous offrons par le Service, et à répondre aux demandes actuelles et futures plus efficace."
+      title_contentL3: "Comme beaucoup d'autres sites web, les serveurs web utilisés pour faire fonctionner le Service collectent certaines données qui vous concernent et l'équipement et la méthode de communication que vous utilisez pour accéder à l’Internet et au Service. Sans combinant ces données avec d'autres sources d'information, il ne vous identifie tout de suite. Ils révèlent des choses telles que le protocole Internet («IP») attribué à un ordinateur, les pages spécifiques accédé sur le Service, l’adresse URL (\"URL\") de la page Web affichée immédiatement avant de se rendre au Service, et le montant approximatif du temps passé au service. Cette information est recueillie, entre autres choses, pour faciliter le fonctionnement du Services et l'administration du système, pour générer une information statistique complète, non identifiable concernant l'activité de Service et son utilisation, et pour améliorer le contenu et la diffusion de contenu en ce qui concerne le Service et les matériaux, produits, et les services que nous mettons à disposition sur le Service."
+      title_contentL4: "Hilo utilise également des \"cookies\"(petits fichiers textes stockés sur votre ordinateur) pour aider à suivre et de personnaliser votre accès et votre utilisation du Service. Les cookies stockent et conservent des informations qui nous aident à vous reconnaître lorsque vous revenez sur le Service après une visite précédente. Les cookies peuvent également stocker des ID de connexion ou des ID susceptible d'être créés ou qui sont attribués à vous par Hilo et le mot de passe associé, bien que ces informations soient stockées sur votre ordinateur sous forme cryptée. Les navigateurs sur internet les plus populaires vous permettent de les configurer afin de ne pas accepter les cookies. Toutefois, la configuration de votre navigateur pour refuser les cookies peut vous empêcher de profiter pleinement du Service et des matériaux, produits et services qui Hilo met à disposition sur le Service."
+    information_use:
+      title: "Comment utilisons-nous les informations que nous recueillons?"
+      title_contentL1: "En plus de les usages mentionnés ou décrits ci-dessus, Hilo utilise les informations qu'il recueille de/ou sur vous pour améliorer les matériaux, les produits et les services qui sont mis à disposition sur le Service, pour vous informer sur les modifications apportées au Service ou sur des nouveaux produits ou services qui sont mis à disposition sur ou via le Service, afin d'évaluer vos besoins et personnaliser le contenu du Service qui vous est livré, pour faciliter le traitement de tous les achats que vous effectuez par le Services et la livraison de nos produits et services à vous, et pour d'autres buts commerciales légitimes et légales du Hilo. Hilo peut fait disponible l'information que vous avez fournie, sur une base confidentielle, à ses tiers fournisseurs de services pour assister Hilo dans son traitement interne propre et dans l'utilisation de ces informations. Parmi autres fournisseurs de services, Hilo rend l'information de votre questionnaire disponible pour l’entreprise qui fait des tests pour les tiers, ayant le but d’aider le Service."
+      title_contentL2: " Hilo ne partage pas des informations personnellement identifiables collectées sur vous avec  l’ aide des tiers, sauf que nous puissions combiner ou agréger l'information personnelles qui vous concerne, sous forme anonyme(ca veut dire, sous une forme qui ne permet pas de vous identifier), avec d'autres données concernant nos produits, services, ou d'autres clients et utiliser les informations agrégées pour des buts diverses, y compris le partager avec nos clients et avec des tiers . Par exemple, on peut agréger vos informations avec d'autres utilisateurs afin que nous puissions fournir certaines statistiques sur notre communauté d'utilisateurs pour les annonceurs, les employeurs et les autres."
+      title_contentL3: "Notre politique est de ne pas vendre des listes contenant des informations personnelles sur les utilisateurs du Service, sur les personnes inscrites ou les abonnés, et nous ne partageons pas des informations sur la carte de crédit ou d'autres informations financières qui vous concerne, sauf si nécessaire pour livrer, facturer, et recueillir pour les produits ou services que vous achetez ou abonnez via le Service."
+    choice_option:
+      title: "Quels choix avez-vous?"
+      title_contentL1: "Vous pouvez mettre à jour à tout moment l'information d'enregistrement que vous avez entré à souscrire à n'importe lequel des produits ou services que nous offrons par le Service. En contactant ou en envoyant une demande à nous aux numéros ou adresses ci-dessous, vous pouvez également nous demander de retirer votre nom de notre liste d'utilisateurs de services qui souhaitent recevoir des communications de Hilo. Une fois que vous vous excluez grâce à une telle demande, nous honorerons votre choix jusqu'à ce que vous nous informez autrement. Rappelez-vous, cependant, que si nous avons déjà partagé les informations qui vous concernant, conformément à votre inscription ou la participation à des services offerts par nos tiers fournisseurs de services, ces prestataires de services peuvent en outre servir de cette information et vous aurez besoin de les contacter directement à l’égard de ce sujet."
+    information_privacy:
+      title: "Comment protégeons-nous les informations collectées sur vous?"
+      title_contentL1: "Hilo accorde une grande importance au protection des renseignements personnels transmises par le Service. Pour cette raison, nous utilisons des solutions de sécurité avancées, y compris 128-bit Secure Sockets Layer (\"SSL\"), la technologie de cryptage pour traiter les paiements et aider à assurer des communications sécurisées. En outre, le service est protégé par un pare-feu qui fournit un degré élevé de sécurité. Cependant, alors que Hilo prend des mesures commercialement raisonnables pour sécuriser et protéger les informations spécifiques au client transmises ou stockés sur notre service, aucun système de sécurité n'est impénétrable et la communication sur Internet peut être interceptée. Par conséquent, nous ne pouvons pas garantir que les renseignements personnels fournis par les utilisateurs du service seront totalement sécurisé."
+    changes_to_privacy_policy:
+       title: "Les modifications apportées à la Politique de confidentialité"
+       title_contentL1: "De temps en temps, Hilo peut modifier ses pratiques de confidentialité en raison de changements dans les exigences pertinentes et applicables légale ou réglementaire, dans nos pratiques commerciales ou d'affaires, ou dans nos efforts pour mieux répondre à vos besoins. Dans le cas d'un tel changement de nos pratiques de confidentialité, un avis sera donné de la manière décrite dans les Conditions d'Utilisation du Service et une politique de confidentialité révisée sera affichée sur le Service."
+    business_transfers:
+      title: "Transfer d’activite"
+      title_contentL1: " Comme Hilo continue à croître et à développer son activité, il est possible que sa structure entité se modifie ou que Hilo pourrait fusionner ou combiner avec, ou que la quasi-totalité de ses actifs pourraient être acquis par une autre société En de telles transactions, les informations sur les clients sont généralement parmi les actifs transférés."
+    linked_services:
+      title: "Services liés"
+      title_contentL1: "Pour votre commodité, certains hyperliens ou d'autres interfaces peuvent être affichés sur le Service, qui pointent vers d'autres sites web et qui ne sont pas contrôles par Hilo. Nous ne sommes pas responsables, et cette politique de confidentialité ne s'applique pas aux pratiques de confidentialité de ces sites. Nous vous encourageons à chercher et à lire la politique de confidentialité de tout site web que vous visitez. En outre, lorsque vous initiez une transaction sur un autre site web, même si vous avez atteint ce site par un lien affiché sur notre Service, l'information que vous soumettez pour compléter cette transaction est soumise aux pratiques de confidentialité de ce site web. Vous devriez lire la politique de confidentialité de ce site pour comprendre comment les renseignements personnels qu'elle recueille sont utilisés, partagés et protégés. Hilo n'est pas responsable des pratiques de confidentialité ou de l'information de ses fournisseurs ou partenaires d'affaires ou de tous sites web de tiers."
+    more_information:
+      title: "Qui peut vous contacter pour plus d'information?"
+      title_contentL1: " Adressez toutes autres questions concernant nos pratiques de confidentialité ou la Politique de Confidentialité de Hilo à info@hiloproject.com"
+    acknowledgement:
+      title: "Réception"
+      title_contentL1: "VOUS CONVENEZ QUE VOUS AVEZ LU, COMPRIS ET CONSENTEMENT AUX PRATIQUES DE confidentialité décrites dans cette POLITIQUE DE CONFIDENTIALITÉ ET ACCEPTEZ D'ÊTRE LIÉ PAR LE CONTRAT D'UTILISATION DU CHERCHEUR D'EMPLOI ."
+      last_updated: 'Mise à jour Mars 31, 2011 '
+  employerTermsOfUseClaims: "PROCÉDURE DES RÉCLAMATIONS POUR VIOLATION LES DROITS D'AUTEUR"
+  employerTermsOfUseClaimsMsg: " Hilo, Inc a enregistré un agent désigné par la United States Copyright Office en vertu de la Digital Millennium Copyright Act (17 USC 512 (c)) et si vous croyez que vos droits d'auteur sont utilisés en liaison avec les services sans l'autorisation requise, s'il vous plaît aviser notre agent désigné à "
+  employerTermsOfUseClaimsAdd: "CP"
+  career_seeker_bridge:
+    title: 'introduction'
+    title_content1: "REALISEZ VOTRE POTENTIEL"
+    content:
+      contentL1: "Hilo vous aide à trouver des emplois qui conviennent et qui vous sépare du peloton pour décrocher l'entrevue et"
+      contentL1B: "LE CLOUER"
+      contentL2: 'Plus des employeurs joignent la révolution Hilo tous les jours: Vous devez '
+      contentL2B: 'ETRE PRETS '
+      contentL3:
+        contentN: 'quand votre'
+        contentN2: "rêve"
+        contentN3: 'job'
+        contentN4: 'est sur le fil'
+      contentL4: 'CONNAISSEZ VOTRE SUITABILITE POUR CHAQUE POSTE '
+      contentL5: "dans la base de données du Hilo avant d'appliquer . Vous verrez également de nouvelles correspondances en temps réel."
+      contentL6: " Regardez la vidéo de 1 minute pour découvrir pourquoi Hilo est l'outil dernière de recherche que vous aurez jamais besoin"
+    title2: "échantillon"
+    title3: "guide pour avancer dans la carrière "
+    title_content2: "connais-toi à toi"
+    content2:
+      contentL1: "Les employeurs embauchent des candidats avec le"
+      contentL1B: "PLUS CONNAISSANCE DE SOI "
+      contentL2: "Quel rôle voyez-vous vous-même à jouer? Quel est votre environnement de travail idéal?"
+      contentL3: "Le guide Hilo de Suivi Professionnel  effectuée par Birkman stimule votre intelligence professionnelle afin que vous puissiez"
+      contentL3B: "BRILLER DANS VOTRE ENTREVU."
+      contentL4: "Soutenu par plus de 60 années de recherche et d'application au niveau de la direction d' entreprises du Fortune 500 dans le monde entier, Birkman est sérieux."
+    title4: "détails de poste"
+    title_content3: " lunettes a rayons X pour votre recherche d'emploi!"
+    content3:
+      contentL1: "Aucun autre système ne peut égaler le niveau de visibilité ou de transparence de Hilo ."
+      contentL2: "Détails de postes décrit le rôle, divulgue des renseignements sur le salaire et détail sur votre adaptation à la situation et à l'environnement de travail."
+      contentL3B: "VOUS DECIDEZ D'APPLIQUER"
+      contentL3: "pour un poste, d'augmenter votre visibilité sur le tableau de bord de l'employeur."
+      contentL4: "Vous serez"
+      contentL4B: 'IMMEDIATEMENT NOTIFIE '
+      contentL5: "lorsque l'employeur consulte votre profil"
+    title5: "Adhésion"
+    title6: "emplois disponibles"
+    title7: "les employeurs actifs"
+    title_content4: "pas de frais d'abonnement jamais. Jamais"
+    content4:
+      contentL1: "CORRESPONDANCES SONT LIBRES POUR ETRE VU"
+      contentL2: "$ 19.99 activation unique du site démarre le moteur couplé Hilo et  inclut votre Guide de Suivi Professionnel personnalisé effectuée par Birkman (une valeur de 50 $)"
+      contentL3: "Vous bénéficiez également d'un nombre illimité de positions libres de preview  et des détails. De là, vous pouvez appliquer à n'importe quel travail pour seulement $ 0.99. Pour commencer, vous aurez même droit à un crédit pour le site de $ 5.00."
+      contentL4: "Obtenez les détails complets en une minute en regardant cette vidéo"
+  cs_landing_page_search: "Testez le moteur couplé Hilo !"
+  c_search_non_loggedin:
+    pop_up:
+      heading: "VOYEZ MAINTENANT CE QUE HILO A POUR VOUS"
+      contentL1: "Les dix questions à choix multiples nous aident à comprendre votre environnement de travail idéal. En se basant sur cette information et l'emplacement souhaité, nous allons vous montrer ce que Hilo a pour vous.!"
+      contentL2: "Il suffit d'entrer votre adresse e-mail pour commencer. Nous vous enverrons un code promo pour créer un compte gratuit. Ne vous inquiétez pas, nous ne vendons ni ne distribuons pas vos informations."
+      label: 'E-mail'
+      heading2: 'ENVIRONNEMENT DE TRAVAIL IDEAL'
+      content2: "Vous serez demandé une série de 10 questions sur la façon dont vous agiriez dans un scénario de simulation (organiser une fête surprise). Pour chaque question, choisissez l'émoticône long du continuum qui décrit le mieux votre approche."
+  emp_search_non_loggedin:
+    header:
+      videos: '{Vidéos}'
+      blog: '{Blog}'
+      about: '{A propos}'
+    footer:
+      facebook: "Aimez-nous sur Facebook"
+      twitter: "Suivez-nous sur Twitter"
+      contract: "Contact"
+      terms_of_use: "Conditions d’utilisation"
+      privacy_policy: "Politique de confidentialité"
+      hilo: "Hilo, Inc. &copy; 2012"
+    pop_up:
+      heading: 'TESTEZ  LE MOTEUR COUPLE HILO '
+      content: "Les dix questions à choix multiples nous aident à comprendre l'environnement de travail de votre entreprise en relation avec un rôle particulier. En se basant sur ces renseignements et votre emplacement, nous allons vous montrer un aperçu des candidats que Hile a pour vous!"

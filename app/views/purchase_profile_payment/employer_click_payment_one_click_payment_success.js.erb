@@ -1,0 +1,10 @@
+<% if @flag == true %>
+  employer_click_payment.one_click_payment_success('<%=session[:seeker_id_one_click]%>', '<%=session[:job_id_one_click]%>', '<%=session[:employer].id%>');
+<% elsif @flag == "spend_crossed" %>
+  $('#one_click_payment_position_popup').hide();
+  $('#fade_normal').hide();
+  $('#fade_error').show();
+  $('#consumed_warning').show();
+  centralizePopup();
+  addFocusButton('consumed_warning_button');
+<% end %>

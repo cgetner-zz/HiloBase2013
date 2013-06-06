@@ -1,0 +1,20 @@
+<% broadcast "/xref_update#{@job_seeker_id}/company#{@company_id}" do %>
+  var emp_ids = new Array();
+  <%@job_ids.each do |id|%>
+    <%emp = Job.find(id).employer%>
+    <%emp_ids = emp.ancestor_ids%>
+    <%emp_ids<<emp.id%>
+    <%emp_ids.each do |e|%>
+      if(!emp_ids.has("<%=e%>")){
+        emp_ids.push("<%=e%>");
+      }
+    <%end%>
+  <%end%>
+
+  if(emp_ids.has($("#current_employer_id").val())){
+    $("#refresh_link").show();
+    $("#refresh_link").children().click(function(){
+      xrefRefreshHandler();
+    });
+  }
+<% end %>

@@ -1,0 +1,22 @@
+<%for alert in alerts-%>	
+  <div class="alert-row">
+    <div class="alert-left">
+      <img src="/assets/alert.jpg"/> <%= alert.text.html_safe.force_encoding("UTF-8")%>
+    </div>
+    <div class="alert-right">
+      <a href="javascript:void(0);" onclick="remove_alert(this,<%=alert.id%>);" title="Remove alert">x</a>
+    </div>
+    <div class="clear-height"></div>
+  </div>
+<%end -%>
+<div class="alert-row">
+  <div class="alert-left">
+    <img src="/assets/alert.jpg"/>
+    <%= mail_to " feedback@thehiloproject.com ", "Click here and send us your feedback",
+      :subject => "Feedback On The Hilo Project" %>
+  </div>
+  <div class="alert-right">
+    &nbsp;
+  </div>
+  <div class="clear-height"></div>
+</div>

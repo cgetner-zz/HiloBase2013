@@ -1,0 +1,128 @@
+<% company_name = session[:employer].company.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+<div class="profileContainer-channel-manager">
+  <div class="block-channel-manager" style="margin-top: 0;">
+    <h4><%=t ("company_channels.internal_candidates.title") %></h4>
+    <div class="channel-manager-left">
+      <div class="channel-manager-left-bottom company">
+        <% if !session[:employer].is_root? and session[:employer].company.hilo_subscription == true %>
+        <div class="CM-LB-cover" id="url-share" style="height: 174px;"></div>
+        <% end %>
+        <div class="top"></div>
+        <%if session[:employer].company.hilo_subscription == true%>
+          <div class="content">
+            <div class="content-top">
+              <span class="heading-inactive">
+                <h4><%=t ("company_channels.internal_candidates.hilo_subscription.header") %></h4>
+              </span>
+            </div>
+            <div class="clear-float"></div>
+            <div class="content-bottom-inactive">
+              <p style="padding-right: 15px;"><%=t ("company_channels.internal_candidates.hilo_subscription.content") %></p>
+            </div>
+            <div class="clear-float"></div>
+            <div id="" style="margin-left: 10px; margin-top: 10px; width: 200px;" class="customized-input <%if session[:employer].company.company_domains.empty?%>input-text<%else%>active-input<%end%>">
+              <div class="input-left"></div>
+              <input type="hidden" id="domain_name_placeholder" value="Coma seperated Domain Name" />
+              <input type="text" style="width: 180px;" maxlength="50" name="domain_name" id="domain_name" onblur="blur_element(this);emptyTextBox(this);" onkeyup="domainEnter(event);" onkeydown="type_element(this); " onfocus="focus_element(this);" value="<%if session[:employer].company.company_domains.empty?%>Coma seperated Domain Name<%else%><%=session[:employer].company.company_domains.map{|cd| cd.domain}.join(", ")%><%end%>" />
+              <div class="input-right"></div>
+            </div>
+            <input type="button" class="btn-save active lfloat" style="margin-left: 5px; margin-top: 14px;" value="" onclick="<%if session[:employer].is_root?%>saveDomainNames();<%end%>"/>
+          </div>
+        <% else %>
+          <div class="content">
+            <div class="content-top">
+              <span class="heading-inactive with-help">
+                <h4><%=t ("company_channels.internal_candidates.url.header") %></h4>
+                <img height="24" width="24" alt="help" src="/assets/info.png" onclick="openHelpPopup('ics_link_help');" />
+              </span>
+            </div>
+            <div class="clear-float"></div>
+            <div class="content-bottom-inactive">
+              <p><%=t ("company_channels.internal_candidates.url.content") %></p>
+            </div>
+            <div class="clear-float"></div>
+            <div class="channel-manager-left-bottom-footer">
+              <div class="channel-manager-input-inactive" style="float: none;">
+                <input type="text" value="<%=@ics_url.shorten%>" name="url" id="ics-url" readonly="readonly" style="width: 260px;"/>
+              </div>
+              <div id="copy_to_clipboard_container2" style="position: relative;">
+                <span style="margin-left: 0; margin-top: 5px;" class="copy-to-clipboard lfloat" id="copy_to_clipboard2"><img src="/assets/employer_v2/copy_button.png" alt="Copy To Clipboard" title="Copy To Clipboard" /></span>
+                <span style="display: inline-block; margin-left: 5px; margin-top: 5px;"><input type="button" value="" class="reset-button lfloat" id="reset_url" onclick="resetURL();" /></span>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+        <div class="bottom"></div>
+      </div>
+    </div>
+    <div class="channel-manager-right company">
+      <%if session[:employer].company.hilo_subscription == false%>
+      <div class="top"></div>
+      <div class="content">
+        <div class="content-top">
+          <span class="invitation-heading">
+            <h4><%=t ("company_channels.internal_candidates.invite.header") %></h4>
+          </span>
+        </div>
+        <div class="clear-float"></div>
+        <div id="" class="customized-input input-text" style="margin-left: 10px; margin-top: 5px; width: 200px;">
+          <div class="input-left"></div>
+          <input type="hidden" id="invi_email_placeholder" value="Email" />
+          <input type="text" style="width: 180px;" maxlength="50" name="invi_email" id="invi_email" onblur="blur_element(this);emptyTextBox(this);" onkeyup="invitationEnter(event);" onkeydown="type_element(this); " onfocus="focus_element(this);" value="Email" />
+          <div class="input-right"></div>
+        </div>
+        <input type="button" class="invite-button lfloat" style="margin-left: 2px; margin-top: 10px;" value="" onclick="inviteEmail();"/>
+        <div class="clear-float"></div>
+        <div style="margin-left: 10px;margin-top: 10px;">
+          <div style="font-weight: 700;margin-bottom: 6px; margin-left: 118px;"><%=t ("company_channels.internal_candidates.invite.or") %></div>
+          <div>
+            <%=t ("company_channels.internal_candidates.invite.content") %> &nbsp;
+            <a href="javascript:void(0)" onclick="add_csv();">+<%=t ("company_channels.internal_candidates.invite.upload") %></a>
+          </div>
+          <div id="csv_div">
+            <%= form_tag("/employer_account/add_csv", :multipart=>true, :id=>"add_csv")  do %>
+              <input type="file" id="csv" name="csv" onchange="submitCsv();"/>
+            <% end %>
+            <iframe id='upload_frame_csv' name="upload_frame_csv" style="display:none" src="about:blank"></iframe>
+          </div>
+        </div>
+      </div>
+      <div class="bottom"></div>
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function add_csv(){
+    //show popup IE
+    BrowserDetect.init();
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+      $("#fade_normal").show();
+      //showNormalShadow();
+      $.ajax({
+        url: '/employer_account/show_ie_popup',
+        cache: false,
+        success: function(){
+          /*
+          $("html, body").animate({
+            scrollTop: 0
+          }, "slow");
+          */
+          $("#csv_upload_ie").show();
+          centralizePopup();
+          footerOnOpeningPopup();
+          //$("#csv").css('visibility', 'visible');
+        },
+        beforeSend: function(){
+          $('#csv_div').html("");
+        }
+      });
+    }
+    else{
+      $("#csv").click();
+      //e.preventDefault();
+    }
+  }
+</script>

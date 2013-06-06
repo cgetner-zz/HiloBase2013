@@ -1,0 +1,31 @@
+<%categories = []
+@jobs.each do |j|
+  categories<<j.group_id
+end
+categories.uniq!%>
+<div class="sort-tab2-list" id="sort-tab2-list-<%=@dd%>">
+<%categories.each do |c|%>
+  <div class="folder-box close" id="category_<%=c%>"><!-- Use class [open] or [close] -->
+    <%= prepare_folders(@jobs, c, CompanyGroup.find(c).name) %>
+
+    <!--
+
+    <div class="top">
+      <span class="user-name">Folder Name</span>
+    </div>
+
+    <div class="slide">
+      <div class="middle">
+        <ul>
+          <li class="red">Position (Position ID)</li>
+          <li class="green">Position (Position ID)</li>
+          <li class="green">Position (Position ID)</li>
+          <li class="green">Position (Position ID)</li>
+        </ul>
+      </div>
+      <div class="bottom"></div>
+    </div>
+    -->
+  </div>
+<%end%>
+</div>

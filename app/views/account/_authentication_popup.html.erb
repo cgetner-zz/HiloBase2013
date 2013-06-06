@@ -1,0 +1,46 @@
+<div id="auth_popup" class="white_content" style="position: fixed;">
+  <div class="popup-upper-block-auth">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('auth_popup.heading') %></label>
+        </div>
+        <%= form_tag("/account/authenticate", :id=>"auth_form", :remote => true ) do %>
+          <div class="left-content" >
+            <ul class="auth_popup_elements">
+
+              <li>
+                <div class="customized-input active-input" style="margin-right:10px;">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="hilo_email_placeholder" value="<%= t('auth_popup.hilo_email') %>" />
+                  <input type="text" value="<%= session[:job_seeker].email %>" onfocus="focus_element(this);" class="email" onblur="blur_element(this);" onkeydown="type_element(this);" name="email" id="hilo_email" onkeyup="validateAuthInfo();checkEnterForForm(event,'enter_auth','auth_form','enter-button-active');"/>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+              <li>
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="hilo_password_placeholder" value="<%= t('auth_popup.hilo_password') %>" />
+                  <input type="text" value="<%= t('auth_popup.hilo_password') %>" onfocus="focus_element(this);" class="password" onblur="blur_element(this);" onkeypress="type_element(this,event);" name="password" id="hilo_password" onkeyup="validateAuthInfo();checkEnterForForm(event,'enter_auth','auth_form','enter-button-active');"/>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+          <div class="right-content" >
+            <input id="enter_auth" type="button" class="enter-button-active rfloat" value=""/>
+            <span id="loader_img_auth" style="display:none; position:absolute; right:69px;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+          </div>
+        <% end %>
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideAuthenticationPopup();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+
+<script type="text/javascript">
+</script>

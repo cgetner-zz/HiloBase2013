@@ -1,0 +1,71 @@
+<% flag = true %>
+<% if not @emp_delete_rec.nil? %>
+  <% for emp in @emp_delete_rec %>
+    <% if emp.root.request_deleted == false or emp.is_root? or not emp.root.nominated_employer_id.nil?%>
+      <% if flag == true %>
+        <% flag = false %>
+        <tr id="emp_<%=emp.id%>" >
+          <th width="180">
+            <label class="first" style="cursor: default;">
+              <%= emp.first_name %> <%= emp.last_name %>
+            </label>
+          </th>
+          <th width="210">
+            <label style="width: 200px; word-wrap: break-word; cursor: default;"><%= emp.email %></label>
+          </th>
+          <th width="160">
+            <label style="cursor: default;">
+              <% case emp.account_type_id %>
+              <% when 1 %>
+                Root User
+              <% when 2 %>
+                Sub User
+              <% when 3 %>
+                Single User
+              <% end %>
+            </label>
+          </th>
+          <th width="180">
+            <label style="cursor: default;"><%= emp.company.name %></label>
+          </th>
+          <th width="128">
+            <label>
+              <a class="action" style="float:left;" href="javascript:void(0);" onclick="admin_employer_delete_cancel(<%=emp.id%>);">Reject</a>
+              <a class="action" style="float:left; margin-left: 10px;" href="javascript:void(0);" onclick="admin_employer_delete(<%=emp.id%>);">Delete</a>
+            </label>
+          </th>
+        </tr>
+      <% else %>
+        <tr id="emp_<%=emp.id%>" >
+          <td>
+            <label class="first" style="cursor: default;"><%= emp.first_name %> <%= emp.last_name %></label>
+          </td>
+          <td>
+            <label style="width: 200px; word-wrap: break-word; cursor: default;"><%= emp.email %></label>
+          </td>
+          <td>
+            <label style="cursor: default;">
+              <% case emp.account_type_id %>
+              <% when 1 %>
+                Root User
+              <% when 2 %>
+                Sub User
+              <% when 3 %>
+                Single User
+              <% end %>
+            </label>
+          </td>
+          <td>
+            <label style="cursor: default;"><%= emp.company.name %></label>
+          </td>
+          <td>
+            <label>
+              <a class="action" style="float:left;" href="javascript:void(0);" onclick="admin_employer_delete_cancel(<%=emp.id%>);">Reject</a>
+              <a class="action" style="float:left; margin-left: 10px;" href="javascript:void(0);" onclick="admin_employer_delete(<%=emp.id%>);">Delete</a>
+            </label>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,97 @@
+<div class="page-heading-container">
+  <h2 class="page-heading"><%=t ("personality_questionnaire.set1.contentL1") %><br /><%=t ("personality_questionnaire.set1.contentL2") %><br /><%=t ("personality_questionnaire.set1.contentL3") %></h2><!--page-heading-->
+  <!--step-count-->
+  <%=render :partial => "/questionnaire/panels/step_number",:locals=>{:step_no => 1}%>
+  <!--/step-count-->
+  <div class="clear-float"></div>
+  <div>
+    <span class="sub-heading"><%=t ("personality_questionnaire.set1.contentL4") %></span>
+    <span id="question_count" class="questions-track margin-T0px">
+      <% if @job_seeker_birkman_detail.responded_birkman_set_number == 1 && @job_seeker_birkman_detail.responded_birkman_question_id.blank? %>
+        <%=t ("personality_questionnaire.set1.contentL5") %>
+      <% elsif @job_seeker_birkman_detail.responded_birkman_set_number == 1 && !@job_seeker_birkman_detail.responded_birkman_question_id.blank? %>
+        <%=t ("personality_questionnaire.set1.contentL6") %> <%= @job_seeker_birkman_detail.responded_birkman_question_id.to_i + 1 %> - <%= @job_seeker_birkman_detail.responded_birkman_question_id.to_i + 5 %><%=t ("personality_questionnaire.set1.contentL6N") %>
+      <% end %>
+    </span>
+  </div>
+</div>
+
+<!--question-set-box-->
+<div class="question-set-box">
+  <div class="question_set_box_top_bg">&nbsp;</div>
+  <div class="question_set_box_middle_bg">
+    <div class="gradient-content">
+      <!--question-block-->
+      <%= form_tag('/questionnaire/save_work_env_questions', :id => "work_evn_form") do -%>
+        <input type="hidden" id="save_type" name="save_type" value=""/>
+        <input type="hidden" id="work_env_values" name="work_env_values" value=""/>
+      <%end -%>
+      <%for ques in @work_questions -%>
+
+        <div class="question-set">
+          <span class="work-quest-label"><%= ques.question %></span>
+
+          <div class="question-block">
+
+            <div class="left-text">
+              <%= I18n.locale == :en ? ques.description_left.html_safe.force_encoding('utf-8') : ques.description_left %>
+            </div>
+            <!--<%= ques.question.html_safe.force_encoding('utf-8') if I18n.locale == :en %>-->
+            <div class="option-selection">
+              <ul class="workenv-options">
+                <li class="test"><a href="javascript:void(0);" class="notAtall <% if @work_questions_resp["#{ques.id}"] == 0 %>active<%end%>" onclick="birkman_test.show_next();" data-val="0">Not at All</a></li>
+                <li class="test"><a href="javascript:void(0);" class="slightly <% if @work_questions_resp["#{ques.id}"] == 1 %>active<%end%>" onclick="birkman_test.show_next();" data-val="1">Slightly</a></li>
+                <li class="test"><a href="javascript:void(0);" class="<% if @work_questions_resp["#{ques.id}"].nil? %>default<% else %>moderately<% end %> <% if @work_questions_resp["#{ques.id}"] == 2 %>active<%end%>" onclick="birkman_test.show_next();" data-val="2">Moderately</a></li>
+                <li class="test"><a href="javascript:void(0);" class="greatly <% if @work_questions_resp["#{ques.id}"] == 3 %>active<%end%>" onclick="birkman_test.show_next();" data-val="3">Greatly</a></li>
+                <li class="last-child"><a href="javascript:void(0);" class="almostAlways <% if @work_questions_resp["#{ques.id}"] == 4 %>active<%end%>" onclick="birkman_test.show_next();" data-val="4">Almost Always</a></li>
+              </ul>
+            </div>
+            <div class="right-text">
+              <%= I18n.locale == :en ? ques.description_right.html_safe.force_encoding('utf-8') : ques.description_right %>
+            </div>
+          </div>
+
+          <!--/question-block-->
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <div class="question_set_box_bottom_bg">&nbsp;</div>
+</div>
+<!--question-set-box-->
+
+<!--button-container-->
+<div class="button-container">
+  <input type="button" id="work_env" value="" class="next-button-active rfloat"/>
+  <div class="question-error-message"><%=t ("personality_questionnaire.error") %></div>
+  <input type="button" id="work_env_snr" onclick="" value="" class="saveReturnLater-button-active lfloat"/>
+</div>
+<!--/button-container-->
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    birkman_test.show_next();
+    $("#work_env").click(function(){
+      if($("#work_env").hasClass("complete")){
+        <% work_questions = WorkenvQuestion.seeker_next_questions_for_work_env(@job_seeker_birkman_detail) %>
+        <% if @job_seeker_birkman_detail.pass_through and work_questions.last.id == 10 %>
+          qComplete();
+        <% elsif @job_seeker_birkman_detail.pass_through == false and work_questions.last.id == 10 %>
+          birkman_test.showSetTwoIntroductaryPopup();
+        <% else %>
+          birkman_test.save_work_env();
+        <% end %>
+      } else {
+        $(".question-set-box").addClass('error');
+        $(".question-error-message").show();
+      }
+    });
+
+    $("#work_env_snr").click(function(){
+      if($("#work_env_snr").hasClass("saveReturnLater-button-active")){
+        $("#save_type").val("return_later");
+        birkman_test.save_work_env();
+      }
+    });
+  });
+</script>

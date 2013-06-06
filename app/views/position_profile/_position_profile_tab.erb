@@ -1,0 +1,39 @@
+<div class="pos-prof-tabs"> 
+	<div style="float:left;width:30px;">&nbsp;</div>
+	
+	
+	<%if current_tab == "candidate_pool"%>
+		
+		<%if(!@job.blank? and !@job.id.blank?) %>
+			<a href="/position_profile/edit/<%=@job.id%>" class="<%=pos_profile_tab_selected(current_tab, "edit_pos_profile")%>">Edit Position Profile</a>
+			
+			<a href="javascript:void(0)" class="<%=pos_profile_tab_selected(current_tab, "posting_manager")%>">Posting Manager</a>
+		<%end%>
+
+
+	<%else%>
+		<%if(!@job.blank? and !@job.id.blank?) %>
+			<%if current_tab == "view_pos_profile"%>
+				<a href="/position_profile/edit/<%=@job.id%>" class="<%=pos_profile_tab_selected(current_tab, "view_pos_profile")%>">Position Profile</a>
+			<%else%>
+				<a href="/position_profile/edit/<%=@job.id%>" class="<%=pos_profile_tab_selected(current_tab, "edit_pos_profile")%>">Edit Position Profile</a>
+			<%end%>
+		<%else%>
+			<a href="/position_profile/new" class="<%=pos_profile_tab_selected(current_tab, "edit_pos_profile")%>">Position Profile</a>
+		<%end%>
+		
+		<a href="javascript:void(0)" class="<%=pos_profile_tab_selected(current_tab, "posting_manager")%>">Posting Manager</a>
+		
+	<%end%>
+
+
+
+	
+	<%if(!@job.blank? and !@job.id.blank?) %>
+		<a href="/position_profile/candidate_pool/<%=@job.id%>" class="<%=pos_profile_tab_selected(current_tab, "candidate_pool")%>">Candidate Pool</a>
+	<%else%>
+		<a href="javascript:void(0)" class="<%=pos_profile_tab_selected(current_tab, "candidate_pool")%>">Candidate Pool</a>
+	<%end%>
+
+	<div class="clear-height"></div>
+</div>

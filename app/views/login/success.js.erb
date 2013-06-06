@@ -1,0 +1,27 @@
+<% if @redirection_step[:controller].to_s == "home" and @redirection_step[:action].to_s == "index" %>
+   window.location.href="/home/index";
+<% elsif @redirection_step[:controller].to_s == "questionnaire" %>
+   window.location.href="/questionnaire/index";
+<% elsif @redirection_step[:controller].to_s == "payment" %>
+   window.location.href="/payment/index";
+<% elsif  @redirection_step[:controller].to_s == "pairing_profile" and @redirection_step[:action].to_s == "credentials" and @redirection_step[:id].to_s == "login" %>
+   window.location.href="/pairing_profile/credentials/login";
+<% elsif  @redirection_step[:controller].to_s == "pairing_profile" and @redirection_step[:action].to_s == "credentials" %>
+   window.location.href="/pairing_profile/credentials";
+<% elsif  @redirection_step[:controller].to_s == "pairing_profile" and @redirection_step[:action].to_s == "basics" %>
+   window.location.href="/pairing_profile/basics";
+<% elsif  @redirection_step[:controller].to_s == "account" and @redirection_step[:action].to_s == "index" %>
+   window.location.href="/account/index";
+<% elsif  @redirection_step[:controller].to_s == "job_seeker" and @redirection_step[:action].to_s == "new" %>
+ window.location.href="/job_seeker/new";
+<% elsif  @redirection_step[:controller].to_s == "employer_payment" and @redirection_step[:action].to_s == "index" %>
+   window.location.href="/employer_payment/index";
+<% elsif  @redirection_step[:controller].to_s == "employer_account" and @redirection_step[:action].to_s == "index" %>
+   <%if !session[:from_email_employer_alert].present?%>
+    window.location.href="/employer_account/index";
+   <%else%>
+    window.location.href="/position_profile/xref/<%=session[:from_email_employer_alert].split("_")[0]%>?position_id=<%=session[:from_email_employer_alert].split("_")[1]%>";
+   <%end%>
+<% elsif  @redirection_step[:controller].to_s == "employer" and @redirection_step[:action].to_s == "new" %>
+   window.location.href="/employer/new";
+<% end %>

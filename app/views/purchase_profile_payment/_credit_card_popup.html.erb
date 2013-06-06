@@ -1,0 +1,261 @@
+<!-- Credit Card Billing Information Popup -->
+<%= form_for :payment_pro, :url => { :controller => :purchase_profile_payment, :action => :credit_card_payment },:update=>"statsDiv", :html => { :method => :post, :id=>"purchase-profile-form"}, :remote=>true do |p|%>
+
+  <!--<input type="hidden" value="paypal_pro" name="payment_type" id="payment_type"/>-->
+
+  <div class="popup-siteActivation popup-siteActivationHeight454px">
+    <input type="hidden" value="" name="payment_type" id="payment_type"/>
+    <input type='hidden' name='payment_card_type' value='' id='payment_card_type' />
+    <div id="card_entry_form"></div>
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content overflow-visible">
+        <div class="popup-header-container">
+          <label class="popup-heading" id="payment_header"><%= t ("payment_pop_up.heading")  %></label>
+          <div class="error-message-container" id="paypal_error_msg" style="display:none;"><%= t ("payment_pop_up.error")  %></div>
+        </div>
+        <div class="payment_text" id="one_click_text"><%= t ("payment_pop_up.contentL1")  %></div>
+        <ul class="payment-options payment_text_options" id="payment-options">
+          <div id="payment_images">
+            <li><a href="javascript:void(0)" title="Master Card" onclick="setImage('master');"><img src="/assets/Mastercard_1.png" alt="Master Card"  border="0" /></a></li>
+            <li><a href="javascript:void(0)" title="Visa" onclick="setImage('visa');"><img src="/assets/Visa_1.png" alt="Visa"  border="0" /></a></li>
+            <li><a href="javascript:void(0)" title="American Express" onclick="setImage('american_express');"><img src="/assets/AmericanExpress_1.png" alt="American Express"  border="0" /></a></li>
+            <li><a href="javascript:void(0)" title="Discover" onclick="setImage('discover');"><img src="/assets/Discover_1.png" alt="Discover"  border="0" /></a></li>
+            <li><a href="javascript:void(0);" title="PayPal" class="payPal" onclick="setImage('paypal');"><img src="/assets/Paypal_1.png" alt="Pay Pal"  /></a></li>
+          </div>
+        </ul>
+        <ul class="payment-options" id="payment-options-dummy" style="display:none;">
+          <li><a href='javascript:void(0);' title='Master Card'><img src='/assets/Mastercard_2.png' alt='Master Card' height='31' width='52' /></a></li><li><a href='javascript:void(0);' title='Visa'><img src='/assets/Visa_2.png' alt='Visa Card' height='31' width='47' /></a></li><li><a href='javascript:void(0);' title='American Express' ><img src='/assets/AmericanExpress_2.png' alt='American Express Card' height='31' width='30' /></a></li><li><a href='javascript:void(0);' title='Discover' ><img src='/assets/Discover_2.png' alt='Discover Card' height='31' width='46' /></a></li><li><a href='javascript:void(0);' title='Paypal'><img src='/assets/Paypal_2.png' alt='Paypal' height='31' width='72' /></a></li>
+        </ul>
+        
+        <div id="payment_details_text" class="payment_text" style="display:none;"><%= t ("payment_pop_up.contentL2")  %></div>
+        
+        <input type='hidden' name='card_type' value='' id='master_card' />
+        <div class="credit-card-info" id="credit-card-info" style="display:none;">
+          <div class="customized-inner-input input-text text-credit-card">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="card_num_placeholder" value="<%= t ("payment_pop_up.card_no")  %>" />
+            <%=text_field_tag :card_num, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t ("payment_pop_up.card_no") }", :maxlength => 16,:onkeyup=>"validateCreditCardInfo();checkKeyupForEnter_PurchasePayment(event);validateCardNum();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});", :style=>"width: 190px;"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="card_num" type="text" name="card_num" class="text-credit-card active" value="Credit Card Number" />-->
+
+          <div class="customized-inner-input input-text text-month">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="month_placeholder" value="<%= t ("payment_pop_up.mm")  %>" />
+            <%=text_field_tag :month, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.mm") }', :maxlength => 2, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});", :style=>"width: 35px;"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="month" type="text" name="month" class="text-month" value="mm" />-->
+          <img src="/assets/seperator-MMYY.png" height="33" width="10" class="mmyySeperator" />
+
+          <div class="customized-inner-input input-text text-year">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="year_placeholder" value="<%= t ("payment_pop_up.year")  %>" />
+            <%=text_field_tag :year, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.year") }', :maxlength => 4, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});",:style=>"width: 45px;"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="year" type="text" name="year" class="text-year" value="YYYY" />-->
+
+          <div class="customized-inner-input input-text text-securityCode">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="cvv_placeholder" value="<%= t ("payment_pop_up.cvv")  %>" />
+            <%=text_field_tag :cvv, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :class=>"password" , :value => '#{t ("payment_pop_up.cvv") }', :maxlength => 3, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);",:onkeypress => "type_element(this,event);", :onkeydown=>"$(this).numeric({decimal: false, negative: false});", :style=>"width: 87px;"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="cvv" type="text" name="cvv" class="text-securityCode" value="Security Code" />-->
+        </div>
+
+        <div class="personal-info overflow-visible" id="personal-info" style="display:none;">
+          <ul class="pymentDD1">
+             <li class="frstCls">
+              <div class="customized-inner-input input-text text-fname">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="fname_placeholder" value="<%= t ("payment_pop_up.first_name")  %>" />
+                <%=text_field_tag :fname, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.first_name") }', :maxlength => 50, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this)",:style=>"width: 192px;"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input id="fname" type="text" name="fname" value="First Name" class="text-fname margin-R-22px" />-->
+              <div class="customized-inner-input input-text text-lname">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="lname_placeholder" value="<%= t ("payment_pop_up.last_name")  %>" />
+                <%=text_field_tag :lname, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.last_name") }', :maxlength => 50, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this)", :style=>"width: 213px;"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input id="lname" type="text" name="lname" value="Last Name" class="text-lname" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-billingAddress">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_address_one_placeholder" value="<%= t ("payment_pop_up.bill_add")  %>" />
+                <%=text_field_tag :billing_address_one,'', :value => '#{t ("payment_pop_up.bill_add") }' , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this)", :style=>"width: 433px;"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Billing Address" class="text-billingAddress" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-billingAddress">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_address_two_placeholder" value="<%= t ("payment_pop_up.add1")  %>" />
+                <%=text_field_tag :billing_address_two,'', :value => '#{t ("payment_pop_up.add1") }' , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this)", :style=>"width: 433px;"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Apt., suite, bldg." class="text-billingAddress" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-city">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_city_placeholder" value="<%= t ("payment_pop_up.city")  %>" />
+                <%=text_field_tag :billing_city,'', :value => '#{t ("payment_pop_up.city") }' , :maxlength => 100, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);", :onkeydown=>"type_element(this)", :style=>"width: 178px;"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="City" class="text-city" />-->
+
+              <div class="state-selector-block" id="state-selector-block">
+                  <div class="state-slector" id ="state-selector">
+                    <span class="label-default" id="temp"><%= t ("payment_pop_up.state")  %></span>
+
+                    <div class="state-options" id="state_options" style="display:none;">
+                        <div class="state-options-top">&nbsp;</div>
+                        <div class="state-options-content">
+                            <label class="label-default-spec3"><%= t ("payment_pop_up.state")  %></label>
+                            <ul class="option">
+                              <% states = State.find(:all)
+                              for state in states %>
+                                <li selected=""><label onclick="populate_states(this);validateCreditCardInfo(this);unbindKeydown();" id=<%= "'"+"#{state.id}"+"'" %> ><%= state.name %></label></li>
+                              <% end %>
+                            </ul>
+                        </div>
+                        <div class="state-options-bottom">&nbsp;</div>
+                    </div>
+                  </div>
+              </div>
+              <span id="populate_states" style="display:none;">
+                  <input type='hidden' name='billing_state' id='billing_state' value="" />
+              </span>             
+
+              <div class="customized-inner-input input-text text-zip">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_zip_placeholder" value="<%= t ("payment_pop_up.zip")  %>" />
+                <%=text_field_tag :billing_zip,'', :value => '#{t ("payment_pop_up.zip") }', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :maxlength => 5, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);validateZip();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Zip Code" class="text-zip" />-->
+            </li>
+            <li class="lastChild">
+              <div class="customized-inner-input input-text text-areaCode">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_area_code_placeholder" value="<%= t ("payment_pop_up.area_code")  %>" />
+                <%=text_field_tag :billing_area_code, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.area_code") }', :maxlength => 3, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);validateAreaCode();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="(Area Code)" class="text-areaCode" />-->
+              <div class="customized-inner-input input-text text-telephone">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_telephone_number_placeholder" value="<%= t ("payment_pop_up.tele")  %>" />
+                <%=text_field_tag :billing_telephone_number, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => '#{t ("payment_pop_up.tele") }', :maxlength => 7, :onkeyup=>"validateCreditCardInfo(this);checkKeyupForEnter_PurchasePayment(event);validateTel();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <%#=submit_tag('', :id=>"payment_verify_button", :disabled => true, :class=>"verify-button rfloat")%>
+              <input type="button" id="payment_verify_button" class="verify-button rfloat"/>
+              <%#*<input type="submit" value="" id="verify_button" class="verify-button credit_card_button rfloat"/>%>
+              <span id="verify-loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+              <input type="button" class="finish-button-active" id="finish-button-success" onclick="window.location.reload();" style="display:none;" />
+
+            </li>
+          </ul>
+        </div>
+
+        <div id="paypal-info" class="billing-information" style="display:none">
+                         <%= t ("payment_pop_up.paypal_contentL1")  %><br/><%= t ("payment_pop_up.paypal_contentL2")  %><br/><%= t ("payment_pop_up.paypal_contentL3")  %>
+          <a href="javascript:void(0)" class="btnContinue rfloat" onClick="redirectToPaypal_job_seeker_payment();">Continue..</a>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="_closeCCBillingInfo()" id="payment_close">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+
+<% end -%>
+<!-- /Credit Card Billing Information Popup -->
+
+<script type="text/javascript">
+  if($('.state-options', this).is(":visible")) {
+    $('.state-options', this).hide();
+  }
+
+  $('.state-slector').click(function(e){
+        $(".state-slector").removeClass("error");
+        $('.default-level',this).css('display','none');
+        if($('.state-options', this).is(":visible") == true) {
+              $('.state-options', this).hide();
+        }
+        e.stopPropagation();
+  });
+
+  $('.state-options-content ul li').each(function(){
+        $('label',this).click(function(){
+              var _labelVale = $(this).html();
+              $('.state-slector .label-default').text(_labelVale);
+              $('.state-slector .label-default-top').text(_labelVale);
+              $('.state-slector .state-options').css("display","none");
+              $('input#billing_state').val(_labelVale);
+              return false;
+        });
+  });
+
+  $('body').click(function(){
+    $('.state-options').css('display','none');
+    $(document).unbind('keydown');
+  });
+
+  $("div#state-selector").click(function(e){
+      $("div#state_options").show();
+                        $('.option').children().each(function(){
+                            if($(this).attr('selected')=='selected'){
+                                $(this).removeClass('selected').removeAttr('selected');
+                            }
+                        });
+                        
+                        $('#state_options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+                        $('.option').scrollTop(0);
+                        //DropDownHandler.time = System.currentTimeMillis();
+                        DropDownHandler.t = new Date().getTime();
+                        
+                        $(document).unbind('keydown').bind('keydown', function(e){
+                            DropDownHandler.func(e, document.getElementById('state_options'), 'state');
+                        });
+      e.stopPropagation();
+  });
+  
+  $('.option li').hover(function(){
+            $('.option').children().each(function(){
+                if($(this).attr('selected')=='selected'){
+                    $(this).removeClass('selected').removeAttr('selected');
+                }
+            });
+            $(this).addClass('selected').attr('selected', 'selected');
+  });
+
+  function populate_states(obj) {
+    $("#state-selector span.label-default").attr("id",$(obj).attr("id"));
+    var state_id = $(obj).attr("id");
+    $("#billing_state").val(state_id);
+    $("#state-selector span.label-default").css("color","#000078");
+  }
+
+  
+  
+</script>

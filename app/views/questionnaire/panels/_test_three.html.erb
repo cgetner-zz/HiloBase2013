@@ -1,0 +1,102 @@
+<div class="page-heading-container">
+  <h2 class="page-heading" style="font-size: 20px;">
+    <strong><em><%=t ("personality_questionnaire.set4.contentL1") %><br /><%=t ("personality_questionnaire.set4.contentL2") %></em></strong><br /> <span class="sub-heading"><%=t ("personality_questionnaire.set4.contentL3") %></span>
+  </h2><!--page-heading-->
+  <ul class="step-count">
+    <%=render :partial => "/questionnaire/panels/step_number",:locals=>{:step_no => 4}%>
+  </ul>
+  <span class="questions-track"><%=t ("personality_questionnaire.contentL5") %> <%=@birkman_questions.first.set_number %><%=t ("personality_questionnaire.set4.contentL5N") %></span>
+</div>
+
+<%=  form_tag("/questionnaire/save_test_three_questions", :id => "test_form") do -%>
+  <input type="hidden" id="test_response" name="test_response" value=""/>
+  <input type="hidden" name="save_type" id="save_type" value="" />
+<%end -%>
+
+
+<div class="question-set-box">
+  <div class="question_set_box_top_bg">&nbsp;</div>
+  <div class="question_set_box_middle_bg">
+    <div class="gradient-content">
+      <!--question-block-other-->
+      <div class="question-block-other">
+        <div class="question-otherHeading">
+          <h3 style="width:552px;">&nbsp;</h3>
+          <label class="mp24 margin-R-111px lfloat"><%=t ("personality_questionnaire.set4.first") %></label>
+          <label class="mp24 lfloat"><%=t ("personality_questionnaire.set4.second") %></label>
+        </div>
+        <div class="clear-float">&nbsp;</div>
+        <%
+        cnt = 1
+        id = 1
+        val = 1
+
+        @birkman_questions.each_with_index{|obj, i|
+          j = 1
+
+          -%>
+
+          <div class="options-trueNfalse">
+
+
+            <ul class="test_three_ul">
+
+
+              <li>
+                <span class="question-text"><%=obj.statement%></span>
+                <div class="choices" id="<%= id %>">
+                  <a href="javascript:void(0);" id="<%= j %>" title="First Choice" class="fc <% if @birkman_questions_resp["#{obj.id}"]=='first'%>active<%end%>" onclick="birkman_test.test_three_click(this); birkman_test.show_next_test_three(this);" data-val="<%= val %>"></a>
+                  <%
+                  j = j+1
+                  val = val+1
+                  -%>
+                  <a href="javascript:void(0);" id="<%= j %>" title="Second Choice" class="sc <% if @birkman_questions_resp["#{obj.id}"]=='second'%>active<%end%>" onclick="birkman_test.test_three_click(this); birkman_test.show_next_test_three(this);" data-val="<%= val %>"></a>
+                </div>
+              </li>
+
+            </ul>
+          </div>
+          <%
+          cnt = cnt + 2
+          id = id + 1
+          val = val + 1
+        }-%>
+      </div>
+      <!--/question-block-other-->
+    </div>
+  </div>
+  <div class="question_set_box_bottom_bg"></div>
+</div>
+
+<!--button-container-->
+<div class="button-container">
+  <input type="button" id="test_three" value="" class="next-button-active rfloat"/>
+  <div class="question-error-message"><%=t ("personality_questionnaire.error") %></div>
+  <input type="button" id="test_three_snr" value="" class="saveReturnLater-button-active lfloat"/>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    birkman_test.show_next_test_three('onload');
+    $("#test_three_snr").click(function(){
+      if($("#test_three_snr").hasClass("saveReturnLater-button-active")){
+        $("#save_type").val("return_later");
+        birkman_test.save_test_three();
+      }
+    });
+		
+    $("#test_three").click(function(){
+      if($("#test_three").hasClass("complete")){
+<% birkman_questions = BirkmanJobInterestResponse.seeker_next_questions_for_set_three(@job_seeker_birkman_detail) %>
+<% if birkman_questions.last.id.to_i == BIRKMAN_SET_THREE_LAST_ID.to_i %>
+          qComplete();
+<% else %>
+          birkman_test.save_test_three();
+<% end %>
+      } else {
+        $(".question-set-box").addClass('error');
+        $(".question-error-message").show();
+      }
+    });
+  });
+</script>

@@ -1,0 +1,191 @@
+<div class="summary-container">
+  <div class="upper-bar">&nbsp;</div>
+  <div class="content">
+    <%=  form_tag("/my_introduction/save_summary", :id=>"edit_summary", :remote => true) do |j| %>
+      <div class="gradient-content">
+        <!--headerInformation-->
+
+        <div class="headerInformation">
+          <label class="videoInfo fontweight-700px"><%= t('account.pairing_profile.intro.summary.heading') %></label>
+          <label name="chars_remain" id="left" class="playerInfo"><%= t('account.pairing_profile.intro.summary.char_remaining') %>
+            <strong id="count_holder">
+            </strong>
+          </label>
+          <!--<input readonly type="text"  class="playerInfo" name="chars_remain" size=3 maxlength=3 value="550"> characters left-->
+        </div>
+        <!--/headerInformation-->
+        <div class="text-area-block"></div>
+        <div class="text-area-block-content">
+          <input type="hidden" value="<%= t('account.pairing_profile.intro.summary.block_text') %>" id="summary_placeholder" />
+          <% if session[:summary].nil? %>
+            <% if not @job_seeker.summary.nil? %>
+              <div class="textbox active-input" style="margin-left:10px;">
+                <%= text_area_tag :summary,@job_seeker.summary,  :class=>"text-area",:value=>"#{(t('account.pairing_profile.intro.summary.block_text'))}", :id=>"summary", :onfocus=>"focus_element(this);", :onblur=>"blur_element(this);", :onKeyDown=>"type_element(this);calculateChars(this, 550, 'job_seeker');", :onkeyup=>"calculateChars(this, 550, 'job_seeker');activateSave();validateForSaveIntro();" %>
+              </div>
+            <% else %>
+
+              <div class="textbox input-text" style="margin-left:10px;">
+                <%= text_area_tag :summary,"#{(t('account.pairing_profile.intro.summary.block_text'))}",  :class=>"text-area", :id=>"summary", :onfocus=>"focus_element(this);", :onblur=>"blur_element(this);", :onKeyDown=>"type_element(this);calculateChars(this, 550, 'job_seeker');", :onkeyup=>"calculateChars(this, 550, 'job_seeker');activateSave(); validateForSaveIntro();" %>
+              </div>
+            <% end %>
+          <% else %>
+            <% if session[:summary] != "" %>
+
+              <div class="textbox active-input"  style="margin-left:10px;">
+                <%= text_area_tag :summary,"",  :class=>"text-area", :id=>"summary", :onfocus=>"focus_element(this);", :onblur=>"blur_element(this);", :onKeyDown=>"type_element(this);calculateChars(this, 550, 'job_seeker');", :onkeyup=>"calculateChars(this, 550, 'job_seeker');activateSave(); validateForSaveIntro();" %>
+              </div>
+            <% else %>
+
+              <div class="textbox input-text" style="margin-left:10px;">
+                <%= text_area_tag :summary,"#{(t('account.pairing_profile.intro.summary.block_text'))}", :class=>"text-area", :id=>"summary", :onfocus=>"focus_element(this);", :onblur=>"blur_element(this);", :onKeyDown=>"type_element(this);calculateChars(this, 550, 'job_seeker');", :onkeyup=>"calculateChars(this, 550, 'job_seeker');activateSave(); validateForSaveIntro();" %>
+              </div>
+            <% end %>
+
+          <% end %>
+        </div>
+
+
+
+
+
+        <div class="text-area-bottom">&nbsp;</div>
+        <a href="javascript:void(0)" title="+Add" class="addItems" style="display:none;"><%= t('account.pairing_profile.intro.summary.add_text') %></a>
+        <label class="label-armedForces"><%= t('account.pairing_profile.intro.summary.veteran_text') %></label>
+        <ul class="smry-options">
+          <% if session[:armed].nil? %>
+            <li class="yes">
+              <input type="checkbox" id="yes" class="styled yes" <% if @job_seeker.armed_forces == true %>checked="checked"<%end%> />
+              <label for="yes" class="summary_yes_text"><%= t('account.pairing_profile.intro.summary.yes_text') %></label>
+            </li>
+            <li class="lastChild no">
+              <input type="checkbox" id="no" class="styled no" <% if @job_seeker.armed_forces == false %>checked="checked"<%end%> />
+              <label for="no" class="summary_no_text"><%= t('account.pairing_profile.intro.summary.no_text') %></label>
+            </li>
+          <% else %>
+            <li class="yes">
+              <input type="checkbox" id="yes" class="styled yes" <% if session[:armed] == "true" %>checked="checked"<%end%> />
+              <label for="yes" class="summary_yes_text"><%= t('account.pairing_profile.intro.summary.yes_text') %></label>
+            </li>
+            <li class="lastChild no">
+              <input type="checkbox" id="no" class="styled no" <% if session[:armed] == "false" %>checked="checked"<%end%> />
+              <label for="no" class="summary_no_text"><%= t('account.pairing_profile.intro.summary.no_text') %></label>
+            </li>
+
+          <% end %>
+        </ul>
+        <% if session[:armed].nil? %>
+          <input type="hidden" name="armed_forces" id="armed_forces" value="<%=@job_seeker.armed_forces%>"  />
+        <% else %>
+          <input type="hidden" name="armed_forces" id="armed_forces" value="<%=session[:armed]%>" />
+          <% session[:armed] = nil %>
+        <% end %>
+        <input type="hidden" value="" id="summary_temp" />
+      </div>
+    <% end %>
+  </div>
+  <div class="bottom-bar">&nbsp;</div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+<% if not @job_seeker.summary.nil? %>
+      formID = document.getElementById('edit_summary');
+      CountLeft(formID.summary,formID.summary.value.length,550);
+<% else %>
+      $("#count_holder").text(550);
+<% end %>
+<% if !session[:summary].nil? and session[:summary]!="" %>
+      var summary = '<%= session[:summary] %>';
+      summary = summary.replace(/~~~/g, "\r\n");
+      var temp_summary = summary.replace(/(\r\n)/gm," ");
+      var counts_rem = 550 - temp_summary.length;
+      $("#count_holder").text(counts_rem);
+      $("#summary").val(summary);
+
+  <% session[:summary] = nil %>
+
+<% end %>
+    
+    $(".smry-options li.yes span.checkbox").unbind().click(function(){
+      $("#no").attr("checked","checked");
+      Custom.check($(".smry-options li.no span.checkbox"));
+      $("#armed_forces").val("true");
+        
+      if($("#yes").attr("checked")==true) {
+        $("#armed_forces").val("true");
+            
+      }
+      else {
+        //$("#armed_forces").val("");
+        $("#yes").removeAttr("checked");
+        Custom.check($(".smry-options li.yes span.checkbox"));
+        validateForSaveIntro(this);
+      }
+    });
+    $(".smry-options li.no span.checkbox").unbind().click(function(){
+      $("#yes").attr("checked","checked");
+      Custom.check($(".smry-options li.yes span.checkbox"));
+      $("#armed_forces").val("false");
+        
+      if($("#no").attr("checked")==true) {
+        $("#armed_forces").val("false");
+           
+      }
+      else {
+        //$("#armed_forces").val("");
+        $("#no").removeAttr("checked");
+        Custom.check($(".smry-options li.no span.checkbox"));
+        validateForSaveIntro(this);
+      }
+    });
+
+    $("label.summary_yes_text").unbind().click(function(){
+      $("#no").attr("checked","checked");
+      Custom.check($(".smry-options li.no span.checkbox"));
+      $("#armed_forces").val("true");
+      if($("#yes").prev().css("background-position")=="0px -50px") {
+        $("#armed_forces").val("true");
+      }
+      else {
+        //$("#armed_forces").val("");
+        $("#yes").removeAttr("checked");
+        Custom.check($(".smry-options li.yes span.checkbox"));
+        validateForSaveIntro($(this).prev().prev()[0]);
+      }
+    });
+    $("label.summary_no_text").unbind().click(function(){
+      $("#yes").attr("checked","checked");
+      Custom.check($(".smry-options li.yes span.checkbox"));
+      $("#armed_forces").val("false");
+        
+      if($("#no").prev().css("background-position")=="0px -50px") {
+        $("#armed_forces").val("false");
+      }
+      else {
+        //$("#armed_forces").val("");
+        $("#no").removeAttr("checked");
+        Custom.check($(".smry-options li.no span.checkbox"));
+        validateForSaveIntro($(this).prev().prev()[0]);
+      }
+    });
+  });
+  function CountLeft(field, count, max) {
+    $("#count_holder").text(max - field.value.length);
+  }
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_edit_summary = function(){
+      $('#submit-loader-img').show();
+      $('#armed_forces').val();
+    }
+    var loaded_edit_summary = function(){
+      $('#submit-loader-img').hide();
+      $('#edit_website').submit();
+    }
+   
+    $("#edit_summary")
+    .bind("ajax:beforeSend", loading_edit_summary)
+    .bind("ajax:complete", loaded_edit_summary)
+  });
+</script>

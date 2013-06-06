@@ -1,0 +1,94 @@
+<!-- One Click Payment -->
+<div style="display: none; position:fixed;" id="one_click_payment_position_popup" class="one_click_payment_position_white_content">
+
+  <div style="width: 605px;">
+    <div class="dashboard_position_popup-siteActivation">
+      <span class="position_popup-top">&nbsp;</span>
+      <div class="position_popup-content_oneclick">
+        <div class="position_gradient-content_oneclick">
+          <div class="position_popup-header-container">
+            <label class="position_popup-heading"><%=t ("employer_one_click_payment.title") %></label>
+          </div>
+          <%= form_tag("/purchase_profile_payment/authenticate_one_click", :id => "one_click_form", :remote => true) do -%>
+
+            <div class="position_popup_select_box padding-T-10px" style="text-transform: uppercase;">
+              <% if session[:employer].is_root? %>
+                <a href="javascript:void(0)" onclick="employer_click_payment.credit_card_show()" id="preview_card_select"><%=t ("employer_one_click_payment.modify_payment") %></a>
+              <% end %>
+              <ul class="oneClick-details dashboard-payment">
+                <li>
+                  <div class="customized-input active-input">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="pay_name_placeholder" value="<%=t ('employer_one_click_payment.email') %>" />
+                    <input type="text" name="pay_name" class="email" id="pay_name" value="<%=session[:employer].email%>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForForm(event,'confirm_button','one_click_form','poition_enter_button_active')" onkeydown="type_element(this)" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+                </li>
+                <li>
+                  <div class="customized-input input-text margin-R-12px">
+                    <div class="input-left">&nbsp;</div>
+                    <input type="hidden" id="pay_pass_placeholder" value="<%=t ('employer_one_click_payment.hilo_password') %>" />
+                    <input type="text" name="pay_pass" class="password" id="pay_pass" value="<%=t ('employer_one_click_payment.hilo_password') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForForm(event,'confirm_button','one_click_form','poition_enter_button_active')" onkeypress="type_element(this,event);" />
+                    <div class="input-right">&nbsp;</div>
+                  </div>
+
+                </li>
+                <li class="lastChild">
+                  <div class="position_popup_enter_button">
+                    <span id="loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+                    <input type="button" id="confirm_button" class="poition_enter_button rfloat" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+          <% end %>
+        </div>
+
+        <a id="oneclick-close" onclick="_close_OneClickPayment_box();" href="javascript:void(0)" class="position_close_oneclick"><%=t ('employer_one_click_payment.Close') %></a>
+      </div>
+      <span class="position_popup-bottom">&nbsp;</span>
+    </div>
+  </div>
+</div>
+<!-- One Click Payment -->
+
+<script>
+  $(document).ready(function(){
+		BrowserDetect.init();
+
+		if ( BrowserDetect.browser == "Explorer" )
+		    {
+		      //wiring to onkeydown event
+		      //alert("IE");
+		      document.getElementById('pay_pass').attachEvent('onkeydown', function(e){
+			editorEvents(document.getElementById('pay_pass'), e);
+		      });
+
+		    }
+
+		    else if ( BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Safari" ){
+		      document.getElementById('pay_pass').addEventListener('keydown', function(e){
+			editorEvents(document.getElementById('pay_pass'), e);
+		      }, false);
+
+		    }
+	});
+
+
+
+        jQuery(function($) {
+        // create a convenient toggleLoading function
+        var loading_one_click_form = function(){
+          showBlockShadow();$('#confirm_button').hide();$('#loader-img').show();$('#pay_pass').blur();
+        }
+        var loaded_one_click_form = function(){
+          hideBlockShadow();$('#loader-img').hide(); $('#confirm_button').show();$('#pay_pass').focus();
+        }
+       
+        $("#one_click_form")
+        .bind("ajax:beforeSend", loading_one_click_form)
+        .bind("ajax:complete", loaded_one_click_form)
+        
+        });
+</script>

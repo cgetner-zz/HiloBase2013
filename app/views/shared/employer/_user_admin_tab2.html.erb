@@ -1,0 +1,55 @@
+<div class="expand-all"><span class="expand" style="visibility: hidden;"><%=t ("user_admin.position_reassign.expand_all") %></span></div>
+<div class="account-top"></div>
+<div class="account-middle tab2">
+  <div class="account-middle-content">
+    <div class="header">
+      <div class="inline-div" style="width: 580px;">
+        <div class="heading"><%=t ("user_admin.position_reassign.title") %></div>
+        <div class="sub-heading"><%=t ("user_admin.position_reassign.content") %></div>
+      </div>
+      <div class="nav-container">
+        <a onclick="openUserAdminTab();" href="javascript:void(0)"></a>
+        <a class="active" href="javascript:void(0)"></a>
+        <a onclick="openTeamMapTab();" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <% if session[:employer].account_type_id == 3 %><%= render :partial=> "/shared/employer/user_admin_sample_data_message" %><% end %>
+    <div class="content">
+      <% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+        <div class="user-rows tab2" id="user-rows-1">
+          <%= render :partial=>'shared/employer/user_admin_dropdowns' %>
+        </div>
+        <div class="user-rows tab2" id="user-rows-2">
+          <%= render :partial=>'shared/employer/user_admin_dropdowns' %>
+        </div>
+        <div class="user-rows tab2" id="user-rows-3">
+          <%= render :partial=>'shared/employer/user_admin_dropdowns' %>
+        </div>
+      <% else %>
+        <%= render :partial => "/shared/employer/sample_tab_2" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="account-bottom"></div>
+<% if session[:employer].account_type_id == 1 or session[:employer].account_type_id == 2 %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('.account-middle-content .content').slimscroll({
+        railVisible: true,
+        allowPageScroll: true
+      });
+      bindUserBoxesTab2();
+      $(".expand-all span").unbind().click(function(){ expandAllTab2(this); });
+    
+    
+      $(".user-list.dropdown ul").each(function(){
+        if(!$(this).find('li:last').hasClass('last')){
+          $(this).find('li:last').addClass('last')
+        }
+      });
+  	
+    });
+  
+  </script>
+<% end %>

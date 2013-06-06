@@ -1,0 +1,132 @@
+<div class="table-container-top">&nbsp;</div><!--table-container-top-->
+<%=render :partial => "/shared/employer/dashboard_tooltip_popup"%>
+<!--table-container-content-->
+<div class="table-container-content">
+
+  <ul class="table-headings">
+    <li style="cursor:default; width:32px;">
+      &nbsp;
+    </li>
+    <li <%if @sort == "name" %>class="active"<%end%> onclick="return <%if @sort == 'name' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%elsif @sort == 'name' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else%>sortDashboardTables('name','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>" >
+      <a class="labelPosition <%if @sort == 'name' && @order == 'desc'%>decActive<%elsif @sort == 'name' && @order == 'asc'%>ascActive<%end%>" title="Position" href="javascript:void(0)" style="width:100px;"><%=t ("viewed_profile.columns.position") %></a>
+    </li>
+    <li <%if @sort == 'pairing' %>class="active"<%end%> onclick="return <%if @sort == 'pairing' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<% elsif @sort == 'pairing' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else %>sortDashboardTables('pairing','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>" >
+      <a class="labelFit <%if @sort == 'pairing' && @order == 'desc' %>decActive<% elsif @sort == 'pairing' && @order == 'asc'%>ascActive<%end %>" title="Fit" href="javascript:void(0)"  style="width:62px;"><%=t ("viewed_profile.columns.fit") %></a>
+    </li>
+    <li <%if @sort == "status" %>class="active"<%end%> onclick="return <%if @sort == 'status' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%elsif @sort == 'status' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else%>sortDashboardTables('status','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>" >
+      <a class="labelStatus <%if @sort == 'status' && @order == 'desc'%>decActive<%elsif @sort == 'status' && @order == 'asc'%>ascActive<%end %>" title="Status" href="javascript:void(0)" style="width: 80px;"><%=t ("viewed_profile.columns.status") %></a>
+    </li>
+    <li <%if @sort == "first_name" %>class="active"<%end%> onclick="return <%if @sort == 'first_name' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%elsif @sort == 'first_name' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else%>sortDashboardTables('first_name','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>" >
+      <a class="labelPosition <%if @sort == 'first_name' && @order == 'desc'%>decActive<%elsif @sort == 'first_name' && @order == 'asc'%>ascActive<%end%>" title="Candidate" href="javascript:void(0)" style="width:109px;"><%=t ("viewed_profile.columns.candidate") %></a>
+    </li>
+    <li <%if @sort == "share_name" %>class="active"<%end%> onclick="return <%if @sort == 'share_name' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%elsif @sort == 'share_name' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else%>sortDashboardTables('share_name','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>" >
+      <a class="labelLocation <%if @sort == 'share_name' && @order == 'desc'%>decActive<%elsif @sort == 'share_name' && @order == 'asc'%>ascActive<%end%>" title="Source" href="javascript:void(0)" style="width:83px;"><%=t ("viewed_profile.columns.source") %></a>
+    </li>
+    <li>
+      <a class="labelRemaining" id="xref_popup_tooltip" title="X-REF" href="javascript:void(0)" style="width:45px;">X-REF</a>
+    </li>
+    <li <%if @sort == "vet" %>class="active"<%end%> onclick="return <%if @sort == 'vet' && @order == 'desc'%>sortDashboardTables('<%=@sort%>','asc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%elsif @sort == 'vet' && @order == 'asc'%>sortDashboardTables('<%=@sort%>','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%else%>sortDashboardTables('vet','desc',$('#filter_value').val(),<%= @pos %>, 'table_data');<%end%>">
+      <a class="labelRemaining_vet <%if @sort == 'vet' && @order == 'desc'%>decActive<%elsif @sort == 'vet' && @order == 'asc'%>ascActive<%end%>" id="vet_popup_tooltip" title="VET" href="javascript:void(0)" style="width:55px;"><%=t ("viewed_profile.columns.vet") %></a>
+    </li>
+    <li style="cursor:default;" class="lastChild">
+      <a class="labelStatus" title="VIEW PROFILE" href="javascript:void(0)" style="cursor:default;" style="width:112px!important;"><%=t ("viewed_profile.columns.view_profile") %></a>
+    </li>
+  </ul>
+  <div id="table_block" class="table-content">
+    <% flag = true
+    index= 1
+    color = ""
+    counter=1%>
+    <div class="loader hidden"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></div>
+    <table width="676" border="0" cellspacing="0" cellpadding="0" id="list">
+      <tbody>
+        <%if @profile_visits.blank?%>
+          <%while counter<11%>
+            <%color = counter%2 == 0 ? "#f2f6f9" : "white"
+            if flag == false %>
+              <tr id="job_row_<%counter%>">
+                <td><label><%=counter%></label></td>
+                <!--POS -->
+                <td><label>&nbsp;</label></td>
+
+                <!-- FIT -->
+                <td><label>&nbsp;</label></td>
+
+                <!-- STATUS -->
+                <td><label>&nbsp;</label></td>
+                <!--CANDIDATE -->
+                <td>
+                  <label>&nbsp;</label>
+                </td>
+
+                <!--source -->
+                <td><label style="cursor: default;">&nbsp;</label></td>
+                <!--xref-->
+                <td><label>&nbsp;</label></td>
+                <!-- VET-->
+                <td><label style="cursor: default;">&nbsp;</label></td>
+                <!-- VIEW PROFILE -->
+                <td>
+                  <label>&nbsp;</label>
+                </td>
+              </tr>
+            <% else %>
+              <tr id="job_row_<%counter%>">
+                <th width="31"><label><%=counter%></label></th>
+                <!--POS -->
+                <th width="101"><label>&nbsp;</label></th>
+
+                <!-- FIT -->
+                <th width="62"><label>&nbsp;</label></th>
+
+                <!-- STATUS -->
+                <th width="80"><label>&nbsp;</label></th>
+                <!--CANDIDATE -->
+                <th width="110">
+                  <label>&nbsp;</label>
+                </th>
+
+                <!--source -->
+                <th width="83"><label style="cursor: default;">&nbsp;</label></th>
+                <!--xref-->
+                <th width="43"><label>&nbsp;</label></th>
+                <!-- VET-->
+                <th width="55"><label style="cursor: default;">&nbsp;</label></th>
+                <!-- VIEW PROFILE -->
+                <th width="111">
+                  <label>&nbsp;</label>
+                </th>
+              </tr>
+              <% flag = false %>
+            <% end %>
+
+            <%counter=counter+1%>
+          <%end%>
+        <%end%>
+        <%= render :partial => "position_table_rows" %>
+      </tbody>
+    </table>
+    <div id="rows_loader" style="display:none; padding-top:10px; padding-bottom:10px;"><center><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...") %></center></div>
+  </div>
+
+</div>
+<!--table-container-content-->
+<div class="table-container-bottom">&nbsp;</div><!--table-container-bottom--->
+<script>
+  var config = {
+    over: open_xref_popup,
+    timeout: 500,
+    out: close_xref_popup,
+    sensitivity: 1
+  };
+  $("#xref_popup_tooltip").unbind().hoverIntent(config);
+
+  var config1 = {
+    over: open_vet_popup,
+    timeout: 500,
+    out: close_vet_popup,
+    sensitivity: 1
+  };
+  $("#vet_popup_tooltip").unbind().hoverIntent(config1);
+  $("#vet_popup_tooltip").mouseout(function(){close_vet_popup();});
+</script>

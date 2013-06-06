@@ -1,0 +1,19 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*PAGE CONTENT*/
+.main-container .features-content .features-text p { font-weight: 300; font-size: 17px; }
+.main-container .features-content .features-text p strong { font-weight: 400; font-size: 17px; font-style: italic; }
+.main-container .features-content .features-text .first { width: 308px; }
+.main-container .features-content .features-text .second { width: 346px; }
+.main-container .solutions-content .content-holder p { font-size: 17px; }
+.main-container .footer ul.menu { width: 340px; }
+/* QUESTIONAIRE */
+.question-headers .first { margin-right: 48px; }
+.question-headers .second {  margin-right: 30px; }
+.question-headers .third { margin-right: 25px; }
+.question-headers .fourth { margin-right: 20px; }
+.language-selector.employer { background: url("../assets/employer_landing/lang-arrow.png") no-repeat scroll 58px 6px transparent; }
+.main-container .footer ul.footer-links.fr-CA { width: 665px; }
+.floating-header .header .menu-container { margin-left: 165px; width: 660px; }
+.main-container .footer ul.menu { width: 380px; }

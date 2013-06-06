@@ -1,0 +1,25 @@
+<div class="one_click_payment_position_white_positionProfile" id="inactive_payment_popup">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("position_inactive_popup.title") %></label>
+        </div>
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div style="width:60%;" class="lfloat error-text">
+              <label class="free-text"><%=t ("position_inactive_popup.contentL1") %><br/><%=t ("position_inactive_popup.contentL2") %></label>
+            </div>
+            <div style="margin-left:0px;margin-top:0px" class="rfloat margin-T-5px">
+              <input type="button"  class="notyet-pp" onclick="hide_inactive_payment_box();" />
+              <input type="button"  class="notyet-activate-pp" id="inactive_acivate_job" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="position_close_oneclick" href="javascript:void(0)" onclick="hide_inactive_payment_box();"><%=t ("position_inactive_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

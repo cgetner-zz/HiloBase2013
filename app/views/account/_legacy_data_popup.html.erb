@@ -1,0 +1,25 @@
+<div id="legacy_data_popup" class="white_content">
+  <div class="popup-upper-block-positionPrevew popup-upper-block-positionPrevew-special">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="popup_background_box_bg_table">
+        <div class="popup-header-container-table">
+          <label class="popup-heading-table transform-letter">
+            <%= t('legacy_data_popup.heading') %>
+          </label>
+        </div>
+        <div class="clear-float">&nbsp;</div>
+        <div class="position-popup-content-table" style="padding: 10px 20px 0;">
+          <div class="lfloat" style="font-size: 13px; font-weight: 400; width: 500px; text-align: justify;">
+            <%= t('legacy_data_popup.free_text') %>
+          </div>
+          <div class="rfloat">
+            <input type="button" class="continue-button-active rfloat" value="" style="margin-top:22px;" onclick="window.location.href='/account/pairing_profile?show=credential'"/>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideNormalShadow();$('#legacy_data_popup').empty();" id="oneclick-close">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

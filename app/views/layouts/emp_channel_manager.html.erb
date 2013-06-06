@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Hilo - Meaningful employment.</title>
+    <%= csrf_meta_tag %>
+    <meta name="Author" content="Hilo"/>
+    <meta name="Keywords" content="The Hilo Project, Hilo Project, Birkman, Career Seeker, Employeer, Jobs, Hilo"/>
+    <meta name="Description" content="The Hilo Project was created for you, the Career Seeker, to greatly simplify the experience of finding career opportunities you'd actually want to consider."/>
+
+    <link href="/assets/favicon.ico" type="image/x-icon" rel="shortcut icon" />
+    <%= render :partial => "/shared/google_analytics" %>
+    <!--<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>-->
+    <%=stylesheet_link_tag("employer_v2","common","jquery-ui-1.8.custom", "employer", "slider","jquery.jOrgChart")%>
+    <!--[if IE 7]>
+    <%=stylesheet_link_tag("employer_v2-IE7")%>
+	 <![endif]-->
+    <!--[if IE 8]>
+    <%=stylesheet_link_tag("employer_v2-IE8")%>
+	 <![endif]-->
+    <!--[if IE 9]>
+    <%=stylesheet_link_tag("employer_v2-IE9")%>
+	 <![endif]-->
+    <%=yield :page_css%>
+    <%=javascript_include_tag "application_employer", "jquery.form.js", "common", "employer_v2", "elementCheck", "custom_form_element", "jquery.caret", "jquery.numeric", "jquery.hoverIntent", "customdropdown", "slimScroll",'jquery.jOrgChart','ZeroClipboard.min'%>
+    <%=yield :page_js%>
+  </head>
+  <body>
+
+    <!-- Container Div start-->
+    <div id="container">
+      <div id="active_inactive">
+        <%= render :partial => "/employer_account/shared/position_listing_popup" -%>
+      </div>
+      <div id="dashboard-header">
+        <%= render :partial=>"/shared/employer/header" -%>
+      </div>
+      <%=yield -%>
+<%#=render :partial =>"/shared/employer/footer" -%>
+    </div>
+
+    <!--Container div end-->
+    <div id="gift_hilo_popup" class="white_content"></div>
+    <div id="gift_purchase_review" class="white_content"></div>
+    <%= render :partial =>"/shared/employer/one_click_employer_payment" %>
+    <%= render :partial =>"/shared/employer/one_click_login_error" %>
+    <%= render :partial => "/shared/about_hilo" %>
+    <%= render :partial => "/shared/terms_of_use" %>
+    <%= render :partial => "/shared/privacy_policy" %>
+    <div id="delete_confirmation_popup_ajax"></div>
+
+    <!-- Career seeker tooltip popups -->
+    <div class="white_content_popup" id="carrer_id_popup" style="display:none;">
+      <div class="career-seeker-id-box body-click-hide" id="career-seeker-id-box">
+        <div class="career-seeker-id-box-inner">
+          <span id="carrer-seeker-id-hdng"><%=t ("on_hover_popup.career_seeker_id.heading") %></span>
+          <div class="separator"></div>
+          <span id="carrer-seeker-id-content">
+            <p><%=t ("on_hover_popup.career_seeker_id.contentL1") %></p>
+            <br />
+            <p><%=t ("on_hover_popup.career_seeker_id.contentL2") %></p>
+          </span>
+          <div class="separator"></div>
+        </div>
+      </div>
+    </div>
+
+    <!--Position popup x-ref table tooltip start-->
+    <div id="xref-tooltip" class="xref-tooltip" style="display:none;">
+      <div class="xref-tooltip-top">&nbsp;</div>
+      <div class="xref-tooltip-content">
+        <label>
+          <%=t ("on_hover_popup.cross_reference.heading") %>
+        </label>
+        <div class="separator"></div>
+        <p>
+<%=t ("on_hover_popup.cross_reference.contentL1") %><b><i><%=t ("on_hover_popup.cross_reference.contentL2") %></i></b>
+<%=t ("on_hover_popup.cross_reference.contentL3") %>
+        </p>
+        <div class="separator"></div>
+      </div>
+      <div class="xref-tooltip-bottom">&nbsp;</div>
+
+    </div>
+    <div id="fade_normal_status_xref" class="black_overlay_light" onclick="close_xref_popup();"></div>
+    <!--Position popup x-ref table tooltip end-->
+    <!--Position popup VET table tooltip start-->
+    <div id="vet-tooltip" class="vet-tooltip"  style="display:none;">
+      <div class="xref-tooltip-top">&nbsp;</div>
+      <div class="xref-tooltip-content">
+
+        <label>
+          <%=t ("on_hover_popup.vet_popup.heading") %>
+        </label>
+        <div class="separator"></div>
+        <p>
+<%=t ("on_hover_popup.vet_popup.contentL1") %>
+          <br/>
+          <br/>
+<%=t ("on_hover_popup.vet_popup.contentL2") %>
+        </p>
+        <div class="separator"></div>
+
+      </div>
+      <div class="xref-tooltip-bottom">&nbsp;</div>
+
+    </div>
+    <div id="fade_normal_status_vet" class="black_overlay_light" onclick="close_vet_popup();"></div>
+    <!--Position popup VET table tooltip end-->
+    <div id="fade_normal_status_skill-tooltip" class="black_overlay_skill" onclick="close_skill_tooltip_popup();"></div>
+    <div id="fade_normal_status_seeker_analyzer" class="black_seeker_analyzer" onclick="close_seeker_analyzer_popup();"></div>
+    <div id="emp_detailed_view" class="detiled_content detiled_content_special"></div>
+    <div id="cc_billing_popup" class="white_content"></div>
+<%#*<div id="fade_normal_status" class="black_overlay_light" onclick="show_normal_screen();"></div>%>
+    <div id="fade_normal" class="black_overlay" onclick="clickOutside(this);"><span class="popup-loader" style="display:none; float:left; margin-left: 50%; margin-top: 20%;" class="loader"><%=image_tag("employer_v2/ajax-loader-login-grey.gif", :alt => "Loading ...")%></span></div>
+    <div id="fade_normal_left_menu_dd" class="black_overlay_dd" onclick="closeDropDownOfUsers();"></div>
+    <div id="fade_normal_status_notification" class="black_overlay_light_notification" onclick="show_normal_screen_notification();"></div>
+    <div id="fade_normal_status" class="black_overlay_light" onclick="clickOutside(this);show_normal_dashboard_screen();"></div>
+    <div id="fade_normal" class="black_overlay" onclick="clickOutside(this);show_normal_dashboard_screen();"></div>
+    <div id="fade_success" class="sucess_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_block" class="block_overlay"><center><div class="ajax_loading"><div class="ajax_loading_msg">Loading... Please Wait!</div></div></center></div>
+    <div id="fade_error" class="error_overlay" onclick="clickOutside(this);"></div>
+    <div id="fade_success_sharing" class="sucess_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+    <div id="fade_error_warning" class="error_overlay" style="z-index: 1003" onclick="clickOutside(this);"></div>
+    <div id="ajax-content"></div>
+    <div id="fade_white" class="white_overlay"></div>
+    <div id="fade_normal_acc" class="black_overlay_acc" onclick="clickOutside(this);"></div>
+    <%  if controller.controller_name == 'position_profile' and controller.action_name == 'new_employer_profile' %>
+      <!--POpUp-->
+      <div class="one_click_payment_position_white_positionProfile" id="job_activation_popup">
+        <div class="dashboard_position_popup-siteActivation">
+          <span class="position_popup-top">&nbsp;</span>
+          <div class="position_popup-content_oneclick">
+            <div class="position_gradient-content_oneclick">
+              <div class="position_popup-header-container">
+                <label class="popup-heading"><%=t ("emp_popup.position_profile_complete.heading") %></label>
+              </div>
+              <div class="position_popup_select_box">
+                <div class="access-block">
+                  <div style="width:60%;" class="lfloat error-text">
+                    <label class="free-text"><%=t ("emp_popup.position_profile_complete.contentL1") %><br/><%=t ("emp_popup.position_profile_complete.contentL2") %></label>
+                  </div>
+                  <div style="margin-left:0px;margin-top:0px" class="rfloat margin-T-5px">
+                    <input type="button"  class="notyet-pp" onclick="hideActivateJobPopup();footerOnClosingPopup();" />
+                    <input type="button"  class="notyet-activate-pp" id="acivate-job" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a class="position_close_oneclick" href="javascript:void(0)" onclick="hideActivateJobPopup();" id="oneclick-close">Close</a>
+          </div>
+          <span class="position_popup-bottom">&nbsp;</span>
+        </div>
+      </div>
+      <!--POpUp-->
+    <% end  %>
+
+    <input type="hidden" id="page_url" value="<%=CGI::escape(request.url)%>" />
+    <input type="hidden" id="page_action" value="<%=action_name%>" />
+    <input type="hidden" id="page_url_job" value="<%=CGI::escape(request.url)%>" />
+
+    <!--  delete category popup  -->
+    <div class="one_click_payment_position_white_content" id="dashboard-warning" style="display:none; position: fixed;">
+
+      <div class="dashboard_position_popup-siteActivation">
+        <span class="position_popup-top">&nbsp;</span>
+        <div class="position_popup-content_oneclick">
+          <div class="position_gradient-content_oneclick">
+            <div class="position_popup-header-container">
+              <label class="popup-heading"></label>
+            </div>
+
+            <div class="position_popup_select_box">
+              <div class="access-block">
+                <div class="lfloat error-text" style="width:80%;">
+                  <label class="free-text"><%=t ("emp_popup.folder_delete.content") %></label>
+                </div>
+                <div class="rfloat margin-T-5px" id="action-button" style="margin-left:0px;margin-top:0px">
+                  <input type="button" id="error-action-button" class="delete-button-active"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a id="oneclick-close" onclick="return hideDashboardWarningPopup();" href="javascript:void(0)" class="position_close_oneclick">Close</a>
+        </div>
+        <span class="position_popup-bottom">&nbsp;</span>
+      </div>
+
+    </div>
+    <%= render :partial => "/shared/employer/employer_success_sharing" %>
+    <%= render :partial => "shared/success_sharing_msg" %>
+    <%= render :partial => "/shared/employer/suspend_warning" %>
+    <%= render :partial => "/shared/employer/delete_warning" %>
+    <%= render :partial => "/shared/employer/limit_crossed_warning" %>
+
+    <% if controller.controller_name == "position_profile" %>
+      <%= render :partial => "position_profile/attachment_error" %>
+      <div class="one_click_payment_position_white_content" id="file_upload_ie" style="display:none;"></div>
+    <% end %>
+
+    <% if controller.controller_name == "employer_account" and controller.action_name == "recruiting_manager"%>
+      <%= render :partial => "/employer_account/csv_error" %>
+      <%= render :partial => "/employer_account/csv_email_error" %>
+      <%= render :partial => "/employer_account/csv_success" %>
+      <div class="one_click_payment_position_white_content" id="domain_error" style="display:none;position:fixed;"></div>
+    <%end%>
+
+    <div class="one_click_payment_position_white_content" id="xref_error_popup" style="display:none; position: fixed;">
+      <div class="dashboard_position_popup-siteActivation">
+        <span class="position_popup-top">&nbsp;</span>
+        <div class="position_popup-content_oneclick">
+          <div class="position_gradient-content_oneclick">
+            <div class="position_popup-header-container">
+              <label class="popup-heading"><%=t ("emp_popup.cs_id_invalid.heading") %></label>
+            </div>
+
+            <div class="position_popup_select_box">
+              <div class="access-block">
+                <div class="lfloat error-text" style="width:100%;">
+                  <label class="free-text"><%=t ("emp_popup.folder_delete.content") %></label>
+                </div>
+                <div class="rfloat margin-T-5px" id="action-button" style="margin-left: 180px; margin-top: -28px;">
+                  <input type="button" id="ok-xref_error_popup" class="retry-button-active rfloat" onclick="xref_box.retry();"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a id="oneclick-close" onclick="return xref_box.error_popup_close();" href="javascript:void(0)" class="position_close_oneclick">Close</a>
+        </div>
+        <span class="position_popup-bottom">&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- language advanced pop up -->
+
+    <div class="white_content" id="emp_advanced_popup" style="display:none; position: fixed;" >
+      <div class="popup-upper-block-military advanced-popup">
+        <span class="popup-top">&nbsp;</span>
+        <div class="popup-content">
+          <div class="gradient-content gradient-content-white">
+            <div class="popup-header-container">
+              <label class="popup-heading"><%=t ("emp_popup.adv_language.heading") %></label>
+
+              <div class="checkbox-cont">
+                <input id="adv-check" type="hidden" name="adv-check" value="false"/>
+                <input type="checkbox" id="advanced-check" class="styled" name="advanced-check" onclick="language_ev2.adv_pop($('#adv-check').val());"/>
+                <label onclick="Custom.check($('#advanced-check').prev());"><%=t ("emp_popup.adv_language.check_box") %></label>
+              </div>
+
+            </div>
+            <div class="popup-inner-content margin-T-10px" style="height:auto; overflow:hidden;">
+              <p style="font-size: 14px; font-weight: 400; width: 400px;" class="lfloat"><%=t ("emp_popup.adv_language.contentL1") %><span class="color-red"><%=t ("emp_popup.adv_language.contentL1B") %></span><%=t ("emp_popup.adv_language.contentL2") %><br/>
+                <%=t ("emp_popup.adv_language.contentL3") %></p>
+              <input type="button" id="emp_advanced_popup_button" class="enter-button-active rfloat" onClick="language_ev2.close_pop()" />
+            </div>
+          </div>
+          <a onclick="language_ev2.close_pop()" class="close" href="javascript:void(0)">Close</a>
+        </div>
+        <span class="popup-bottom">&nbsp;</span>
+      </div>
+
+    </div>
+
+    <!-- position profile help popup -->
+
+    <%= render :partial => "/position_profile/help_popup" %>
+    <%= render :partial => "/position_profile/help_popup_2" %>
+    <%= render :partial => "/employer_account/add_new_position_popup" %>
+    <% if controller.controller_name == "employer_account"%>
+      <%= render :partial => "employer_account/account_popup" %>
+    <% end %>
+    <!-- position profile save popup -->
+
+    <%if controller.controller_name == "employer_account" and controller.action_name == "recruiting_manager"%>
+      <div class="one_click_payment_position_white_content" id="csv_upload_ie" style="display:none;"></div>
+    <%end%>
+
+    <div class="one_click_payment_position_white_content" id="save-popup" style="display:none; position: fixed;">
+      <div class="dashboard_position_popup-siteActivation">
+        <span class="position_popup-top">&nbsp;</span>
+        <div class="position_popup-content_oneclick">
+          <div class="position_gradient-content_oneclick">
+            <div class="position_popup-header-container">
+              <label class="popup-heading"><%=t ("emp_popup.save_changes.heading") %></label>
+            </div>
+
+            <div class="position_popup_select_box">
+              <div class="access-block">
+                <div class="lfloat error-text" style="width: 31%;">
+                  <label class="free-text"><%=t ("emp_popup.save_changes.content") %></label>
+                </div>
+                <div class="rfloat" id="action-button" style="margin-left:0px;">
+                  <input type="button" id="save-button-failsafe" class="save-btn-active" style="margin-left:0px;width:75px;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a id="save-close" href="javascript:void(0)" class="position_close_oneclick" onclick="show_normal_dashboard_screen();">Close</a>
+        </div>
+        <span class="position_popup-bottom">&nbsp;</span>
+      </div>
+    </div>
+
+    <%= render :partial=>'/shared/access_denied' %>
+    <%= render :partial=>'/shared/job_deleted' %>
+    <%= render :partial=>'/shared/category_reassign_deleted' %>
+    <%= render :partial=>'/shared/job_reassign_deleted' %>
+
+    <!-- detailed popup -->
+    <!--Skill pop up-->
+    <div id="skills_ajax"></div>
+    <!--End here Skill pop up-->
+    <!--Seeker Analyzer pop up-->
+    <div id="envNrole-cont-seeker-analyzer-popup" class="seeker-analyzer-popup" style="display:none;">
+      <div class="seeker-analyzer-leftdiv">
+        <div class="seeker-analyzer-popup-top">&nbsp;</div>
+        <div class="seeker-analyzer-popup-content">
+          <div id="popup-content-slider"></div>
+        </div>
+        <div class="seeker-analyzer-bottom">&nbsp;</div>
+      </div>
+
+      <div class="seeker-analyzer-rightdiv">
+        <img src="/assets/seeker-communicator-arrow.png" height="25px" width="17px"/>
+      </div>
+    </div>
+    <!--End here Seeker Analyzer pop up-->
+    <div id="position_details" class="detiled_content"></div>
+
+    <!-- preview popup -->
+
+    <div id="position_overview" class="white_content"></div>
+    <%= render :partial => "/shared/employer/cross_ref_box" %>
+    <%= render :partial => "/shared/webengage" %>
+  </body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+<script type="text/javascript">
+        
+  /*$("#state-selector").click(function(){
+            //$("#state_options").show();
+        })*/
+  //$('.state-slector').click(function(e){
+  //  //$(this).parents('.inner-paring-block').addClass('activeBlock');
+  //  $('.default-level',this).css('display','none');
+  //  if($('.state-options', this).is(":visible") == true) {
+  //    $('.state-options', this).hide();
+  //} else {
+  //}
+  // e.stopPropagation();
+  //});
+        
+
+  /*$("div#state-selector").click(function(e){
+            //$("div#state_options").show();
+            //e.stopPropagation();
+        });*/
+<%if session[:employer]%>
+    var login_section_type = "employer";
+<%end%>
+        
+  document.onload = clickBind();
+		
+  function clickBind(){
+<% if controller.action_name == "new_employer_profile" %>
+      Custom.init();
+                    
+      $(".checkbox-cont span.checkbox").live("click", function(){
+        language_ev2.adv_pop();
+                            
+      });
+      $(".checkbox-cont label").live("click", function(){
+        language_ev2.adv_pop();
+                            
+      });
+
+<% end %>
+<% if session[:success_share_about] %>
+      hideBlockShadow();
+      showAboutHilo();
+  <% if  not session[:hilo_msg].nil? %>
+        showSuccessSharingJSMsg('<%= session[:hilo_msg] %>');
+  <% end %>
+  <% session[:gift_share] = nil%>
+  <%  session[:url_hilo] = nil %>
+  <% session[:hilo_msg] = nil %>
+  <% session[:success_share_about] = nil %>
+<% end %>
+  }
+</script>

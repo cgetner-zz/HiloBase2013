@@ -1,0 +1,6 @@
+$("#status_<%= @company_id%>").html('<%= image_tag "admin/green_dot.png", :alt=>"Granted", :style => "margin-left: 49px;" %>');
+$("#action_<%= @company_id %>").html('<span class="right_revoke_action" id="row_<%= @company_id %>">Unlink</span>');
+$(".action span.right_revoke_action").unbind().click(function(){
+  revokeRightStatus(this);
+});
+hideBlockShadow();

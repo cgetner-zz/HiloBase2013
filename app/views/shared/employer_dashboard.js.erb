@@ -1,0 +1,9 @@
+<% broadcast "/dashboard#{@employer_id}" do %>
+  var id = "<%=@id%>";
+  if(id != $("#current_employer_id").val()){
+    $("#refresh_link").show();
+    $("#refresh_link").children().click(function(){
+      dashboardRefreshHandler();
+    });
+  }
+<% end %>

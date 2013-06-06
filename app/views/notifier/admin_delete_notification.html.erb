@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <div style="height:10px;"></div>
+    <br />
+    <div>
+      There is a new account deletion request, please find the details below:
+      <br /><br />
+      User Type: <% if @type == 'job_seeker'%>Job Seeker<% else %>Employer<% end %>
+      Name: <%= @obj.first_name %> <%= @obj.last_name %>
+      Email: <%= @obj.email %>
+      <br /><br />
+      Log into your admin account to take further action.
+    </div>
+    <br /><br />
+    <div>
+      <img alt="logo" src="https://<%=@host_name%>/assets/logo-hilo_new.png" width="120" height="103" />
+    </div>
+  </body>
+</html>

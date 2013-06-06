@@ -1,0 +1,5 @@
+<%  if @job.detail_preview == true and @job.overview_complete == true %>
+  $("#position_overview").html("<%=escape_javascript render(:partial =>"/position_profile/preview_popup",:locals=>{:job=>@job, :job_location=>@job_location, :company=>@company, :desired_emp=>@desired_emp, :activated => true}) %>");
+<%  else %>
+  $("#position_overview").html("<%=escape_javascript render(:partial =>"/position_profile/preview_popup",:locals=>{:job=>@job, :job_location=>@job_location, :company=>@company, :desired_emp=>@desired_emp, :activated => false}) %>");
+<%  end  %>

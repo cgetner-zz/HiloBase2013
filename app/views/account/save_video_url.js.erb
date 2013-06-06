@@ -1,0 +1,3 @@
+$("#video-ajax").html("<%= escape_javascript render(:partial=>"/account/profile_video", :locals=>{:job_seeker=>@job_seeker})  %>");
+$("#url-container").html("<%= escape_javascript render(:partial=>"/account/url_container", :locals=>{:job_seeker=>@job_seeker})  %>");
+hideUrlContainer();

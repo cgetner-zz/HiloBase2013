@@ -1,0 +1,18 @@
+<div class="popup-upper-block-questionnaire">
+  <span class="popup-top">&nbsp;</span>
+  <div class="popup-content">
+    <div class="gradient-content" style="padding: 10px 20px 0 32px;">
+      <div class="popup-header-container" style="width: 416px;">
+        <label class="popup-heading"><%=t('c_search_non_loggedin.pop_up.heading2')%></label>
+      </div>
+      <div class="left-content margin-T3px" style="width: 268px; text-align: justify;" >
+        <label><%=t('c_search_non_loggedin.pop_up.content2')%></label>
+      </div>
+      <div class="right-content" style="width: 87px; padding-left: 65px; padding-top: 69px; padding-bottom: 5px;">
+        <%= link_to "", hilo_search_index_path(:id => guest_job_seeker_id, :user_type => "job_seeker"), :class => "begin-button-active #{I18n.locale}", :id => "search_job_msg_popup_button", :style => "display: block;" %>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close" onClick="closeSearchJobMsgPopup();">Close</a>
+  </div>
+  <span class="popup-bottom">&nbsp;</span>
+</div>

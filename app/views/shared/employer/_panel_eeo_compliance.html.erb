@@ -1,0 +1,44 @@
+<div class="heading-container">
+  <label class="heading"><%=t ("employer_account.eeo_compliance.title") %></label>
+  <img height="24" width="24" onclick="openHelpPopup('eeo_help');" src="/assets/info.png" alt="help" style="float: right; margin-top: 4px; cursor: pointer;" />
+</div>
+<div class="panel-content" style="height: 50px; position: relative;">
+  <% if session[:employer].account_type_id == 2 %>
+    <div class="disabled-screen" title="Sub-User accounts are not authorized to edit this option." style="height: 70px;"></div>
+  <% end %>
+  <%= form_tag("/employer_account/save_eeo_flag", :id=>"eeo_form", :remote => true) do %>
+    <input type="hidden" id="graphical_content_flag" name="graphical_content_flag" value="" />
+    <ul class="eeo_options">
+      <li style="text-transform: uppercase; padding-top: 8px;"><%=t ("employer_account.eeo_compliance.photos_videos") %></li>
+      <li style="cursor: pointer;"><input value="true" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.eeo_compliance.on") %></label></li>
+      <li style="padding-right: 113px; cursor: pointer;"><input value="false" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.eeo_compliance.off") %></label></li>
+      <li style="padding: 0px;">
+        <input class="update-button-active rfloat" type="button" value="" id="eeo_form_submit" />
+        <span id="eeo_loader" style="display: none; margin-left: 25px;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+      </li>
+    </ul>
+  <% end %>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#graphical_content_flag").val(<%= Employer.find(session[:employer].id).company.graphical_content %>);
+    
+    $("#eeo_form_submit").bind('click', function(){
+      if ($(this).hasClass('update-button-active')){
+        $("#eeo_form").submit();
+      }
+    });
+
+    $("#eeo_form")
+    .bind("ajax:beforeSend", function(){
+      $("#eeo_form_submit").hide();
+      $("#eeo_loader").show();
+      showBlockShadow();
+    })
+    .bind("ajax:complete", function(){
+      $("#eeo_form_submit").show();
+      $("#eeo_loader").hide();
+      hideBlockShadow();
+    })
+  });
+</script>

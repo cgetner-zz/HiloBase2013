@@ -1,0 +1,228 @@
+<div class="block-contact-info">
+  <div class="upper-bar">&nbsp;</div>
+  <div class="block-content">
+    <div class="gradient-content">
+      <label class="block-heading"><%= t('account.pairing_profile.intro.contact_info.heading') %></label>
+      <%= form_tag("/my_introduction/edit_contact_info", :id=>"edit_contact", :remote => true) do -%>
+        <ul class="contact-list">
+          <li>
+            <input type="hidden" value="false" id="change" />
+            <input type="hidden" value="" id="error_id" />
+            <label class="intro-error" id="intro-error"></label>
+            <label class="text-Preferred"><%= t('account.pairing_profile.intro.contact_info.preferred_text') %></label>
+          </li>
+          <li class="area-tel">
+            <% if session[:area_code].nil? %>
+              <% if @job_seeker.area_code.blank?%>
+                <div class="customized-inner-input input-text text-areaCode">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" id="area_code_placeholder" />
+                  <input tabindex="1" type="text" maxlength="3" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" name="area_code" id="area_code" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" autocomplete="off" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input active-input text-areaCode">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" id="area_code_placeholder" />
+                  <input tabindex="1" type="text" maxlength="3" value="<%=@job_seeker.area_code%>" name="area_code" id="area_code" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" autocomplete="off" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+            <% else %>
+              <% if session[:area_code] != "" %>
+                <div class="customized-inner-input active-input text-areaCode">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" id="area_code_placeholder" />
+                  <input tabindex="1" type="text" autocomplete="off" maxlength="3" value="<%=session[:area_code]%>" name="area_code" id="area_code" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input input-text text-areaCode">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" id="area_code_placeholder" />
+                  <input tabindex="1" type="text" autocomplete="off" maxlength="3" value="<%= t('account.pairing_profile.intro.contact_info.area_code') %>" name="area_code" id="area_code" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+              <% session[:area_code] = nil %>
+            <% end %>
+
+            <% if session[:phone_one].nil? %>
+              <% if @job_seeker.phone_one.blank? %>
+                <div class="customized-inner-input input-text text-telephone">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" id="phone_one_placeholder" />
+                  <input tabindex="2" type="text" autocomplete="off" maxlength="7" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" name="phone_one" id="phone_one" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input active-input text-telephone">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" id="phone_one_placeholder" />
+                  <input tabindex="2" type="text" autocomplete="off" maxlength="7" value="<%=@job_seeker.phone_one%>" name="phone_one" id="phone_one" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+            <% else %>
+              <% if session[:phone_one] != "" %>
+                <div class="customized-inner-input active-input text-telephone">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" id="phone_one_placeholder" />
+                  <input tabindex="2" type="text" autocomplete="off" maxlength="7" value="<%=session[:phone_one]%>" name="phone_one" id="phone_one" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input input-text text-telephone">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" id="phone_one_placeholder" />
+                  <input tabindex="2" type="text" autocomplete="off" maxlength="7" value="<%= t('account.pairing_profile.intro.contact_info.telephone') %>" name="phone_one" id="phone_one" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+              <% session[:phone_one] = nil %>
+            <% end %>
+            <input type="checkbox" class="checkbox styled first" name="preferred_contact_phone" value="phone_one" id="pref_one"/>
+          </li>
+          <li class="email">
+            <% if session[:contact_email].nil? %>
+              <% if !@job_seeker.contact_email.blank? %>
+                <div class="customized-inner-input active-input text-email">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" name="contact_email" value="<%= t('account.pairing_profile.intro.contact_info.contact_email') %>" id="contact_email_placeholder" />
+                  <input tabindex="3" type="text" autocomplete="off" maxlength="100" name="contact_email" id="contact_email" value="<%=@job_seeker.contact_email.force_encoding 'utf-8'%>" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input input-text text-email">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" value="<%= t('account.pairing_profile.intro.contact_info.contact_email') %>" id="contact_email_placeholder" />
+                  <input tabindex="3" type="text" autocomplete="off" maxlength="100" name="contact_email" id="contact_email" value="<%= t('account.pairing_profile.intro.contact_info.contact_email') %>" onfocus="validateForSaveIntro(this);validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+            <% else %>
+              <% if session[:contact_email] != "" %>
+                <div class="customized-inner-input active-input text-email">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" name="contact_email" value="<%= t('account.pairing_profile.intro.contact_info.contact_email') %>" id="contact_email_placeholder" />
+                  <input tabindex="3" type="text" autocomplete="off" maxlength="100" name="contact_email" id="contact_email" value="<%=session[:contact_email].force_encoding 'utf-8'%>" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% else %>
+                <div class="customized-inner-input active-input text-email">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" name="contact_email" value="Contact Email" id="contact_email_placeholder" />
+                  <input tabindex="3" type="text" autocomplete="off" maxlength="100" name="contact_email" id="contact_email" value="<%=@job_seeker.contact_email.force_encoding 'utf-8'%>" onfocus="validateForSaveIntro(this);focus_element(this);" onblur="validateForSaveIntro(this);blur_element(this);" onkeydown="type_element(this);" onkeyup="activateSave();" />
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              <% end %>
+              <% session[:contact_email] = nil %>
+            <% end %>
+            <input type="checkbox" class="checkbox styled second" name="preferred_contact_email" value="contact_email" id="pref_two" />
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  <div class="bottom-bar"></div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    Custom.init();
+
+<% if !session[:error].nil? %>
+      $("#intro-error").html("<%= session[:error] %>");
+  <% if session[:error] == "Invalid email address format." %>
+        $('.text-email').removeClass('active-input').addClass('input-text-error');
+  <% elsif session[:error] == "Please enter 3 digits." %>
+        $('.text-areaCode').removeClass('active-input').addClass('input-text-error');
+  <% elsif session[:error] == "Invalid telephone number." %>
+        $('.text-telephone').removeClass('active-input').addClass('input-text-error');
+  <% end %>
+  <% session[:error] = nil %>
+<% end %>
+        
+    $('.area-tel .checkbox').unbind().click(function(e){
+      if($("#pref_one").prev().css("background-position")=="0px -50px") {
+        preferFirst();
+      }
+      else {
+        $('.first').removeAttr("checked");
+
+        Custom.check($(".contact-list li.area-tel span.checkbox"));
+      }
+      validateForSaveIntro(this);
+      //e.stopPropagation();
+    });
+    $('.email .checkbox').unbind().click(function(e){
+      if($("#pref_two").prev().css("background-position")=="0px -50px") {
+        preferSecond();
+      }
+      else {
+        $('.second').removeAttr("checked");
+        Custom.check($(".contact-list li.email span.checkbox"));
+      }
+      validateForSaveIntro(this);
+      // e.stopPropagation();
+    });
+
+<% if session[:preferred_contact].nil? %>
+      var prefered_contact = "<%=@job_seeker.preferred_contact%>";
+<% else %>
+      var prefered_contact = "<%=session[:preferred_contact]%>";
+  <% session[:preferred_contact] = nil %>
+<% end %>
+    if(prefered_contact=="contact_email") {
+      $('.second').removeAttr("checked");
+      Custom.check($(".contact-list li.email span.checkbox"));
+    }
+    else if (prefered_contact=="phone_one"){
+      $('.first').removeAttr("checked");
+      Custom.check($(".contact-list li.area-tel span.checkbox"));
+    }
+  })
+   
+  function preferFirst(){
+    if($("#pref_one").attr("checked")==true){
+      //activateSaveButton();
+    }
+    $('.second').attr("checked", "checked");
+    Custom.check($(".contact-list li.email span.checkbox"));
+    if($("#pref_one").attr("checked")==false) {
+      $('.first').removeAttr("checked");
+      Custom.check($(".contact-list li.area-tel span.checkbox"));
+    }
+	
+  }
+   
+  function preferSecond(){
+    if($("#pref_two").attr("checked")==true){
+      //activateSaveButton();
+    }
+    $('.first').attr("checked", "checked");
+    Custom.check($(".contact-list li.area-tel span.checkbox"));
+    if($("#pref_two").attr("checked")==false) {
+      $('.second').removeAttr("checked");
+      Custom.check($(".contact-list li.email span.checkbox"));
+    }
+  }
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_edit_contact = function(){
+      showBlockShadow();
+      $('#submit-button-intro').hide();
+      $('#submit-loader-img').show();
+    }
+    var loaded_edit_contact = function(){
+      $('#submit-loader-img').hide();
+      $('#edit_summary').submit();
+    }
+
+    $("#edit_contact")
+    .bind("ajax:beforeSend", loading_edit_contact)
+    .bind("ajax:complete", loaded_edit_contact)
+
+  });
+</script>

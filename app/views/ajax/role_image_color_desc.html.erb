@@ -1,0 +1,31 @@
+
+<div >
+	<%=render :partial=>"/panels/layer_top_750"-%>
+	<%=render :partial=>"/panels/midsize_header_close"%>
+	<div class="color-desc-box">
+		<div style="padding:15px;">
+			<div>
+				<div class="pop-role-img"> 
+					<img src="<%=role_img_by_section(@img_section)%>"/>
+					<div class="pop-role-img-txt"> 
+						Role
+					</div>
+				</div>
+				
+				
+
+				<div style="float:right;"> 
+					<img src="/assets/powered_by_birkman.jpg">
+				</div>
+				<br class="clear"/>
+			</div>
+			<br/>
+			<div style="margin: 15px 0px 10px 0px;" class="work-role-pop-header">
+				<%=role_text_for_table_header(@img_section)%> 
+			</div>
+			
+			<%=render :partial=>"/panels/role_color_description",:locals=>{:image_section=>@img_section}%>	
+		</div>
+	</div>
+	<%=render :partial=>"/panels/layer_bottom_750"-%>
+</div>

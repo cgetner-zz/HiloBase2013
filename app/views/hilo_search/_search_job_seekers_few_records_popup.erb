@@ -1,0 +1,60 @@
+<div style="position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%=t("emp_search_non_loggedin.graphs.no_data_popup.heading")%></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" id="search_few_records_text" style="text-align: justify; width: 445px;">
+            <% hash_temp = Hash[@city_hash.sort_by{ |k,v| -v }[0..2]] %>
+            <label class="free-text" style="display: block; margin-top: 5px; padding-right: 70px;">
+              <% if @city_hash.empty? or hash_temp.first.second + remote_jobs <=4%>
+                <%=t("emp_search_non_loggedin.graphs.no_data_popup.contentL1")%>
+              <% else %>
+                <%=t("emp_search_non_loggedin.graphs.no_data_popup.contentL2")%>
+              <% end %>
+            </label>
+            <% if not @city_hash.empty? %>
+              <% if hash_temp.first.second >4 %>
+                <div class="search_city_listing">
+                  <table>
+                    <tr>
+                      <% hash_temp.each do |k,v|  %>
+                        <% if v + remote_jobs >4 %>
+                          <td>
+                            <% @detailed_hash.each do |key,value| %>
+                              <% if k == key %>
+                                <a href="javascript:void(0);" onclick="selectCityFromPopup(this, '<%= k.to_s.gsub(', ','_').gsub(' ','') %>');"><%= @detailed_hash[key]['city']%></a>
+                                <input type="hidden" id="<%= k.to_s.gsub(', ','_').gsub(' ','') %>"value="<%= @detailed_hash[key]['lat']%>_<%= @detailed_hash[key]['long'] %>" />
+                                <input type="hidden" id="<%= k.to_s.gsub(', ','_').gsub(' ','') %>_name_placeholder"value="<%= k.to_s %>" />
+                              <% end %>
+                            <% end %>
+                          </td>
+                        <% end %>
+                      <% end %>
+                    </tr>
+                  </table>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="rfloat" style="margin-top: 50px;">
+            <% if @city_hash.empty? or hash_temp.first.second + remote_jobs <=4%>
+              <input type="button" id="search_few_records_button" class="ok-button-active" onClick="hideSearchJobSeekersFewRecordPopup('record', '<%=from_where%>');"/>
+            <% else %>
+              <input type="button" id="search_few_records_button" class="retry-button-active" onClick="hideSearchJobSeekersFewRecordPopup('record');"/>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="hideSearchJobSeekersFewRecordPopup('record');">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<% if @tab2_workenv_work == 0 %>
+  $("#we_block").addClass("error");
+<% else %>
+  $("#we_block").removeClass("error");
+<% end %>
+<% if @tab2_workenv_role == 0 %>
+  $("#role_block").addClass("error");
+<% else %>
+  $("#role_block").removeClass("error");
+<% end %>
+$("#we_err_msg").show();
+hideBlockShadow();

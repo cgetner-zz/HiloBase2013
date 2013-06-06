@@ -1,0 +1,266 @@
+<% company_name = session[:employer].company.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+<% job_name = @job.name.gsub(/[^0-9a-z ]/i,'').gsub(' ','-') %>
+<div class="profileContainer-channel-manager">
+
+  <div class="block-channel-manager">
+    <h4>Posting Options</h4>
+    <!--channel-manager-left-->
+    <div class="channel-manager-left">
+
+      <!-- channel-manager-left-top-->
+      <div class="channel-manager-left-top">
+        <div class="top"></div>
+        <!--content-->
+        <div class="content">
+          <span class="left-logo" style="width: 278px;">
+            <img border="0" src="/assets/hilo-logo-small.png" alt="hilo"/>
+            <div id="activation-restricted-message" class="rfloat" style="display: inline-block; float: right; width: 165px; color: #D71F0C; font-size: 13px; font-weight: 700; display: none;">
+              This position is restricted to be internal for 2 weeks.
+            </div>
+          </span>
+          <div class="content-top">
+            <%if @job.active == true %>
+              <% slider_class = "green" %>
+              <% slider_value = 3 %>
+              <%if @job.internal == true %>
+                <% slider_class = "yellow" %>
+                <% slider_value = 2 %>
+              <% end %>
+            <%elsif @job.active == false %>
+              <% slider_class = "red" %>
+              <% slider_value = 1 %>
+            <%end%>
+          </div>
+          <div class="clear-float"></div>
+          <div class="content-bottom">
+            <% if @job.active == false %>
+              <p>Deactivation locks all posting channels and makes the position immediately invisible to registered Career Seekers. Channel-specific performance data will still be viewable.</p>
+            <% elsif @job.active == true %>
+              <%if @job.internal == true %>
+                <p>Internal activation makes this position visible ONLY to your employees. Full activation unlocks additional posting channels and makes the position visible to ALL candidates. Track your channel-specific performance above.</p>
+              <% else %>
+                <p>Activation unlocks all posting channels and makes the position immediately visible to registered Career Seekers. Track your channel-specific performance above.</p>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="job-switch <%= slider_class %>">
+            <div id="slider"></div>
+          </div>
+          <div class="job-switch-labels">
+            <div class="inactive <%=job_switch_labels("inactive",slider_value)%>">INACTIVE</div>
+            <div class="internal <%=job_switch_labels("internal",slider_value)%>">INTERNAL</div>
+            <div class="active <%=job_switch_labels("active",slider_value)%>">ACTIVE</div>
+          </div>
+        </div>
+        <!--content-->
+        <div class="bottom"></div>
+      </div>
+      <!-- /channel-manager-left-top-->
+
+      <!-- channel-manager-left-top-->
+      <div class="channel-manager-left-bottom">
+        <%if @job.active == false or (@job.active == true and @job.internal == true) %>
+          <div class="CM-LB-cover" id="url-share"></div>
+        <%end%>
+        <div class="top"></div>
+        <!--content-->
+        <div class="content">
+          <div class="content-top">
+            <span class="heading-inactive with-help">
+              <h4>URL</h4>
+              <img height="24" width="24" alt="help" src="/assets/info.png" onclick="openHelpPopup('position_link_help');" />
+            </span>
+
+          </div>
+
+          <div class="clear-float"></div>
+
+          <div class="content-bottom-inactive">
+            <p>
+              Post this unique URL to bring candidates through Hilo. Use on your company's career page, intranet, job boards, emails, etc.
+            </p>
+          </div>
+          <div class="clear-float"></div>
+          <div class="channel-manager-left-bottom-footer" id="copy_to_clipboard_container" style="position: relative;">
+            <span class="channel-manager-input-inactive">
+              <% bitly = Bitly.new($BITLY_KEY,$BITLY_SECRET)
+              page_url = bitly.shorten('https://thehiloproject.com/job/'+company_name+'/'+job_name+'/'+@job_id.to_s + '/4') %>
+              <input type="text" value="<%=page_url.shorten%>" name="url" id="copy-url" readonly="readonly" />
+            </span>
+            <span class="copy-to-clipboard" id="copy_to_clipboard">
+              <img src="/assets/employer_v2/copy_button.png" alt="Copy To Clipboard" title="Copy To Clipboard" />
+            </span>
+<%#*<span class="buttons">%>
+<%#*<img border="0" src="/assets/btn_get-QR-code_active.png" alt="info">%>
+<%#*</span>%>
+          </div>
+
+        </div>
+        <!--content-->
+        <div class="bottom"></div>
+      </div>
+      <!-- /channel-manager-left-bottom-->
+
+    </div>
+    <!--/channel-manager-left-->
+
+    <div class="channel-manager-right" style="position:relative">
+      <%if @job.active == false or (@job.active == true and @job.internal == true) %>
+        <div class="cover-right"></div>
+      <%end%>
+      <div class="top"></div>
+      <!--content-->
+      <div class="content" <%if @job.active == true and @job.internal == true %>style="height: 325px;"<%end%>>
+
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/facebook-channel.jpg" alt="hilo">
+          </span>
+
+          <%if @job.active == true and @posting_record.facebook_share == true %>
+            <span class="Channel_Manager_post">
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_FACEBOOK_ID%>_repost" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_FACEBOOK_ID%>); popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%= @job.id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');">Re-post to your<br /> company's Facebook wall.</a>
+              <span style="float: right; margin-top: -8px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+          <%else%>
+            <span class="Channel_Manager_post">
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_FACEBOOK_ID%>_post" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_FACEBOOK_ID%>); popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%= @job.id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');">Share on your<br /> company's Facebook wall.</a>
+              <span id="2_post_image" style="display:none; float: right; margin-top: -8px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+
+          <%end%>
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/employer_v2/linkedin-channel-active.png" alt="hilo">
+          </span>
+
+          <%if @job.active == true and  @posting_record.linkedin_share == true %>
+            <span class="Channel_Manager_post">
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_repost" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%= @job.name%>&url=https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%= @job.id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=Check out this career opportunity with <%= @job.company.name%> for a <%=@job.name%>&source=<%=request.env["HTTP_HOST"]%>');">Re-post to your<br /> company's Linkedin page.</a>
+              <span style=" float: right; margin-top: -8px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+          <%else%>
+            <span class="Channel_Manager_post">
+              <a href="javascript:void(0);" id="<%= SHARE_PLATFORM_LINKEDIN_ID%>_post" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_LINKEDIN_ID%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%= @job.name%>&url=https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%= @job.id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=Check out this career opportunity with <%= @job.company.name%> for a <%=@job.name%>&source=<%=request.env["HTTP_HOST"]%>');">Post to your<br /> company's Linkedin page.</a>
+              <span id="3_post_image" style="display:none; float: right; margin-top: -8px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+          <%end%>
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+
+        <div>
+          <span class="left-logo">
+            <img border="0" src="/assets/employer_v2/tweeter-channel-active.png" alt="hilo">
+          </span>
+
+          <%if @job.active == true and @posting_record.twitter_share == true %>
+            <span class="Channel_Manager_post">
+              <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_repost" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_TWITTER_ID%>);popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/job/<%=@job.id%>/<%= company_name %>/<%= job_name%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('Check out this career opportunity with <%= @job.company.name%> ' + 'https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%=@job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%> #<%=@job.name%>') + '&via=thehiloproject ');">Re-tweet it.</a>
+              <span style=" float: right; margin-top: 6px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+          <%else%>
+            <span class="Channel_Manager_post">
+              <a style="margin-top:8px; display: inline-block;" href="javascript:void(0);" id="<%=SHARE_PLATFORM_TWITTER_ID%>_post" onclick="posting.activate_share(<%=@posting_record.id%>, <%= SHARE_PLATFORM_TWITTER_ID%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/job/<%=@job.id%>/<%= company_name %>/<%= job_name%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('Check out this career opportunity with <%= @job.company.name%> ' + 'https://<%=request.env["HTTP_HOST"]%>/job/<%= company_name %>/<%= job_name%>/<%=@job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%> #<%=@job.name%>') + '&via=thehiloproject ');">Tweet it.</a>
+              <span id="1_post_image" style="display:none; float: right; margin-top: 6px;">
+                <img src="/assets/employer_v2/click.png" alt="hilo"/>
+              </span>
+            </span>
+          <%end%>
+        </div>
+        <div class="clear-float"></div>
+        <div class="divider-dark"></div>
+        <div class="clear-float"></div>
+
+      </div>
+      <!--content-->
+      <div class="bottom"></div>
+    </div>
+    <!-- /channel-manager-right-->
+  </div>
+</div>
+<!--
+<script type="text/javascript">
+  var flag_animation = true;
+  function animationButton() {
+    //$("#channel-activate-button").toggleClass('no-shadow',500);
+    $("#channel-activate-button.shadow").fadeOut('slow').fadeIn('slow');
+  }
+  setInterval(function() {
+    animationButton()
+  }, 1000);
+</script>
+-->
+<script>
+  $(document).ready(function(){
+    $("#slider").slider({
+      step: 1,
+      min: 1,
+      max: 3,
+      slide: function(event,ui){
+<%if @job.company.parent_id == RIGHT_COMPANY_ID %>
+  <%if @job.first_active.nil?%>
+            if(ui.value > 2) {
+              $("#activation-restricted-message").show();
+              setTimeout(function(){
+                $("#activation-restricted-message").fadeOut();
+              },5000);
+              return false;
+            }
+  <%elsif ((Time.now - @job.first_active)/(24*60*60)).days <= 14.days %>
+            if(ui.value > 2) {
+              $("#activation-restricted-message").show();
+              setTimeout(function(){
+                $("#activation-restricted-message").fadeOut();
+              },5000);
+              return false;
+            }
+  <%end%>
+<%end%>
+      },
+      stop: function(event,ui){
+        //calculate_compensation.call(event,ui);
+        var selected = ui.value;
+        if(selected != <%=slider_value %>) {
+          switch(selected) {
+            case 1:
+              $(".job-switch").removeClass('red').removeClass('yellow').removeClass('green').addClass('red');
+              $(".job-switch-labels div").removeClass('selected');
+              $(".job-switch-labels div.inactive ").addClass('selected');
+              posting.hilo_share_task('<%=@posting_record.id%>',true,'<%=params[:id]%>');
+              break;
+            case 2:
+              $(".job-switch").removeClass('red').removeClass('yellow').removeClass('green').addClass('yellow');
+              $(".job-switch-labels div").removeClass('selected');
+              $(".job-switch-labels div.internal").addClass('selected');
+              posting.hilo_share_task(<%=@posting_record.id%>,"internal",'<%=params[:id]%>');
+              break;
+            case 3:
+              $(".job-switch").removeClass('red').removeClass('yellow').removeClass('green').addClass('green');
+              $(".job-switch-labels div").removeClass('selected');
+              $(".job-switch-labels div.active").addClass('selected');
+              posting.hilo_share_task(<%=@posting_record.id%>,false,'<%=params[:id]%>');
+              break;
+            }
+          }
+        }
+      });
+      $("#slider").slider("value",<%=  slider_value %>);
+    });
+</script>

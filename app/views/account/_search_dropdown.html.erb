@@ -1,0 +1,73 @@
+<div class="search-container" style="display: none;">
+  <%= form_tag("/account/search_filter", :id=>"search_form", :remote => true) do %>
+    <div class="customized-inner-input input-text">
+      <div class="input-left">&nbsp;</div>
+      <input type="hidden" id="search_value" name="search_value" />
+      <input type="hidden" id="search_placeholder" value="Enter keywords to search"/>
+      <input type="text" id="search" name="search" value="<%= t('search_js.text_title') %>" onkeyup="setShowSave();" onkeydown="type_element(this);" onblur="validate_blur_search(); blur_element(this);" onfocus="focus_element(this);" autocomplete ="off"/>
+      <div class="input-right">&nbsp;</div>
+      <% unless session[:job_seeker].career_seeker_saved_searches.where(:deleted => false).empty?%>
+        <div class="arrow" onclick="showOptions(event);"></div>
+      <% else %>
+        <div class="arrow" onclick="showOptions(event);" style="display:none;"></div>
+      <% end %>
+      <div class="dropdown-container">
+        <div id="search-selector" class="customized-dropdown" style="display: none;">
+          <span value="-1" class="default-value">Select saved search</span>
+          <div class="options-content" style="z-index: 100; display: none;">
+            <div class="options-content-top"></div>
+            <input type="hidden" name="save_show_emp" id="save_show_emp" value="1" />
+            <div class="options-content-middle">
+              <%=render :partial => '/account/search_list' %>
+            </div>
+            <div class="options-content-bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <input type="button" id="search_button" class="search_button" onclick="$('#search_form').submit();"/>
+      <input type="button" id="show_search" class="btn-save" style="display:none;" onclick="showSaveSerach();" />
+    </div>
+    <%= render :partial => 'credit_block' %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $('body').click(function(){
+    $("#search-selector").hide();
+    $("#search-selector .options-content").hide();
+  });
+
+  $('.options li').hover(function(){
+    $('.options').children().each(function(){
+      if($(this).attr('selected')=='selected'){
+        $(this).removeClass('selected').removeAttr('selected');
+        //$(this).find('a').hide();
+      }
+    });
+    $(this).addClass('selected').attr('selected', 'selected');
+    //$(this).find('a').show();
+  });
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_search_form = function(){
+      if($("#search").val().trim() == $("#search_placeholder").val() || $("#search").val().trim() == ""){
+        $("#search").parent().removeClass('input-text-active active-input input-text').addClass('input-text-error-empty');
+        return false;
+      }
+      else{
+        $('#search').parent().removeClass('input-text-error').addClass('active-input');
+      }
+      showBlockShadow();
+    }
+
+    var loaded_search_form = function(){
+      hideBlockShadow();
+    }
+    
+    $("#search_form").bind("ajax:beforeSend", loading_search_form).bind("ajax:complete", loaded_search_form)
+    
+  });
+</script>

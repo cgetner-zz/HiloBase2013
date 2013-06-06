@@ -1,0 +1,27 @@
+hideBlockShadow();
+$("#job_reassign_deleted").show();
+addFocusButton('job_reassign_deleted_button');
+<%if not session[:employer].subtree_ids.include?(Job.find(params[:job_id].to_i).employer_id)%>
+  $("#job-free-text").text("You are not authorized to reassign this job.");
+<%end%>
+showErrorShadow();
+footerOnOpeningPopup();
+$('#fade_error').css('z-index', '1006');
+centralizePopup();
+
+<%if params[:job_id].present?%>
+  <% if Job.find(params[:job_id].to_i).deleted == true or not session[:employer].subtree_ids.include?(Job.find(params[:job_id].to_i).employer_id)%>
+    var job_deleted = 1;
+  <%else%>
+    var job_deleted = 0;
+  <% end %>
+<% end %>
+<%if params[:new_cat_id].present?%>
+  <% if CompanyGroup.find(params[:new_cat_id].to_i).deleted == true or not session[:employer].subtree_ids.include?(CompanyGroup.find(params[:new_cat_id].to_i).employer_id)%>
+    var category_deleted = 1;
+  <%else%>
+    var category_deleted = 0;
+  <% end %>
+<% end %>
+
+    var done = 0;

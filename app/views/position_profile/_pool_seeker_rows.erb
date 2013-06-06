@@ -1,0 +1,103 @@
+
+<div class="pool-row pool-header">
+	<div style="margin-top: 6px;">	
+		<div class="pool-col pool-col-fit">Fit</div>
+		<div class="pool-col pool-col-name">Name</div>
+		<div class="pool-col pool-col-id">Unique ID#</div>
+		<div class="pool-col pool-col-date">Previewed</div>
+		<div class="pool-col pool-col-date">Details</div>
+		<div class="pool-col pool-col-date">Interested</div>
+		<div class="pool-col pool-col-date">Wild Card</div>
+		<div class="pool-col pool-col-source">Source</div>
+		<div class="pool-col pool-col-ref">X-Ref</div>
+		<div class="pool-col pool-col-buy">View Profile</div>
+		<br class="clear"/>
+	</div>
+</div>
+
+<% if seekers.length<=0 %>
+<div class="pool-row" style="border-bottom:1px solid #C5C5C5; border-left: 1px solid #C5C5C5; border-right: 1px solid #C5C5C5; color: #8F8F8F; line-height: 22px; padding-top: 3px;  text-align: center;">
+ No Job Seekers Data available
+</div>
+<%end%>
+
+<%
+for seeker in seekers
+row_css = cycle("light-row","dark-row")
+%>
+	<div class="pool-row <%=row_css%>" data-seeker-id="<%=seeker.id%>" >
+		
+
+		<div class="pool-col pool-col-pad pool-col-fit">
+			<%if seeker.fit_name_by_pairing.blank?%>
+				&nbsp;
+			<%else%>
+				<a href="javascript:void(0);"><%=seeker.fit_name_by_pairing%></a>
+			<%end%>
+		</div>
+		<div class="pool-col pool-col-pad pool-col-name">
+			<a href="javascript:void(0);"><%=seeker.first_name%></a>
+		</div>
+		<div class="pool-col pool-col-pad pool-col-id">
+			<a href="javascript:void(0);">CS<%=seeker.id%></a>
+		</div>
+		<div class="pool-col pool-col-pad pool-col-date">
+			<%if seeker.read_on.blank?%>		
+				--
+			<%else%>
+				<a href="javascript:void(0);"><%=Date.parse(seeker.read_on).strftime("%m/%d/%Y")%></a>
+			<%end%>
+		</div>
+		<div class="pool-col pool-col-pad pool-col-date">
+			<%if seeker.considered_on.blank?%>		
+				--
+			<%else%>
+				<a href="javascript:void(0);"><%=Date.parse(seeker.considered_on).strftime("%m/%d/%Y")%></a>
+			<%end%>
+		</div>
+
+		<div class="pool-col pool-col-pad pool-col-date">
+			<%if seeker.interested_on.blank?%>		
+				--
+			<%else%>
+				<a href="javascript:void(0);"><%=Date.parse(seeker.interested_on).strftime("%m/%d/%Y")%></a>
+			<%end%>
+		</div>
+
+		<div class="pool-col pool-col-pad pool-col-date">
+			<%if seeker.wildcard_on.blank?%>		
+				--
+			<%else%>
+				<a href="javascript:void(0);"><%=Date.parse(seeker.wildcard_on).strftime("%m/%d/%Y")%></a>
+			<%end%>
+		</div>
+		
+
+		<div class="pool-col pool-col-pad pool-col-source">
+			<%if seeker.share_name.blank?%>
+				--
+			<%else%>
+				<a href="javascript:void(0);"><%=seeker.share_name%></a>
+			<%end%>
+		</div>
+		
+		<div class="pool-col pool-col-pad pool-col-ref">
+			<a href="/position_profile/xref/CS<%=seeker.id%>/<%=@job.id%>">X-Ref</a>
+		</div>
+		<div class="pool-col-buy">
+			<%=profile_buy_button(seeker.id, session[:employer].id, 1)%>
+		</div>
+
+		<div class="clear-height"></div>
+	</div>
+<%end%>
+
+
+
+<br class="clear"/>
+<script type="text/javascript">
+	$(document).ready(function(){
+		purchase_profile.init();
+	});
+</script>
+

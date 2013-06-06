@@ -1,0 +1,41 @@
+$("#search_value").val($('#search').val());
+$("#search_result_arr").val('<%= @result_arr.join(",") %>');
+if ($('#save_show_emp').val() == "1"){
+$("#save_button_emp").show();
+}
+$('#reset_button_emp').show();
+$('#reset_button_emp').bind('click', function(){
+  $('#error_msg_empty_table').hide();
+  $("#save_button_emp").hide();
+  $('#search').val('');
+  document.getElementById('search').onblur();
+  $('#save_show_emp').val('1');
+  $('#search').parent().removeClass('input-text-error-empty input-text-error').addClass('input-text');
+  $('tr').each(function(){
+    $(this).removeClass('filter');
+  });
+  $('#search_result_arr').val('-1');
+  $('#reset_button_emp').hide();
+});
+var arr = new Array();
+<% @result_arr.each do |result|%>
+  arr.push(<%= result %>);
+<% end %>
+$('tr').each(function(){
+if ($(this).attr('id') != undefined){
+  var id = $(this).attr('id').split('_')[2];
+    if (id == ""){
+      $('#error_msg_empty_table').show();
+      return false;
+    }
+    else{
+     $('#error_msg_empty_table').hide();
+     if (!(arr.has(id))){
+      $(this).addClass('filter');
+     }
+     else{
+      $(this).removeClass('filter');
+     }
+    }
+}
+});

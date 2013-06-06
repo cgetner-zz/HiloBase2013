@@ -1,0 +1,26 @@
+<div class="white_content" id="complete_purchase_one_click_gift" style="display: none; z-index: 1005;">
+  <div class="popup-upper-block-military advanced-popup">
+    <input type="hidden" id="total_amount_one_click" name="total_amount_one_click" value="" />
+    <input type="hidden" id="credit_amount_one_click" name="credit_amount_one_click" value="" />
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content" style="width: 592px !important; padding: 0 6px;">
+      <div class="gradient-content gradient-content-white" style="padding: 0 25px 5px;">
+        <div class="popup-header-container" style="padding-bottom: 5px;">
+          <label class="popup-heading" style="margin-top: 10px;"><%= t('gift_hilo.complete_purchase_one_click_gift_popup.heading') %></label>
+          <span class="rfloat modify-payment">
+            <a onclick="gift_hilo.openPopup();" href="javascript:void(0)"><%= t('gift_hilo.complete_purchase_one_click_gift_popup.modify_payment') %></a>
+          </span>
+        </div>
+        <div class="popup-inner-content" style="height:auto; overflow:hidden; margin-top: 8px;">
+          <p style="width:370px; font-size:14px; font-weight:400;" class="lfloat">
+            <%= t('gift_hilo.complete_purchase_one_click_gift_popup.free_text1') %><br /><%= t('gift_hilo.complete_purchase_one_click_gift_popup.free_text2') %><br /><%= t('gift_hilo.complete_purchase_one_click_gift_popup.free_text3') %> <span style="font-weight: 700;" class="balance_amount"></span>
+          </p>
+          <span id="verify-loader-img_one_click" style="display:none; margin-top: 8px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+          <input type="button" id ="continue-button-active_one_click" class="continue-button-active rfloat" onClick="gift_hilo.one_click_close();" style="margin-top:10px;" />
+        </div>
+      </div>
+      <a onclick="$('#complete_purchase_one_click_gift').hide();$('#fade_normal_warning').hide();" class="close" href="javascript:void(0)">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

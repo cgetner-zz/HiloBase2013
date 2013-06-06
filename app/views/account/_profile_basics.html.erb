@@ -1,0 +1,164 @@
+<%=  form_tag("/pairing_profile/save_basics",:method =>"post",:name=>"basic_form",:id=>"basic_form") do -%>
+  <%=hidden_field_tag :save_type%>
+  <%=hidden_field_tag :compensation_value_min%>
+  <%=hidden_field_tag :compensation_value_max%>
+  <%=hidden_field_tag :desired_employment_ids%>
+  <%=hidden_field_tag :desired_location_ids%>
+  <%=hidden_field_tag :desired_pincode%>
+
+<%end%>
+
+<div class="paring-cont-interest">
+  <div class="content-top">&nbsp;</div>
+  <div class="content-shadow">
+    <div class="paring-gradient">
+      <div class="block-heading-block">
+        <h3>I'M INTERESTED IN...</h3>
+        <label>Check all that apply.</label>
+      </div>
+
+      <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+      <div class="interested-category">
+
+        <ul>
+          <%for desired_employment in desired_employments%>
+            <li>
+              <input type="checkbox" name="desired_employments[]" value="<%=desired_employment.id%>" <%=selected_employment_ids.include?(desired_employment.id) ? "checked='checked'" : ""%> class="styled job_type"/> <label><%=h(desired_employment.name) -%></label>
+            </li>
+          <%end%>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="content-bottom">&nbsp;</div>
+</div>
+
+<div class="paring-cont-zip">
+  <div class="content-top">&nbsp;</div>
+  <div class="content-shadow">
+    <div class="paring-gradient">
+      <div class="block-heading-block">
+        <h3>DESIRED LOCATION</h3>
+
+      </div>
+      <a href="javascript:void(0)" title="help" class="help-icon" onclick="skill_help();"><img src="/assets/question-icon.gif" width="24" height="24" alt="help" /></a>
+      <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+      <div class="location-preference">
+        <input type="hidden" id="zip_code_placeholder" value="Zip or Postal Code" />
+        <% if selected_location_ids.include?(1) %>
+          <div class="customized-inner-input active-input">
+            <div class="input-left">&nbsp;</div>
+            <input type="text"  value=<%= "'"+pincode+"'" %> id="zip_code" name="zip_code" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="validateZip(this);" onkeydown="type_element(this);"/>
+            <div class="input-right">&nbsp;</div>
+          </div>
+          <span class="any">
+            <input type="checkbox" class="styled zip" name="desired_locations" value="2" <%=selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label>Any</label>
+          </span>
+        <% elsif selected_location_ids.include?(2) %>
+          <div class="customized-inner-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="text"  value="" id="zip_code" name="zip_code" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="validateZip(this);" onkeydown="type_element(this);" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <span class="any">
+            <input type="checkbox" class="styled zip" name="desired_locations" value="2" <%=selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label>Any</label>
+          </span>
+        <%else%>
+          <div class="customized-inner-input input-text">
+            <div class="input-left">&nbsp;</div>
+            <input type="text"  value="Zip or Postal Code" maxlength="5" id="zip_code" name="zip_code" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="validateZip(this);" onkeydown="type_element(this);$(this).numeric({decimal: false, negative: false});" />
+            <div class="input-right">&nbsp;</div>
+          </div>
+          <span class="any">
+            <input type="checkbox" class="styled zip" name="desired_locations" value="2" <%=selected_location_ids.include?(2) ? "checked='checked'" : ""%> />
+            <label>Any</label>
+          </span>
+        <%end%>
+      </div>
+
+    </div>
+  </div>
+  <div class="content-bottom">&nbsp;</div>
+</div>
+<!--/page-heading-container-->
+
+<div class="clear-float">&nbsp;</div>
+
+<div class="paring-blocks">
+  <!--container-topSkills-->
+  <div class="container-salary">
+    <div class="topSkills-top">&nbsp;</div><!--/topSkills-top-->
+    <!--topSkills-content-->
+    <div class="topSkills-content">
+      <!--skills-gradient-->
+      <div class="skills-gradient">
+        <div class="block-heading-block">
+          <h3>DESIRED ANNUAL COMPENSATION ($000)</h3>
+          <label>Including commissions and bonuses.</label>
+        </div>
+        <a href="javascript:void(0)" title="help" class="help-icon" onclick="skill_help();"><img src="/assets/question-icon.gif" width="24" height="24" alt="help"></a>
+        <div class="add-edit-skill">
+          <div>
+
+          </div>
+
+          <div style="float:right;">
+            <span id="compensation-range"></span> per year
+          </div>
+          <br class="clear"/>
+          <br/>
+          <div class="comp-slider-cotainer"><div id="slider"></div></div>
+
+          <div class="comp-slider-labels">
+            <label class="comp-slider-label-38 first" ><%=compensation_range[0]%></label>
+            <label class="comp-slider-label-48" ><%=compensation_range[1]%></label>
+            <label class="comp-slider-label-49" ><%=compensation_range[2]%></label>
+            <label class="comp-slider-label-53" ><%=compensation_range[3]%></label>
+            <label class="comp-slider-label-53" ><%=compensation_range[4]%></label>
+            <label class="comp-slider-label-52" ><%=compensation_range[5]%></label>
+            <label class="comp-slider-label-38" ><%=compensation_range[6]%></label>
+            <label class="comp-slider-label-38" ><%=compensation_range[7]%></label>
+            <label class="comp-slider-label-38" ><%=compensation_range[8]%></label>
+            <label class="comp-slider-label-38" ><%=compensation_range[9]%></label>
+            <label class="comp-slider-label-43" ><%=compensation_range[10]%></label>
+            <label class="comp-slider-label-35" ><%=compensation_range[11]%></label>
+            <label class="comp-slider-label-38 last" ><%=compensation_range[12]%>+</label>
+            <br class="clear"/>
+          </div>
+
+          <div class="basic-table">
+            <div class="basic-table-header">
+              <label class="basic-table-col1 bold">Annual Compensation</label>
+              <label class="basic-table-col2 bold" id="comp11"></label>
+              <label class="basic-table-col3 bold" id="comp12"></label>
+            </div>
+            <div class="clear-float">&nbsp;</div>
+            <div class="basic-table-row">
+              <label class="basic-table-col1">Hourly Pay Equivalent</label>
+              <label class="basic-table-col2" id="comp21"></label>
+              <label class="basic-table-col3" id="comp22"></label>
+              <br class="clear"/>
+            </div>
+          </div>
+          <div class="clear-float">&nbsp;</div>
+		Assumes 7 hours per day, 5 days per week, 48 weeks per year	
+
+        </div>
+      </div>
+      <!--/skills-gradient-->
+    </div>
+    <!--/topSkills-content-->
+    <div class="topSkills-bottom">&nbsp;</div><!--/topSkills-bottom-->
+  </div>
+  <!--/container-topSkills-->
+
+  <div class="clear-float">&nbsp;</div> <!--do not delete for height issue-->
+</div>
+
+<!--button-container-->
+<div class="button-container">
+  <input type="submit" disabled="disabled" id="next_button" value="" class="next-button rfloat"/>
+</div>

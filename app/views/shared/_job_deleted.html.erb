@@ -1,0 +1,77 @@
+<div class="one_click_payment_position_white_content" id="job_deleted" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("position_doesnot_exist_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 50%;">
+              <label class="free-text"><%=t ("position_doesnot_exist_popup.content") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px;">
+              <input type="button" id="job_deleted_button" class="ok-button-active" onclick="closeJobDeleted();"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="save-close" href="javascript:void(0)" class="position_close_oneclick" onclick="closeJobDeleted();"><%=t ("position_doesnot_exist_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>
+
+<div class="one_click_payment_position_white_content" id="outdated_team_map" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("team_map_sync_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 50%;">
+              <label class="free-text"><%=t ("team_map_sync_popup.content") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px;">
+              <input type="button" id="outdated_team_map_button" class="ok-button-active" onclick="closeOutdatedTeamMap();"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="save-close" href="javascript:void(0)" class="position_close_oneclick" onclick="closeOutdatedTeamMap();"><%=t ("team_map_sync_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>
+
+<div class="one_click_payment_position_white_content" id="folder_deleted" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("folder_doesnot_exist_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 40%;">
+              <label class="free-text"><%=t ("folder_doesnot_exist_popup.content") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px;">
+              <input type="button" id="folder_deleted_button" class="ok-button-active" onclick="clsFolderDeleted();"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="save-close" href="javascript:void(0)" class="position_close_oneclick" onclick="clsFolderDeleted();"><%=t ("folder_doesnot_exist_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

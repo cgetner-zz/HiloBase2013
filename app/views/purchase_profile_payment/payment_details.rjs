@@ -1,0 +1,34 @@
+if @resp_case == "no_option"
+
+	page.call "purchase_profile_pay.show_message","Select atleast one the payment options or enter promotional/gift code to proceed"
+	page.call "purchase_profile_pay.hide_pay_load"
+
+elsif @resp_case == "submit_form"
+
+	page.call "purchase_profile_pay.submit_form"
+
+elsif @resp_case == "error"
+
+	page.call "purchase_profile_pay.hide_pay_load"
+	page.call "purchase_profile_pay.msg_json",@error_json
+
+elsif @resp_case == "message"
+
+	page.call "purchase_profile_pay.show_message",@message
+	page.call "purchase_profile_pay.hide_pay_load"
+
+elsif @resp_case == "confirm"
+
+	page.call "purchase_profile_pay.confirm",@message
+	page.call "hide_job_view_load"
+
+elsif @resp_case == "payment_success"
+
+	page.call "purchase_profile_pay.load_seeker_profile", session[:profile_pay][:profile_id]
+
+elsif @resp_case == "redirect"
+
+	page.redirect_to @redirect_url
+end
+
+

@@ -1,0 +1,6 @@
+<ul class="profile-breadcrumb">
+  <% if session[:administrator].access_levels.any?{|ac| ac.name == "All"} %>
+    <li class="first-child <% if step == 'cs_delete'%>active<% end %>"><a onclick="window.location='/admin/home/career_seeker'" title="Delete Request" href="javascript:void(0)">Delete Request</a></li>
+  <% else %>
+  <% end %>
+</ul>

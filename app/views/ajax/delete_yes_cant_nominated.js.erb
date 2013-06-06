@@ -1,0 +1,11 @@
+$("#delete_confirmation_popup_ajax").html("<%= escape_javascript render(:partial => '/shared/employer/delete_confirmation_popup', :locals=>{:children => nil})%>");
+$('#delete_confirmation_popup_msg').html("Nominated user has already requested for his account deletion, you can't nominate this user until his request has been processed. Please select another user.");
+$('#delete_confirmation_popup_cancel_button').hide();
+$('#root-selector-content').hide();
+$("#delete-emp-button-cnt").css('margin-top','15px');
+centralizePopup();
+addFocusButton('delete_confirmation_popup_continue_button');
+$('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+employer_delete.hideDeleteConfirmationPopup();
+employer_delete.showDeleteConfirmationPopup();
+});

@@ -1,0 +1,172 @@
+
+<!--header-->
+<%=render :partial=>"account_tab",:locals=>{:step=>"dashboard", :notification_count=>@notification_count}%>
+<!--/header-->
+
+<!--content-container-->
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+      <!--dashboard-content-->
+      <div class="dashboard-content overflow-visible">
+        <!--dashboard-left-pannel-->
+        <div class="dashboard-left-pannel">
+          <!--small-blocks-->
+          <%#= render :partial => 'activity_block',:locals=>{:tab=>"home",:count_hash => @count_hash} %>
+          <!--/small-blocks-->
+
+          <!--small-blocks-->
+          <%= render :partial => 'my_hilo_block',:locals=>{:tab=>"home",:count_hash => @count_hash} %>
+          <!--/small-blocks-->
+          <%= render :partial => 'download_block' %>
+          <!--small-blocks-->
+
+          <!--/small-blocks-->
+        </div>
+        <!--/dashboard-left-pannel-->
+        <div class="dashboard-right-pannel">
+          <!--creadit-label-->
+          <%= render :partial => 'credit_block' %>
+          <!--/creadit-label-->
+          <div id="ajax">
+            <%= render :partial => 'job_list', :locals=>{:jobs => @jobs,:job_statuses => @job_statuses} %>
+          </div>
+        </div>
+        <div class="clear-float">&nbsp;</div>
+      </div>
+      <!--/dashboard-content-->
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+<script type="text/javascript">
+<%@count_hash.each{|k,v|%>
+    eval('<%="var #{k} = #{v}"%>;')
+<%}%>
+
+  var considering_cost = <%=JOB_DETAIL_VIEW_COST%>;
+  var interested_cost = <%=JOB_EXPRESS_INTEREST_COST%>;
+  var wild_card_cost = <%=JOB_WILD_CARD_COST%>;
+	
+
+  $(document).ready(function(){
+<% if !session[:account_popup].nil? and session[:track_shared_job_id].nil?%>
+      showNormalShadow();
+      $("#account_popup").show();
+      centralizePopup();
+  <% session[:account_popup] = nil %>
+<% elsif session[:track_shared_job_id] and not session[:job_not_active]%>
+  <%session[:temp] = 1 %>
+      show_job.call(<%=session[:track_shared_job_id]%>);
+  <%  session[:track_shared_job_id] = nil %>
+  <% session[:account_popup] = nil %>
+<% elsif session[:job_not_active]%>
+      showNormalShadow();
+      $("#job_not_active").show();
+      addFocusButton('job_not_active_button');
+  <%=  session[:job_not_active] = nil %>
+  <%= session[:track_shared_job_id] = nil %>
+      centralizePopup();
+<%  end %>
+		
+    setInterval(function() {
+      updateNotificationCount()
+    }, 300000);
+		
+    setInterval(function() {
+      updateSideMenuCount()
+    }, 300000);
+		
+    enter_jobcode_event();
+
+    //This code is commented by Puneet.
+    //Uncomment this, if you want to run pairing logic and test submission task
+<%#if session[:test_pushed].nil? -%>
+    //push_test_submission();
+<%#end%>
+
+<%#if session[:test_pushed] == "pushed"%>
+    //push_birkman_pdf_download();
+<%#end%>
+    //Ends here
+		
+    removeButton();
+    resizeTable();
+			
+    $('.status-block').click(function(e){
+      var _position = $(this).offset()
+      var _positionLeft = _position.left-232;
+      var _positionTop = _position.top+18;
+      $("#fade_normal_status").show();
+      $('.status-details').css({'left':_positionLeft,'top':_positionTop,'display':'block'});
+      e.stopPropagation();
+		   
+    });
+		
+    $(".notification-count").click(function(e){
+      showNotification();
+      e.stopPropagation();
+    })
+			
+		
+    $('.status-details').click(function(e) {
+      e.stopPropagation();
+    })
+		
+    $('.notification-block').click(function(e) {
+      e.stopPropagation();
+    });
+		
+    sliderInit();
+		
+    $(".viewAll").click(function(){
+      $(".viewAll").hide();
+      $(".notifications").css({'height':'300px','overflow-y':'auto'});
+    })
+<% if session[:paypal_job_view] == 1 and (session[:pay_for] == "interest" or session[:pay_for] == "wild")%>
+      show_congratulation_popup();
+  <%  session[:paypal_job_view] = nil %>
+<% elsif session[:paypal_job_view] == 1 and session[:pay_for] == "consider"%>
+      job_detail_view.show(<%=session[:pay_job].id%>, "");
+  <%  session[:paypal_job_view] = nil %>
+<% end %>
+<% if session[:track_shared_job_id] and session[:temp].nil?%>
+      show_job.call(<%=session[:track_shared_job_id]%>);
+  <%  session[:track_shared_job_id] = nil %>
+<% end %>
+		
+		
+  });
+  /*$(document).ready(function() {
+                  $(".small-blocksActivity").each(function() {
+                        $(this).addClass("active");
+                        });
+                });
+   */
+  $('body').click(function(e) {
+    hideNotification();
+    hideStatusBlock();
+    $(".small-blocks").each(function() {
+      $(this).removeClass("active");
+    });
+    e.stopPropagation();
+  });
+	
+  $(".small-blocks").click(function(e) {
+    $(".small-blocks").each(function() {
+      $(this).removeClass("active");
+    });
+    $(this).addClass("active");
+    e.stopPropagation();
+  });
+	
+  $(".activity-list").click(function(){
+    $(this).parent().parent().parent().addClass("active");
+  });
+
+</script>

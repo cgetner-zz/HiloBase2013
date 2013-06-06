@@ -1,0 +1,25 @@
+<div class="one_click_payment_position_white_content" id="suspend_warning" style="display:none; position: fixed;">
+  <div class="dashboard_position_popup-siteActivation">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading"><%=t ("suspend_user_popup.title") %></label>
+        </div>
+
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div class="lfloat error-text" style="width: 60%;">
+              <label class="free-text"><%=t ("suspend_user_popup.content") %></label>
+            </div>
+            <div class="rfloat" id="action-button" style="margin-left:0px;">
+              <input type="button" class="usr-suspend-button" id="suspend_button"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a id="save-close" href="javascript:void(0)" class="position_close_oneclick" onclick="$('#suspend_warning').hide();$('#fade_error_warning').hide();"><%=t ("suspend_user_popup.close") %></a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

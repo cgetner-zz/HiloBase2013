@@ -1,0 +1,35 @@
+<% content_for :page_title do -%>Pairing Engine for Employers | <% end %>
+<% content_for :page_js do -%>
+  <%=  javascript_include_tag "new_employer_landing", "birkman", "jqcloud-1.0.2" %>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places" type="text/javascript"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+  </script>
+<% end -%>
+<% content_for :page_css do -%>
+  <%=stylesheet_link_tag("jqcloud")%>
+<% end -%>
+<%= render :partial => "/employer/landing/header", :locals => {:page => "search"}  %>
+<div class="main-container">
+  <!-- CONTENT -->
+  <div class="double-seperator">&nbsp;</div>
+  <div class="page-header">
+    <h1 class="txtLalign"><%=t ("emp_search_non_loggedin.pairing_engine.heading")%></h1>
+    <p class="txtLalign"><%=t ("emp_search_non_loggedin.pairing_engine.content")%></p>
+  </div>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <%= render :partial => "employer_workenv_questions" %>
+  <!-- CONTENT -->
+
+  <!-- CONTENT -->
+  <div id="results_container" style="display: none;"></div>
+  <!-- CONTENT -->
+
+  <!-- FOOTER-->
+  <%= render :partial => "/employer/landing/footer"  %>
+  <!-- FOOTER-->
+</div>

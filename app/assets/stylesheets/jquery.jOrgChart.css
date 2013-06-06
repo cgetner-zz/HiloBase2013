@@ -1,0 +1,83 @@
+.orgChart {
+    padding: 10px;
+}
+.jOrgChart .line {
+  height: 20px;
+  width: 4px;
+}
+.jOrgChart .down {
+  background-color: black;	
+  margin: 0px auto;
+}
+.jOrgChart .top {
+  border-top: 3px solid #000066;
+}
+.jOrgChart .left {
+  border-right: 2px solid #000066;
+}
+.jOrgChart .right {
+  border-left: 2px solid #000066;
+}
+.jOrgChart td {
+  text-align: center;
+  vertical-align: top;
+  padding: 0;
+}
+.jOrgChart .node {
+  background-color: #35363B;
+  display: inline-block;
+  width: 96px;
+  height: 60px;
+  z-index: 10;
+  margin: 0 2px;
+}
+.drag-active {
+  
+}
+.drop-hover {
+  
+}
+.jOrgChart .node{
+    background: url("/assets/employer_v2/admin_user_box.png") no-repeat scroll right top transparent;
+    border: none;
+    border-radius: 0;
+    color: #000066;
+    font-size: 13px;
+    font-weight: 400;
+    height: 25px;
+    padding-left: 8px;
+    padding-top: 8px;
+    text-align: left;
+    text-transform: uppercase;
+    width: 204px;
+}
+.jOrgChart .node.me-node {
+    background: url("/assets/employer_v2/admin_user_box_45.png") no-repeat scroll right top transparent;
+    font-size: 18px;
+    font-weight: 300;
+    height: 28px;
+    padding-left: 0;
+    padding-top: 5px;
+    text-align: center;
+    width: 45px;
+}
+.jOrgChart .node.odd{
+    background: url("/assets/employer_v2/admin_user_box_130.png") no-repeat scroll right top white;
+    border-radius: 3px 3px 3px 3px;
+    width: 122px;
+}
+.jOrgChart .node.even{
+    background: url("/assets/employer_v2/admin_user_box_blue_130.png") no-repeat scroll right top transparent;
+    color: white;
+    width: 122px;
+}
+.jOrgChart .node.ui-draggable {
+    cursor: move!important;
+}
+.jOrgChart .node.me-node {
+    cursor: pointer!important;
+}
+.jOrgChart .node.drop-hover {
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 1px 1px 10px #000066;
+}

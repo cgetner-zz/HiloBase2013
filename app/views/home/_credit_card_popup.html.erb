@@ -1,0 +1,295 @@
+<%content_for :page_js do -%>
+  <%=javascript_include_tag "jquery.numeric"%>
+<%end-%>
+
+<!-- Credit Card Billing Information Popup -->
+<%# form_for @payment, :url => { :action => "make_payment" } do |p| %>
+<%= form_for :gift_payment_pro,:remote => true,:url => { :controller => :gift, :action => :gift_hilo_payment }, :update=>"statsDiv", :html => { :method => :post, :id=>"form_gift_payment"} do |p|%>
+
+  <!--<input type="hidden" value="paypal_pro" name="payment_type" id="payment_type"/>-->
+  <div class="popup-siteActivation">
+    <input type="hidden" value="" name="payment_type" id="payment_type"/>
+    <input type="hidden" value="" name="senders_name_pay" id="senders_name_pay"/>
+    <input type="hidden" value="" name="senders_email_pay" id="senders_email_pay"/>
+    <input type="hidden" value="" name="recievers_name_pay" id="recievers_name_pay"/>
+    <input type="hidden" value="" name="recievers_email_pay" id="recievers_email_pay"/>
+    <input type="hidden" value="" name="personal_msg_pay" id="personal_msg_pay"/>
+    
+    <input type='hidden' name='gift_payment_card_type' value='' id='gift_payment_card_type' />
+    <input type="hidden" value="credit_card" name="credit_card" id="credit_card" />
+
+    <div id="card_entry_form_gift">
+      <input type='hidden' name='card_type' value='' id='master_card' />
+    </div>
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content overflow-visible">
+        <div class="popup-header-container">
+          <label class="popup-heading" id="payment_header" style="margin-top: 12px;"><%= t("payment_pop_up.heading") %></label>
+              <div class="error-message-container" id="paypal_error_msg" style="display:none; float: right; line-height: 16px; margin-top: 2px; width: 175px; padding: 0px;"><%= t("payment_pop_up.error") %></div>
+        </div>
+
+        <div class="payment_text" id="gift_hilo_payment_text"><%= t("payment_pop_up.contentL1") %></div>
+        <ul class="payment-options payment_text_options" id="payment-options-gift">
+          <div id="payment_images_gift">
+            <li><a href="javascript:void(0)" title="<%= t("payment_pop_up.master_card") %>" onclick="setImage('master', 'giftHiloSeeker');"><img src="/assets/Mastercard_1.png" alt="Master Card" /></a></li>
+            <li><a href="javascript:void(0)" title="<%= t("payment_pop_up.visa") %>" onclick="setImage('visa', 'giftHiloSeeker');"><img src="/assets/Visa_1.png" alt="Visa"  border="0" /></a></li>
+            <li><a href="javascript:void(0)" title="<%= t("payment_pop_up.american_express") %>" onclick="setImage('american_express', 'giftHiloSeeker');"><img src="/assets/AmericanExpress_1.png" alt="American Express" /></a></li>
+            <li><a href="javascript:void(0)" title="<%= t("payment_pop_up.discover") %>" onclick="setImage('discover', 'giftHiloSeeker');"><img src="/assets/Discover_1.png" alt="Discover"  /></a></li>
+            <li><a href="javascript:void(0);" title="<%= t("payment_pop_up.paypal") %>"  onclick="setImage('paypal', 'giftHiloSeeker');"><img src="/assets/Paypal_1.png" alt="Pay Pal"  /></a></li>
+          </div>
+        </ul>
+        <ul class="payment-options" id="payment-options-dummy-gift" style="display:none;"></ul>
+        <div class="partial-payment" id="summary_click_payment" style="display:<% if not @credit_value.nil? and @credit_value!=0%>block<%else%>none<%end%>;">
+          <% if not @credit_value.nil? and @credit_value!=0%>
+          <span class="lfloat">
+            <%= t("payment_pop_up.credit_to_use") %><span style="font-weight: 700;" id="credit_amount">$<%= number_to_currency(@credit_value, :unit=>"") %></span>
+          </span>
+          <span class="rfloat">
+            <%= t("payment_pop_up.amt_to_pay") %><span style="font-weight: 700;" id="paid_amount">$<%= number_to_currency(GIFT_CARD_AMOUNT-@credit_value, :unit=>"") %></span>
+          </span>
+          <% end %>
+        </div>
+
+        <div id="payment_details_gift_text" class="payment_text" style="display:none;"><%= t("payment_pop_up.contentL2") %></div>
+        <div class="credit-card-info" id="credit-card-info_gift" style="display:none;">
+          <div class="customized-inner-input input-text text-credit-card">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="card_num_gift_placeholder" value="<%= t("payment_pop_up.card_no") %>" />
+              <%=text_field_tag :card_num_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t("payment_pop_up.card_no")}", :maxlength => 16,:onkeyup=>"validateGiftCreditCardInfo();checkEnterGiftBilling(event);validateCardNumGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="card_num" type="text" name="card_num" class="text-credit-card active" value="Credit Card Number" />-->
+
+          <div class="customized-inner-input input-text text-month">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="month_gift_placeholder" value="<%= t("payment_pop_up.mm") %>" />
+              <%=text_field_tag :month_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.mm')}", :maxlength => 2, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});" %>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="month" type="text" name="month" class="text-month" value="mm" />-->
+          <img src="/assets/seperator-MMYY.png" height="33" width="10" class="mmyySeperator" />
+
+          <div class="customized-inner-input input-text text-year">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="year_gift_placeholder" value="<%= t("payment_pop_up.year") %>" />
+              <%=text_field_tag :year_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.year')}", :maxlength => 4, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="year" type="text" name="year" class="text-year" value="YYYY" />-->
+
+          <div class="customized-inner-input input-text text-securityCode">
+            <div class="input-left">&nbsp;</div>
+            <input type="hidden" id="cvv_gift_placeholder" value="<%= t("payment_pop_up.cvv") %>" />
+              <%=text_field_tag :cvv_gift, '', :onFocus=>"validateGiftCreditCardInfo(this);focus_element(this);", :onBlur=>"validateGiftCreditCardInfo(this);blur_element(this);", :class=>"password" , :value => "#{t('payment_pop_up.cvv')}", :maxlength => 3, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeypress=>"type_element(this,event);", :onkeydown=>"$(this).numeric({decimal: false, negative: false});"%>
+            <div class="input-right">&nbsp;</div>
+          </div>
+
+          <!--<input id="cvv" type="text" name="cvv" class="text-securityCode" value="Security Code" />-->
+        </div>
+
+        <div class="personal-info" id="personal-info_gift" style="display:none;">
+          <ul class="pymentDD1">
+                <li class="frstCls">
+              <div class="customized-inner-input input-text text-fname">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="fname_gift_placeholder" value="<%= t("payment_pop_up.first_name") %>" />
+                  <%=text_field_tag :fname_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.first_name')}", :maxlength => 50, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this)"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input id="fname" type="text" name="fname" value="First Name" class="text-fname margin-R-22px" />-->
+              <div class="customized-inner-input input-text text-lname">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="lname_gift_placeholder" value="<%=t ("payment_pop_up.last_name") %>" />
+                  <%=text_field_tag :lname_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.last_name')}", :maxlength => 50, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this)"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input id="lname" type="text" name="lname" value="Last Name" class="text-lname" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-billingAddress">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_address_one_gift_placeholder" value="<%=t ("payment_pop_up.bill_add") %>" />
+                  <%=text_field_tag :billing_address_one_gift,"", :value => "#{t('payment_pop_up.bill_add')}" , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this)"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Billing Address" class="text-billingAddress" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-billingAddress">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_address_two_gift_placeholder" value="<%=t ("payment_pop_up.add1") %>" />
+                  <%=text_field_tag :billing_address_two_gift,"", :value => "#{t('payment_pop_up.add1')}" , :maxlength => 200, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this)"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Apt., suite, bldg." class="text-billingAddress" />-->
+            </li>
+            <li>
+              <div class="customized-inner-input input-text text-city" style="padding-right:7px;">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_city_gift_placeholder" value="<%=t ("payment_pop_up.city") %>" />
+                  <%=text_field_tag :billing_city_gift,"", :value => "#{t('payment_pop_up.city')}" , :maxlength => 100, :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);", :onkeydown=>"type_element(this)"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <div class="state-selector-block" id="state-selector-block">
+                  <div class="state-slector" id ="state-selector">
+                    <span class="label-default" id="temp"><%=t ("payment_pop_up.state") %></span>
+
+                    <div class="state-options" id="state_options" style="display:none;">
+                        <div class="state-options-top">&nbsp;</div>
+                        <div class="state-options-content">
+                            <label class="label-default"><%=t ("payment_pop_up.state") %></label>
+                            <ul class="option">
+                              <% states = State.find(:all)
+                              for state in states %>
+                                <li selected=""><label onclick="populate_states_gift_payment(this);validateGiftCreditCardInfo(this);unbindKeydown();" id=<%= "'"+"#{state.id}"+"'" %> ><%= state.name %></label></li>
+                              <% end %>
+                            </ul>
+                        </div>
+                        <div class="state-options-bottom">&nbsp;</div>
+                    </div>
+                  </div>
+              </div>
+              <span id="populate_states" style="display:none;">
+                  <input type='hidden' name='billing_state_gift' id='billing_state_gift' />
+              </span>
+              <%#=select_tag("billing_state", options_for_select(State.find(:all).map {|s| [s.name]}.unshift(["State",""]),''),:class=>"reg-field-text reg-field-select state") %>
+
+              <div class="customized-inner-input input-text text-zip" style="margin-left:1px;">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_zip_gift_placeholder" value="<%=t ("payment_pop_up.zip") %>" />
+                  <%=text_field_tag :billing_zip_gift,"", :value => "#{t('payment_pop_up.zip')}", :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :maxlength => 5, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);validateZipGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="Zip Code" class="text-zip" />-->
+            </li>
+            <li class="lastChild">
+              <div class="customized-inner-input input-text text-areaCode">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_area_code_gift_placeholder" value="<%=t ("payment_pop_up.area_code") %>" />
+                  <%=text_field_tag :billing_area_code_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.area_code')}", :maxlength => 3, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);validateAreaCodeGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+
+              <!--<input type="text" value="(Area Code)" class="text-areaCode" />-->
+              <div class="customized-inner-input input-text text-telephone">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="billing_telephone_number_gift_placeholder" value="<%=t ("payment_pop_up.tele") %>" />
+                  <%=text_field_tag :billing_telephone_number_gift, '', :onFocus=>"focus_element(this);", :onBlur=>"blur_element(this);", :value => "#{t('payment_pop_up.tele')}", :maxlength => 7, :onkeyup=>"validateGiftCreditCardInfo(this);checkEnterGiftBilling(event);validateTelGift();", :onkeydown=>"type_element(this);$(this).numeric({decimal: false, negative: false});"%>
+                <div class="input-right">&nbsp;</div>
+              </div>
+              <input type="button" id="gifts_payment_verify_button" class="buy-gift-button rfloat" />
+              <%#=submit_tag('', :id=>"gifts_payment_verify_button", :disabled => true, :class=>"buy-gift-button rfloat")%>
+              <%#*<input type="submit" value="" id="verify_button" class="verify-button credit_card_button rfloat"/>%>
+              <span id="verify-loader-img" style="display:none;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+              <input type="button" class="finish-button-active" id="finish-button-success"  style="display:none;" />
+
+            </li>
+          </ul>
+        </div>
+
+        <div id="paypal-info_gift" class="billing-information" style="display:none; font-weight: 400; line-height: 18px; padding-bottom: 0px;">
+          <div class="lfloat"><%=t ("payment_pop_up.paypal_contentL1") %><br/><%=t ("payment_pop_up.paypal_contentL2") %><br/><%=t ("payment_pop_up.paypal_contentL3") %>
+          </div>
+          <div class="rfloat" style="margin-top: 25px;">
+          <a href="javascript:void(0)" class="btnContinue rfloat" onClick="redirectToPaypal_gifthilo();">Continue..</a>
+        </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="$('#gift_cc_billing_popup').empty(); hideNormalShadow(); window.location.reload();" id="payment_close">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+
+<% end -%>
+<!-- /Credit Card Billing Information Popup -->
+
+<script type="text/javascript">
+  if($('.state-options', this).is(":visible")) {
+    $('.state-options', this).hide();
+  }
+
+  $('.state-slector').click(function(e){
+        $(".state-slector").removeClass("error");
+        $('.default-level',this).css('display','none');
+        if($('.state-options', this).is(":visible") == true) {
+              $('.state-options', this).hide();
+        }
+        e.stopPropagation();
+  });
+
+  $('.state-options-content ul li').each(function(){
+        $('label',this).click(function(){
+              var _labelVale = $(this).html();
+              $('.state-slector .label-default').text(_labelVale);
+              $('.state-slector .label-default-top').text(_labelVale);
+              $('.state-slector .state-options').css("display","none");
+              $('input#billing_state_gift').val(_labelVale);
+              return false;
+        });
+  });
+
+  $('body').click(function(){
+    $('.state-options').css('display','none');
+    $(document).unbind('keydown');
+  });
+
+  $("div#state-selector").click(function(e){
+      $("div#state_options").show();
+      $('.option').children().each(function(){
+          if($(this).attr('selected')=='selected'){
+              $(this).removeClass('selected').removeAttr('selected');
+          }
+      });
+                        
+      $('#state_options .option').find('#1').parent().addClass('selected').attr('selected', 'selected');
+      $('.option').scrollTop(0);
+      //DropDownHandler.time = System.currentTimeMillis();
+      DropDownHandler.t = new Date().getTime();
+
+      $(document).unbind('keydown').bind('keydown', function(e){
+          DropDownHandler.func(e, document.getElementById('state_options'), 'state');
+      });
+      e.stopPropagation();
+  });
+  
+  $('.option li').hover(function(){
+            $('.option').children().each(function(){
+                if($(this).attr('selected')=='selected'){
+                    $(this).removeClass('selected').removeAttr('selected');
+                }
+            });
+            $(this).addClass('selected').attr('selected', 'selected');
+  });
+
+  function populate_states_gift_payment(obj) {
+    $("#state-selector span.label-default").attr("id",$(obj).attr("id"));
+    var state_id = $(obj).attr("id");
+    $("#billing_state_gift").val(state_id);
+    $("#state-selector span.label-default").css("color","#000078");
+  }
+
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_form_gift_payment = function(){
+        $('#payment_header').text('CREDIT CARD BILLING INFORMATION');
+        showBlockShadow();
+        $('#verify-loader-img').show();
+        $('#gifts_payment_verify_button').hide();
+        $('#paypal_error_msg').hide();
+        hideErrorShadow();
+        showNormalShadow();
+    }
+    $("#form_gift_payment")
+    .bind("ajax:beforeSend", loading_form_gift_payment)
+  });
+</script>

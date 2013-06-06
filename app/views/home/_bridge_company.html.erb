@@ -1,0 +1,43 @@
+<div class="cs-introduction-container" id="step1-learn-more">
+  <div class="popup-upper-block-cs" style="">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <input type="hidden" id="track_shared_company_id" value=""/>
+          <input type="hidden" id="track_shared_platform_id" value=""/>
+          <input type="hidden" id="bridge_response" value=""/>
+          <% if session[:random_token] and session[:internal_candidate] %>
+            <input type="hidden" id="random_token" value=""/>
+            <input type="hidden" id="internal_candidate" value=""/>
+          <%end%>
+          <img src="/assets/bridge_hilo_logo.png" class="lfloat" style="margin-bottom:5px;" />
+          <div class="csbridge-heading">
+            <p class="bluecls">&nbsp;</p>
+            <p><%=t ("career_seeker_bridge.title") %></p>
+          </div>
+        </div>
+        <div class="csbridge-textvideo">
+          <div class="csbridge-text <%=I18n.locale%>"><div class="<%=I18n.locale%>"><%=t ("career_seeker_bridge.title_content1") %></div>
+            <p class="newsPaperJustify"><%=t ("career_seeker_bridge.content.contentL1") %> <span><i><%=t ("career_seeker_bridge.content.contentL1B") %></i></span></p>
+            <p><%=t ("career_seeker_bridge.content.contentL2") %> <span><i><%=t ("career_seeker_bridge.content.contentL2B") %> </i></span><%=t ("career_seeker_bridge.content.contentL3.contentN") %> &nbsp;<%=t ("career_seeker_bridge.content.contentL3.contentN2") %>&nbsp;<%=t ("career_seeker_bridge.content.contentL3.contentN3") %>&nbsp;<%=t ("career_seeker_bridge.content.contentL3.contentN4") %></p>
+            <p><span><i><%=t ("career_seeker_bridge.content.contentL4") %></i></span> <%=t ("career_seeker_bridge.content.contentL5") %></p>
+            <p><%=t ("career_seeker_bridge.content.contentL6") %></p>
+          </div>
+
+          <div class="csbridge-right-div video <%=I18n.locale%>" id="step1-learn-more-video">
+            <iframe class="youtube-player" name="learn-more-accountVplayer" id="learn-more-accountVplayer" type="text/html" width="591" style="margin-left:6px;" height="360" src="https://www.youtube.com/embed/XnF7PcuqIis?wmode=transparent&rel=0" frameborder="0"></iframe>
+          </div>
+          <div class="getstarted-div" onclick="<% if session[:random_token] and session[:internal_candidate] %>set_session_for_ics_bridge();<%elsif session[:track_shared_company_id]%>set_session_for_comp_bridge();<%else%>window.location='/job_seeker/new';<%end%>"><img src="/assets/get-started-btn_<%=I18n.locale%>.png" class="margin-T-5px" /></div>
+        </div>
+
+        <div class="csbridge-submenu-container">
+          <ul class="">
+            <%= render :partial => "home/bridge_menu", :locals => {:section => "intro"} %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

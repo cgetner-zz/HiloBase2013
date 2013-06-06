@@ -1,0 +1,84 @@
+<% if !@result.nil? %>
+  <% if !@result.first.nil? %>
+    $("#dropdown_check_flag").val(1);
+    //set flag here
+    $('#street_address_check').val('0');
+    <% if @result.first.address.nil? %>
+      $("#company_street_one_flag").val(0);
+      $("#company_street_one").val('');
+      $("#company_street_one").blur();
+      $("#company_street_one").val($("#company_street_one_placeholder").val());
+    <% else %>
+      <% if !@result.first.city.nil? %>
+        <% str = ""
+          @result.first.data["address_components"].each do |addr|
+            if addr["long_name"] == @result.first.city or addr["short_name"] == @result.first.city
+              str.strip!
+              break
+            end
+            str = str + addr["long_name"] + ", "
+          end
+        %>
+        $("#company_street_one").val('<%= str.strip[0..-2] %>');
+        $("#company_street_one").blur();
+        <% if str.blank? %>
+          $("#company_street_one_flag").val(0);
+        <% else %>
+          $("#company_street_one_flag").val(1);
+        <% end %>
+      <% else %>
+        $("#company_street_one_flag").val(0);
+        $("#company_street_one").val('');
+        $("#company_street_one").blur();
+        $("#company_street_one").val($("#company_street_one_placeholder").val());
+      <% end %>
+    <%end%>
+
+    <% if @result.first.city.nil? %>
+      $("#company_city_flag").val(0);
+    <% else %>
+      $("#company_city_flag").val(1);
+      //$("#company_city").blur();
+      $("#company_city").val('<%= @result.first.city %>');
+    <% end %>
+
+    <% if @result.first.state.nil? %>
+      $("#company_state_flag").val(0);
+    <% else %>
+      $("#company_state").val('<%= @result.first.state %>');
+      $("#company_state_flag").val(1);
+    <% end %>
+
+    <% if @result.first.postal_code.nil? %>
+      $("#company_zip_flag").val(0);
+    <% else %>
+      $("#company_zip").val('<%= @result.first.postal_code %>');
+      $("#company_zip_flag").val(1);
+    <% end %>
+
+    <% if @result.first.country.nil? %>
+      $("#company_country_flag").val(0);
+    <% else %>
+      $("#company_country").val('<%= @result.first.country %>');
+      $("#company_country_flag").val(1);
+    <% end %>
+
+    <% if !@result.first.latitude.nil? %>
+      $("#company_latitude").val('<%= @result.first.latitude %>');
+    <% end %>
+
+    <% if !@result.first.longitude.nil? %>
+      $("#company_longitude").val('<%= @result.first.longitude %>');
+    <% end %>
+  <% else %>
+    $("#country_flag").val(0);
+    $("#pincode_flag").val(0);
+    $("#state_flag").val(0);
+    $("#dropdown_check_flag").val(0);
+  <% end %>
+<% else %>
+  $("#country_flag").val(0);
+  $("#pincode_flag").val(0);
+  $("#state_flag").val(0);
+  $("#dropdown_check_flag").val(0);
+<% end %>

@@ -1,0 +1,53 @@
+<div id="skill-tooltip" class="skill-tooltip" style="display:none;">
+  <div class="skill-tooltip-top">&nbsp;</div>
+  <div class="skill-tooltip-content">
+    <% for role in @job_seeker_roles %>
+      <div class="separator"></div>
+      <ul>
+        <li class="skill-tooltip-content_li1 transform-letter"><%= EducationLevel.find(role.education_level_id).name.force_encoding('utf-8') %></li>
+        <li class="skill-tooltip-content_li2 transform-letter"><%= role.title.force_encoding('utf-8') %></li>
+        <li class="skill-tooltip-content_li3"><%= ExperienceLevel.find(role.experience_level_id).name.force_encoding('utf-8') %></li>
+      </ul>
+    <% end %>
+    <div class="separator"></div>
+  </div>
+  <div class="skill-tooltip-bottom">&nbsp;</div>
+</div>
+
+
+
+<div id="cert-tooltip" class="skill-tooltip" style="display:none;">
+  <div class="skill-tooltip-top">&nbsp;</div>
+  <div class="skill-tooltip-content" id="skill-tooltip-content">
+    <%if @job_seeker && @job_seeker_licenses%>
+      <%for item in @job_seeker_licenses%>
+        <div class="separator"></div>
+        <ul>
+          <li class="skill-tooltip-content_li1 transform-letter"><%= t('skills_ajax.cert_tooltip.license') %></li>
+          <li class="skill-tooltip-content_li2 transform-letter">
+            <% if item %>
+              <%= h(item).force_encoding('utf-8') -%>
+            <% end %>
+          </li>
+        </ul>
+      <%end%>
+    <%end%>
+
+    <%if @job_seeker && @job_seeker_certifications%>
+      <%for item in @job_seeker_certifications%>
+        <div class="separator"></div>
+        <ul>
+          <li class="skill-tooltip-content_li1 transform-letter"><%= t('skills_ajax.cert_tooltip.certification') %></li>
+          <li class="skill-tooltip-content_li2 transform-letter">
+            <% if item %>
+              <%= h(item).force_encoding('utf-8') -%>
+            <% end %>
+          </li>
+        </ul>
+      <%end%>
+    <%end%>
+    <div class="separator"></div>
+  </div>
+  <div class="skill-tooltip-bottom">&nbsp;</div>
+</div>
+

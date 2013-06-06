@@ -1,0 +1,5 @@
+$("#eda_action_<%= @company_id %>").html('<span class="eda_grant_action" id="row_<%= @company_id %>">Off</span>');
+$(".action span.eda_grant_action").unbind().click(function(){
+  grantEDAStatus(this);
+});
+hideBlockShadow();

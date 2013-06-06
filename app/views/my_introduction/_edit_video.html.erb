@@ -1,0 +1,12 @@
+<%=  form_tag :url => ("/my_introduction/save_video_url"),:before=>"" , :remote => true do |j| %>
+<div class="myint-contact-row">
+	<div class="myint-contact-label" style="width:60px;">
+		Url : 
+	</div>
+
+	<div class="myint-contact-value">
+		<%= text_field_tag :video_url,job_seeker.video_url,:class=>"input-field-style"%> <%=submit_tag("Save",:class=>"button-style-shared buttton_65X23")%>
+	</div>
+	<br class="clear-height"/>
+</div>
+<%end%>

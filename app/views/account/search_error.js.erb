@@ -1,0 +1,8 @@
+$('tr').each(function(){
+if ($(this).attr('id') != undefined){
+if($(this).hasClass('filter')){
+$(this).removeClass('filter');
+}
+}
+});
+$("#search").parent().removeClass('input-text-active active-input input-text').addClass('input-text-error');

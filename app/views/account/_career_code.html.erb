@@ -1,0 +1,55 @@
+<!-- Career Code Popup -->
+<div id="career_code_popup" class="white_content" style="position: fixed;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('career_code_popup.heading') %></label>
+        </div>
+        <div class="access-block  margin-T10px" style="height: 50px;">
+          <div class="lfloat normal-text padding-Top-0px width-185px">
+            <label class="free-text"><%= t('career_code_popup.free_text') %></label>
+          </div>
+          <div class="careercode-width">
+            <span id="career_code_form">
+            <%#= form_tag :html=>{:onsubmit=>"return false;", :id=>"career_code_form"}, :remote => true  do %>
+              <div class="fp-input-cnt">
+                <div class="customized-input input-text">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="career_code_placeholder" value="<%= t('career_code_popup.career_code') %>" />
+                  <input type="text" id="career_code" onfocus="focus_element(this)" onblur="blur_element(this);validateField(this);" onkeyup="validateField(this);checkCarrerHLIDOnKeyPress(event);" value="<%= t('career_code_popup.career_code') %>" onkeydown="type_element(this)"/>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </div>
+              <%#=submit_tag('',:class=>"enter-button",:id=>"code_button", :disabled=>"true")%>
+              <input type="button" id="code_button" class="enter-button" onclick="jobcodelogin_submit();" value=""></input>
+              <span id="loader_img3" style="display:none; float:left; margin-left: 25px;"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            <%# end %>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="$('#career_code_popup').hide();hideNormalShadow();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- Career Code Popup -->
+
+<script type="text/javascript">
+  function validateField(element){
+    if(validateNotEmpty(element)){
+      //document.getElementById('code_button').disabled="";
+      document.getElementById('code_button').className="enter-button-active";
+    }
+    else{
+      //document.getElementById('code_button').disabled="disabled";
+      document.getElementById('code_button').className="enter-button";
+    }
+  }
+</script>

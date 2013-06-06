@@ -1,0 +1,17 @@
+<% broadcast "/opportunities_normal" do %>
+  //array to store ids that are affected
+  var js_ids = new Array();
+  <%@js_ids.each do |id|%>
+    js_ids.push("<%=id%>");
+  <%end%>
+
+  if(js_ids.has($("#current_job_seeker_id").val())){
+  <%#if @js_ids.include?(session[:employer].id)%>
+    $("#refresh_link").show();
+    $("#refresh_link").children().click(function(){
+      refreshHandler();
+    });
+  <%#end%>
+  }
+<% end %>
+

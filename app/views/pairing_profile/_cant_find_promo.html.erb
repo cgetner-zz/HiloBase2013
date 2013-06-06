@@ -1,0 +1,55 @@
+<!-- Career Code Popup -->
+<div id="cant_find_promo" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('cant_find_promo.heading') %></label>
+        </div>
+        <div class="access-block  margin-T10px">
+          <div class="lfloat normal-text padding-Top-0px width-185px" style="width:198px!important">
+            <label class="free-text"><%= t('cant_find_promo.free_text') %></label>
+          </div>
+          <div class="careercode-width">
+            <%= form_for :coderequest, :remote => true,:url => { :controller => :access_code,:action => :resend_email}, :html => { :method => :post, :id => :cant_find_promo_form} do |f| %>
+            <input type="hidden" id="cant_find_promo" name="cant_find_promo" value="1"/>
+              <div class="fp-input-cnt margin-R-9px" style="width: 247px;">
+                <div class="customized-input input-text width-226">
+                  <div class="input-left">&nbsp;</div>
+                  <input type="hidden" id="coderequest_email_placeholder" value="<%= t('cant_find_promo.email') %>" />
+                  <%=f.text_field :email, :onfocus => "focus_element(this)", :onblur =>"validateBetaEmail(this);blur_element(this)", :onkeyup => "validateBetaEmail(this)", :value => "#{t('cant_find_promo.email')}", :maxlength => 100, :onkeydown=>"type_element(this)"%>
+                  <div class="input-right">&nbsp;</div>
+                </div>
+              </div>
+            <input type="button" class="enter-button" id="beta_button" />
+              <%#=submit_tag('',:class=>"enter-button",:id=>"beta_button", :disabled=>"true")%>
+              <span id="loader_img1" style="display:none;float:left;margin-left: 20px;"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="cant_find_promo.close_pop_up();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- Career Code Popup -->
+
+<script type="text/javascript">
+  function validateField(element){
+    if(validateNotEmpty(element)){
+      document.getElementById('code_button').disabled="";
+      document.getElementById('code_button').className="enter-button-active";
+    }
+    else{
+      document.getElementById('code_button').disabled="disabled";
+      document.getElementById('code_button').className="enter-button-active";
+
+    }
+  }
+</script>

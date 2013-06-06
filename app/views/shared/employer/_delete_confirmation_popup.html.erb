@@ -1,0 +1,68 @@
+<div class="one_click_payment_position_white_positionProfile" id="delete_confirmation_popup" style="position:fixed!important; display: block;">
+  <div class="dashboard_position_popup-siteActivation" style="height: auto;">
+    <span class="position_popup-top">&nbsp;</span>
+    <div class="position_popup-content_oneclick">
+      <div class="position_gradient-content_oneclick">
+        <div class="position_popup-header-container">
+          <label class="popup-heading">DELETE MY ACCOUNT</label>
+        </div>
+        <div class="position_popup_select_box">
+          <div class="access-block">
+            <div style="width:60%;" class="lfloat error-text">
+              <% if session[:employer].is_root? and session[:employer].account_type_id == 1 %>
+                <div class="free-text" id="root-selector-content">
+                  Would you like to select a new ROOT for this company?
+                  <ul class="new-root-select">
+                    <li class="yes"><input value="1" type="checkbox" class="styled checkbox" /><label class="lbl">Yes</label></li>
+                    <li class="no"><input value="0" type="checkbox" class="styled checkbox" /><label class="lbl">No</label></li>
+                  </ul>
+                  <div id="yes-root-text">
+                    
+                    <div class="position-info" id="new_root_select_box" style="margin-top: 7px;">
+                      <div class="position-type-selector">
+                        <div class="state-slector">
+                          <span id="new_root_name" class="placeholder label-default" style="margin-top:3px;color:#000066;display: block; float: left; width: 170px;">Select a user</span>
+                          <div class="position-aero" style="float: right; width: 20px; height: 22px;"></div>
+                          <input type="hidden" id="delete_confirmation_popup_selected_emp" name="delete_confirmation_popup_selected_emp" value="0" />
+                          <div style="display:none;" id="new_root_options" class="state-options">
+                            <div class="state-options-top">&nbsp;</div>
+                            <div class="state-options-content">
+                              <label class="label-default" style="width:184px;">Select a user</label>
+                              <ul class="option" id="new_root_position_list">
+                                <% if not children.nil? %>
+                                <% children.each do |child| %>
+                                  <% last = initial_finder(child.last_name) %>
+                                  <li selected="" class="Position-TypeDD" value="<%=child.id%>" onclick='$("#new_root_name").removeClass("placeholder");$("#new_root_name").text("<%= child.first_name+" "+last %>");$("#delete_confirmation_popup_selected_emp").val("<%=child.id%>");'><label id="new_root_emp_<%=child.id%>"><%= child.first_name+" "+last %></label></li>
+                                <% end %>
+                                <% end %>
+                              </ul>
+                            </div>
+                            <div class="state-options-bottom">&nbsp;</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div id="no-root-text" style="display: none; text-align: justify; width: 360px;">
+                    Deleting your account will trigger the deletion of this company and all of its users.
+                    Please select a new ROOT user for this company if you only wish to delete your own account.
+                  </div>
+                </div>
+              <% end %>
+              <label id="delete_confirmation_popup_msg" class="free-text" style="display: inline-block; width: 360px; text-align: justify;">
+                By clicking on confirm, you will be logged out of the system. We'll notify you once your request has been processed.
+              </label>
+            </div>
+            <div style="margin-left: 0px; margin-right: 0px; margin-top: 132px;" class="rfloat margin-T-5px" id="delete-emp-button-cnt">
+              <input type="button" id="delete_confirmation_popup_cancel_button" style="float: left;" class="cancel-button-active" onclick="employer_delete.hideDeleteConfirmationPopup();"/>
+              <input type="button" class="btn-Confirm-active" style="margin-top: 2px ! important; margin-left: 5px; position: relative; float: left;" id="delete_confirmation_popup_continue_button" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="position_close_oneclick" href="javascript:void(0)" onclick="employer_delete.hideDeleteConfirmationPopup();">Close</a>
+    </div>
+    <span class="position_popup-bottom">&nbsp;</span>
+  </div>
+</div>

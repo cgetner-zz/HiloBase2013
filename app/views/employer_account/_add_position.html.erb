@@ -1,0 +1,6 @@
+<% if @employer_category_size == 0 %>
+  <a href="javascript:void(0)" class="group-row-add-txt" id="pos_add_label" onclick="category_nil();"><%=t ("emp_left_menu.position") %></a>
+<% else %>
+  <a onclick="<% if are_you_sure_link(controller) %>var areYouSureResp = areYouSure('add-position'); if(areYouSureResp == false) { return false; } <% end %> loadCategories();" id="pos_add_label2" href="javascript:void(0);" class="group-row-add-txt"><%=t ("emp_left_menu.position") %></a>
+  <!--<a href="javascript:void(0)" class="group-row-add-txt">+ / - Add Position</a>-->
+<% end %>

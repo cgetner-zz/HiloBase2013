@@ -1,0 +1,149 @@
+<div class="work-env-box">
+	<div class="work-env-box-top">&nbsp;</div>
+	<div class="work-env-box-content">
+		<div class="ques-outer-box">
+		
+		<div class="ques-inner-box">
+			
+				<%= form_tag :url => ("/position_profile/save_work_and_role_env_questions"),:html=>{:id=>"new_work_role_env_form"}, :remote => true do -%>
+					
+					<div class="ques-content">
+						<div>
+							<div class="role-ques-label">How much does the work environment surrounding <%= @job.name %> stress ...</div>
+							<br class="clear"/>
+							<%=hidden_field_tag :job_id,@job.id%>
+							
+							<%=hidden_field_tag :slider_values_work,@job_we_ques.join(",")%> 
+						</div>
+						
+						<div class="role-header">
+							<div class="role-ques-col-header">
+								&nbsp;
+							</div>
+		
+							<div class="role-radio-col-0" >
+								None
+							</div>
+		
+							<div class="role-radio-col-1" >
+								Slightly
+							</div>
+		
+							<div class="role-radio-col-2" >
+								Moderately
+							</div>
+		
+							<div class="role-radio-col-3" >
+								Greatly
+							</div>
+		
+							<div class="role-radio-col-4" >
+								Almost Always
+							</div>
+							<br class="clear"/>
+						</div>
+							
+						<%for ques in @work_questions%>
+							
+							<div class="role-row ">
+								<div class="role-ques-col">
+									<%=h(ques.question)%>
+								</div>
+								
+								<div class="work-radio-slider">
+									<%0.upto(4){|i| -%>
+										<div class="role-radio-col-<%=i%>" >
+										<a href="javascript:void(0);" onclick="pos_profile_work_role_ques.check_workenv_img(this);" data-val="<%=i%>"><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>
+										</div>
+									<%} -%>
+									<br class="clear"/>
+								</div>
+								
+			
+								<br class="clear"/>
+							</div>
+							
+						<%end%>
+					</div>			
+					<br />
+					<div class="ques-content">
+						<div>
+							<div class="role-ques-label">To what extent does this <%=@job.name%>, involve...</div>
+							<br class="clear"/>
+							<%=hidden_field_tag :job_id,@job.id%>
+							
+							<%=hidden_field_tag :slider_values_role,@job_role_ques.join(",")%> 
+						</div>
+						
+						<div class="role-header">
+							<div class="role-ques-col-header">
+								&nbsp;
+							</div>
+		
+							<div class="role-radio-col-0" >
+								None
+							</div>
+		
+							<div class="role-radio-col-1" >
+								Slightly
+							</div>
+		
+							<div class="role-radio-col-2" >
+								Moderately
+							</div>
+		
+							<div class="role-radio-col-3" >
+								Greatly
+							</div>
+		
+							<div class="role-radio-col-4" >
+								Almost Always
+							</div>
+							<br class="clear"/>
+						</div>
+							
+						<%for ques in @role_questions%>
+							
+							<div class="role-row ">
+								<div class="role-ques-col">
+									<%=h(ques.question)%>
+								</div>
+								
+								<div class="role-radio-slider">
+									<%0.upto(4){|i| -%>
+										<div class="role-radio-col-<%=i%>" >
+										<a href="javascript:void(0);" onclick="pos_profile_work_role_ques.check_role_img(this);" data-val="<%=i%>"><img src="/assets/employer_v2/btn-radio-inactive.png"/></a>
+										</div>
+									<%} -%>
+									<br class="clear"/>
+								</div>
+								
+			
+								<br class="clear"/>
+							</div>
+							
+						<%end%>
+										
+					</div>
+					
+					<div class="ques-submit"> <img src="/assets/login-loader.gif" id="question_loader_role_work" style="display:none;">&nbsp;
+					  <input type="button" class="button-style-shared save_buttton_62-18" value="Save" onclick="return pos_profile_work_role_ques.save();"/>
+					</div>
+					
+				<%end%>
+			
+		</div>
+	</div>
+	</div>
+	<div class="work-env-box-bottom">&nbsp;</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		pos_profile_work_role_ques.onload_work_role_questions();	
+	});
+
+</script>

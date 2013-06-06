@@ -1,0 +1,58 @@
+<div class="cs-introduction-container" id="position-overview">
+  <div class="popup-upper-block-cs-icecream" style="">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <input type="hidden" id="track_shared_job_id" value=""/>
+        <input type="hidden" id="track_shared_platform_id" value=""/>
+        <% if @job.hiring_company == false %>
+          <div class="cs-icecream-popup-header-small">
+            <label class="popup-heading-table transform-letter"><%= @job.company.name %> ON BEHALF OF:</label>
+          </div>
+        <% end %>
+        <div class="cs-icecream-popup-header">
+          <label class="popup-heading-table transform-letter"><%=@job.hiring_company_name %> </label>
+        </div>
+        <div class="icecream-left"><h3 class="inner-heading transform-letter"><%= @job.name %></h3>
+          <p>
+            <span class="transform-letter"><%=@desired_emp %></span><br />
+            <span>
+              <%if @job_location.nil?%>
+                This role is virtual and can be<br />performed from anywhere.
+              <%else%>
+                <%= @job_location.city.titlecase.force_encoding('utf-8') %>, <%= @job_location.state.titlecase.force_encoding('utf-8') %>, <%= @job_location.country.titlecase.force_encoding('utf-8') %>
+              <% end %>
+            </span>
+          </p>
+         
+        </div>
+        <div class="icecream-right">
+          <div class="overview-text">
+            <%= (truncate(@job.summary, :length => 305, :omission => ' ...', :separator => ' ')).gsub("\n","<br/>").html_safe.force_encoding('utf-8') %>
+          </div>
+
+        </div>
+        <div class="clear-float">&nbsp;</div>
+        <div class="ïcon-and-btn">
+           <div class="icecream-footer">
+            <ul>
+              <li class="margin-L-0px"><img border="0" alt="Facebook" src="/assets/facebook_icon-popup.png" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/job/<%= @job.id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');" /></li>
+              <li><img border="0" alt="Linked In" src="/assets/linkedin-popup.png" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&title=<%= @job.name%>&url=https://<%=request.env["HTTP_HOST"]%>/job/<%= @job.id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=Check out this career opportunity with <%=@job.company.name%> for a <%=@job.name%>&source=<%=request.env["HTTP_HOST"]%>');" /></li>
+              <li><img border="0" alt="Twitter" src="/assets/twitter-popup.png" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/job/<%=@job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('Check out this career opportunity with <%=@job.company.name%> ' + 'https://<%=request.env["HTTP_HOST"]%>/job/<%=@job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%> #<%=@job.name%>') + '&via=thehiloproject ');" /></li>
+              <li><%= mail_to "", image_tag("mail-popup.png", :size=>"34x33", :alt=>"Mail", :border=>0), :subject => "Hilo Career Code: #{@job.code}",:body => job_sharing_msg(@job,false), :encode => "hex", :onclick => "job_seeker_email(#{@job.id}, 6);" %></li>
+            </ul>
+          </div>
+          <div style="width:259px;float:right; margin-right: -5px;">
+            <img src="/assets/no_thanks_icecream.png" onclick="$('#bridge_user_response').val('no');bridge_menu_handler('intro');" class="lfloat" style="margin-bottom:5px;margin-top:4px; cursor: pointer;" alt="logo"/>
+            <img src="/assets/learn_more_icecream.png" onclick="$('#bridge_user_response').val('yes');bridge_menu_handler('intro');" class="rfloat" style="margin-bottom:5px;margin-top:4px; cursor: pointer;" alt="logo"/>
+          </div>
+        </div>
+
+        <div class="cs-icecream-popup-footer">
+          This position is being offered through Hilo, the first employment system designed with you, the career seeker, in mind. Click "Learn More" to find out how well you fit for roles at this and other in-demand employers.
+        </div>
+      </div>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>

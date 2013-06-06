@@ -1,0 +1,248 @@
+<% if not session[:job_seeker].credit.nil?
+  credit_value = session[:job_seeker].credit.credit_value
+else
+  credit_value = nil
+end %>
+
+<div class="popup-upper-block-positionPrevew popup-upper-block-positionPrevew-special">
+  <span class="popup-top">&nbsp;</span>
+  <div class="popup-content">
+    <div class="popup_background_box_bg_table">
+      <% if job.hiring_company == false %>
+        <div class="popup-mini-heading transform-letter"><%= job.company.name %> <%= t('opportunities.preview_popup.on_behalf') %></div>
+        <input type="hidden" value="<%= job.company.name %>" id="company_name_id"/>
+      <% end %>
+      <div class="popup-header-container-table" <% if job.hiring_company == false %>style="margin: 5px 20px 0;"<% end %>>
+        <label class="popup-heading-table transform-letter">
+          <% if job.hiring_company == false %>
+            <%= job.hiring_company_name %>
+          <% else %>
+            <%= job.company.name %>
+          <% end %>
+          <input type="hidden" value="<%= job.hiring_company_name %>" id="hiring_company_name_id"/>
+        </label>
+        <label class="popup-heading-table rfloat" id="rt"><%= format_remaining_time(job.expire_at) %></label>
+      </div>
+      <div class="position-popup-content-table">
+        <table border="0" class="popup-table" style="border-spacing: 19px 10px;" cellspacing="0" cellpadding="0">
+          <tr>
+            <th style="width:220px;"><h3 class="inner-heading transform-letter" style="max-width: 220px; word-wrap: break-word; line-height: 20px;"><%= job.name.force_encoding('utf-8') %></h3></th>
+            <th style="width:260px;"><h3 class="inner-heading">&nbsp;</h3></th>
+            <th style="width:150px;"> <h3 class="inner-heading text-align-right"><span class="lfloat">&nbsp;</span><span class="rfloat"><%= job.code %></span><div class="clear-float"></div></h3></th>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="left-content-table">
+                <p style="font-weight:400; font-size:12px;">
+                  <span class="transform-letter" style="font-weight:400; font-size:12px;"><%= desired_emp %></span><br /><%if job_location.nil?%><span style="font-size:13px; font-weight: 400;"><%= t('opportunities.preview_popup.virtual_job_text1') %><br /><%= t('opportunities.preview_popup.virtual_job_text2') %></span><%else%><span style="font-size:12px; font-weight: 400;"><%= job_location.city.titlecase.force_encoding 'utf-8' %>, <%= job_location.state.titlecase.force_encoding 'utf-8' %>, <%= job_location.country.titlecase.force_encoding 'utf-8' %></span><%end%>
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="middle-content-table">
+
+                <p style="width:270px;overflow-y:auto; font-weight:400; font-size:13px;">
+                  <%#=h(truncate(job.summary, :length => 305, :omission => ' ...', :separator => ' ')).gsub("\n","<br/>").force_encoding('utf-8').html_safe%>
+	          <%= truncate((job.summary.gsub("\n","<br/>")), :length => 305, :omission => ' ...', :separator => ' ').html_safe %>   
+                </p>
+              </div>
+            </td>
+            <td>
+              <div class="right-content-table">
+
+                <div id="cards-block">
+                  <ul>
+                    <li class="pos-prev-li">
+                      <% if job.fit_name_by_pairing == "Best" %>
+                        <label class="best active"><%= t('opportunities.preview_popup.best') %></label>
+                      <% else %>
+                        <label class="best"><%= t('opportunities.preview_popup.best') %></label>
+                      <% end %>
+                    </li>
+                    <li class="pos-prev-li">
+                      <% if job.fit_name_by_pairing == "Better" %>
+                        <label class="better active"><%= t('opportunities.preview_popup.better') %></label>
+                      <% else %>
+                        <label class="better"><%= t('opportunities.preview_popup.better') %></label>
+                      <% end %>
+                    </li>
+                    <li class="pos-prev-li">
+                      <% if job.fit_name_by_pairing == "Good" %>
+                        <label class="good active"><%= t('opportunities.preview_popup.good') %></label>
+                      <% else %>
+                        <label class="good"><%= t('opportunities.preview_popup.good') %></label>
+                      <% end %>
+                    </li>
+                    <li class="pos-prev-li">
+                      <% if job.fit_name_by_pairing == "Wildcard" %>
+                        <label class="wildCard active"><%= t('opportunities.preview_popup.wild_card') %></label>
+                      <% else %>
+                        <label class="wildCard"><%= t('opportunities.preview_popup.wild_card') %></label>
+                      <% end %>
+                    </li>
+                  </ul>
+                  <div id="card-rating">
+                    <% if job.fit_name_by_pairing == "Best" %>
+                      <span class="wild-card active">&nbsp;</span>
+                      <span class="good active">&nbsp;</span>
+                      <span class="better active">&nbsp;</span>
+                      <span class="best active">&nbsp;</span>
+                    <% elsif job.fit_name_by_pairing == "Better" %>
+                      <span class="wild-card active">&nbsp;</span>
+                      <span class="good active">&nbsp;</span>
+                      <span class="better active">&nbsp;</span>
+                      <span class="best">&nbsp;</span>
+                    <% elsif job.fit_name_by_pairing == "Good" %>
+                      <span class="wild-card active">&nbsp;</span>
+                      <span class="good active">&nbsp;</span>
+                      <span class="better">&nbsp;</span>
+                      <span class="best">&nbsp;</span>
+                    <% elsif job.fit_name_by_pairing == "Wildcard" %>
+                      <span class="wild-card active">&nbsp;</span>
+                      <span class="good">&nbsp;</span>
+                      <span class="better">&nbsp;</span>
+                      <span class="best">&nbsp;</span>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="clear-float">&nbsp;</div>
+      <div class="popup-footer">
+        <ul class="lfloat margin-L-20px">
+          <%if job.internal == false %>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_FACEBOOK_ID%>,<%=  session[:job_seeker].id%>); popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>/job/<%= job.id%>/<%= SHARE_PLATFORM_FACEBOOK_ID%>/?v=<%=Time.now.to_i%>');"><%= image_tag("facebook_icon-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.facebook')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_LINKEDIN_ID%>,<%=  session[:job_seeker].id%>); popup('https://www.linkedin.com/shareArticle?mini=true&title=<%= job.name%>&url=https://<%=request.env["HTTP_HOST"]%>/job/<%= job.id%>/<%= SHARE_PLATFORM_LINKEDIN_ID%>&summary=Check out this career opportunity with <%=job.company.name%> for a <%=job.name%>&source=<%=request.env["HTTP_HOST"]%>');"><%= image_tag("linkedin-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.linkedin')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="share_job.sharer_log(<%= job.id%>,<%= SHARE_PLATFORM_TWITTER_ID%>,<%=  session[:job_seeker].id%>); popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>/job/<%=job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%>&text='+ encodeURIComponent('Check out this career opportunity with <%=job.company.name%> ' + 'https://<%=request.env["HTTP_HOST"]%>/job/<%=job.id%>/<%= SHARE_PLATFORM_TWITTER_ID%> #<%=job.name%>') + '&via=thehiloproject ');"><%= image_tag("twitter-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.twitter')}", :border=>0) %></a></li>
+            <li><a href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :size=>"34x33", :alt=>"#{t('footer_js.mail')}", :border=>0), :subject => "Hilo Career Code: #{job.code}",:body => job_sharing_msg(job,false), :encode => "hex", :onclick => "job_seeker_email(#{job.id}, 6);" %></a></li>
+          <%end%>
+        </ul>
+
+        <ul class="rfloat margin-R-18px">
+          <% if following_company_flag == true %>
+            <li id="follow" style="margin-right: 1px; margin-top: 3px;"><input type="button" class="following-button" onclick="follow_company.call(<%= company.id %>,'unfollow',<%= job.id %>);"/></li>
+          <% else %>
+            <% if job.hiring_company == true %>
+              <li id="follow" style="margin-right: 1px; margin-top: 3px;"><input type="button" class="follow-button" onclick="follow_company.call(<%= company.id %>,'follow',<%= job.id %>);"/></li>
+            <% else %>
+              <li id="follow" style="margin-right: 1px; margin-top: 3px;"><input type="button" class="follow-button" onclick='follow_company.show_pop(<%= company.id %>,"follow",<%= job.id %>, "<%= job.company.name %>", "<%= job.hiring_company_name %>");'/></li>
+            <% end %>
+          <% end %>
+
+          <% if watchlist_flag == true %>
+            <li id="watchlist" style="margin-top: 3px; margin-right: 15px; margin-left: 7px;"><input type="button" class="in-watchlist-button" onclick="add_to_watchlist.call(<%= job.id %>,'remove');" /></li>
+          <% else %>
+            <li id="watchlist" style="margin-top: 3px; margin-right: 15px; margin-left: 7px;"><input type="button" class="watchlist-button" onclick="add_to_watchlist.call(<%= job.id %>, 'add');"/></li>
+          <% end %>
+
+            <li><input type="button" id="buy-button" class="btn-Details" value="" onclick="consider_job.check(<%=job.id%>, 1);"/></li>
+        </ul>
+      </div>
+    </div>
+    <a href="javascript:void(0)" class="close" onClick="clearInterval(timer);hideNormalShadow();$('#position_overview').empty();" id="oneclick-close">Close</a>
+  </div>
+  <span class="popup-bottom">&nbsp;</span>
+  <div class="oneClick-payment" id="oneClick-payment" style="display:none;">
+    <div class="payment-pop-top">&nbsp;</div>
+    <div class="payment-pop-cont">
+      <div class="popup_background_box_bg1">
+        <div class="popup-header-container">
+          <label class="popup-heading"><%= t('opportunities.preview_popup.payment.one_click_header') %></label>
+        </div>
+        <%= form_tag("/job_payment/authenticate_one_click", :id => "one_click_form", :remote => true) do -%>
+          <input type="hidden" id="pay_method" value="promo" name="pay_method" />
+          <ul class="oneClick-details width-345px lfloat">
+            <li>
+              <div class="customized-input active-input">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="pay_name_placeholder" value="<%= t('opportunities.preview_popup.payment.email') %>" />
+                <input type="text" name="pay_name" id="pay_name" value="<%=session[:job_seeker].email.force_encoding('utf-8')%>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForOneClick(event);" onkeydown="type_element(this)" />
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+            <li>
+              <div class="customized-input input-text margin-R-5px">
+                <div class="input-left">&nbsp;</div>
+                <input type="hidden" id="pay_pass_placeholder" value="<%= t('opportunities.preview_popup.payment.password') %>" />
+                <input type="text" name="pay_pass" class="password" id="pay_pass" value="<%= t('opportunities.preview_popup.payment.password') %>" onFocus="focus_element(this)" onBlur="blur_element(this)" onkeyup="activate_one_click();checkEnterForOneClick(event);" onkeypress="type_element(this,event);" />
+                <div class="input-right">&nbsp;</div>
+              </div>
+            </li>
+          </ul>
+          <div class="rfloat" style="width:90px;">
+            <% if credit_value.nil? or credit_value == 0 %>
+              <span id ="credit_remaining" class="credit_block">
+                <a href="javascript:void(0)" onclick="click_payment.credit_card_show('<%= session[:pay_for] %>')" id="preview_card_select"><%= t('opportunities.preview_popup.payment.modify_payment_method') %></a>
+              </span>
+            <% else %>
+              <span id ="credit_remaining" class="credit_block">
+                <%= t('opportunities.preview_popup.payment.credit_text') %><br /><%= t('opportunities.preview_popup.payment.remaining_text') %><br />$<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>
+              </span>
+            <% end %>
+            <span>
+              <span id="loader-img" style="display:none;  margin-top: 55px;" class="rfloat"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+              <input type="button" id="confirm_button"  value="" class="btn-Confirm rfloat" />
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="payment-pop-bottom">&nbsp;</div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var timer = setInterval(function() {
+    write_time(<%= job.expire_at.strftime("%Y") %>,<%= job.expire_at.strftime("%m") %>,<%= job.expire_at.strftime("%d") %>,<%= job.expire_at.strftime("%H") %>,<%= job.expire_at.strftime("%M") %>,<%= job.expire_at.strftime("%S") %>)
+  }, 1000);
+  jQuery(function($) {
+    // create a convenient toggleLoading function
+    var loading_one_click_form = function(){
+      showBlockShadow();
+      $('#confirm_button').hide();
+      $('#loader-img').show();
+      $('#credit_remaining').hide();
+    }
+    var loaded_one_click_form = function(){
+      hideBlockShadow();
+      $('#confirm_button').show();
+      $('#loader-img').hide();
+      $('#credit_remaining').show();
+    }
+    var error_one_click_form = function(){
+      hideBlockShadow();
+      request.abort();
+      showAjaxPaymentErrorPopup();
+    }
+    $("#one_click_form")
+    .bind("ajax:beforeSend", loading_one_click_form)
+    .bind("ajax:complete", loaded_one_click_form)
+    .bind("ajax:error", error_one_click_form)
+  });
+
+  $(document).ready(function(){
+    BrowserDetect.init();
+
+    if ( BrowserDetect.browser == "Explorer" )
+    {
+      //wiring to onkeydown event
+      //alert("IE");
+      document.getElementById('pay_pass').attachEvent('onkeydown', function(e){
+        editorEvents(document.getElementById('pay_pass'), e);
+      });
+
+    }
+
+    else if ( BrowserDetect.browser == "Chrome" || BrowserDetect.browser == "Safari" ){
+      document.getElementById('pay_pass').addEventListener('keydown', function(e){
+        editorEvents(document.getElementById('pay_pass'), e);
+      }, false);
+
+    }
+  });
+
+</script>

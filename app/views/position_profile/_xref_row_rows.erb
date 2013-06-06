@@ -1,0 +1,80 @@
+<% color = ""
+    index= 1
+    flag = true
+%>
+
+<% for job in @all_jobs_job_seeker %>
+<% @start = @start+1 %>
+                <% row_css = cycle("light-row","dark-row")
+                days_to_go = ((DateTime.now - 2) - DateTime.now)/(24*60*60) %>
+                <%color = index%2 == 0 ? "#ededed" : "white"%>
+                <% if @start != 1 %>
+                    <tr id="job_row_<%=job.id%>">
+                        <td><%=@start%></td>
+
+                        <td><label style=""><%=job_status_image(job)%></label></td>
+
+                        <!--POS -->
+                        <!--<td><label><%if job.name.blank?%>&nbsp;<%else%><%= job.name %> <%end%></label></td>-->
+                            <td><div class="break-word-cls"><%=  h(job.name) %></div></td>
+                        <!-- FIT -->
+                        <td><label><%if job.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=job.fit_name_by_pairing%><%end%></label></td>
+                        
+                        <!-- STATUS -->
+                        <td><label><%if not job_active_status(job)%> NA <%else%><%=get_status_value(job)%><%end%></label></td>
+
+                        <!--SOURCE -->
+                        <td><%if job.share_name.blank?%><span>---</span><%else%><%= job.share_name %><%end%></td>
+
+                        <!-- VET-->
+                        <td><label><%if job.vet == 1%><%if @job_seeker.armed_forces.blank?%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png" style="margin-left:19px;"></img><%end%><% end%></label></td>
+                        
+                        <!-- VIEW PROFILE -->
+                        <td class="lastChild">
+                           
+                               <%if job.fit_name_by_pairing == "Wildcard" and get_status_value(job) == "Wildcard" %>
+                                  <a href="javascript:void(0);" onclick="_showSeekerPopup(<%=params[:cs_id].gsub("CS","")%>, <%=job.id%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+                               <%else%>
+                                  <%=profile_buy_button(params[:cs_id].downcase.gsub("cs","").to_i, session[:employer].id, job.id)%>
+                               <%end%>
+                            
+                        </td>
+                    </tr>
+                <% else %>
+                    <tr id="job_row_<%=job.id%>">
+                        <th width="46"><%=@start%></th>
+
+                        <th width="48"><label style=""><%=job_status_image(job)%></label></th>
+
+                        <!--POS -->
+                        <!--<th width="160"><label><%if job.name.blank?%>&nbsp;<%else%><% count = 1 %><% job.name.split("").each do |i| %><% if(count == 25) %><%=i%><br/><% count = 0%><% else %><%=i%><% end %><% count = count + 1 %><% end %><%end%></label></th>-->
+                            <th width="160px;"><div class="break-word-cls"><%= h(job.name) %></div></th>
+                        <!-- FIT -->
+                        <th width="72"><label><%if job.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=job.fit_name_by_pairing%><%end%></label></th>
+
+                        <!-- STATUS -->
+                        <th width="83"><label><%if not job_active_status(job)%> NA <%else%><%=get_status_value(job)%><%end%></label></th>
+
+                        <!--SOURCE -->
+                        <th width="92"><%if job.share_name.blank?%><span>---</span><%else%><%= job.share_name %><%end%></th>
+
+                        <!-- VET-->
+                        <th width="59"><label><%if job.vet == 1%><%if @job_seeker.armed_forces.blank?%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png" style="margin-left:19px;"></img><%end%><% end%></label></th>
+
+                        <!-- VIEW PROFILE -->
+                        <th width="112" class="lastChild">
+                          <label>
+                               <%if job.fit_name_by_pairing == "Wildcard" and get_status_value(job) == "Wildcard"%>
+                                  <a href="javascript:void(0);" onclick="_showSeekerPopup(<%=params[:cs_id].gsub("CS","")%>, <%=job.id%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+                               <%else%>
+                                  <%=profile_buy_button(params[:cs_id].downcase.gsub("cs","").to_i, session[:employer].id, job.id)%>
+                               <%end%>
+                            
+                          </label>
+                        </th>
+                    </tr>
+                    <% flag = false %>
+                <% end
+                index = index + 1
+            end %>
+            

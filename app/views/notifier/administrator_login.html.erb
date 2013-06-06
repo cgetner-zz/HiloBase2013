@@ -1,0 +1,14 @@
+<% Time.zone = 'Eastern Time (US & Canada)' %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+  Hi,<br />
+  You just signed in to The Hilo Project's Administrator Account (<%=Time.zone.now.to_formatted_s(:long_ordinal)%> EST).<br /><br />
+  If this wasn't you, please consider changing your password or contact us.<br /><br />
+  Thanks,<br />
+  Team HILO
+  </body>
+</html>

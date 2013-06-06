@@ -1,0 +1,29 @@
+<!-- Footer-->
+<div id="footer">
+  <!--hil-footer-kit-->
+  <div class="hil-footer-kit">
+
+    
+    <!--footer-left-content-->
+    <ul class="lfloat footer-left-content">
+
+
+      <li><a href="javascript:void(0);" class="gift-hilo" title="Gift Hilo" onClick="click_gift_hilo.gift_hilo_show();" >Gift Hilo</a></li>
+
+      <li><a href="javascript:void(0);" title="Facebook" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/footer-facebook.png" alt="Facebook" border="0" height="20" width="20" /></a></li>
+      <li><a href="javascript:void(0);" title="Twitter" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/footer-twitter.png" alt="Twitter" border="0" height="20" width="20" /></a></li>
+      <li><a href="javascript:void(0);" title="Linked In" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=<%=request.env["HTTP_HOST"]%>');"><img src="/assets/footer-linkedin.png" alt="Linked In" border="0" height="20" width="20" /></a></li>
+      <li><a href="javascript:void(0);" title="Mail"><%= mail_to "", image_tag("footer-mail.png", :size=>"20x20", :alt=>"Mail", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+    </ul>
+    <!--/footer-left-content-->
+
+    <!--footer-right-content-->
+    <ul class="rfloat footer-right-content">
+      <li><a href="javascript:void(0);" onclick="showAboutHilo();">Company</a><span class="seperator">|</span></li>
+      <li><a href="javascript:void(0);" onclick="showTermsPopup();centralizePopup();">Terms of Use</a><span class="seperator">|</span></li>
+      <li class="lastChlid"><label>Hilo. Inc. &copy; 2012</label></li>
+    </ul>
+    <!--footer-right-content-->
+  </div>
+  <!--/hil-footer-kit-->
+</div><!--/Footer-->

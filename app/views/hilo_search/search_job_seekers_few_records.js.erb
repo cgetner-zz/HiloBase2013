@@ -1,0 +1,14 @@
+$('#location').val('');
+$('#location').blur();
+$("#hilo_search_job_seekers_few_records").html("<%= escape_javascript render(:partial => 'search_job_seekers_few_records_popup',:locals=>{:from_where => 'employer', :remote_jobs => @remote_job_seekers})%>");
+showErrorShadow();
+hideBlockShadow();
+$("#hilo_search_job_seekers_few_records").show();
+$(".footer-links .hilo").addClass('white');
+centralizePopup();
+<% hash_temp = Hash[@city_hash.sort_by{ |k,v| -v }[0..2]] %>
+<% if @city_hash.empty? or hash_temp.first.second + @remote_job_seekers <=4%>
+  $('#search_few_records_button').parent().css('margin-top','19px');
+  $('#search_few_records_text').css('width','390');
+<% end %>
+addFocusButton('search_few_records_button');

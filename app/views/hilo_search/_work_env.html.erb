@@ -1,0 +1,69 @@
+<div class="page-heading-container">
+  <h2 class="page-heading">YOU AND YOUR FRIENDS HAVE DECIDED<br /> TO THROW A SURPRISE BIRTHDAY PARTY.<br /> YOU ONLY HAVE TWO WEEKS TO PULL IT OFF.</h2><!--page-heading-->
+  <div class="clear-float"></div>
+  <div>
+    <span class="sub-heading">Select the emoticon along each continuum that best describes your approach.</span>
+    <span id="question_count" class="questions-track margin-T0px">
+      <% if @guest_job_seeker.responded_birkman_set_number == 1 && @guest_job_seeker.responded_birkman_question_id.blank? %>
+        Questions 1-5 of 10
+      <% elsif @guest_job_seeker.responded_birkman_set_number == 1 && !@guest_job_seeker.responded_birkman_question_id.blank? %>
+        Questions <%= @guest_job_seeker.responded_birkman_question_id.to_i + 1 %> - <%= @guest_job_seeker.responded_birkman_question_id.to_i + 5 %> of 10
+      <% end %>
+    </span>
+  </div>
+</div>
+<div class="question-set-box">
+  <div class="question_set_box_top_bg">&nbsp;</div>
+  <div class="question_set_box_middle_bg">
+    <div class="gradient-content">
+      <%= form_tag('/hilo_search/save_work_env_questions', :id => "work_evn_form") do -%>
+        <input type="hidden" id="save_type" name="save_type" value=""/>
+        <input type="hidden" id="work_env_values" name="work_env_values" value=""/>
+        <input type="hidden" id="guest_job_seeker_email" name="guest_job_seeker_email" value="<%= @guest_job_seeker.id %>"/>
+      <% end -%>
+      <% for ques in @work_questions -%>
+        <div class="question-set">
+          <span class="work-quest-label"><%= ques.question %></span>
+          <div class="question-block">
+            <div class="left-text">
+              <%= ques.description_left.html_safe.force_encoding('utf-8') %>
+            </div>
+            <div class="option-selection">
+              <ul class="workenv-options">
+                <li class="test"><a href="javascript:void(0);" class="notAtall" onclick="birkman_test.show_next();" data-val="0">Not at All</a></li>
+                <li class="test"><a href="javascript:void(0);" class="slightly" onclick="birkman_test.show_next();" data-val="1">Slightly</a></li>
+                <li class="test"><a href="javascript:void(0);" class="default" onclick="birkman_test.show_next();" data-val="2">Moderately</a></li>
+                <li class="test"><a href="javascript:void(0);" class="greatly" onclick="birkman_test.show_next();" data-val="3">Greatly</a></li>
+                <li class="last-child"><a href="javascript:void(0);" class="almostAlways" onclick="birkman_test.show_next();" data-val="4">Almost Always</a></li>
+              </ul>
+            </div>
+            <div class="right-text">
+              <%= ques.description_right.html_safe.force_encoding('utf-8') %>
+            </div>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <div class="question_set_box_bottom_bg">&nbsp;</div>
+</div>
+
+<div class="button-container">
+  <input type="button" id="work_env" value="" class="next-button-active rfloat"/>
+  <div class="question-error-message">Please complete all fields highlighted in red to continue.</div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    birkman_test.show_next();
+    $("#work_env").click(function(){
+      if($("#work_env").hasClass("complete")){
+        <% work_questions = WorkenvQuestion.seeker_next_questions_for_work_env(@guest_job_seeker) %>
+        birkman_test.save_work_env();
+      } else {
+        $(".question-set-box").addClass('error');
+        $(".question-error-message").show();
+      }
+    });
+  });
+</script>

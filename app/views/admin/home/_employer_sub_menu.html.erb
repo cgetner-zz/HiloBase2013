@@ -1,0 +1,27 @@
+<ul class="profile-breadcrumb">
+  <% if session[:administrator].access_levels.any?{|ac| ac.name == "All"} %>
+    <li class="first-child <% if step == 'home'%>active<% end %>"><a onclick="window.location='/admin'" title="Employer Privileges" href="javascript:void(0)">Employer Privileges</a></li>
+    <li class="<% if step == 'referral_fee' %>active<% end %>"><a onclick="window.location='/admin/home/referral_fee'" title="Referral Fee" href="javascript:void(0)">Referral Fee</a></li>
+    <li class="<% if step == "corp_acc" %>active<% end %>"><a onclick="window.location='/admin/home/corporate_account'" title="Corporate Accounts" href="javascript:void(0)">Corporate Accounts</a></li>
+    <li class="<% if step == "emp_delete_req" %>active<% end %>"><a onclick="window.location='/admin/home/employer_delete_request'" title="Delete Request" href="javascript:void(0)">Delete Request</a></li>
+    <li class="<% if step == "right_management" %>active<% end %>"><a onclick="window.location='/admin/home/right_management'" title="Right Management" href="javascript:void(0)">Right Management</a></li>
+  <% else %>
+    <% classFirstChild = "first-child" %>
+    <% if session[:administrator].access_levels.any?{|ac| ac.name == "Employer Privileges"} %>
+      <li class="<%=classFirstChild%> <% if step == 'home'%>active<% end %>"><a onclick="window.location='/admin'" title="Employer Privileges" href="javascript:void(0)">Employer Privileges</a></li>
+      <% classFirstChild = "" %>
+    <% end %>
+    <% if session[:administrator].access_levels.any?{|ac| ac.name == "Referral Fee"} %>
+      <li class="<%=classFirstChild%> <% if step == 'referral_fee' %>active<% end %>"><a onclick="window.location='/admin/home/referral_fee'" title="Referral Fee" href="javascript:void(0)">Referral Fee</a></li>
+      <% classFirstChild = "" %>
+    <% end %>
+    <% if session[:administrator].access_levels.any?{|ac| ac.name == "Corporate Accounts"} %>
+      <li class="<%=classFirstChild%> <% if step == "corp_acc" %>active<% end %>"><a onclick="window.location='/admin/home/corporate_account'" title="Corporate Accounts" href="javascript:void(0)">Corporate Accounts</a></li>
+      <% classFirstChild = "" %>
+    <% end %>
+    <% if session[:administrator].access_levels.any?{|ac| ac.name == "Account Delete Request"} %>
+      <li class="<%=classFirstChild%> <% if step == "emp_delete_req" %>active<% end %>"><a onclick="window.location='/admin/home/employer_delete_request'" title="Delete Request" href="javascript:void(0)">Delete Request</a></li>
+      <% classFirstChild = "" %>
+    <% end %>
+  <% end %>
+</ul>

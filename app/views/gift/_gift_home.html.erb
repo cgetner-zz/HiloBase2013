@@ -1,0 +1,147 @@
+<div class="gift-hilo">
+	<%=image_tag("gift_hilo.png")%>
+</div>
+
+<br/>
+
+<%if session[:job_seeker] -%>
+	<div>
+		If you would like to help someone find a new, more satisfying career you can now gift them a Hilo<sup>TM</sup> Career Seeker account for our early adopter price of $9.99 a $20.00 savings. 
+	</div>
+	<br/>
+	<div>
+		Your gift will include activation of <b>the Hilo<sup>TM</sup> Career Pairing System</b> and the <b>Hilo<sup>TM</sup> Career Forward Guide</b> (powered by <a href="https://birkman.com/" target="_blank">The Birkman Method<sup>TM</sup></a>).  The Career Forward Guide is a personalized analysis designed to help the recipient of your gift become a more focused and competitive Career Seeker.
+	</div>
+	<br/>
+	<div>
+		Gifting the tools to explore new career opportunities could lead a friend, family member or associate from a dissatisfying job to the career they've always wanted.
+	</div>
+	<br/>
+	<div class="gift-brk"></div>
+	<br/>
+<%else -%>
+	<div>
+		Welcome.  If you would like to help someone find a new, more satisfying career you can now gift them a The Hilo Project<sup>TM</sup> Career Seeker account for our early adopter price of $9.99 a $20.00 savings. 
+	</div>
+	<br/>
+
+	<div>
+		Your gift will include activation of <b>the Hilo<sup>TM</sup> Pairing System</b>, the <b>Hilo<sup>TM</sup> Career Forward Guide</b>, a personalized analysis designed to help the recipient of your gift become a more focused and competitive Career Seeker (powered by <a href="https://birkman.com/" target="_blank">The Birkman Method<sup>TM</sup></a>). 
+	</div>
+	<br/>
+	<div>
+		Gifting the tools to explore new career opportunities could lead a friend, family member or associate from a dissatisfying job to the career they've always wanted.
+	</div>	
+	<br/>
+	<div class="gift-brk"></div>
+	<br/>
+<%end -%>
+
+
+
+
+<%= form_for :gift, @gift,:remote => true, :url => "/gift/proceed_to_payment", :html => { :method => :post},:before=>"$('#gift_submit').attr('disabled',true);$('#gift_loader_img').show();" do |f| %>
+	<div>
+		<%if session[:job_seeker] -%>
+			<div class="gift-row">
+				<div class="gift-label">
+					From: 
+				</div>
+				<div class="gift-field">
+					<%=session[:job_seeker].first_name + " " + session[:job_seeker].last_name -%>
+					<br/>
+					<%=session[:job_seeker].email -%>
+					
+				</div>
+				<br class="clear"/>
+			</div>
+			<div class="height5"></div>
+		<%else -%>
+			<div class="gift-row">
+				<div class="gift-label">
+					Your Name:
+				</div>
+				<div class="gift-field">
+					<%=f.text_field :sender_name, :class=>"gift-input-field input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+
+			<div class="gift-row">
+				<div class="gift-label">
+					Your Email:
+				</div>
+				<div class="gift-field">
+					<%=f.text_field :sender_email, :class=>"gift-input-field input-field-style"%>
+				</div>
+				<br class="clear"/>
+			</div>
+		<%end -%>
+		
+		<div class="gift-row">
+			<div class="gift-label">
+				Recipient's Name:
+			</div>
+			<div class="gift-field">
+				<%=f.text_field :recipient_name, :class=>"gift-input-field input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="gift-row">
+			<div class="gift-label">
+				Recipient's Email:
+			</div>
+			<div class="gift-field">
+				<%=f.text_field :recipient_email, :class=>"gift-input-field input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div class="gift-row">
+			<div class="gift-label">
+				Verifiy Email:
+			</div>
+			<div class="gift-field">
+				<%=f.text_field :recipient_email_confirmation, :class=>"gift-input-field input-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+
+		<div>
+			<div class="gift-label">
+				Message:
+			</div>
+			<div class="gift-field">
+				<%=f.text_area :mail_text,:rows=>"4", :class=>"gift-input-field textarea-field-style"%>
+			</div>
+			<br class="clear"/>
+		</div>
+		
+		<div class="gift-row" style="padding-top:8px;">
+			<div class="gift-label">
+				&nbsp;
+			</div>
+			<div class="gift-field">
+				<%=submit_tag("Send Gift $#{GIFT_CARD_AMOUNT}",:class=>"button-pay-a button_pay_190X34" ,:id=>"gift_submit")%>
+				<img src="/assets/login-loader.gif" id="gift_loader_img" style="display:none;"/>
+			</div>
+			<br class="clear"/>
+		</div>
+		
+		<%if session[:job_seeker].blank? and session[:employer].blank?%>
+			<div class="gift-row" style="padding-top:8px;">
+				<div class="gift-label">
+					&nbsp;
+				</div>
+				<div class="gift-field">
+					<b>NOTE:</b> Please login to make payment with previous transaction details
+				</div>
+				<br class="clear"/>
+			</div>
+		<%end%>
+
+		<br class="clear"/>
+	</div>
+
+<%end-%>

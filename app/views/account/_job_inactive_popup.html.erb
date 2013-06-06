@@ -1,0 +1,32 @@
+<!-- Job in-active Popup -->
+<div id="job_inactive_error" class="white_content" style="z-index: 1008; top: 15%;">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading job_expiry_warning"></label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text">
+            <label class="free-text job_expiry_msg">
+              <!--<strong>THIS JOB IS CURRENTLY INACTIVE!</strong>-->
+              <input type="hidden" name="pay_for" id="pay_for" />
+              <input type="hidden" name="job_id_value" id="job_id_value" />
+            </label>
+          </div>
+          <div class="rfloat margin-T-5px">
+            <input type="button" id="continue" class="continue-button-active" onclick="window.location.reload();showBlockShadow();" />
+          </div>
+        </div>
+      </div>
+
+      <div class="home-popup-contnet">
+
+      </div>
+      <a href="javascript:void(0)" id="close" class="close" onClick="window.location.reload();showBlockShadow();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+<!-- Job in-active popup code ends here -->

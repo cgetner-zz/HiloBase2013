@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jobs>
+    <job>
+        <armed-forces type="boolean">false</armed-forces>
+        <attachment-content-type nil="true"/>
+        <attachment-file-name nil="true"/>
+        <attachment-file-size type="integer" nil="true"/>
+        <attachment-title/>
+        <grid-work-environment-x type="integer">50</grid-work-environment-x>
+        <grid-work-environment-y type="integer">50</grid-work-environment-y>
+        <grid-work-role-x type="integer">50</grid-work-role-x>
+        <grid-work-role-y type="integer">50</grid-work-role-y>
+        <hiring-company type="boolean">false</hiring-company>
+        <hiring-company-name>Johnson &amp; Johnson's</hiring-company-name>
+        <internal type="boolean">false</internal>
+        <minimum-compensation-amount type="float"/>
+        <vendor-job-id>4808121114</vendor-job-id>
+        <job-link>https://jnjc.taleo.net/careersection/2/jobdetail.ftl?job=73812</job-link>
+        <name>Staff Engineer - New Product Development</name>
+        <overview>Our Codman organization is currently looking for a Staff NPD Franchise Operations Development Engineer located at our Miramar, FL facility.
+
+DePuy Synthes Companies of Johnson &amp; Johnson is the largest, most innovative and comprehensive orthopaedic and neurological business in the world. DePuy Synthe
+        </overview>
+        <remote-work type="boolean">false</remote-work>
+        <summary>Our Codman organization is currently looking for a Staff NPD Franchise Operations Development Engineer located at our Miramar, FL facility.
+
+DePuy Synthes Companies of Johnson &amp; Johnson is the largest, most innovative and comprehensive orthopaedic and neurological business in the world. DePuy Synthes Companies will offer an unparalleled breadth and depth of products, services and programs in the areas of joint reconstruction, trauma, spine, sports medicine, neurological, craniomaxillofacial, power tools and biomaterials. Building on the legacy and strengths of two great companies, we are creating one organization that will be agile and better equipped in today's evolving health care environment. With a focus on activating insights to develop innovative, comprehensive solutions, we are inspired to advance patient care in greater ways than either company could accomplish on its own.
+
+Codman &amp; Shurtleff is the Neurological business focused on neurosurgery, neurovascular and neuromodulation, offering a broad portfolio of solutions including programmable shunt systems, catheters, trauma monitoring devices, drug pumps, neurovascular coils, liquid embolics and vascular reconstruction devices.
+
+As part of the Codman New Product Development organization, this position will have responsibility for manufacturing process development activities for new Codman Neurovascular medical devices.
+
+This position works within cross-functional project teams including R&amp;D, Quality Assurance, Supplier Quality, Planning, Purchasing, Regulatory, and Manufacturing to develop innovative new products for the neurovascular medical device industry. This position works as a recognized manufacturing and process technical expert who can provide process engineering knowledge and oversight particularly in the areas of metal forming and micro assembly processes. Designs, specifies, develops, and procures new manufacturing tooling, fixtures and equipment. The candidate manages the implementation and validation of new manufacturing processes and equipment to support the assembly of new neurovascular products. This candidate will support the selection and validation of new materials, such as polymers, metals, and adhesives, for neurovascular applications. This position works closely with R&amp;D engineering during early product development activities to provide integrated Design for Manufacturing support and advice to NPD development programs. Provides financial cost assessments and labor assembly estimates for new products. Writes assembly procedures and work instructions for manufacturing of new products, and provides the training and oversight to implement such procedures. The successful candidate will demonstrate solid hands-on engineering skills in the development of new processes. Identifies and provides innovative new manufacturing technologies from current industry best practices that can be applied to neurovascular products. The candidate will represent Franchise Operations on strategic new projects including breakthrough manufacturing technologies.
+
+Qualifications:
+A minimum of a BS Engineering degree in Mechanical, Materials or Biomedical Engineering with a minimum of 10 years relevant engineering experience or MS Engineering degree with 8 years of relevant engineering experience is required for this role. Prior experience in developing new products is required. Medical device industry experience is preferred with some level of regulated industry knowledge required. Knowledge of how to execute GMPs, ISO 13485 Design Control, and manufacturing process IQ, OQ, PQ qualifications as related to medical devices is required. Six Sigma Process Excellence knowledge is required with certification at the Blackbelt level preferred. Working knowledge in some special processes such as polymer processing (compounding, extrusion, fusing), metal processing (machining, laser cutting, polishing), welding, coil winding, equipment &amp; tool design is required. Process automation knowledge for small scale assembly is preferred. Knowledge of Design for Manufacturability in plastics, metals and small scale assembly processes is required. Knowledge of financial accounting and analysis methods to assess product standard costs, project values, and capital requirements is required. Leadership experience in managing technical relationships with external suppliers and OEMs is required. Strong communication, team building, and cross-functional coordination skills is required. Ability to travel up to 10% domestically is required.
+
+BE VITAL in your career, Be seen for the talent you bring to your work. Explore opportunities within the Johnson &amp; Johnson Family of Companies.
+        </summary>
+        <website-one>www.jnj.com</website-one>
+        <website-two nil="true"/>
+        <website-three nil="true"/>
+        <website-title-one>Johnson &amp; Johnson's</website-title-one>
+        <website-title-three/>
+        <website-title-two/>
+        <job-location>
+            <city>Miramar</city>
+            <country>United States</country>
+            <latitude type="float"/>
+            <longitude type="float"/>
+            <state>Florida</state>
+            <street-one/>
+            <zip-code/>
+        </job-location>
+        <desired-employments type="array">
+            <desired-employment>
+                <name>Full Time</name>
+            </desired-employment>
+        </desired-employments>
+        <new-certificates type="array">
+            <new-certificate>
+                <certification-description/>
+                <certification-name></certification-name>
+                <certifying-organization/>
+                <occupation/>
+                <source-url/>
+                <sub-occupation/>
+            </new-certificate>
+        </new-certificates>
+        <licenses type="array">
+            <license>
+                <license-description/>
+                <license-name></license-name>
+                <licensing-agency/>
+                <occupation/>
+                <source-url/>
+            </license>
+        </licenses>
+        <languages type="array">
+            <language>
+                <name></name>
+            </language>
+        </languages>
+        <universities type="array">
+            <university>
+                <institution/>
+            </university>
+        </universities>
+        <degrees type="array"/>
+        <occupation-data type="array">
+            <occupation-datum type="OccupationData">
+                <description/>
+                <onetsoc-code/>
+                <title>Engineering</title>
+            </occupation-datum>
+        </occupation-data>
+        <profile-responsibilities type="array">
+            <profile-responsibility>
+                <name>Process Engineering</name>
+            </profile-responsibility>
+        </profile-responsibilities>
+    </job>
+</jobs>

@@ -1,0 +1,94 @@
+<% if session[:employer].root.nominated_employer_id == session[:employer].id %>
+  $("#delete_confirmation_popup_ajax").html("<%= escape_javascript render(:partial => '/shared/employer/delete_confirmation_popup', :locals=>{:children => @children})%>");
+  $('#delete_confirmation_popup_msg').html("Root of your company has requested for his account deletion and you have been nominated as new root. Therefore you cannot request for your account deletion unless root's request has been processed.");
+  $('#delete_confirmation_popup_cancel_button').hide();
+  $("#delete-emp-button-cnt").css('margin-top','32px');
+  $('#fade_error_warning').show();
+  centralizePopup();
+  addFocusButton('delete_confirmation_popup_continue_button');
+  $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.hideDeleteConfirmationPopup();
+  });
+<% else %>
+  $("#delete_confirmation_popup_ajax").html("<%= escape_javascript render(:partial => '/shared/employer/delete_confirmation_popup', :locals=>{:children => @children})%>");
+  $('#fade_error_warning').show();
+  centralizePopup();
+  addFocusButton('delete_confirmation_popup_cancel_button');
+  $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.continueDeleteConfirmationPopupYes();
+  });
+  Custom.init();
+  <% if session[:employer].is_root? and session[:employer].account_type_id == 1 %>
+    $("#delete_confirmation_popup.one_click_payment_position_white_positionProfile .position_gradient-content_oneclick").css("height","228px");
+    $("#delete_confirmation_popup.one_click_payment_position_white_positionProfile .position_gradient-content_oneclick").css("overflow","visible");
+    $("#delete-emp-button-cnt").css('margin-top','130px');
+    Custom.check($('.new-root-select li.yes').find('span.checkbox'));
+
+    $(".new-root-select span.checkbox").unbind().click(function(){
+    $(".new-root-select").children().each(function(){
+    if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+    Custom.check($(this).find('span.checkbox'));
+    }
+    });
+    Custom.check($(this));
+    var option_selected = $(this).next().val();
+    if(option_selected == 1) {
+    $("#no-root-text").hide();
+    $("#yes-root-text").show();
+    $("#new_root_name").text("Select a user");
+    $("#new_root_name").addClass("placeholder");
+    $("#delete_confirmation_popup_selected_emp").val("0");
+    $('#new_root_name').parent().removeClass('error');
+    $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.continueDeleteConfirmationPopupYes();
+    });
+    } else {
+    $("#no-root-text").show();
+    $("#yes-root-text").hide();
+    $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.continueDeleteConfirmationPopupNo();
+    });
+    }
+    });
+    $(".new-root-select label.lbl").unbind().click(function(){
+    $(".new-root-select").children().each(function(){
+    if ($(this).find('span.checkbox').css("background-position")=="0px -50px"){
+    Custom.check($(this).find('span.checkbox'));
+    }
+    });
+    Custom.check($(this).prev().prev());
+    var option_selected = $(this).prev().val();
+    if(option_selected == 1) {
+    $("#no-root-text").hide();
+    $("#yes-root-text").show();
+    $("#new_root_name").text("Select a user");
+    $("#new_root_name").addClass("placeholder");
+    $("#delete_confirmation_popup_selected_emp").val("0");
+    $('#new_root_name').parent().removeClass('error');
+    $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.continueDeleteConfirmationPopupYes();
+    });
+    } else {
+    $("#no-root-text").show();
+    $("#yes-root-text").hide();
+    $('#delete_confirmation_popup_continue_button').unbind().bind('click', function(){
+    employer_delete.continueDeleteConfirmationPopupNo();
+    });
+    }
+    });
+    $('#new_root_select_box .state-slector').click(function(e) {
+    if($("#new_root_select_box .state-options").is(':visible') == true) { hideNewRootCustomSelectBox(); }
+    else { $("#new_root_select_box .state-slector").removeClass("error"); showNewRootCustomSelectBox(); }
+    e.stopPropagation();
+    });
+    $('#new_root_select_box .option li').hover(function(){
+    $('#new_root_select_box .option').children().each(function(){
+    if($(this).attr('selected')=='selected'){ $(this).removeClass('selected').removeAttr('selected'); }
+    });
+    $(this).addClass('selected').attr('selected', 'selected');
+    });
+    $('body').click(function() { hideNewRootCustomSelectBox(); });
+  <% else %>
+    $("#delete-emp-button-cnt").css('margin-top','0px');
+  <% end %>
+<% end %>

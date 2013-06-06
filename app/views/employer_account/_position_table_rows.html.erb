@@ -1,0 +1,142 @@
+<% color = ""
+index= 1
+flag = true
+%>
+<% for visit in @profile_visits %>
+  <% @start = @start+1 %>
+  <% days_to_go = ((DateTime.now - 2) - DateTime.now)/(24*60*60)
+  color = index%2 == 0 ? "#ededed" : "white"
+  if @start != 1 %>
+    <tr id="job_row_<%=visit.id%>" class="job_row_<%=visit.id%>_<%=visit.job_id%> <%if visit.internal == 1%>internal<%end%>">
+      <td style="overflow: visible;">
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+        <label><%=@start%></label>
+      </td>
+      <!--POS -->
+      <td>
+        <div class="break-word-dashboard-position"><%= h(visit.name) %></div>
+      </td>
+
+      <!-- FIT -->
+      <td><label><%if visit.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=visit.fit_name_by_pairing%><%end%></label></td>
+
+      <!-- STATUS -->
+      <td><label><%=get_status_value(visit)%></label></td>
+      <!--CANDIDATE -->
+      <td>
+        <div class="break-word-dashboard-candidate" onmouseover="$('#id_<%=@start%>').css('height',$('#name_<%=@start%>').height()+'px');$('#name_<%=@start%>').hide();$('#id_<%=@start%>').show();" onmouseout="$('#name_<%=@start%>').show();$('#id_<%=@start%>').hide();">
+          <%if visit.first_name.blank?%>&nbsp;<%else%>
+          <a style="cursor: pointer" id="name_<%=@start%>" href="/position_profile/xref/CS<%=visit.id%>/<%=visit.job_id%>"><%= h(visit.first_name) %></a>
+            <% if session[:employer].account_type_id != 3 %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" onclick="window.location.href='/position_profile/xref/CS<%=visit.id%>?selected='+$('#parent_id').val();">CS<%=visit.id%></a>
+            <% else %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" href="/position_profile/xref/CS<%=visit.id%>">CS<%=visit.id%></a>
+            <% end %>
+          <%end%>
+        </div>
+      </td>
+
+      <!--source -->
+      <td><label style="cursor: default;"><%if visit.share_name.blank?%><span>---</span><%else%><% count = 1 %><% visit.share_name.each_byte do |i| %><% if(count == 15) %><%=i.chr%><br/><% count = 0%><% else %><%=i.chr%><% end %><% count = count + 1 %><% end %><%end%></label></td>
+      <!--xref-->
+      <% if session[:employer].account_type_id != 3 %>
+        <td><label style=""><a onclick="window.location.href='/position_profile/xref/CS<%=visit.id%>?selected='+$('#parent_id').val();"><img style="margin-left:10px; cursor: pointer;" src="/assets/employer_v2/blue-circle.png" /></a></label></td>
+      <% else %>
+        <td><label style=""><a href="/position_profile/xref/CS<%=visit.id%>"><img style="margin-left:10px; cursor: pointer;" src="/assets/employer_v2/blue-circle.png" /></a></label></td>
+      <% end %>
+      <!-- VET-->
+      <td><label style="cursor: default; margin-left:20px; "><%if visit.vet == 1%><%if visit.armed_forces == false%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png" /><%end%><%end%></label></td>
+      <!-- VIEW PROFILE -->
+      <td>
+        <label>
+          <%if visit.fit_name_by_pairing == "Wildcard" and get_status_value(visit) == "Wildcard"%>
+            <a href="javascript:void(0)" onclick="_showSeekerPopup(<%=visit.id%>, <%=visit.job_id%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+          <%else%>
+            <%=profile_buy_button(visit.id, session[:employer].id, visit.job_id, visit.internal)%>
+          <%end%>
+        </label>
+        <script>
+          $(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable").css('height',$(".job_row_<%=visit.id%>_<%=visit.job_id%>").height()-2);
+          $(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable").css('top',-(($(".job_row_<%=visit.id%>_<%=visit.job_id%>").height()-2)/2)+($(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable-container").height()/2));
+        </script>
+      </td>
+    </tr>
+  <% else %>
+    <tr id="job_row_<%=visit.id%>" class="job_row_<%=visit.id%>_<%=visit.job_id%> <%if visit.internal == 1%>internal<%end%>">
+      <th width="31" style="overflow: visible;">
+        <div class="disable-container">&nbsp;<div class="disable">&nbsp;</div></div>
+        <label><%=@start%></label>
+      </th>
+      <!--POS -->
+      <th width="101">
+        <div class="break-word-dashboard-position"><%= h(visit.name) %></div>
+      </th>
+
+      <!--FIT -->
+      <th width="63"><label><%if visit.fit_name_by_pairing.blank?%>&nbsp;<%else%><%=visit.fit_name_by_pairing%><%end%></label></th>
+
+      <!-- STATUS -->
+      <th width="81"><label><%=get_status_value(visit)%></label></th>
+
+      <!-- CANDIDATE -->
+      <th width="110">
+        <div class="break-word-dashboard-candidate" onmouseover="$('#id_<%=@start%>').css('height',$('#name_<%=@start%>').height()+'px');$('#name_<%=@start%>').hide();$('#id_<%=@start%>').show();" onmouseout="$('#name_<%=@start%>').show();$('#id_<%=@start%>').hide();">
+          <%if visit.first_name.blank?%>&nbsp;<%else%>
+            <a style="cursor: pointer" id="name_<%=@start%>" href="/position_profile/xref/CS<%=visit.id%>/<%=visit.job_id%>"><%= h(visit.first_name) %></a>
+            <% if session[:employer].account_type_id != 3 %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" onclick="window.location.href='/position_profile/xref/CS<%=visit.id%>?selected='+$('#parent_id').val();">CS<%=visit.id%></a>
+            <% else %>
+              <a id="id_<%=@start%>" style="display:none; cursor: pointer;" href="/position_profile/xref/CS<%=visit.id%>">CS<%=visit.id%></a>
+            <% end %>
+          <%end%>
+        </div>
+      </th>
+      <!--source -->
+      <th width="84"><label style="cursor: default;"><%if visit.share_name.blank?%><span>---</span><%else%><% count = 1 %><% visit.share_name.each_byte do |i| %><% if(count == 15) %><%=i.chr%><br/><% count = 0%><% else %><%=i.chr%><% end %><% count = count + 1 %><% end %><%end%></label></th>
+      <!--xref-->
+      <% if session[:employer].account_type_id != 3 %>
+        <th width="45"><label><a onclick="window.location.href='/position_profile/xref/CS<%=visit.id%>?selected='+$('#parent_id').val();"><img style="margin-left:10px; cursor: pointer;" src="/assets/employer_v2/blue-circle.png" /></a></label></th>
+      <% else %>
+        <th width="45"><label><a href="/position_profile/xref/CS<%=visit.id%>"><img style="margin-left:10px; cursor: pointer;" src="/assets/employer_v2/blue-circle.png" /></a></label></th>
+      <% end %>
+      <!-- VET-->
+      <th width="57"><label style="cursor: default; margin-left:20px;"><%if visit.vet == 1%><%if visit.armed_forces == false%>&nbsp;<%else%><img src="/assets/employer_v2/blue-star.png" /><%end%><%end%></label></th>
+      <!-- VIEW PROFILE -->
+      <th width="104">
+        <label>
+          <%if visit.fit_name_by_pairing == "Wildcard" and get_status_value(visit) == "Wildcard"%>
+            <a href="javascript:void(0)" onclick="_showSeekerPopup(<%=visit.id%>, <%=visit.job_id%>, <%= session[:employer].id %>)" class="profile-days-left">Free View</a>
+          <%else%>
+            <%=profile_buy_button(visit.id, session[:employer].id, visit.job_id, visit.internal)%>
+          <%end%>
+        </label>
+        <script>
+          $(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable").css('height',$(".job_row_<%=visit.id%>_<%=visit.job_id%>").height()-2);
+          $(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable").css('top',-(($(".job_row_<%=visit.id%>_<%=visit.job_id%>").height()-2)/2)+($(".job_row_<%=visit.id%>_<%=visit.job_id%> .disable-container").height()/2));
+        </script>
+      </th>
+    </tr>
+    <% flag = false %>
+  <% end %>
+  <%index=index+1%>
+<% end %>
+<script type="text/javascript">
+  if($("#search_result_arr").val() != "-1"){
+    var arr = new Array();
+    var search_arr_val = $("#search_result_arr").val();
+    var search_arr = search_arr_val.split(",");
+    for (var i=0; i< search_arr.length; i++){
+      arr.push(search_arr[i]);
+    }
+    $('tr').each(function(){
+      if ($(this).attr('id') != undefined){
+        var id = $(this).attr('id').split('_')[2];
+        if (!arr.has(id)){
+          $(this).addClass('filter');
+        }
+      }
+    });
+  }
+</script>
+
+

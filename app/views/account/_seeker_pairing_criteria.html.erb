@@ -1,0 +1,47 @@
+<div class="dc-birk-box-left">
+</div>
+<div class="dc-birk-box-center">
+	<div class="dc-birk-box-content">
+		<div>
+			This Work Environment is ideally suited for a 
+				<span class="dc-birk-box-content-remark">
+					<%if defined?(job) and !job.nil?%>
+						<%=job_workenv_txt_by_score(job)%>
+					<%end%>
+				</span>	
+		</div>
+
+		<div class="left-shift">
+			...and <%=job_seeker.first_name%> thrive in an environment for 
+			<%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+				<span class="dc-birk-box-content-remark"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></span>	
+			<%end%>
+		</div>
+		
+		<div>
+			This Role is ideally suited for a 
+				<span class="dc-birk-box-content-remark">
+					<%if defined?(job) and !job.nil?%>
+					<%=job_role_txt_by_score(job)%>
+					<%end%>
+				</span>	
+		</div>
+
+		<div class="left-shift">
+			...and <%=job_seeker.first_name%> is a
+			<%if defined?(job_seeker_birkman_detail) and !job_seeker_birkman_detail.nil?%>
+				<span class="dc-birk-box-content-remark"><%=seeker_workenv_txt_by_score(job_seeker_birkman_detail)%></span>	
+			<%end%>
+		</div>
+
+
+	</div>
+	<div class="dc-birk-box-log">
+		<a href="javascript:void(0);" onclick="birkman_msg.init();"><img src="/assets/small_powered_by_birkman.jpg" /></a>
+	</div>
+</div>
+
+<div class="dc-birk-box-right">	
+</div>
+
+<div class="clear-height">&nbsp;</div>

@@ -1,0 +1,26 @@
+<%content_for :page_container_id do -%>page-container-personalityQuest<%end-%>
+<%=render :partial=>"account_tab",:locals=>{:step=>"corp_acc"}%>
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <div class="container-shadow-box">
+    <div class="dark-paper-container">
+      <%=render :partial=>"employer_sub_menu",:locals=>{:step=>"corp_acc"}%>
+      <div id="" class="admin-error-messages"></div>
+      <div id="siteActivation-account">
+        <div class="top-bar">&nbsp;</div>
+        <div class="block-inner-content">
+          <div class="gradient-content">
+            <div class="siteActivation-account-billing-left" style="width: 376px;">
+              <%= render :partial=>"create_corp_account"  %>
+            </div>
+            <div id="siteActivation-account-billing-center-border"></div>
+            <div class="siteActivation-account-billing-right corp-acc" style="width: 428px;">
+              <%= render :partial=>"pending_corp_account"  %>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-bar">&nbsp;</div>
+      </div>
+    </div>
+  </div>
+</div>

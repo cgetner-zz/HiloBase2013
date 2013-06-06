@@ -1,0 +1,11 @@
+User-Agent: *
+Disallow: /
+Allow: /$
+Allow: /job_seeker/new
+Allow: /employer/new
+Allow: /career_seeker
+Allow: /job
+Allow: /company
+Allow: /sitemap.xml
+Allow: /robots.txt
+Allow: /employer

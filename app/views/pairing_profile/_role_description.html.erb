@@ -1,0 +1,67 @@
+<!--Career desiredrole description starts-->
+<div id="desiredRoleDesc">
+  <div class="career_desiredrole_left_initial"><%= image_tag("cred_role_arrow.png") %></div>
+  <div class="career_desiredrole_left">&nbsp;</div>
+  <div class="career_desiredrole_group">
+    <div class="career_desiredrole_top">&nbsp;</div>
+    <div class="explore_select_heading_bdrNone explore_heading_background" style="min-height: 45px;">
+      <p class="headingTxt_roleDesc transform-letter"><%= @role_description.title %></p>
+      <script>
+        var name_of_role = "<%= @role_description.title %>";
+      </script>
+      <p class="headingTxtSmall_rightRoleDesc"><a class="transform-letter"href="javascript:void(0)" id="clickToSelectRole" onclick="finalizeRole('<%= @role_description.onetsoc_code %>',name_of_role);"></a></p>
+      <p class="headingTxtSmall_roleDesc"></p>
+      <a onclick="$('#fade_normal_dark').click();" class="close" href="javascript:void(0)">Close</a>
+    </div>
+    <div class="career_desiredrole_middle" id="career_desiredrole_middle2">
+      <p class="selectRole_content_headings transform-letter">role description</p>
+      <p class="desc"><%= @role_description.description %></p>
+      <% if !@lay_title.empty? %>
+        <p class="selectRole_content_headings transform-letter">SAMPLE JOB TITLES</p>
+        <ul class="sample-jobs" style="list-style: disc outside none; padding-left: 24px;">
+          <% @lay_title.each do |title| %>
+            <li><%= title.lay_title %></li>
+          <% end%>
+        </ul>
+      <% end %>
+      <% if !@tasks.empty? %>
+        <p class="selectRole_content_headings transform-letter">tasks</p>
+        <ul id="roleDescs" class="sample-jobs" style="list-style: disc outside none; padding-left: 24px;">
+          <% @tasks.each do |tasks| %>
+            <li><%= tasks.task %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+    <div class="career_desiredrole_bottom">&nbsp;</div>
+  </div>
+</div>
+<!--Career desiredrole Ends-->
+
+<script type="text/javascript">
+  $('#career_desiredrole_middle2').slimscroll({
+    railVisible: true,
+    allowPageScroll: true
+  });
+  //$(".career_desiredrole_middle").css("height","400px");
+
+  $(document).bind("keyup", function (e) {
+    if (e.keyCode == 27) {
+      $("div#desiredRoleDescription").hide();
+      $("div#exploreRolDescription").show();
+      $("div#duplicateRoleErrorMsg").hide();
+      if($("input#searchRoleClicked").val()=="1") { $("div.role-search-count").show(); }
+    }
+  });
+
+  $('#fade_normal_dark').bind().click(function() {
+    $("div#desiredRoleDescription").hide();
+    $("div#exploreRolDescription").show();
+    $("div#duplicateRoleErrorMsg").hide();
+    if($("input#searchRoleClicked").val()=="1") { $("div.role-search-count").show(); }
+  });
+
+  if($("#searchRoleClicked").val()=="1") {
+    $(".career_desiredrole_left_initial").css("display","block");
+  }
+</script>

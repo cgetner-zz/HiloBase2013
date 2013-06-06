@@ -1,0 +1,13 @@
+<label class="default-value">Select saved search</label>
+<%= prepare_search_employer(session[:employer].employer_saved_searches.map{|k| k.id}) %>
+
+<script type="text/javascript">
+  $('.options li').hover(function(){
+    $('.options').children().each(function(){
+      if($(this).attr('selected')=='selected'){
+        $(this).removeClass('selected').removeAttr('selected');
+      }
+    });
+    $(this).addClass('selected').attr('selected', 'selected');
+  });
+</script>

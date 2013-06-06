@@ -1,0 +1,99 @@
+<div class="pairing-msg-box">
+	<%if show_return%>
+	<div class="pos-right">
+		<a href="javascript:void(0);" onclick="pairing_color_toggle.hide();" class="pm-back"><img src="/assets/back_to_summary.jpg"/> <%=pairing_text_return_msg(params[:curr_controller], params[:curr_action])%></a>
+	</div>
+	<div class="clear-height">&nbsp;</div>
+	<%end%>
+
+	<div class="height10">&nbsp;</div>
+	
+	<div class="pairing-msg-header">
+		<div class="pm-header-left">
+			ROLE + INTERESTS: <%=pairing_text_with_color(role_txt_val, role_color_val)%>
+		</div>
+	
+		<div class="pm-header-right">
+			<a href="javascript:void(0);" onclick="birkman_msg.init();"><img src="/assets/small_powered_by_birkman.jpg"/></a>
+		</div>
+		<div class="clear-height">&nbsp;</div>
+	</div>
+	
+	<div class="height10">&nbsp;</div>
+	
+	<%if user_type == "seeker"%>
+		<div class="pm-message">
+			The Hilo pairing system uses your Birkman results to pair you to roles that offer activities <span class="pm-bold-italic">in which you have the greatest
+			capacity to excel.</span> Review your Career Forward Guide for more information regarding your Role + Interests.
+		</div>
+		
+		<div class="pm-target-msg">
+			Target roles that...
+		</div>
+	<%else%>
+		<div class="pm-target-msg">
+			<%=pairing_text_with_color(role_txt_val, role_color_val)%> work environments...
+		</div>	
+	<%end%>
+	
+	<div class="height10">&nbsp;</div>
+
+			<%if  role_color_val == "red"
+				left_arr = $role_red[:left]
+				right_arr = $role_red[:right]
+			elsif  role_color_val == "blue"
+				left_arr = $role_blue[:left]
+				right_arr = $role_blue[:right]
+			elsif  role_color_val == "green"
+				left_arr = $role_green[:left]
+				right_arr = $role_green[:right]
+			elsif  role_color_val == "yellow"
+				left_arr = $role_yellow[:left]
+				right_arr = $role_yellow[:right]
+			end%>
+	
+	<div>
+		<div class="pm-offer-box-container pos-left">
+			<%=render :partial=>"/panels/light_tab_top", :locals=>{:msg =>"offer:",:class_name =>"pm-offer-cover"} -%>
+			<div class="pm-offer-box">
+				<div class="height10">&nbsp;</div>
+				<%left_arr.each_with_index{|val, i|%>
+					<div class="pm-offer-bullet">
+						<img src="/assets/blue_dot.png"/>
+					</div>
+					<div class="pm-offer-txt">
+							<%=left_arr[i]%>
+					</div>
+					<div class="clear-height">&nbsp;</div>
+					<div class="height10">&nbsp;</div>
+				<%}%>
+			</div>
+		</div>
+
+		<div class="pm-offer-box-container pos-right">
+			<%=render :partial=>"/panels/light_tab_top", :locals=>{:msg =>"minimize:",:class_name =>"pm-offer-cover"} -%>
+			<div class="pm-offer-box">
+				<div class="height10">&nbsp;</div>
+				<%right_arr.each_with_index{|val, i|%>
+					
+					<div class="pm-offer-bullet">
+						<img src="/assets/blue_dot.png"/>
+					</div>
+					<div class="pm-offer-txt">
+						<%=right_arr[i]%>
+					</div>
+					<div class="clear-height">&nbsp;</div>
+					<div class="height10">&nbsp;</div>
+				<%}%>
+			</div>
+		</div>
+
+	</div>
+	<div class="clear-height">&nbsp;</div>
+
+	<div class="height10">&nbsp;</div>
+
+	<%=render :partial=>"/shared/birkman_help_msg" -%>
+	
+
+</div>

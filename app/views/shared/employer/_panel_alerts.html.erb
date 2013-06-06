@@ -1,0 +1,61 @@
+<div class="heading-container">
+  <label class="heading"><%=t ("employer_account.alerts_and_notifications.title") %></label>
+</div>
+<%= form_tag("/employer_account/save_alert", :id=>"alert_notifications", :remote => true) do %>
+  <div class="panel-content">
+    <input type="hidden" id="alert_threshhold_val" name="alert_threshhold_val" value="" />
+    <input type="hidden" id="alert_method_val" name="alert_method_val" value="" />
+    <div class="sub-heading" style="padding-top: 15px;"><%=t ("employer_account.alerts_and_notifications.threshold") %></div>
+    <div class="alerts-content" style="height: 35px;">
+      <div class="comp-slider-cotainer"><div id="slider"></div></div>
+      <div class="comp-slider-labels">
+        <label class="first" style="" ><%=t ("employer_account.alerts_and_notifications.good_fit") %></label>
+        <label class="" style="margin-left:126px;"><%=t ("employer_account.alerts_and_notifications.better_fit") %></label>
+        <label class="" style="margin-left:126px;"><%=t ("employer_account.alerts_and_notifications.best_fit") %></label>
+        <br class="clear"/>
+      </div>
+    </div>
+    <div class="sub-heading"><%=t ("employer_account.alerts_and_notifications.alert_notifications.title") %></div>
+    <div class="alerts-content" style="padding-top: 10px; padding-bottom: 10px;">
+      <ul class="alerts-type">
+        <li><input value="4" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.alerts_and_notifications.alert_notifications.on_event") %></label></li>
+        <li><input value="3" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.alerts_and_notifications.alert_notifications.daily") %></label></li>
+        <li><input value="2" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.alerts_and_notifications.alert_notifications.weekly") %></label></li>
+        <li><input value="1" type="checkbox" class="styled checkbox" /><label class="lbl"><%=t ("employer_account.alerts_and_notifications.alert_notifications.off") %></label></li>
+      </ul>
+      <div class="button-container">
+        <input class="update-button-active rfloat" type="button" value="" id="alert_update_button" />
+        <!--<input class="delete-button-active lfloat" type="button" value="" id="delete_button" onclick="employer_delete.showDeleteConfirmationPopup();"/>-->
+        <span id="alert_loader"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+      </div>
+    </div>
+    <div class="delete_account">
+      <a href="javascript:void(0);" onclick="employer_delete.showDeleteConfirmationPopup();"><%=t ("employer_account.delete_my_account") %></a>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#alert_threshhold_val").val(<%= Employer.find(session[:employer].id).alert_threshold %>);
+    $("#alert_method_val").val(<%= Employer.find(session[:employer].id).alert_method %>);
+    
+    $("#alert_update_button").bind('click', function(){
+      if ($(this).hasClass('update-button-active')){
+        $("#alert_notifications").submit();
+      }
+    });
+
+    $("#alert_notifications")
+    .bind("ajax:beforeSend", function(){
+      $("#alert_update_button").hide();
+      $("#alert_loader").show();
+      showBlockShadow();
+    })
+    .bind("ajax:complete", function(){
+      $("#alert_update_button").show();
+      $("#alert_loader").hide();
+      hideBlockShadow();
+    })
+  });
+</script>

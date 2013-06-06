@@ -1,0 +1,20 @@
+if($("#fade_white").is(':visible')){
+  $("#chart_fullscreen").html('');
+  openTeamMapFullScreen();
+  $("#outdated_team_map").show();
+  showErrorShadow();
+  footerOnOpeningPopup();
+  $('#fade_error').css('z-index', '1100');
+  $('#outdated_team_map').css('z-index', '1101');
+  centralizePopup();
+  addFocusButton('outdated_team_map_button');
+} else {
+  $("#chart").html('');
+  openTeamMapTab();
+  $("#outdated_team_map").show();
+  showErrorShadow();
+  footerOnOpeningPopup();
+  $('#fade_error').css('z-index', '1006');
+  centralizePopup();
+  addFocusButton('outdated_team_map_button');
+}

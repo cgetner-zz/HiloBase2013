@@ -1,0 +1,64 @@
+<div class="overflow-auto">
+  <div class="overflow-auto">
+    <ul class="question-headers rfloat">
+      <li class="first lfloat"><%=t("emp_search_non_loggedin.pairing_engine.none")%></li>
+      <li class="second lfloat"><%=t("emp_search_non_loggedin.pairing_engine.slightly")%></li>
+      <li class="third lfloat"><%=t("emp_search_non_loggedin.pairing_engine.moderately")%></li>
+      <li class="fourth lfloat"><%=t("emp_search_non_loggedin.pairing_engine.greatly")%></li>
+      <li class="lfloat"><%=t("emp_search_non_loggedin.pairing_engine.almost")%></li>
+    </ul>
+  </div>
+  <%= form_tag('/hilo_search/save_employer_work_env_questions', :id => "work_evn_form", :remote=>true) do -%>
+    <%= hidden_field_tag :work_env_values %>
+    <% for ques in @work_questions -%>
+      <div class="question-set" style="overflow: auto; padding: 10px 0;">
+        <span class="work-quest-label" style="float: left; padding-top: 3px;"><%=h(ques.question)%></span>
+        <div class="question-block" style="float: right;">
+          <div class="option-selection">
+            <ul class="workenv-options work-radio-slider">
+              <% 0.upto(4){|i| -%>
+                <li class="test <%= 'last-child' if i==4 %>">
+                  <% if i==0 %>
+                    <a href="javascript:void(0);" title="t('emp_search_non_loggedin.pairing_engine.none')" class="notAtall" onclick="birkman_test.show_next_hilo_search(this);" data-val="0"></a>
+                  <% elsif i==1 %>
+                    <a href="javascript:void(0);" title="t('emp_search_non_loggedin.pairing_engine.slightly')" class="slightly" onclick="birkman_test.show_next_hilo_search(this);" data-val="1"></a>
+                  <% elsif i==2 %>
+                    <a href="javascript:void(0);" title="t('emp_search_non_loggedin.pairing_engine.moderately')" class="default" onclick="birkman_test.show_next_hilo_search(this);" data-val="2"></a>
+                  <% elsif i==3 %>
+                    <a href="javascript:void(0);" title="t('emp_search_non_loggedin.pairing_engine.greatly')" class="greatly" onclick="birkman_test.show_next_hilo_search(this);" data-val="3"></a>
+                  <% elsif i==4 %>
+                    <a href="javascript:void(0);" title="t('emp_search_non_loggedin.pairing_engine.almost')" class="almostAlways" onclick="birkman_test.show_next_hilo_search(this);" data-val="4"></a>
+                  <% end %>
+                </li>
+              <%} -%>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="get-started">
+  <a class="submit-button" id="work_role_env_questions" href="javascript:void(0);">&nbsp;</a>
+  <div class="single-seperator">&nbsp;</div>
+  <div class="question-error-message"><%=t("emp_search_non_loggedin.pairing_engine.error")%></div>
+</div>
+
+<script type="text/javascript">
+  $("#work_role_env_questions").click(function(){
+    if($("#work_role_env_questions").hasClass("complete")){
+      showBlockShadow();
+      birkman_test.save_work_env();
+    } else {
+      //$(".question-set-box").addClass('error');
+      $(".question-error-message").show();
+    }
+  });
+  $('.workenv-options li a').click(function(){
+    $(this).parents('ul.workenv-options').find('a.active').removeClass('active');
+    $(this).parents('ul.workenv-options').find('a.default').addClass('moderately');
+    $(this).parents('ul.workenv-options').find('a.default').removeClass('default');
+    $(this).addClass('active');
+  });
+</script>

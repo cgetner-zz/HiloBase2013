@@ -1,0 +1,7 @@
+$("#admin_delete_confirmation").html("<%= escape_javascript render(:partial=>"delete_message") %>");
+$('#delete_message_text').html('Records will be deleted from the system. Press Continue to proceed.');
+$('#delete_message_continue_button').unbind('click').bind('click', function(){
+    delete_job_seeker('<%= @js.id %>');
+  });
+$('#admin_delete_confirmation').show();
+centralizePopup();

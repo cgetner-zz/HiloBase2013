@@ -1,0 +1,40 @@
+<div id="user_does_not_exist" class="white_content">
+  <div class="popup-upper-block-fogetPwd">
+    <span class="popup-top">&nbsp;</span>
+    <div class="popup-content">
+      <div class="gradient-content">
+        <div class="popup-header-container">
+          <label class="popup-heading">OOPS!</label>
+        </div>
+        <div class="access-block">
+          <div class="lfloat error-text" style="padding-top:10px; text-align: justify;">
+            <label id="delete_message_text" class="free-text">Entry does not exist.</label>
+          </div>
+          <div class="rfloat margin-T-13px">
+            <input id="user_does_not_exist_button" type="button" class="continue-button-active" onclick="$('#user_does_not_exist').hide();hideErrorShadow();refreshTable();"/>
+          </div>
+        </div>
+      </div>
+      <div class="home-popup-contnet">
+      </div>
+      <a href="javascript:void(0)" class="close" onClick="$('#user_does_not_exist').hide();hideErrorShadow();refreshTable();">Close</a>
+    </div>
+    <span class="popup-bottom">&nbsp;</span>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function refreshTable(){
+    $.ajax({
+      url: '/admin/home/refresh_table',
+      type: 'POST',
+      data: '',
+      cache: false,
+      beforeSend: function(){
+      },
+      success: function(){
+
+      }
+    });
+  }
+</script>

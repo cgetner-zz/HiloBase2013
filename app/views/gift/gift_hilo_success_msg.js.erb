@@ -1,0 +1,8 @@
+$("#gift_hilo_success_msg").html("<%= escape_javascript render(:partial => "/home/gift_hilo_success")%> "); 
+$("#complete_purchase_one_click_gift").hide();
+$("#fade_normal_warning").hide();
+<% if not session[:job_seeker].nil? and !session[:job_seeker].credit.nil? %>
+  $("#credit-amt-dash").text('<%= number_to_currency(session[:job_seeker].credit.credit_value, :unit=>"") %>');
+<% end %>
+gift_hilo.success_payment();
+addFocusButton('continue_button');

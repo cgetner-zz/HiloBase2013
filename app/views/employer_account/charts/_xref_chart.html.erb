@@ -1,0 +1,135 @@
+<% if  @xref_preview_count==0 %>
+<div class="no-data-candidatepool">
+		No data available
+</div>
+<%else%>
+<div class="employer-chart-box" >
+	<div id="placeholder" class="employer-chart-holder" style="position:relative; min-height:220px;">
+	</div>
+</div>
+<% end %>
+
+<div class="xref-chart-ticker">
+	<div class="employer-chart-label" id="preview_chart">
+		Previews (<%=@xref_preview_count%>)
+	</div>
+
+	<div class="employer-chart-label" id="detail_chart">
+		Details (<%=@xref_considered_count%>)
+	</div>
+
+	<div class="employer-chart-label" id="interested_chart">
+		Applied (<%=@xref_interested_count%>)
+	</div>
+
+	<div class="employer-chart-label" id="wild_chart">
+          <% if EXCLUDE_PAYMENT != 1 %>
+		Wild Card (<%=@xref_wildcard_count%>)
+                <% end %>
+	</div>
+
+	<div class="clear-height"></div>
+</div>
+
+<div class="chart-divider" style="margin-top:0!important;"></div>
+<script type="text/javascript">
+	//d1 = [[0, 21]];
+	//d2 = [[1, 2]];
+	//d3 = [[2, 4]];
+	//d4 = [[3, 6]];
+	//d5 = [[4, 6]];
+	d1 = [[0, <%=@xref_preview_count%>]];
+	d2 = [[1, <%=@xref_considered_count%>]];
+	d3 = [[2, <%=@xref_interested_count%>]];
+	<% if EXCLUDE_PAYMENT != 1 %>
+	d4 = [[3, <%=@xref_wildcard_count%>]];
+        <% else %>
+        d4 = [[3, 0]];
+        <% end %>
+
+	var color_arr = new Array();
+	switch("<%=params[:activity]%>"){
+			case "position_preview" :
+				color_arr = ["#70A0C2", "#DFDFDF", "#DFDFDF", "#DFDFDF"];
+				break;
+			case "position_detail" :
+				color_arr = ["#DFDFDF", "#70C09D", "#DFDFDF", "#DFDFDF"];
+				break;
+			case "interested" :
+				color_arr = ["#DFDFDF", "#DFDFDF", "#C283C2", "#DFDFDF"];
+				break;
+			case "wild_card" :
+				color_arr = ["#DFDFDF", "#DFDFDF", "#DFDFDF", "#FFE6B3"];
+				break;
+			default :
+				color_arr = ["#70A0C2", "#70C09D", "#C283C2", "#FFE6B3"];
+		}
+
+var chart_for_job_id = "<%=params[:cs_id].gsub("CS","").to_i%>";
+	$(document).ready(function(){
+          if(document.getElementById('placeholder')){
+		$.plot($("#placeholder"), [
+			{ data: d1 },
+			{ data: d2 },
+			{ data: d3 },
+			{ data: d4 }
+		], {
+            series: {
+                stack: 0,
+                bars: { show: true, barWidth: 0.8 , clickable: true, align: 'center',lineWidth: 0},
+				shadowSize: 2
+
+            },
+			xaxis: {
+				ticks: [[0,""], [1,""],[2,""],[3,""]]
+		    },
+			yaxis: {
+	            ticks: []
+			},
+			colors: color_arr,
+
+			grid: {
+					show: true,
+					aboveData: false,
+					backgroundColor: { colors: ["#fff", "#fff"] },
+					tickColor: "#fff",
+					labelMargin: 5,
+					markings: [],
+					borderWidth: 0,
+					clickable: true,
+					hoverable: false,
+					autoHighlight: true,
+					mouseActiveRadius: 1
+			  }
+
+        });
+
+
+
+		  $("#placeholder").bind("plotclick", function (event, pos, item) {
+				if(item){
+					switch(item.seriesIndex){
+						case 0 :
+							url = "activity=position_preview";
+							break;
+						case 1 :
+							url = "activity=position_detail";
+							break;
+						case 2 :
+							url = "activity=interested";
+							break;
+						case 3 :
+							url = "activity=wild_card";
+							break;
+					}
+				}
+				if(chart_for_job_id != 0){
+					url = url ;
+				}
+                                url = url + '&selected=' + $('#parent_id').val();
+				window.location.href = "/position_profile/xref/<%=params[:cs_id]%>?" + url;
+				return false;
+		});
+                }
+	});
+</script>

@@ -1,0 +1,113 @@
+<div class="page-heading-container-change">
+  <label class="heading">ADMIN ACCOUNTS</label>
+</div>
+<!-- Error Message Container -->
+<label class="intro-error" id="new_admin_intro_error" style="color:#D71F0C; margin-top: -5px;font-size: 13px;font-weight: 700; height: 20px; display: block;"></label>
+<!-- Success Message Container -->
+<div class="pass-success-message-container" id="new_admin_success" style="color:green; float:left;margin-top: -19px; font-size: 13px;font-weight: 700;"></div>
+<%= form_tag("/admin/home/create_admin", :id=>"new_admin_form", :remote => true)  do %>
+  <ul class="pwd-personal-info admin">
+    <li style="width: 193px;">
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="administrator_first_name_placeholder" value="First Name" />
+        <input class="text-short" type="text" maxlength="30" value="First Name" onfocus="focus_element(this);validateAddAdminFormOnBlur(this);" onblur="validateAddAdminFormOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="administrator[first_name]" id="administrator_first_name" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+    <li style="width: 193px;">
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="administrator_last_name_placeholder" value="Last Name" />
+        <input class="text-short-right" type="text" maxlength="30" value="Last Name" onfocus="focus_element(this);validateAddAdminFormOnBlur(this);" onblur="validateAddAdminFormOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="administrator[last_name]" id="administrator_last_name" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+    <li class="email-text">
+      <div class="customized-input input-text">
+        <div class="input-left">&nbsp;</div>
+        <input type="hidden" id="administrator_email_placeholder" value="Email" />
+        <input class="text-long-admin" type="text" maxlength="100" value="Email" onfocus="focus_element(this);validateAddAdminFormOnBlur(this);" onblur="validateAddAdminFormOnBlur(this);blur_element(this);" onkeydown="type_element(this);" name="administrator[email]" id="administrator_email" />
+        <div class="input-right">&nbsp;</div>
+      </div>
+    </li>
+  </ul>
+  <ul class="account-type">
+    <input type="hidden" id="access_level_id" name="access_level_id" />
+    <li id="accessLevel1" style="padding-right: 52px;">
+      <input id="access-level-1" value="2" type="checkbox" class="styled checkbox" name = "access_levels[]" />
+      <label class="lbl">Employer Privileges</label>
+    </li>
+    <li id="accessLevel2" style="padding-right: 0px;">
+      <input id="access-level-2" value="3" type="checkbox" class="styled checkbox" name = "access_levels[]" />
+      <label class="lbl">Referral Fee</label>
+    </li>
+    <li id="accessLevel3" style="padding-right: 0px;">
+      <input id="access-level-3" value="4" type="checkbox" class="styled checkbox" name = "access_levels[]" />
+      <label class="lbl">Corporate Accounts</label>
+    </li>
+    <li id="accessLevel4" style="padding-right: 0px; margin-left: 51px;">
+      <input id="access-level-4" value="5" type="checkbox" class="styled checkbox" name = "access_levels[]" />
+      <label class="lbl">Acc. Delete Requests</label>
+    </li>
+  </ul>
+<% end %>
+<div class="input-right">
+  <input type="hidden" id="lock" value="" />
+  <input class="create-button-active rfloat" type="button" id="newAdminForm" onclick="validateNewAdminForm();" style="margin-right: 10px;"/>
+  <span id="loader_admin" style="display:none; right:10px; position:absolute;"><%= image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></span>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    Custom.init();
+    $("#new_admin_form .account-type span.checkbox").click(function(){
+      var access_level_1 = document.getElementById('access-level-1').checked;
+      var access_level_2 = document.getElementById('access-level-2').checked;
+      var access_level_3 = document.getElementById('access-level-3').checked;
+      var access_level_4 = document.getElementById('access-level-4').checked;
+      $("#access-level-1").prev().removeClass('error');
+      $("#access-level-2").prev().removeClass('error');
+      $("#access-level-3").prev().removeClass('error');
+      $("#access-level-4").prev().removeClass('error');
+      if(!access_level_1) {
+        $("#access-level-1").prev().css("background-position","0 0");
+      }
+      if(!access_level_2) {
+        $("#access-level-2").prev().css("background-position","0 0");
+      }
+      if(!access_level_3) {
+        $("#access-level-3").prev().css("background-position","0 0");
+      }
+      if(!access_level_4) {
+        $("#access-level-4").prev().css("background-position","0 0");
+      }
+      validateAddAdminFormOnBlur(null);
+    });
+  });
+  function validateNewAdminForm() {
+    if(!validateAddAdminForm()) {
+      return false;
+    }
+    var email = $("input#administrator_email").val();
+    $.ajax({
+      url: '/admin/home/new_admin_email_presence',
+      type: "GET",
+      data: "email_check=" + email,
+      cache: false,
+      success: function(html_data) {
+        if(html_data == "Email is already taken") {
+          var email_element = document.getElementById('administrator_email');
+          $(email_element).parent()
+          .removeClass('input-text input-text-unactive input-text-active active-input input-text-error input-text-error-empty')
+          .addClass('input-text-error');
+          $("label#new_admin_intro_error").html("Email Address is not available.");
+        } else {
+          $("#newAdminForm").hide();
+          $("#loader_admin").show();
+          $("#new_admin_form").submit();
+        }
+      }
+    });
+  }
+</script>

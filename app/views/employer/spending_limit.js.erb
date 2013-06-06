@@ -1,0 +1,4 @@
+<% if not session[:employer].is_root? %>
+  $("#calculation_block").html("<%= escape_javascript render(:partial => '/shared/employer/user_calculation')%>");
+  $(".add-user").click(function(){ addNewUserBlock(); });
+<% end %>

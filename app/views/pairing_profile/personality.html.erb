@@ -1,0 +1,54 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("pairing")%>
+<%end-%>
+
+<%=render :partial=>"/job_seeker/account_tab",:locals=>{:step=>"pairing"} -%>
+
+<div class="wizard-content">
+	<%=render :partial=>"pairing_step",:locals=>{:step=>"personality"}%>	
+	<div class="pairing-box">
+		<div class="pairing-body">
+			<div class="pairing-content ">
+				<div class="personality-section-header">
+					The Personality section of your Pairing Profile is being compiled by Birkman International. This information will become available after you have completed the sign-up wizard and activated your Hilo. The Personality component of Hilo will enable you to: 
+				</div>
+
+				<div class="personality-section">
+					<div class="personality-section-header">Identify the Right Work Environment</div>
+					Think of the value of going to work because you want to no just because you have to. The Birkman Method identifies the work environment that best supports you and offers you the greatest potential for success.
+					<br/><br/>
+					This symbol will appear throughout your Hilo and Career Guide pointing you to the type of work environment that will allow you to thrive.
+					<div class="personality-env-image"><%=image_tag("square.jpg")%></div>
+				</div>
+				
+				<div class="personality-section">
+					<div class="personality-section-header">Find The Right Position </div>
+					With the right information you can pick a position within a company that is well suited to your needs. Birkman International indentifies the aspects that make up a postion and compares them to the type of work you enjoy, helping you assess job opportunities more effectively.
+					<br/><br/>
+					This symbol will appear throughout your Hilo and Career Guide pointing you to positions that are compatible with your interests.
+
+					<div class="personality-pos-image"><%=image_tag("circle.jpg")%></div>
+				</div>
+				
+				<div class="personality-section">
+					<div class="personality-section-header">Align your Interests with day to day work activities </div>
+					Your personal interests influence the type of work and activities you enjoy. The "Areas of Interest" section of your Career Guide(powered by Birkman International), allows you to compare your interests directly to the activities offered by a position.
+					<br/>
+					Identifying the Interests you have that will not be fullfilled at work can be a powerful tool in helping to establish a healthy work life balance. Pursuing your others interests through hobbies and outside activities can lead to satisfying lifestyle and give you more energy at work.
+					<br/><br/>
+					Your top five areas interest are listed in your Hilo Pairing Profile and your Career Guide.
+				</div>
+				<br class="clear"/>
+
+				
+			</div>
+		</div>
+	</div>
+	<div class="personality-botom">
+		<div style="float:right;">
+			<a href="/pairing_profile/basics"><%=image_tag("next.gif")%></a>
+		</div>
+		<br class="clear"/>
+	</div>			
+</div>
+

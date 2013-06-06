@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+  <style type="text/css">
+    table.hilo_summary { border-collapse:collapse; }
+    table.hilo_summary td, table.hilo_summary th { border:1px solid black; padding:5px; }
+  </style>
+  <h3>Report Summary</h3>
+  <%unless @jobs_active_count.empty?%>
+    <h4>Active Count (Jobs Successfully activated)</h4>
+    <table class="hilo_summary">
+      <tr>
+        <th style="text-align: left;">Company Name</th>
+        <th style="text-align: left;">Count</th>
+      </tr>
+      <%@jobs_active_count.each do |k, v|%>
+        <tr>
+          <td style="padding-right: 22px;"><%=k%></td>
+          <td><%=v%></td>
+        </tr>
+      <%end%>
+    </table>
+  <%end%>
+
+  <%unless @jobs_inactive_count.empty?%>
+    <h4>Inactive Count (Jobs added to the DB, but couldn't be activated due to missing mandatory fields)</h4>
+    <table class="hilo_summary">
+      <tr>
+        <th style="text-align: left;">Company Name</th>
+        <th style="text-align: left;">Count</th>
+      </tr>
+      <%@jobs_inactive_count.each do |k, v|%>
+        <tr>
+          <td style="padding-right: 22px;"><%=k%></td>
+          <td><%=v%></td>
+        </tr>
+      <%end%>
+    </table>
+  <%end%>
+
+  <%unless @jobs_deleted_count.empty?%>
+    <h4>Deleted Count (Jobs deleted from the system as they are no longer present in the XML file)</h4>
+    <table class="hilo_summary">
+      <tr>
+        <th style="text-align: left;">Company Name</th>
+        <th style="text-align: left;">Count</th>
+      </tr>
+      <%@jobs_deleted_count.each do |k, v|%>
+        <tr>
+          <td style="padding-right: 22px;"><%=k%></td>
+          <td><%=v%></td>
+        </tr>
+      <%end%>
+    </table>
+  <%end%>
+
+  <%unless @jobs_failed_count.empty?%>
+    <h4>Failed Count (Failed to save the jobs to the DB)</h4>
+    <table class="hilo_summary">
+      <tr>
+        <th style="text-align: left;">Company Name</th>
+        <th style="text-align: left;">Count</th>
+      </tr>
+      <%@jobs_failed_count.each do |k, v|%>
+        <tr>
+          <td style="padding-right: 22px;"><%=k%></td>
+          <td><%=v%></td>
+        </tr>
+      <%end%>
+    </table>
+  <%end%>
+  <br/><br/>
+  <span>The Hilo Team</span>
+  <br/><br/>
+  <img alt="logo" src="https://thehiloproject.com/assets/logo-hilo_new.png" width="120" height="103" />
+</body>
+</html>

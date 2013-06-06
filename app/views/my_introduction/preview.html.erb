@@ -1,0 +1,193 @@
+<%content_for :page_css do -%>
+	<%=stylesheet_link_tag("seeker_account","myintro")%>
+<%end-%>
+<div class="preview-container">
+	<div><img src="/assets/layer_top_750.png"/></div>
+	<div style="float:right;position:relative;">
+	<div style="position:absolute;top:-30;left:-22; #right: -5px; #top: -15px;">
+		<a href="javascript:void(0);" onclick="close_frame();"><%=image_tag("lightbox-cross.png")%></a>
+	</div>
+	</div>
+	<div class="clear-height">&nbsp;</div>
+	<div class="preview-box">
+		<div>
+			<div class="myintro-preview-header">
+					<div style="margin-left:20px;">Preview what the Employer will see</div>
+			</div>
+			
+			<div class="preview-myintro-content" style="padding: 0px 22px 0px 22px; ">
+				
+				<div style="height:15px;">&nbsp;</div>
+					
+				<div class="myintro-content">
+						
+					<div class="prvw-box">
+						<div class="prvw-photo">
+							<%if @job_seeker.photo_file_name.blank?%>
+								<%=image_tag("no_photo.jpg", :width =>"120px", :height =>"120px")%>
+							<%else%>
+								<%= image_tag @job_seeker.photo.url(:thumb) %>
+							<%end%>
+						</div>
+						
+						<div class="pos-right" style="border-bottom: solid 1px #D7EDEB;">
+							<div class="prvw-contact-left">
+								<div class="prvw-name">
+									<%=@job_seeker.first_name%> <%=@job_seeker.last_name%>
+								</div>
+
+								<%if !@job_seeker.phone_one.blank?%>
+								<div class="myint-contact-row <%=@job_seeker.preferred_contact == 'phone_one' ? 'blue-highlight' : ''%>">
+									<%=@job_seeker.phone_one%>
+								</div>
+								<%end%>
+
+								<%if !@job_seeker.phone_two.blank?%>
+								<div class="myint-contact-row <%=@job_seeker.preferred_contact == 'phone_two' ? 'blue-highlight' : ''%>">
+									<%=@job_seeker.phone_two%>
+								</div>
+								<%end%>
+
+								<%if !@job_seeker.contact_email.blank?%>
+								<div class="myint-contact-row <%=@job_seeker.preferred_contact == 'contact_email' ? 'blue-highlight' : ''%>">
+									<%=@job_seeker.contact_email%>
+								</div>
+								<%end%>
+							</div>
+							<div class="prvw-fit-right">
+								<div>
+									<div class="fit-label">Fit:</div>
+									<div class="fit-value fit-selected">Good</div>
+									<div class="fit-value">Better</div>
+									<div class="fit-value">Best</div>
+									<div class="clear-height"></div>
+								</div>
+							</div>
+							<div class="clear-height">&nbsp;</div>
+						</div>	
+						<div class="clear-height">&nbsp;</div>
+						<div class="height10">&nbsp;</div>
+						<div>
+							<%=render :partial=>"/my_introduction/preview_pairing_msg", :locals => {:job_seeker => @job_seeker,:job_seeker_birkman_detail => @job_seeker.job_seeker_birkman_detail}%>
+						</div>
+
+						<div>
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+							
+							<div class="dc-section-header">
+									<div class="dc-section-header-text">
+										<div class="dc-sec-head-left"></div>
+										<div class="dc-sec-head-center" style="padding-left: 15px;padding-right: 15px;">About <%=@job_seeker.first_name%></div>
+										<div class="dc-sec-head-right"></div>
+										<div class="clear-height"></div>
+									</div>
+								</div>
+							</div>
+
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+							
+							<%if !@job_seeker.video_url.blank?%>
+							<div style="float: left; margin-right: 10px;">
+									<%=render :partial =>"/my_introduction/preview_video_section",:locals =>{ :job_seeker => @job_seeker}%>
+							</div>
+							<%end%>
+							
+							<b>
+								<%=@job_seeker.first_name%> is seeking a position <span class="blue-highlight"><%=@job_seeker.desired_employments[0].name%></span> with a first year's compensation range between <span class="blue-highlight"><%=compensation_range_by_value(@job_seeker.minimum_compensation_amount)%></span>.
+							</b>
+
+							<br/><br/>
+
+							<%= @job_seeker.summary.html_safe.force_encoding('utf-8')%>
+							
+
+							<div class="clear-height"></div>
+
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+
+							
+
+							<div class="dc-section-header">
+									<div class="dc-section-header-text">
+										<div class="dc-sec-head-left"></div>
+										<div class="dc-sec-head-center" style="padding-left: 15px;padding-right: 15px;">Credentials</div>
+										<div class="dc-sec-head-right"></div>
+										<div class="clear-height"></div>
+									</div>
+								</div>
+							</div>
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+
+							<span class="blue-highlight"><%=@job_seeker.first_name%></span> is someone with at least <span class="blue-highlight"><%=@job_seeker.work_exp_value%> years</span> of experience and an education level of at least a 
+							<span class="blue-highlight"><%=@job_seeker.degrees[0].name%></span>.
+
+							<div class="height10">&nbsp;</div>
+
+							<div>
+								<b><%=@job_seeker.first_name%>'s language skills are:</b> 
+								<div class="height10">&nbsp;</div>
+								<%for lang in @job_seeker.languages%>
+									<div>
+									<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp;<%=lang.name%>
+									</div>
+								<%end%>
+							</div>
+							<div class="height10">&nbsp;</div>
+
+							<div>
+								<b>In addition, <%=@job_seeker.first_name%> has the following Certifications and Licenses:</b> 
+								<div class="height10">&nbsp;</div>
+								<%for lang in @job_seeker.certificates%>
+									<div>
+									<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp;<%=lang.name%>
+									</div>
+								<%end%>
+								
+							</div>
+							<div class="height10">&nbsp;</div>
+
+							<div>
+								<b><%=@job_seeker.first_name%>'s proficiencies are:</b> 
+								<div class="height10">&nbsp;</div>
+								<%for lang in @job_seeker.proficiencies%>
+									<div>
+									<img src="/assets/stark_blue_dot.png"/>&nbsp;&nbsp;<%=lang.name%>
+									</div>
+								<%end%>
+							</div>
+							<div class="height10">&nbsp;</div>
+							<div class="height10">&nbsp;</div>
+
+							<div class="prvw-download-box">
+								<div class="left">
+									<img src="/assets/donwload_icon.png"/>
+								</div>
+								<div class="right">
+									<span class="blue-highlight"><%=@job_seeker.first_name%>'s resume:</span> <a href="javascript:void(0)" style="text-decoration:underline;">Download</a>
+								</div>
+								<div class="clear-height">&nbsp;</div>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div><img src="/assets/layer_bottom_750.png"/></div>
+</div>
+
+<script type="text/javascript">
+$("a").each(function(){
+	if($(this).attr("href").indexOf("/download") > -1){
+		$(this).click(function(){
+			parent.download_file($(this).attr("href"));			
+			return false;
+		});
+	}
+});
+
+</script>

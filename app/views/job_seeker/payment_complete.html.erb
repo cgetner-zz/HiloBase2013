@@ -1,0 +1,35 @@
+<%=render :partial=>"account_tab",:locals=>{:step=>"account"}%>
+
+<div class="wizard-content">
+	<div class="payment-msg-container">
+		<div class="payment-msg-box">
+			<div class="payment-text-box">
+				<%if @express_error%>
+					<%=@message%>
+					<br/><br/>
+					
+				<%else%>
+					<div>
+					You have successfully completed your registration payment.<br/>
+					<%if not @amount_value.blank?%>
+					You are charged with amount $<%=@amount_value%>.
+					<%end%>
+					</div>
+				<%end%>
+			</div>
+		</div>
+		
+		<div style="padding-top:20px;">
+			<%if @express_error%>
+				<a href="/job_seeker/new"><img src="/assets/cancel.jpg"/></a>
+			<%else%>
+				<a href="/questionnaire/index"><img src="/assets/continue_to_questionnaire.jpg"/></a>
+			<%end%>	
+		</div>
+		
+	</div>
+</div>
+
+
+
+

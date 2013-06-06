@@ -1,0 +1,17 @@
+<div class="nav-menu-box "> 
+	
+	<div class="top-nav-left">	</div>
+	<div class="top-nav-center">
+		<div style="margin-left:20px;">
+			<div class="nav-tab-home <%=(tab == "home" ? "top-nav-selected" : "" )%>"><a href="/employer_account"><img src="<%=(tab == "home" ? "/assets/home_icon_active.png" : "/assets/home_icon_inactive.png" )%>"/></a></div>
+			<div class="nav-tab-brk">&nbsp;</div>
+			<div class="nav-tab <%=(tab == "company" ? "top-nav-selected" : "" )%>"><a href="/employer_account/company_profile">Company Profile</a></div>
+			<div class="nav-tab-brk">&nbsp;</div>
+			<div class="nav-tab <%=(tab == "activity_manager" ? "top-nav-selected" : "" )%>"><a href="javascript:void(0)">Activity Manager</a></div>
+			<div class="nav-tab-brk">&nbsp;</div>
+			<br class="clear"/>
+		</div>
+	</div>
+	<div class="top-nav-right">	</div>
+	<div class="clear-height"> </div>
+</div>	

@@ -1,0 +1,28 @@
+<div class="dashboard_position_popup-siteActivation">
+  <span class="position_popup-top">&nbsp;</span>
+  <div class="position_popup-content_oneclick">
+    <div class="position_gradient-content_oneclick">
+      <div class="position_popup-header-container">
+        <label class="popup-heading">OOPS!</label>
+      </div>
+      <div class="position_popup_select_box">
+        <div class="access-block">
+          <div class="lfloat error-text" style="width:80%;">
+            <label class="free-text">
+              <% if context == "already exists" %>
+              The domain '<%= domain %>' is not avaliable.
+              <% elsif context == "illegal format" %>
+              The domain '<%= domain %>' is invalid. <br />Please enter a valid domain name e.g: thehiloproject.com
+              <% end %>
+            </label>
+          </div>
+          <div class="rfloat margin-T-5px" id="action-button" style="margin-left:0px;margin-top:0px">
+            <input type="button" id="retry-button" class="retry-button-active dashboard_position_popup-siteActivation_button" onclick="$('#domain_error').empty();$('#domain_error').hide();$('#fade_error').hide();footerOnClosingPopup();"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a id="oneclick-close" onclick="$('#domain_error').empty();$('#domain_error').hide(); $('#fade_error').hide();footerOnClosingPopup();" href="javascript:void(0)" class="position_close_oneclick">Close</a>
+  </div>
+  <span class="position_popup-bottom">&nbsp;</span>
+</div>

@@ -1,0 +1,103 @@
+<% if job.job_attachments.blank? %>
+  <a class="" title="Resume">
+    <%= image_tag("resume_icon_light.png", :size=>"39x40", :class=>"lfloat", :alt=>"Resume") %>
+  </a>
+<% else %>
+  <a class="" title="Resume" style="visibility: hidden;">
+    <%= image_tag("resume_icon_light.png", :size=>"39x40", :class=>"lfloat", :alt=>"Resume") %>
+  </a>
+<% end %>
+
+<div class="attachment-content" id="txt">
+  <label class="basic-text">Upload an expanded position description or<br/> anything else you would like a Career Seeker to see.</label>
+</div>
+<span style="display:block;" class="rfloat attachment-add">
+  <a onclick="add_attachment();" href="javascript:void(0)" title="" id="add-attachment" class="">+Add</a>
+  <div id="uploading-attachment" style="display:none;"><%=image_tag("ajax-loader-login.gif", :alt => "Loading ...")%></div>
+</span>
+
+<div class="attachment-cls" style="clear:both; <% if job.job_attachments.blank? %>display:none;<% else %>display:block;<% end %>">
+  <% if !job.job_attachments.blank? %>
+    <% job.job_attachments.each do |job_attachment| %>
+      <ul class="" style="display: block; float: left; margin-left: 0px;">
+        <li class="lfloat download-icon">
+          <a href="/download_file/additional_details/<%= job_attachment.id %>" title="Resume">
+            <%= image_tag("resume_icon_dark.png", :size=>"39x40", :class=>"lfloat", :alt=>"Resume") %>
+          </a>
+        </li>
+        <li class="addition-list-li-1" style="float:left;overflow: auto;">
+          <div class="top"></div>
+          <div class="bottom">
+            <div style="margin: 0 0 10px 4px;float:left;width:220px;overflow: auto; min-height:18px;word-wrap: break-word;">
+              <a href="javascript:void(0);" style="vertical-align: top;font-size:13px; font-weight:400; margin-top:3px; display:block; text-decoration:none;overflow: hidden;" title="resume_file_name" class="label">
+                <%= truncate(job_attachment.attachment_file_name.html_safe,:length => 35) %>
+              </a>
+            </div>
+            <div style="float:right;margin-right: 2px;"><a href="javascript:void(0);" title="remove" style="vertical-align: top;float:right;" class="remove" onclick="delete_attachment('<%= job_attachment.id %>');"><%= image_tag("employer_v2/remove-skill.png", :size=>"20x20", :alt=>"Remove", :border=>"0", :style=>"margin-top:1px;") %></a></div>
+          </div>
+        </li>
+
+        <li class="addition-list-li-2" style="float:left;">
+          <div class="customized-input <%if job_attachment.attachment_title.blank? %>input-text<%else%>active-input<%end%>">
+            <div class="input-left"></div>
+            <input type="hidden" class="attachment_title_placeholder" id="attachment_title_<%= job_attachment.id %>_placeholder" value="Attachment Title" />
+            <input type="text" class="attachment_title" id="attachment_title_<%= job_attachment.id %>" value="<%= job_attachment.attachment_title.blank? ? "Attachment Title" : job_attachment.attachment_title %>" name="attachment_title[]" onfocus="focus_element(this)" onblur="blur_element(this)" onkeydown="type_element(this)" onkeyup="validatePositionPreview(this);" />
+            <div class="input-right"></div>
+          </div>
+        </li>
+        <li class="clear-height"></li>
+      </ul>
+    <% end %>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  function add_attachment(){
+    //show popup IE
+    BrowserDetect.init();
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+      $("#fade_normal").show();
+      showBlockShadow();
+      footerOnOpeningPopup();
+      $.ajax({
+        url: '/position_profile/show_ie_popup',
+        cache: false,
+        data: 'id='+'<%= job.id %>',
+        success: function(){
+          $("#file_upload_ie").show();
+          centralizePopup();
+          $("#job_attachment_attachment").css('visibility', 'visible');
+          hideBlockShadow();
+        }
+      });
+    }
+    else{
+      $("#job_attachment_attachment").click();
+    }
+  }
+
+  function change_attachment(){
+    //show popup IE
+    BrowserDetect.init();
+    if (BrowserDetect.browser == "Explorer" && BrowserDetect.version > "7"){
+      $("#fade_normal").show();
+      showBlockShadow();
+      footerOnOpeningPopup();
+      $.ajax({
+        url: '/position_profile/show_ie_popup',
+        cache: false,
+        data: 'id='+'<%= job.id %>',
+        success: function(){
+          $("#file_upload_ie").show();
+          centralizePopup();
+          $("#job_attachment_attachment").css('visibility', 'visible');
+          hideBlockShadow();
+        }
+      });
+    }
+    else{
+      $("#job_attachment_attachment").click();
+      //e.preventDefault();
+    }
+  }
+</script>  

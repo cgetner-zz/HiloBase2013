@@ -1,0 +1,56 @@
+<% content_for :page_title do -%>Career Seeker - Registration | <% end %>
+<% content_for :page_js do -%>
+  <%= javascript_include_tag "jquery.numeric"%>
+<% end -%>
+<!--header-->
+<%=render :partial=>"job_seeker/account_tab",:locals=>{:step=>"pairing"}%>
+<!--/header-->
+<!--content-container-->
+<div id="content-container">
+  <div class="content-container-top">&nbsp;</div><!--content-container-top-->
+  <!--container-shadow-box-->
+  <div class="container-shadow-box">
+    <!--dark-paper-container-->
+    <div class="dark-paper-container">
+      <!--page-heading-container-->
+      <div class="page-heading-container width-500px lfloat">
+        <h2 class="page-heading margin-T-5px"><%=t ("pairing_profile.basics.heading") %></h2><!--page-heading-->
+      </div>
+      <div class="rfloat margin-B-10px">
+        <ul class="step-count width-127px">
+          <li><label><%=t ("pairing_profile.basics.no1") %></label> </li>
+          <li><label class="current-step"><%=t ("pairing_profile.basics.no2") %></label> </li>
+        </ul>
+      </div>
+      <div class="clear-float">&nbsp;</div>
+
+      <%=  form_tag("/pairing_profile/save_basics",:method =>"post",:name=>"basic_form",:id=>"basic_form") do -%>
+        <%=hidden_field_tag :save_type%>
+        <%=hidden_field_tag :compensation_value_min%>
+        <%=hidden_field_tag :compensation_value_max%>
+        <%=hidden_field_tag :desired_employment_ids%>
+        <%=hidden_field_tag :desired_location_ids%>
+        <%=hidden_field_tag :desired_city%>
+        <%=hidden_field_tag :desired_pincode%>
+        <input id="latitude" name="latitude" type="hidden" value="<% if not @location.nil? %><%= @location.latitude %><% end %>"/>
+        <input id="longitude" name="longitude" type="hidden" value="<% if not @location.nil? %><%= @location.longitude %><% end %>"/>
+      <%end%>
+      <%=render :partial => "/pairing_profile/blocks_basic"%>
+      <!--button-container-->
+      <div class="button-container">
+        <input type="button" id="next_button" value="" class="next-button active rfloat" />
+        <input type="button" id="snr_button_basic" value="" class="saveReturnLater-button-active lfloat" />
+      </div>
+      <!--/button-container-->
+    </div>
+    <!--/dark-paper-container-->
+  </div>
+  <!--/container-shadow-box-->
+</div>
+<!--/content-container-->
+<script type="text/javascript">
+  $("#snr_button_basic").click(function(){
+    validate_pairing_basics_csv2.call('save_return');
+  });
+    
+</script>

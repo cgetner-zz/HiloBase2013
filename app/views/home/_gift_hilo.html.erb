@@ -1,0 +1,103 @@
+<!-- Gift Hilo -->
+<div id="gift-hilo-popup">
+  <div class="popup-top">&nbsp;</div>
+  <div class="popup-content">
+    <div class="gradient-content">
+      <div class="popup-header-container">
+        <label class="popup-heading"><%= t('gift_hilo.popup_first.heading') %></label>
+        <input type="hidden" value="" id="gift_error_type" />
+        <div class="error-message-container">
+          <div id="gift_hilo_error_msg" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div class="gift-hilo-popup-left-main">
+        <p><%= t('gift_hilo.popup_first.msg_text1') %></p>
+        <p><%= t('gift_hilo.popup_first.msg_text2') %></p>
+        <p><%= t('gift_hilo.popup_first.msg_text3') %></p>
+      </div>
+
+      <!--/gift-hilo-popup-left-main-->
+
+      <div class="gift-hilo-popup-right-main">
+        <ul>
+          <li>
+            <div class="customized-input <% if not session[:job_seeker].nil? or not session[:employer].nil? %>active-input<%else%>input-text<%end%>" id="div_senders_name">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="senders_name_placeholder" value="<%= t('gift_hilo.popup_first.sender_name_text') %>" />
+              <input id="senders_name" class="text-long" type="text" value="<% if not session[:job_seeker].nil? %><%=session[:job_seeker].first_name%> <%=session[:job_seeker].last_name%><%elsif not session[:employer].nil? %><%=session[:employer].first_name%> <%=session[:employer].last_name%><% else %><%= t('gift_hilo.popup_first.sender_name_text') %><% end %>" onBlur="blur_element(this);validateGiftHiloInfo(this);" onFocus="validateGiftHiloInfo(this);focus_element(this);" onkeydown="type_element(this)" onkeyup="validateGiftHiloInfo(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li>
+            <div class="customized-input <% if not session[:job_seeker].nil? or not session[:employer].nil? %>active-input<%else%>input-text<%end%>" id="div_senders_email">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="senders_email_placeholder" value="<%= t('gift_hilo.popup_first.sender_email_text') %>" />
+              <input id="senders_email" class="text-long" type="text" value="<% if not session[:job_seeker].nil? %><%=session[:job_seeker].email%><%elsif not session[:employer].nil? %><%=session[:employer].email%><% else %><%= t('gift_hilo.popup_first.sender_email_text') %><% end %>" onBlur="blur_element(this);validateGiftHiloInfo(this);" onFocus="validateGiftHiloInfo(this);focus_element(this);" onkeydown="type_element(this)" onkeyup=""/>
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li>
+            <div class="customized-input input-text" id="div_rec_name">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="recipients_name_placeholder" value="<%= t('gift_hilo.popup_first.recipient_name_text') %>" />
+              <input id="recipients_name" class="text-long" type="text" value="<%= t('gift_hilo.popup_first.recipient_name_text') %>" onBlur="blur_element(this);validateGiftHiloInfo(this);" onFocus="validateGiftHiloInfo(this);focus_element(this);" onkeydown="type_element(this)" onkeyup="validateGiftHiloInfo(this);" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li>
+            <div class="customized-input input-text" id="div_rec_email">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="recipients_email_placeholder" value="<%= t('gift_hilo.popup_first.recipient_email_text') %>" />
+              <input id="recipients_email" class="text-long" type="text" value="<%= t('gift_hilo.popup_first.recipient_email_text') %>" onBlur="blur_element(this);validateGiftHiloInfo(this);" onFocus="validateGiftHiloInfo(this);focus_element(this);" onkeydown="type_element(this)" onkeyup="" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li>
+            <div class="customized-input input-text" id="div_verify_rec_email">
+              <div class="input-left">&nbsp;</div>
+              <input type="hidden" id="verify_recipients_email_placeholder" value="<%= t('gift_hilo.popup_first.verify_recipient_email_text') %>" />
+              <input id="verify_recipients_email" class="text-long" type="text" value="<%= t('gift_hilo.popup_first.verify_recipient_email_text') %>" onBlur="blur_element(this);validateGiftHiloInfo(this);" onFocus="validateGiftHiloInfo(this);focus_element(this);" onkeydown="type_element(this)" onkeyup="" />
+              <div class="input-right">&nbsp;</div>
+            </div>
+          </li>
+
+          <li>
+            <div class="customized-textarea input-text" id="div_msg">
+              <div class="textarea-top">&nbsp;</div>
+              <div class="textarea-middle">
+                <input type="hidden" id="personal_msg_placeholder" value="<%= t('gift_hilo.popup_first.personal_msg_text') %>" />
+                <textarea id="personal_msg" class="text-long" onkeydown="type_element_ta(this);" onblur="blur_element_ta(this);validateGiftHiloInfo(this);" onfocus="validateGiftHiloInfo(this);focus_element_ta(this);" onkeyup="validateGiftHiloInfo(this);"><%= t('gift_hilo.popup_first.personal_msg_text') %></textarea>
+              </div>
+              <div class="textarea-bottom">&nbsp;</div>
+            </div>
+          </li>
+        </ul>
+      </div><!-- /gift-hilo-popup-right-main -->
+
+      <!--Popup footer clear-float-->
+      <div style="clear:both;">
+        <div class="popup-footer">
+          <ul>
+            <li><a style="margin-right: 6px;" href="javascript:void(0);" title="<%= t('footer_js.facebook') %>" onclick="popup('https://www.facebook.com/sharer.php?u=https://<%=request.env["HTTP_HOST"]%>?v=<%=Time.now.to_i%>');"><img src="/assets/facebook_icon-popup.png" alt="Facebook" border="0"/></a></li>
+            <li><a style="margin-right: 6px;" href="javascript:void(0);" title="<%= t('footer_js.twitter') %>" onclick="popup('https://twitter.com/intent/tweet?original_referer=https://<%=request.env["HTTP_HOST"]%>&text=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&via=thehiloproject');"><img src="/assets/twitter-popup.png" alt="Twitter" border="0" /></a></li>
+            <li><a style="margin-right: 6px;" href="javascript:void(0);" title="<%= t('footer_js.linkedin') %>" onclick="popup('https://www.linkedin.com/shareArticle?mini=true&url=https://<%=request.env["HTTP_HOST"]%>&summary=Find meaningful employment thru https://<%=request.env["HTTP_HOST"]%>&source=thehiloproject.com');"><img src="/assets/linkedin-popup.png" alt="Linked In" border="0"/></a></li>
+            <li><a style="margin-right: 6px;" href="javascript:void(0);" title="<%= t('footer_js.mail') %>"><%= mail_to "", image_tag("mail-popup.png", :alt=>"Mail", :border=>0), :subject => "Check out The Hilo Project!",:body => social_networking_msg(false), :encode => "hex"%></a></li>
+          </ul>
+          <div>
+            <input type="button" id="enter_button" class="enter-button rfloat"  value="" onclick="gift_field_not_empty(); " />
+            <!--<span id="loader_img3_gift" style="display:none;float:left;"><%=image_tag("ajax-loader-login.gif")%></span>-->
+          </div>
+        </div>
+      </div><!-- /Popup footer-->
+
+      <a href="javascript:void(0)" class="close" onClick="click_gift_hilo.gift_hilo_hide()">Close</a>
+    </div><!-- /gradient-content -->
+  </div><!--/popup-content-->
+  <div class="popup-bottom">&nbsp;</div>
+</div>
+<!--/gift-hilo-popup-->
