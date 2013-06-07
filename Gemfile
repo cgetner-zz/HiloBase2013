@@ -21,19 +21,11 @@ gem "delayed_job", "~> 3.0.3"
 gem "delayed_job_active_record"
 gem "daemons"
 gem "dynamic_sitemaps"
-# Original solr lines
-# gem "sunspot", "~> 1.3.3"
-# gem 'sunspot_rails', '~> 1.3.0'
-# gem 'sunspot_cell', :git => 'git://github.com/zheileman/sunspot_cell.git'
-# gem 'sunspot_cell_jars', :git => 'https://github.com/mrcsparker/sunspot_cell_jars.git'
-# gem 'sunspot_solr', :git => "git://github.com/sunspot/sunspot.git"
-# New solr lines
-gem 'sunspot_rails'
-# gem "sunspot", "~> 2.0.0"
-gem 'sunspot_solr'
-gem 'sunspot_cell_jars', :git => 'https://github.com/mrcsparker/sunspot_cell_jars.git'
+gem "sunspot", "~> 1.3.3"
+gem 'sunspot_rails', '~> 1.3.0'
 gem 'sunspot_cell', :git => 'git://github.com/zheileman/sunspot_cell.git'
-
+gem 'sunspot_cell_jars', :git => 'https://github.com/mrcsparker/sunspot_cell_jars.git'
+gem 'sunspot_solr', :git => "git://github.com/sunspot/sunspot.git"
 gem "rsolr", "1.0.8"
 gem 'email_veracity'
 gem "rails3_acts_as_paranoid", "~>0.2.0"
